@@ -16,7 +16,7 @@
 package se.sics.hop.metadata.persistence.dal;
 
 import java.util.Collection;
-import se.sics.hop.metadata.persistence.entity.HopINodeAttributes;
+import se.sics.hop.metadata.persistence.entity.hdfs.HopINodeAttributes;
 import se.sics.hop.metadata.persistence.exceptions.StorageException;
 
 /**
