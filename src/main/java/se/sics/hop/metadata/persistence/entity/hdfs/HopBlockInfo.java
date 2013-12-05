@@ -8,98 +8,103 @@ package se.sics.hop.metadata.persistence.entity.hdfs;
  *
  * @author salman
  */
-public class HopBlockInfo {    
+public class HopBlockInfo {
+
   private long blockId;
   private int blockIndex;
   private long inodeId;
   private long numBytes;
   private long generationStamp;
-  private int blockUnderConstructionState;
+  private int blockUCState;
   private long timeStamp;
   private int primaryNodeIndex;
   private long blockRecoveryId;
 
-    public HopBlockInfo(long blockId, int blockIndex, long inodeId, long numBytes, long generationStamp, int blockUnderConstructionState, long timeStamp, int primaryNodeIndex, long blockRecoveryId) {
-        this.blockId = blockId;
-        this.blockIndex = blockIndex;
-        this.inodeId = inodeId;
-        this.numBytes = numBytes;
-        this.generationStamp = generationStamp;
-        this.blockUnderConstructionState = blockUnderConstructionState;
-        this.timeStamp = timeStamp;
-        this.primaryNodeIndex = primaryNodeIndex;
-        this.blockRecoveryId = blockRecoveryId;
-    }
+  public HopBlockInfo(long blockId, int blockIndex, long inodeId, long numBytes, long generationStamp, int blockUnderConstructionState, long timeStamp) {
+    this.blockId = blockId;
+    this.blockIndex = blockIndex;
+    this.inodeId = inodeId;
+    this.numBytes = numBytes;
+    this.generationStamp = generationStamp;
+    this.blockUCState = blockUnderConstructionState;
+    this.timeStamp = timeStamp;
+  }
 
-    public long getBlockId() {
-        return blockId;
-    }
+  public HopBlockInfo(long blockId, int blockIndex, long inodeId, long numBytes, long generationStamp, int blockUnderConstructionState, long timeStamp, int primaryNodeIndex, long blockRecoveryId) {
+    this(blockId, blockIndex, inodeId, numBytes, generationStamp, blockUnderConstructionState, timeStamp);
+    this.primaryNodeIndex = primaryNodeIndex;
+    this.blockRecoveryId = blockRecoveryId;
+  }
 
-    public int getBlockIndex() {
-        return blockIndex;
-    }
+  public long getBlockId() {
+    return blockId;
+  }
 
-    public long getInodeId() {
-        return inodeId;
-    }
+  public int getBlockIndex() {
+    return blockIndex;
+  }
 
-    public long getNumBytes() {
-        return numBytes;
-    }
+  public long getInodeId() {
+    return inodeId;
+  }
 
-    public long getGenerationStamp() {
-        return generationStamp;
-    }
+  public long getNumBytes() {
+    return numBytes;
+  }
 
-    public int getBlockUnderConstructionState() {
-        return blockUnderConstructionState;
-    }
+  public long getGenerationStamp() {
+    return generationStamp;
+  }
 
-    public long getTimeStamp() {
-        return timeStamp;
-    }
+  public int getBlockUCState() {
+    return blockUCState;
+  }
 
-    public int getPrimaryNodeIndex() {
-        return primaryNodeIndex;
-    }
+  public long getTimeStamp() {
+    return timeStamp;
+  }
 
-    public long getBlockRecoveryId() {
-        return blockRecoveryId;
-    }
+  public int getPrimaryNodeIndex() {
+    return primaryNodeIndex;
+  }
 
-    public void setBlockId(long blockId) {
-        this.blockId = blockId;
-    }
+  public long getBlockRecoveryId() {
+    return blockRecoveryId;
+  }
 
-    public void setBlockIndex(int blockIndex) {
-        this.blockIndex = blockIndex;
-    }
+  public void setBlockId(long blockId) {
+    this.blockId = blockId;
+  }
 
-    public void setInodeId(long inodeId) {
-        this.inodeId = inodeId;
-    }
+  public void setBlockIndex(int blockIndex) {
+    this.blockIndex = blockIndex;
+  }
 
-    public void setNumBytes(long numBytes) {
-        this.numBytes = numBytes;
-    }
+  public void setInodeId(long inodeId) {
+    this.inodeId = inodeId;
+  }
 
-    public void setGenerationStamp(long generationStamp) {
-        this.generationStamp = generationStamp;
-    }
+  public void setNumBytes(long numBytes) {
+    this.numBytes = numBytes;
+  }
 
-    public void setBlockUnderConstructionState(int blockUnderConstructionState) {
-        this.blockUnderConstructionState = blockUnderConstructionState;
-    }
+  public void setGenerationStamp(long generationStamp) {
+    this.generationStamp = generationStamp;
+  }
 
-    public void setTimeStamp(long timeStamp) {
-        this.timeStamp = timeStamp;
-    }
+  public void setBlockUCState(int blockUCState) {
+    this.blockUCState = blockUCState;
+  }
 
-    public void setPrimaryNodeIndex(int primaryNodeIndex) {
-        this.primaryNodeIndex = primaryNodeIndex;
-    }
+  public void setTimeStamp(long timeStamp) {
+    this.timeStamp = timeStamp;
+  }
 
-    public void setBlockRecoveryId(long blockRecoveryId) {
-        this.blockRecoveryId = blockRecoveryId;
-    }
+  public void setPrimaryNodeIndex(int primaryNodeIndex) {
+    this.primaryNodeIndex = primaryNodeIndex;
+  }
+
+  public void setBlockRecoveryId(long blockRecoveryId) {
+    this.blockRecoveryId = blockRecoveryId;
+  }
 }
