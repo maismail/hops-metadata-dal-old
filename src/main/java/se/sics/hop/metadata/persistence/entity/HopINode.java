@@ -1,6 +1,5 @@
 package se.sics.hop.metadata.persistence.entity;
 
-import com.google.common.primitives.SignedBytes;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
