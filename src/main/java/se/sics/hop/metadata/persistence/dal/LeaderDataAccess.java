@@ -1,7 +1,7 @@
 package se.sics.hop.metadata.persistence.dal;
 
 import java.util.Collection;
-import se.sics.hop.metadata.persistence.entity.HopLeader;
+import se.sics.hop.metadata.persistence.entity.hop.HopLeader;
 import se.sics.hop.metadata.persistence.exceptions.StorageException;
 
 /**

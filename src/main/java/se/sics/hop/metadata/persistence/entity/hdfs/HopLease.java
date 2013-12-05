@@ -1,4 +1,4 @@
-package se.sics.hop.metadata.persistence.entity;
+package se.sics.hop.metadata.persistence.entity.hdfs;
 
 /**
  * 

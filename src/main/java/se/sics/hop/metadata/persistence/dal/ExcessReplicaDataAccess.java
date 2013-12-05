@@ -2,7 +2,7 @@ package se.sics.hop.metadata.persistence.dal;
 
 import java.util.Collection;
 import java.util.List;
-import se.sics.hop.metadata.persistence.entity.HopExcessReplica;
+import se.sics.hop.metadata.persistence.entity.hop.HopExcessReplica;
 import se.sics.hop.metadata.persistence.exceptions.StorageException;
 
 /**
