@@ -1,5 +1,6 @@
 package se.sics.hop.metadata.persistence.entity.hdfs;
 
+import com.google.common.primitives.SignedBytes;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
@@ -191,7 +192,6 @@ public class HopINode implements Comparable<HopINode> {
         String left = name == null ? "" : name;
         String right = other.name == null ? "" : other.name;
         return SignedBytes.lexicographicalComparator().compare(left.getBytes(), right.getBytes());
-
     }
 
     @Override

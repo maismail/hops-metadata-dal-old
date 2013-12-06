@@ -2,35 +2,30 @@ package se.sics.hop.metadata.persistence.dal;
 
 import java.util.Collection;
 import java.util.List;
-import se.sics.hop.metadata.persistence.entity.hop.HopUnderReplicatedBlock;
 import se.sics.hop.metadata.persistence.exceptions.StorageException;
 
 /**
  *
  * @author kamal hakimzadeh<kamal@sics.se>
+ * @author Mahmoud Ismail <maism@sics.se>
  */
-public abstract class UnderReplicatedBlockDataAccess extends EntityDataAccess {
+public interface UnderReplicatedBlockDataAccess<T> extends EntityDataAccess {
 
-  public static final String TABLE_NAME = "under_replicated_blocks";
-  public static final String BLOCK_ID = "block_id";
-  public static final String LEVEL = "level";
+  T findByBlockId(long blockId) throws StorageException;
 
-  public abstract HopUnderReplicatedBlock findByBlockId(long blockId) throws StorageException;
+  List<T> findAll() throws StorageException;
 
-  public abstract List<HopUnderReplicatedBlock> findAll() throws StorageException;
+  List<T> findByLevel(int level) throws StorageException;
 
-  public abstract List<HopUnderReplicatedBlock> findByLevel(int level) throws StorageException;
+  List<T> findAllLessThanLevel(int level) throws StorageException;
 
-  public abstract List<HopUnderReplicatedBlock> findAllLessThanLevel(int level) throws StorageException;
+  void prepare(Collection<T> removed, Collection<T> newed, Collection<T> modified) throws StorageException;
 
-  public abstract void prepare(Collection<HopUnderReplicatedBlock> removed, Collection<HopUnderReplicatedBlock> newed, Collection<HopUnderReplicatedBlock> modified) throws StorageException;
+  void removeAll() throws StorageException;
 
-  public abstract void removeAll() throws StorageException;
+  int countAll() throws StorageException;
 
-  public abstract int countAll() throws StorageException;
-  
-  public abstract int countByLevel(int level) throws StorageException;
-  
-  public abstract int countLessThanALevel(int level) throws StorageException;
+  int countByLevel(int level) throws StorageException;
 
+  int countLessThanALevel(int level) throws StorageException;
 }
