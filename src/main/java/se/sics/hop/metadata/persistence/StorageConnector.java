@@ -2,6 +2,7 @@ package se.sics.hop.metadata.persistence;
 
 import se.sics.hop.metadata.persistence.exceptions.StorageException;
 import java.util.Properties;
+import se.sics.hop.metadata.persistence.dal.EntityDataAccess;
 
 /**
  *
@@ -20,7 +21,9 @@ public interface StorageConnector<T> {
   public void rollback() throws StorageException;
 
   public boolean formatStorage() throws StorageException;
-
+  
+  public boolean formatStorage(Class<? extends EntityDataAccess>... das) throws StorageException;
+  
   public boolean isTransactionActive();
 
   public void stopStorage();
