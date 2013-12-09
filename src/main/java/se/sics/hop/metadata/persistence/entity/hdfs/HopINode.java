@@ -27,6 +27,9 @@ public class HopINode implements Comparable<HopINode> {
     private long header;
     private String symlink;
 
+    public HopINode(){
+    }
+    
     public HopINode(long id, String name, long parent_id, int is_dir, int is_dir_with_quota, long modification_time, long access_time, byte[] permission, int is_under_construction, String client_name, String client_machine, String client_node, int is_closed_file, long header, String symlink) {
         this.id = id;
         this.name = name;
