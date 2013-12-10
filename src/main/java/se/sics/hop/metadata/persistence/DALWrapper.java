@@ -1,6 +1,5 @@
 package se.sics.hop.metadata.persistence;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import se.sics.hop.metadata.persistence.exceptions.StorageException;
@@ -23,14 +22,22 @@ public abstract class DALWrapper<HDFSClass, DALClass> {
 
   public abstract DALClass convertHDFStoDAL(HDFSClass hdfsClass) throws StorageException;
 
-  public Collection<HDFSClass> convertDALtoHDFS(Collection<DALClass> dalCollection) throws StorageException{
-    Collection<HDFSClass> hdfsCollection = new ArrayList<HDFSClass>();
+  public Collection<HDFSClass> convertDALtoHDFS(Collection<DALClass> dalCollection) throws StorageException {
+    Collection<HDFSClass> hdfsCollection = null;
     if (dalCollection != null) {
+      try {
+        hdfsCollection = dalCollection.getClass().newInstance();
+      } catch (InstantiationException ex) {
+        throw new StorageException(ex);
+      } catch (IllegalAccessException ex) {
+        throw new StorageException(ex);
+      }
       for (DALClass dalClass : dalCollection) {
         hdfsCollection.add(convertDALtoHDFS(dalClass));
       }
     }
     return hdfsCollection;
+
   }
 
   public abstract HDFSClass convertDALtoHDFS(DALClass dalClass)throws StorageException;
