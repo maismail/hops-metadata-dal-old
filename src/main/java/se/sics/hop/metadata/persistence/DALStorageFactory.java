@@ -1,7 +1,7 @@
 package se.sics.hop.metadata.persistence;
 
-import java.util.Properties;
 import se.sics.hop.metadata.persistence.dal.EntityDataAccess;
+import se.sics.hop.metadata.persistence.exceptions.StorageInitializtionException;
 
 /**
  * 
@@ -9,7 +9,7 @@ import se.sics.hop.metadata.persistence.dal.EntityDataAccess;
  */
 public interface DALStorageFactory {
 
-  public void setConfiguration(Properties conf);
+  public void setConfiguration(String configFile) throws StorageInitializtionException;
 
   public StorageConnector getConnector();
 
