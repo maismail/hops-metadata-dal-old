@@ -9,22 +9,24 @@ import java.util.EnumMap;
  */
 public class HopVariable {
 
-  public final static EnumMap<Finder, Long> defaultValues = new EnumMap(Finder.class);
+  public final static EnumMap<Finder, byte[]> defaultValues = new EnumMap(Finder.class);
 
-  public static void registerVariableDefaultValue(Finder variable, long defaultValue) {
+  public static void registerVariableDefaultValue(Finder variable, byte[] defaultValue) {
     defaultValues.put(variable, defaultValue);
   }
 
   public static enum Finder implements FinderType<HopVariable> {
 
     GenerationStamp,
-    BlockID;
-    
+    BlockID,
+    INodeID,
+    ReplicationIndex;
+
     public int getId() {
       return this.ordinal();
     }
 
-    public long getDefaultValue() {
+    public byte[] getDefaultValue() {
       return defaultValues.get(this);
     }
 
@@ -34,22 +36,18 @@ public class HopVariable {
     }
   }
   private final Finder type;
-  private long value;
+  private byte[] value;
 
-  public HopVariable(Finder type, long value) {
+  public HopVariable(Finder type, byte[] value) {
     this.type = type;
     this.value = value;
   }
 
-  public HopVariable(Finder type) {
-    this(type, 0);
-  }
-
-  public void setValue(Long value) {
+  public void setValue(byte[] value) {
     this.value = value;
   }
 
-  public long getValue() {
+  public byte[] getValue() {
     return value;
   }
 
