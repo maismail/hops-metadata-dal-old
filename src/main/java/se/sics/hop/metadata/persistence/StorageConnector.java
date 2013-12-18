@@ -10,7 +10,7 @@ import se.sics.hop.metadata.persistence.dal.EntityDataAccess;
  */
 public interface StorageConnector<T> {
 
-  public void setConfiguration(Properties conf);
+  public void setConfiguration(Properties conf) throws StorageException;
 
   public <T> T obtainSession() throws StorageException;
 
