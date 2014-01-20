@@ -11,5 +11,5 @@ public interface VariableDataAccess<T, Finder> extends EntityDataAccess {
 
   T getVariable(Finder varType) throws StorageException;
 
-  void prepare(Collection<T> updatedVariables) throws StorageException;
+  void prepare(Collection<T> newVariables, Collection<T> updatedVariables,  Collection<T> removedVariables) throws StorageException;
 }
