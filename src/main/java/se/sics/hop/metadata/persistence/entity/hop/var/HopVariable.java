@@ -22,6 +22,10 @@ public abstract class HopVariable {
     INodeID,
     ReplicationIndex,
     StorageInfo,
+    BlockTokenKeys,
+    BTCurrKey,
+    BTNextKey,
+    BTSimpleKey,
     
     //Generic Variables
     GenericInteger,
@@ -97,6 +101,13 @@ public abstract class HopVariable {
         return new HopArrayVariable(varType);
       case StorageInfo:
         return new HopArrayVariable(varType);
+      
+      case BlockTokenKeys:
+        return new HopArrayVariable(varType);
+      case BTCurrKey:
+      case BTNextKey:
+      case BTSimpleKey:
+        return new HopByteArrayVariable(varType);
     }
     return null;
   }
