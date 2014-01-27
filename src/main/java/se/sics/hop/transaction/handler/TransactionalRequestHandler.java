@@ -13,9 +13,9 @@ import se.sics.hop.transaction.TransactionInfo;
  * @author kamal hakimzadeh<kamal@sics.se>
  * @author salman <salman@sics.se>
  */
-public abstract class TransactionalRequestHandlerBase extends RequestHandler {
+public abstract class TransactionalRequestHandler extends RequestHandler {
 
-  public TransactionalRequestHandlerBase(OperationType opType) {
+  public TransactionalRequestHandler(OperationType opType) {
     super(opType);
   }
 
@@ -135,7 +135,7 @@ public abstract class TransactionalRequestHandlerBase extends RequestHandler {
   public abstract TransactionLocks acquireLock() throws PersistanceException, IOException;
 
   @Override
-  public TransactionalRequestHandlerBase setParams(Object... params) {
+  public TransactionalRequestHandler setParams(Object... params) {
     this.params = params;
     return this;
   }
