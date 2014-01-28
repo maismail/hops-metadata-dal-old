@@ -12,7 +12,7 @@ import se.sics.hop.exception.StorageException;
 import se.sics.hop.metadata.entity.CounterType;
 import se.sics.hop.metadata.entity.EntityContext;
 import se.sics.hop.metadata.entity.FinderType;
-import se.sics.hop.metadata.lock.TransactionLocks;
+import se.sics.hop.transaction.lock.TransactionLocks;
 
 /**
  *

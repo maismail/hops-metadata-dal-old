@@ -7,7 +7,7 @@ import org.apache.commons.logging.LogFactory;
 import se.sics.hop.exception.PersistanceException;
 import se.sics.hop.exception.StorageCallPreventedException;
 import se.sics.hop.exception.StorageException;
-import se.sics.hop.metadata.lock.TransactionLocks;
+import se.sics.hop.transaction.lock.TransactionLocks;
 
 /**
  *

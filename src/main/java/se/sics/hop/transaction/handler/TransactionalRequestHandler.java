@@ -4,7 +4,7 @@ import java.io.IOException;
 import se.sics.hop.exception.StorageException;
 import org.apache.log4j.NDC;
 import se.sics.hop.exception.PersistanceException;
-import se.sics.hop.metadata.lock.TransactionLocks;
+import se.sics.hop.transaction.lock.TransactionLocks;
 import se.sics.hop.transaction.EntityManager;
 import se.sics.hop.transaction.TransactionInfo;
 
