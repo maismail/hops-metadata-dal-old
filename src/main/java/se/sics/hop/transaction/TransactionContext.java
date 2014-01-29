@@ -9,9 +9,9 @@ import org.apache.commons.logging.LogFactory;
 import se.sics.hop.exception.PersistanceException;
 import se.sics.hop.StorageConnector;
 import se.sics.hop.exception.StorageException;
-import se.sics.hop.metadata.entity.CounterType;
-import se.sics.hop.metadata.entity.EntityContext;
-import se.sics.hop.metadata.entity.FinderType;
+import se.sics.hop.metadata.hdfs.entity.CounterType;
+import se.sics.hop.metadata.hdfs.entity.EntityContext;
+import se.sics.hop.metadata.hdfs.entity.FinderType;
 import se.sics.hop.transaction.lock.TransactionLocks;
 
 /**

@@ -2,7 +2,7 @@ package se.sics.hop;
 
 import se.sics.hop.exception.StorageException;
 import java.util.Properties;
-import se.sics.hop.metadata.dal.EntityDataAccess;
+import se.sics.hop.metadata.hdfs.dal.EntityDataAccess;
 
 /**
  *

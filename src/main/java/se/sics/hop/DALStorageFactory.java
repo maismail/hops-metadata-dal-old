@@ -1,6 +1,6 @@
 package se.sics.hop;
 
-import se.sics.hop.metadata.dal.EntityDataAccess;
+import se.sics.hop.metadata.hdfs.dal.EntityDataAccess;
 import se.sics.hop.exception.StorageInitializtionException;
 
 /**
