@@ -72,7 +72,12 @@ public abstract class TransactionalRequestHandler extends RequestHandler {
           inMemoryProcessingTime = (System.currentTimeMillis() - oldTime);
           log.debug("In Memory Processing Finished. Time " + inMemoryProcessingTime + " ms");
           oldTime = System.currentTimeMillis();
-          EntityManager.commit(locks);
+          try {
+            EntityManager.commit(locks);
+          } catch(Exception e){
+              String msg = e.getMessage();
+              e.printStackTrace();
+          }
           txSuccessful = true;
           commitTime = (System.currentTimeMillis() - oldTime);
           log.debug("TX committed. Time " + commitTime + " ms");
@@ -112,11 +117,13 @@ public abstract class TransactionalRequestHandler extends RequestHandler {
             try {
               EntityManager.rollback();
             } catch (Exception ex) {
+                String msg = ex.getMessage();
               log.error("Could not rollback transaction", ex);
             }
           }
 
           NDC.pop();
+          
           if (tryCount == RETRY_COUNT && exception != null && !txSuccessful) {
             if (exception instanceof IOException) {
               throw (IOException) exception;
@@ -124,7 +131,7 @@ public abstract class TransactionalRequestHandler extends RequestHandler {
               throw (RuntimeException) exception;
             }
           }
-
+        
         }
       }
     } finally {
