@@ -68,7 +68,14 @@ public abstract class TransactionalRequestHandler extends RequestHandler {
           oldTime = System.currentTimeMillis();
           EntityManager.preventStorageCall();
 
-          txRetValue = performTask();
+          try{
+            txRetValue = performTask();
+          }
+          catch(IOException e){ // all HDFS exceptions are of type IOException
+                                // all Clusterj exceptions are RuntimeException
+                                // Abort a transaction only if there is an error on the database side. 
+              exception = e;
+          }
           inMemoryProcessingTime = (System.currentTimeMillis() - oldTime);
           log.debug("In Memory Processing Finished. Time " + inMemoryProcessingTime + " ms");
           oldTime = System.currentTimeMillis();
@@ -80,13 +87,14 @@ public abstract class TransactionalRequestHandler extends RequestHandler {
           totalTime = (System.currentTimeMillis() - txStartTime);
           log.debug("TX Finished. TX Stats : Acquire Locks: " + acquireLockTime + "ms, In Memory Processing: " + inMemoryProcessingTime + "ms, Commit Time: " + commitTime + "ms, Total Time: " + totalTime + "ms");
 
-          //post TX phase
-          //any error in this phase will not re-start the tx
-          //TODO: XXX handle failures in post tx phase
-          if (info != null && info instanceof TransactionInfo) {
-            ((TransactionInfo) info).performPostTransactionAction();
+          if (exception != null) {
+            //post TX phase
+            //any error in this phase will not re-start the tx
+            //TODO: XXX handle failures in post tx phase
+            if (info != null && info instanceof TransactionInfo) {
+              ((TransactionInfo) info).performPostTransactionAction();
+            }
           }
-
           return txRetValue;
         } catch (Exception ex) { // catch checked and unchecked exceptions
           rollback = true;
@@ -117,7 +125,7 @@ public abstract class TransactionalRequestHandler extends RequestHandler {
           }
 
           NDC.pop();
-          if (tryCount == RETRY_COUNT && exception != null && !txSuccessful) {
+          if (tryCount == RETRY_COUNT && exception != null /*&& !txSuccessful*/) {
             if (exception instanceof IOException) {
               throw (IOException) exception;
             } else if (exception instanceof RuntimeException) { // runtime exceptions etc

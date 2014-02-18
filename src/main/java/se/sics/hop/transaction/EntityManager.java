@@ -2,7 +2,7 @@ package se.sics.hop.transaction;
 
 import java.util.Collection;
 import java.util.Map;
-import se.sics.hop.StorageConnector;
+import java.util.concurrent.ConcurrentHashMap;
 import se.sics.hop.metadata.hdfs.entity.EntityContext;
 import se.sics.hop.exception.StorageException;
 import se.sics.hop.metadata.hdfs.entity.CounterType;
@@ -10,6 +10,7 @@ import se.sics.hop.metadata.hdfs.entity.FinderType;
 import se.sics.hop.exception.PersistanceException;
 import se.sics.hop.transaction.lock.TransactionLocks;
 import se.sics.hop.transaction.handler.RequestHandler;
+import se.sics.hop.transaction.lock.ParallelReadThread;
 
 /**
  *
@@ -19,7 +20,8 @@ public class EntityManager {
 
   private EntityManager() {
   }
-  private static ThreadLocal<TransactionContext> contexts = new ThreadLocal<TransactionContext>();
+  //private static ThreadLocal<TransactionContext> contexts = new ThreadLocal<TransactionContext>();
+  private static ConcurrentHashMap<Long, TransactionContext> contexts = new ConcurrentHashMap<Long, TransactionContext>();
   private static ContextInitializer contextInitializer;
 
   public static void setContextInitializer(ContextInitializer ci) {
@@ -28,12 +30,21 @@ public class EntityManager {
   }
   
   private static TransactionContext context() {
-    TransactionContext context = contexts.get();
-
+    Long threadID;
+    Thread currentThread = Thread.currentThread();
+    if(currentThread instanceof ParallelReadThread){
+      threadID = ((ParallelReadThread)currentThread).getParentId();
+    }
+    else{
+      threadID = Thread.currentThread().getId();
+    }
+    
+    TransactionContext context = contexts.get(threadID);
     if (context == null) {
+      //System.out.println("EntityManager creating new context ");
       Map<Class, EntityContext> storageMap = contextInitializer.createEntityContexts();
       context = new TransactionContext(contextInitializer.getConnector(), storageMap);
-      contexts.set(context);
+      contexts.put(threadID,context);
     }
     return context;
   }

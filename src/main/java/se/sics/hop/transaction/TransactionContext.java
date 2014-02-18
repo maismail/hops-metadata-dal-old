@@ -12,6 +12,7 @@ import se.sics.hop.exception.StorageException;
 import se.sics.hop.metadata.hdfs.entity.CounterType;
 import se.sics.hop.metadata.hdfs.entity.EntityContext;
 import se.sics.hop.metadata.hdfs.entity.FinderType;
+import se.sics.hop.transaction.lock.ParallelReadThread;
 import se.sics.hop.transaction.lock.TransactionLocks;
 
 /**
@@ -61,18 +62,27 @@ public class TransactionContext {
   }
 
   public void commit(final TransactionLocks tlm) throws StorageException {
-    aboutToPerform();
-
-    for (EntityContext context : contexts) {
-      context.prepare(tlm);
+    if (Thread.currentThread() instanceof ParallelReadThread) {
+      aboutToPerform();
+      connector.commit();
+    } else {
+      aboutToPerform();
+      for (EntityContext context : contexts) {
+        context.prepare(tlm);
+      }
+      resetContext();
+      connector.commit();
     }
-    resetContext();
-    connector.commit();
   }
 
   public void rollback() throws StorageException {
-    resetContext();
-    connector.rollback();
+    if (Thread.currentThread() instanceof ParallelReadThread) {
+      aboutToPerform();
+      connector.rollback();
+    } else {
+      resetContext();
+      connector.rollback();
+    }
   }
 
   public <T> void update(T obj) throws PersistanceException {
@@ -146,9 +156,7 @@ public class TransactionContext {
   }
 
   private void aboutToPerform() throws StorageException {
-    if (activeTxExpected && !connector.isTransactionActive()) {
-      throw new StorageException("Active transaction is expected while storage doesn't have it.");
-    } else if (!activeTxExpected) {
+    if (!activeTxExpected) {
       throw new RuntimeException("Transaction is not begun.");
     }
   }
