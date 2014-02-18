@@ -11,6 +11,8 @@ import se.sics.hop.exception.StorageException;
 public interface INodeAttributesDataAccess<T> extends EntityDataAccess {
 
   T findAttributesByPk(long inodeId) throws StorageException;
+  
+  Collection<T> findAttributesByPkList(Collection<Long> inodeIds) throws StorageException;
 
   void prepare(Collection<T> modified, Collection<T> removed) throws StorageException;
 }
