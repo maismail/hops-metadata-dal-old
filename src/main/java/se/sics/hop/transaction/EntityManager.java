@@ -8,6 +8,7 @@ import se.sics.hop.exception.StorageException;
 import se.sics.hop.metadata.hdfs.entity.CounterType;
 import se.sics.hop.metadata.hdfs.entity.FinderType;
 import se.sics.hop.exception.PersistanceException;
+import se.sics.hop.metadata.hdfs.entity.EntityContextStat;
 import se.sics.hop.transaction.lock.TransactionLocks;
 import se.sics.hop.transaction.handler.RequestHandler;
 import se.sics.hop.transaction.lock.ParallelReadThread;
@@ -117,5 +118,9 @@ public class EntityManager {
    */
   public static void clearContext() {
     context().clearContext();
+  }
+  
+  public static Collection<EntityContextStat> collectSnapshotStat() throws PersistanceException{
+    return context().collectSnapshotStat();
   }
 }

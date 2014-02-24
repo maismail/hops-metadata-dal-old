@@ -4,6 +4,7 @@ import se.sics.hop.transaction.TransactionContext;
 import java.util.Collection;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.NDC;
 import se.sics.hop.exception.PersistanceException;
 import se.sics.hop.exception.StorageCallPreventedException;
 import se.sics.hop.exception.StorageException;
@@ -62,6 +63,11 @@ public abstract class EntityContext<T> {
   public abstract void removeAll() throws PersistanceException;
 
   public abstract void update(T entity) throws PersistanceException;
+  
+  public abstract EntityContextStat collectSnapshotStat() throws PersistanceException ;
+//  {
+//    return NDC.peek()+" Not Impremented";
+//  }
 
   public static void log(String opName, CacheHitState state, String... params) {
     StringBuilder message = new StringBuilder();

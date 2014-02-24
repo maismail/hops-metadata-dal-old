@@ -1,7 +1,10 @@
 package se.sics.hop.transaction;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import org.apache.commons.logging.Log;
@@ -11,6 +14,7 @@ import se.sics.hop.StorageConnector;
 import se.sics.hop.exception.StorageException;
 import se.sics.hop.metadata.hdfs.entity.CounterType;
 import se.sics.hop.metadata.hdfs.entity.EntityContext;
+import se.sics.hop.metadata.hdfs.entity.EntityContextStat;
 import se.sics.hop.metadata.hdfs.entity.FinderType;
 import se.sics.hop.transaction.lock.ParallelReadThread;
 import se.sics.hop.transaction.lock.TransactionLocks;
@@ -159,5 +163,14 @@ public class TransactionContext {
     if (!activeTxExpected) {
       throw new RuntimeException("Transaction is not begun.");
     }
+  }
+  
+  public Collection<EntityContextStat> collectSnapshotStat() throws PersistanceException{
+    List<EntityContextStat> stats = new ArrayList<EntityContextStat>();
+     for (EntityContext context : contexts) {
+        stats.add(context.collectSnapshotStat());
+      }
+    Collections.sort(stats);
+    return stats;
   }
 }
