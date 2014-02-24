@@ -15,7 +15,7 @@ public interface RMNodeTableDef {
     public static final String NEXT_HEARTBEAT = "nextheartbeat";
     public static final String RESOURCE_ID = "resourceid";
     public static final String NODEBASEID = "nodebaseid";
-    public static final String HEALTH_REPORT = "nodehealthstatusid";
+    public static final String HEALTH_REPORT = "healthreport";
     public static final String RMCONTEXT_ID = "rmcontextid";
     public static final String LAST_HEALTH_REPORT_TIME = "lasthealthreporttime";
 }
