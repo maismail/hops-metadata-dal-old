@@ -26,6 +26,7 @@ public abstract class HopVariable {
     BTCurrKey,
     BTNextKey,
     BTSimpleKey,
+    SIdCounter,
     
     //Generic Variables
     GenericInteger,
@@ -108,6 +109,8 @@ public abstract class HopVariable {
       case BTNextKey:
       case BTSimpleKey:
         return new HopByteArrayVariable(varType);
+      case SIdCounter:
+        return new HopIntVariable(varType);
     }
     return null;
   }
