@@ -64,10 +64,10 @@ public abstract class EntityContext<T> {
 
   public abstract void update(T entity) throws PersistanceException;
   
-  public abstract EntityContextStat collectSnapshotStat() throws PersistanceException ;
-//  {
-//    return NDC.peek()+" Not Impremented";
-//  }
+  public EntityContextStat collectSnapshotStat() throws PersistanceException 
+  {
+    throw new UnsupportedOperationException("Please Implement Me");
+  }
 
   public static void log(String opName, CacheHitState state, String... params) {
     StringBuilder message = new StringBuilder();
