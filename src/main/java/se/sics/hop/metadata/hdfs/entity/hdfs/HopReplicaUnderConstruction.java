@@ -11,11 +11,11 @@ package se.sics.hop.metadata.hdfs.entity.hdfs;
 public class HopReplicaUnderConstruction {
 
   private long blockId;
-  private String storageId;
+  private int storageId;
   private int index;
   private int state;
 
-  public HopReplicaUnderConstruction(int state, String storageId, long blockId, int index) {
+  public HopReplicaUnderConstruction(int state, int storageId, long blockId, int index) {
     this.state = state;
     this.storageId = storageId;
     this.blockId = blockId;
@@ -30,11 +30,11 @@ public class HopReplicaUnderConstruction {
     this.blockId = blockId;
   }
 
-  public String getStorageId() {
+  public int getStorageId() {
     return storageId;
   }
 
-  public void setStorageId(String storageId) {
+  public void setStorageId(int storageId) {
     this.storageId = storageId;
   }
 

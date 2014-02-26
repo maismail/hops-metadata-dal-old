@@ -35,7 +35,7 @@ public class HopIndexedReplica extends HopReplica {
   }
   int index;
 
-  public HopIndexedReplica(long blockId, String storageId, int index) {
+  public HopIndexedReplica(long blockId, int storageId, int index) {
     super(storageId, blockId);
     this.index = index;
   }

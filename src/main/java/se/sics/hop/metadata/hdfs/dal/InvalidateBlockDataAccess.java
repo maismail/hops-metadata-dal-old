@@ -12,7 +12,7 @@ public interface InvalidateBlockDataAccess<T> extends EntityDataAccess {
 
   int countAll() throws StorageException;
 
-  Collection<T> findInvalidatedBlockByStorageId(String storageId) throws StorageException;
+  Collection<T> findInvalidatedBlockByStorageId(int storageId) throws StorageException;
 
   Collection<T> findInvalidatedBlocksByBlockId(long bid) throws StorageException;
 

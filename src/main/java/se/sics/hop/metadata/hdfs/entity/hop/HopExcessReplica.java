@@ -29,7 +29,7 @@ public class HopExcessReplica extends HopReplica {
     }
   }
 
-  public HopExcessReplica(String storageId, long blockId) {
+  public HopExcessReplica(int storageId, long blockId) {
     super(storageId, blockId);
   }
 }

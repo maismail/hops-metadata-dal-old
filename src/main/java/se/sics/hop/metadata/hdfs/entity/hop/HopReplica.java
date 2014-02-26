@@ -6,10 +6,10 @@ package se.sics.hop.metadata.hdfs.entity.hop;
  */
 public abstract class HopReplica implements Comparable<HopReplica> {
 
-  protected String storageId;
+  protected int storageId;
   protected long blockId;
 
-  public HopReplica(String storageId, long blockId) {
+  public HopReplica(int storageId, long blockId) {
     this.storageId = storageId;
     this.blockId = blockId;
   }
@@ -17,14 +17,14 @@ public abstract class HopReplica implements Comparable<HopReplica> {
   /**
    * @return the storageId
    */
-  public String getStorageId() {
+  public int getStorageId() {
     return storageId;
   }
 
   /**
    * @param storageId the storageId to set
    */
-  public void setStorageId(String storageId) {
+  public void setStorageId(int storageId) {
     this.storageId = storageId;
   }
 
@@ -43,23 +43,31 @@ public abstract class HopReplica implements Comparable<HopReplica> {
   }
 
   @Override
-  public boolean equals(Object obj) {
-    if (obj == null || !(obj instanceof HopReplica)) {
-      return false;
-    }
-
-    HopReplica other = (HopReplica) obj;
-    return this.blockId == other.getBlockId()
-            && this.storageId.equals(other.getStorageId());
+  public int hashCode() {
+    int hash = 7;
+    hash = 59 * hash + this.storageId;
+    hash = 59 * hash + (int) (this.blockId ^ (this.blockId >>> 32));
+    return hash;
   }
 
   @Override
-  public int hashCode() {
-    int hash = 7;
-    hash = 23 * hash + (this.storageId != null ? this.storageId.hashCode() : 0);
-    hash = 23 * hash + (int) (this.blockId ^ (this.blockId >>> 32));
-    return hash;
+  public boolean equals(Object obj) {
+    if (obj == null) {
+      return false;
+    }
+    if (getClass() != obj.getClass()) {
+      return false;
+    }
+    final HopReplica other = (HopReplica) obj;
+    if (this.storageId != other.storageId) {
+      return false;
+    }
+    if (this.blockId != other.blockId) {
+      return false;
+    }
+    return true;
   }
+
 
   @Override
   public int compareTo(HopReplica t) {
@@ -70,16 +78,20 @@ public abstract class HopReplica implements Comparable<HopReplica> {
     if (t == null) {
       return 1;
     }
-
-    int sIdResult = this.getStorageId().compareTo(t.getStorageId());
-    if (sIdResult != 0) {
-      return sIdResult;
-    }
-
-    if (this.getBlockId() > t.getBlockId()) {
-      return 1;
+    
+    if (this.getStorageId() == t.getStorageId()) {
+      if (this.getBlockId() > t.getBlockId()) {
+        return 1;
+      } else {
+        return -1;
+      }
     } else {
-      return -1;
+      if (this.getStorageId() > t.getStorageId()) {
+        return 1;
+      } else {
+        return -1;
+      }
     }
   }
+  
 }

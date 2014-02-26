@@ -31,11 +31,11 @@ public class HopInvalidatedBlock extends HopReplica {
   private long generationStamp;
   private long numBytes;
 
-  public HopInvalidatedBlock(String storageId, long blockId) {
+  public HopInvalidatedBlock(int storageId, long blockId) {
     super(storageId, blockId);
   }
 
-  public HopInvalidatedBlock(String storageId, long blockId, long generationStamp, long numBytes) {
+  public HopInvalidatedBlock(int storageId, long blockId, long generationStamp, long numBytes) {
     super(storageId, blockId);
     this.generationStamp = generationStamp;
     this.numBytes = numBytes;
