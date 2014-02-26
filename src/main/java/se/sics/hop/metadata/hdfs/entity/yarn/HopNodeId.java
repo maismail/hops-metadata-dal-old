@@ -4,6 +4,7 @@ import se.sics.hop.metadata.hdfs.entity.FinderType;
 
 /**
  * Pojo to represent NodeId interface.
+ *
  * @author Theofilos Kakantousis <tkak@sics.se>
  */
 public class HopNodeId {
@@ -20,11 +21,13 @@ public class HopNodeId {
     private final int id;
     private final String host;
     private final int port;
+    private final byte[] nodeser;
 
-    public HopNodeId(int id, String host, int port) {
+    public HopNodeId(int id, String host, int port, byte[] nodeser) {
         this.id = id;
         this.host = host;
         this.port = port;
+        this.nodeser = nodeser;
     }
 
     public int getId() {
@@ -37,5 +40,9 @@ public class HopNodeId {
 
     public int getPort() {
         return port;
+    }
+
+    public byte[] getNodeser() {
+        return nodeser;
     }
 }
