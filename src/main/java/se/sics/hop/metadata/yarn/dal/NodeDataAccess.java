@@ -8,11 +8,10 @@ import se.sics.hop.metadata.hdfs.dal.EntityDataAccess;
  *
  * @author Theofilos Kakantousis <tkak@sics.se>
  */
-public interface NodeIdDataAccess<T> extends EntityDataAccess {
-
-    T findByHostPort(String host, int port) throws StorageException;
+public interface NodeDataAccess<T> extends EntityDataAccess {
+    T findById(int id) throws StorageException;
 
     void prepare(Collection<T> modified, Collection<T> removed) throws StorageException;
 
-    void createNodeId(T nodeId, int id) throws StorageException;
+    void createNode(T node, int id) throws StorageException;
 }

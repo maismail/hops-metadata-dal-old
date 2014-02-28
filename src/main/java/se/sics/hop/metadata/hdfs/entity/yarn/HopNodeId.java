@@ -21,13 +21,13 @@ public class HopNodeId {
     private final int id;
     private final String host;
     private final int port;
-    private final byte[] nodeser;
+    private final byte[] object;
 
-    public HopNodeId(int id, String host, int port, byte[] nodeser) {
+    public HopNodeId(int id, String host, int port, byte[] object) {
         this.id = id;
         this.host = host;
         this.port = port;
-        this.nodeser = nodeser;
+        this.object = object;
     }
 
     public int getId() {
@@ -42,7 +42,7 @@ public class HopNodeId {
         return port;
     }
 
-    public byte[] getNodeser() {
-        return nodeser;
+    public byte[] getObject() {
+        return object;
     }
 }

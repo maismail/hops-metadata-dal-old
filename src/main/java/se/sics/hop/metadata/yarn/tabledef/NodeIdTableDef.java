@@ -11,4 +11,5 @@ public interface NodeIdTableDef {
     public static final String ID = "id";
     public static final String HOST = "host";
     public static final String PORT = "port";
+    public static final String OBJECT = "object";
 }

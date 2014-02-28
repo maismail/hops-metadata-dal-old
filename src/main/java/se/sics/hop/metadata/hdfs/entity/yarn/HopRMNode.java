@@ -81,7 +81,6 @@ public class HopRMNode {
     public int getNodebaseId() {
         return nodebaseId;
     }
-
     public String getHealthReport() {
         return healthReport;
     }
