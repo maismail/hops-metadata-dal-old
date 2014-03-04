@@ -1,6 +1,7 @@
 package se.sics.hop.metadata.yarn.dal;
 
 import java.util.Collection;
+import java.util.List;
 import se.sics.hop.exception.StorageException;
 import se.sics.hop.metadata.hdfs.dal.EntityDataAccess;
 
@@ -11,6 +12,30 @@ import se.sics.hop.metadata.hdfs.dal.EntityDataAccess;
 public interface ApplicationIdDataAccess<T> extends EntityDataAccess {
 
     T findById(int id) throws StorageException;
+
+    List<T> findAll() throws StorageException;
+
+    /**
+     * Find all ApplicationIds with finished flag set to true.
+     *
+     * @return
+     * @throws StorageException
+     */
+    List<T> findFinished() throws StorageException;
+
+    /**
+     * Deletes all rows from NDB table.
+     *
+     * @throws StorageException
+     */
+    void deleteAll() throws StorageException;
+
+    /**
+     * Deletes all rows with finished flag set to true, from NDB table.
+     *
+     * @throws StorageException
+     */
+    void deleteFinished(List<T> finished) throws StorageException;
 
     void prepare(Collection<T> modified, Collection<T> removed) throws StorageException;
 

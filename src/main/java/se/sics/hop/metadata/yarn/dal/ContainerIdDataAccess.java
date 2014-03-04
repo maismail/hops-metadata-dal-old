@@ -18,5 +18,5 @@ public interface ContainerIdDataAccess<T> extends EntityDataAccess {
 
     void prepare(Collection<T> modified, Collection<T> removed) throws StorageException;
 
-    void createContainerStatus(T containerstatus) throws StorageException;
+    void createContainerId(T containerId) throws StorageException;
 }

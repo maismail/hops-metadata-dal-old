@@ -8,10 +8,12 @@ public class HopContainerId {
 
     private final int id;
     private final int applicationAttemptId;
+    private final boolean toClean;
 
-    public HopContainerId(int id, int applicationAttemptId) {
+    public HopContainerId(int id, int applicationAttemptId, boolean toClean) {
         this.id = id;
         this.applicationAttemptId = applicationAttemptId;
+        this.toClean = toClean;
     }
 
     public int getId() {
@@ -20,5 +22,9 @@ public class HopContainerId {
 
     public int getApplicationAttemptId() {
         return applicationAttemptId;
+    }
+
+    public boolean isToClean() {
+        return toClean;
     }
 }

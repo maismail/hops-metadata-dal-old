@@ -24,5 +24,5 @@ public interface UpdatedContainerInfoDataAccess<T> extends EntityDataAccess {
      * @param rmnodeid
      * @throws StorageException 
      */
-    void clear(int rmnodeid) throws StorageException;
+    void clear(List<T> toRemove) throws StorageException;
 }
