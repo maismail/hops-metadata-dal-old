@@ -13,6 +13,8 @@ public interface ApplicationIdDataAccess<T> extends EntityDataAccess {
 
     T findById(int id) throws StorageException;
 
+    T findFinished(int finished) throws StorageException;
+
     List<T> findAll() throws StorageException;
 
     /**
