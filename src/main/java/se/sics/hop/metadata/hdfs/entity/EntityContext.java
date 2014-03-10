@@ -64,6 +64,8 @@ public abstract class EntityContext<T> {
 
   public abstract void update(T entity) throws PersistanceException;
   
+  public abstract void snapshotMaintenance(TransactionContextMaintenanceCmds cmds, Object... params) throws PersistanceException;
+  
   public EntityContextStat collectSnapshotStat() throws PersistanceException 
   {
     throw new UnsupportedOperationException("Please Implement Me");

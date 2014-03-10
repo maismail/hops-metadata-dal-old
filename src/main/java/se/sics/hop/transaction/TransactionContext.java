@@ -16,6 +16,7 @@ import se.sics.hop.metadata.hdfs.entity.CounterType;
 import se.sics.hop.metadata.hdfs.entity.EntityContext;
 import se.sics.hop.metadata.hdfs.entity.EntityContextStat;
 import se.sics.hop.metadata.hdfs.entity.FinderType;
+import se.sics.hop.metadata.hdfs.entity.TransactionContextMaintenanceCmds;
 import se.sics.hop.transaction.lock.ParallelReadThread;
 import se.sics.hop.transaction.lock.TransactionLocks;
 
@@ -159,6 +160,12 @@ public class TransactionContext {
     }
   }
 
+  public void snapshotMaintenance(TransactionContextMaintenanceCmds cmds, Object... params) throws PersistanceException{
+    for (EntityContext context : contexts) {
+        context.snapshotMaintenance(cmds, params);
+      }
+  }
+  
   private void aboutToPerform() throws StorageException {
     if (!activeTxExpected) {
       throw new RuntimeException("Transaction is not begun.");

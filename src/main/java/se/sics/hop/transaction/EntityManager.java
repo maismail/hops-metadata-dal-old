@@ -9,6 +9,7 @@ import se.sics.hop.metadata.hdfs.entity.CounterType;
 import se.sics.hop.metadata.hdfs.entity.FinderType;
 import se.sics.hop.exception.PersistanceException;
 import se.sics.hop.metadata.hdfs.entity.EntityContextStat;
+import se.sics.hop.metadata.hdfs.entity.TransactionContextMaintenanceCmds;
 import se.sics.hop.transaction.lock.TransactionLocks;
 import se.sics.hop.transaction.handler.RequestHandler;
 import se.sics.hop.transaction.lock.ParallelReadThread;
@@ -92,6 +93,10 @@ public class EntityManager {
 
   public static <T> void add(T entity) throws PersistanceException {
     context().add(entity);
+  }
+  
+  public static <T> void snapshotMaintenance(TransactionContextMaintenanceCmds cmds, Object... params) throws PersistanceException{
+    context().snapshotMaintenance(cmds, params);
   }
 
   public static void writeLock() {
