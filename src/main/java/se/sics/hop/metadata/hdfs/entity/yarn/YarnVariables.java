@@ -12,14 +12,18 @@ public class YarnVariables {
     private int lastnodeId;
     private int lastresourceId;
     private int lastlistid;
+    private int lastnodehbresponseid;
+    private int lastrmcontextid;
 
-    public YarnVariables(int id, int lastupdatedcontainerinfoid, int lastnodeidId, int lastnodeId, int lastresourceId, int lastlistid) {
+    public YarnVariables(int id, int lastupdatedcontainerinfoid, int lastnodeidId, int lastnodeId, int lastresourceId, int lastlistid, int lastnodehbresponseid, int lastrmcontextid) {
         this.id = id;
         this.lastupdatedcontainerinfoid = lastupdatedcontainerinfoid;
         this.lastnodeidId = lastnodeidId;
         this.lastnodeId = lastnodeId;
         this.lastresourceId = lastresourceId;
         this.lastlistid = lastlistid;
+        this.lastnodehbresponseid = lastnodehbresponseid;
+        this.lastrmcontextid = lastrmcontextid;
     }
 
     public int getId() {
@@ -46,6 +50,14 @@ public class YarnVariables {
         return lastlistid;
     }
 
+    public int getLastrmcontextid() {
+        return lastrmcontextid;
+    }
+
+    public int getLastnodehbresponseid() {
+        return lastnodehbresponseid;
+    }
+
     public void setId(int id) {
         this.id = id;
     }
@@ -68,5 +80,13 @@ public class YarnVariables {
 
     public void setLastlistid(int lastlistid) {
         this.lastlistid = lastlistid;
+    }
+
+    public void setLastnodehbresponseid(int lastnodehbresponseid) {
+        this.lastnodehbresponseid = lastnodehbresponseid;
+    }
+
+    public void setLastrmcontextid(int lastrmcontextid) {
+        this.lastrmcontextid = lastrmcontextid;
     }
 }

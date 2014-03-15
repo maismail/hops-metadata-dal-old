@@ -17,7 +17,6 @@ public class HopRMNode {
             return HopRMNode.class;
         }
     }
-    
     private final int nodeId;
     private final String hostName;
     private final int commandPort;
@@ -30,8 +29,10 @@ public class HopRMNode {
     private final String healthReport;
     private final int rmcontextId;
     private final long lastHealthReportTime;
+    private final int lastHBResponseId;
+    private final String currentState;
 
-    public HopRMNode(int nodeId, String hostName, int commandPort, int httpPort, String nodeAddress, String httpAddress, boolean nextHeartbeat, int resourceId, int nodebaseId, String healthReport, int rmcontextId, long lastHealthReportTime) {
+    public HopRMNode(int nodeId, String hostName, int commandPort, int httpPort, String nodeAddress, String httpAddress, boolean nextHeartbeat, int resourceId, int nodebaseId, String healthReport, int rmcontextId, long lastHealthReportTime, int lastHBResponseId, String currentState) {
         this.nodeId = nodeId;
         this.hostName = hostName;
         this.commandPort = commandPort;
@@ -44,6 +45,8 @@ public class HopRMNode {
         this.healthReport = healthReport;
         this.rmcontextId = rmcontextId;
         this.lastHealthReportTime = lastHealthReportTime;
+        this.lastHBResponseId = lastHBResponseId;
+        this.currentState = currentState;
     }
 
     public int getNodeId() {
@@ -81,6 +84,7 @@ public class HopRMNode {
     public int getNodebaseId() {
         return nodebaseId;
     }
+
     public String getHealthReport() {
         return healthReport;
     }
@@ -91,5 +95,13 @@ public class HopRMNode {
 
     public long getLastHealthReportTime() {
         return lastHealthReportTime;
+    }
+
+    public int getLastHBResponseId() {
+        return lastHBResponseId;
+    }
+
+    public String getCurrentState() {
+        return currentState;
     }
 }

@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package se.sics.hop.metadata.yarn.tabledef;
 
 /**
@@ -10,7 +6,7 @@ package se.sics.hop.metadata.yarn.tabledef;
  */
 public interface JustLaunchedContainersTableDef {
     
-    public static final String TABLE_NAME = "hayarn_justlaunchedcontainers";
+    public static final String TABLE_NAME = "ha_justlaunchedcontainers";
     public static final String CONTAINERID = "containerid";
     public static final String CONTAINERSTATUSID = "containerstatusid";
     public static final String RMNODEID = "rmnodeid";

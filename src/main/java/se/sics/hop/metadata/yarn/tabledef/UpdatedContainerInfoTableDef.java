@@ -6,7 +6,7 @@ package se.sics.hop.metadata.yarn.tabledef;
  */
 public interface UpdatedContainerInfoTableDef {
 
-    public static final String TABLE_NAME = "hayarn_updatedcontainerinfo";
+    public static final String TABLE_NAME = "ha_updatedcontainerinfo";
     public static final String ID = "id";
     public static final String RMNODE_ID = "rmnodeid";
 }

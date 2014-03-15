@@ -5,7 +5,7 @@ package se.sics.hop.metadata.yarn.tabledef;
  * @author Theofilos Kakantousis <tkak@sics.se>
  */
 public interface NodeTableDef {
-    public static final String TABLE_NAME = "hayarn_node";
+    public static final String TABLE_NAME = "ha_node";
     public static final String ID = "id";
     public static final String NAME = "name";
     public static final String LOCATION = "location";
