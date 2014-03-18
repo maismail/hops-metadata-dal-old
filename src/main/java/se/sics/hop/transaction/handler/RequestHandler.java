@@ -28,15 +28,15 @@ public abstract class RequestHandler {
     this.opType = opType;
   }
 
-  public Object handle() throws IOException {
+  public Object handle() throws Exception {
     return run(null);
   }
 
-  public Object handle(Object info) throws IOException {
+  public Object handle(Object info) throws Exception {
     return run(info);
   }
 
-  protected abstract Object run(Object info) throws IOException;
+  protected abstract Object run(Object info) throws Exception;
 
   public abstract Object performTask() throws PersistanceException, IOException;
 
