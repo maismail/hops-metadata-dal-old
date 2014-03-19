@@ -10,11 +10,13 @@ import java.util.Locale;
 import se.sics.hop.exception.StorageException;
 import org.apache.log4j.NDC;
 import se.sics.hop.exception.AcquireLockInterruptedException;
+import se.sics.hop.exception.HOPExceptionWrapper;
 import se.sics.hop.exception.PersistanceException;
 import se.sics.hop.metadata.hdfs.entity.EntityContextStat;
 import se.sics.hop.transaction.lock.TransactionLocks;
 import se.sics.hop.transaction.EntityManager;
 import se.sics.hop.transaction.TransactionInfo;
+import static se.sics.hop.transaction.handler.RequestHandler.log;
 
 /**
  *
@@ -27,7 +29,7 @@ public abstract class TransactionalRequestHandler extends RequestHandler {
   }
 
   @Override
-  protected Object run(Object info) throws Exception {
+  protected Object run(Object info) throws IOException {
     boolean retry = true;
     boolean rollback = false;
     boolean txSuccessful = false;
@@ -71,15 +73,9 @@ public abstract class TransactionalRequestHandler extends RequestHandler {
           oldTime = 0;
           EntityManager.begin();
           log.debug("TX Started");
+ 
           oldTime = System.currentTimeMillis();
-          try{
-            locks = acquireLock();
-          }
-          catch (AcquireLockInterruptedException e){
-            exception = e.getOriginalException();
-            throw exception;
-          }
-            
+          locks = acquireLock();
           acquireLockTime = (System.currentTimeMillis() - oldTime);
           log.debug("All Locks Acquired. Time " + acquireLockTime + " ms");
           oldTime = System.currentTimeMillis();
@@ -151,7 +147,14 @@ public abstract class TransactionalRequestHandler extends RequestHandler {
 
           NDC.pop();
           if (tryCount == RETRY_COUNT && exception != null /*&& !txSuccessful*/) {
-            throw exception;
+            log.debug("Throwing exception " + exception);
+            if (exception instanceof IOException) {
+              throw (IOException) exception;
+            } else if (exception instanceof RuntimeException) { // runtime exceptions etc
+              throw (RuntimeException) exception;
+            } else { // wrap the exception and handle it in the code 
+              throw new HOPExceptionWrapper(exception);
+            }
           }
 
         }
