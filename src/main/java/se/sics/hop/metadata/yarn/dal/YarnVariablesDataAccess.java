@@ -14,6 +14,5 @@ public interface YarnVariablesDataAccess<T> extends EntityDataAccess {
 
     void prepare(Collection<T> modifided, Collection<T> removed) throws StorageException;
 
-    T findByIdIncrementUpdatedContainerInfo() throws StorageException;
-    //T findByIdIncrementUpdatedContainerInfo() throws StorageException;
+    /*T findByIdIncrementUpdatedContainerInfo() throws StorageException;*/
 }
