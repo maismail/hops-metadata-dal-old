@@ -13,14 +13,16 @@ public class HopFiCaSchedulerNode {
     private int totalCapabilityID;
     private int numOfContainers;
     private int rmNodeID;
+    private String nodeName;
 
-    public HopFiCaSchedulerNode(int id, int availableResourceID, int usedResourceID, int totalCapabilityID, int numOfContainers, int rmNodeID) {
+    public HopFiCaSchedulerNode(int id, int availableResourceID, int usedResourceID, int totalCapabilityID, int numOfContainers, int rmNodeID, String nodeName) {
         this.id = id;
         this.availableResourceID = availableResourceID;
         this.usedResourceID = usedResourceID;
         this.totalCapabilityID = totalCapabilityID;
         this.numOfContainers = numOfContainers;
         this.rmNodeID = rmNodeID;
+        this.nodeName = nodeName;
     }
 
     public int getId() {
@@ -45,5 +47,9 @@ public class HopFiCaSchedulerNode {
 
     public int getRmNodeID() {
         return rmNodeID;
+    }
+
+    public String getNodeName() {
+        return nodeName;
     }
 }

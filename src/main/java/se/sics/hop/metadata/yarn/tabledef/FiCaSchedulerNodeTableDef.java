@@ -13,4 +13,5 @@ public interface FiCaSchedulerNodeTableDef {
     public static final String TOTAL_CAPABILITY_ID = "totalcapability_id";
     public static final String NUMCONTAINERS = "numcontainers";
     public static final String RMNODE_ID = "rmnode_id";
+    public static final String NODENAME = "nodename";
 }
