@@ -17,6 +17,8 @@ public interface ApplicationIdDataAccess<T> extends EntityDataAccess {
 
     List<T> findAll() throws StorageException;
 
+    T findByAppIdClusterTimestamp(int appid, long clustertimestamp) throws StorageException;
+
     /**
      * Find all ApplicationIds with finished flag set to true.
      *

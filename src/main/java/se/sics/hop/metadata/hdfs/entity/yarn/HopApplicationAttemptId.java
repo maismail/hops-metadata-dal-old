@@ -6,19 +6,25 @@ package se.sics.hop.metadata.hdfs.entity.yarn;
  */
 public class HopApplicationAttemptId {
 
-    private int id;
-    private int applicationid;
+    private int ndbId;
+    private int attemptId;
+    private int applicationidId;
 
-    public HopApplicationAttemptId(int id, int applicationid) {
-        this.id = id;
-        this.applicationid = applicationid;
+    public HopApplicationAttemptId(int ndbId, int id, int applicationid) {
+        this.ndbId = ndbId;
+        this.attemptId = id;
+        this.applicationidId = applicationid;
     }
 
-    public int getId() {
-        return id;
+    public int getNdbId() {
+        return ndbId;
     }
 
-    public int getApplicationid() {
-        return applicationid;
+    public int getAttemptId() {
+        return attemptId;
+    }
+
+    public int getApplicationidId() {
+        return applicationidId;
     }
 }

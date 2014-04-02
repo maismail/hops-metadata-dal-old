@@ -29,7 +29,7 @@ public interface ContainerStatusDataAccess<T> extends EntityDataAccess {
      * @return
      * @throws StorageException 
      */
-    List<T> findByUpdatedContainerInfoIdAndType(int uciId, String type) throws StorageException;
+    List<T> findByUpdatedContainerInfoIdAndState(int uciId, String type) throws StorageException;
 
     void prepare(Collection<T> modified, Collection<T> removed) throws StorageException;
 

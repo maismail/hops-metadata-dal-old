@@ -15,6 +15,9 @@ public interface YarnVariablesTableDef {
     public static final String LAST_LIST_ID = "last_list_id";
     public static final String LAST_NODEHBRESPONSE_ID = "last_nodehbresponse_id";
     public static final String LAST_RMCONTEXT_ID = "last_rmcontext_id";
-    
+    public static final String LAST_CONTAINERSTATUS_ID = "last_containerstatus_id";
+    public static final String LAST_CONTAINERID_ID = "last_containerid_id";
+    public static final String LAST_APPATTEMPTID_ID = "last_appattemptid_id";
+    public static final String LAST_APPLICATIONID_ID = "last_applicationid_id";
     public static final int idVal = 0;
 }

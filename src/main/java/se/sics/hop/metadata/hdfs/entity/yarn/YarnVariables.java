@@ -14,8 +14,12 @@ public class YarnVariables {
     private int lastlistid;
     private int lastnodehbresponseid;
     private int lastrmcontextid;
+    private int lastcontainerstatusid;
+    private int lastcontaineridId;
+    private int lastappattemptidId;
+    private int lastapplicationidId;
 
-    public YarnVariables(int id, int lastupdatedcontainerinfoid, int lastnodeidId, int lastnodeId, int lastresourceId, int lastlistid, int lastnodehbresponseid, int lastrmcontextid) {
+    public YarnVariables(int id, int lastupdatedcontainerinfoid, int lastnodeidId, int lastnodeId, int lastresourceId, int lastlistid, int lastnodehbresponseid, int lastrmcontextid, int lastcontainerstatusid, int lastcontaineridId, int lastappattemptidId, int lastapplicationidId) {
         this.id = id;
         this.lastupdatedcontainerinfoid = lastupdatedcontainerinfoid;
         this.lastnodeidId = lastnodeidId;
@@ -24,6 +28,26 @@ public class YarnVariables {
         this.lastlistid = lastlistid;
         this.lastnodehbresponseid = lastnodehbresponseid;
         this.lastrmcontextid = lastrmcontextid;
+        this.lastcontainerstatusid = lastcontainerstatusid;
+        this.lastcontaineridId = lastcontaineridId;
+        this.lastappattemptidId = lastappattemptidId;
+        this.lastapplicationidId = lastapplicationidId;
+    }
+
+    public int getLastcontainerstatusid() {
+        return lastcontainerstatusid;
+    }
+
+    public int getLastcontaineridId() {
+        return lastcontaineridId;
+    }
+
+    public int getLastappattemptidId() {
+        return lastappattemptidId;
+    }
+
+    public int getLastapplicationidId() {
+        return lastapplicationidId;
     }
 
     public int getId() {
@@ -88,5 +112,21 @@ public class YarnVariables {
 
     public void setLastrmcontextid(int lastrmcontextid) {
         this.lastrmcontextid = lastrmcontextid;
+    }
+
+    public void setLastcontainerstatusid(int lastcontainerstatusid) {
+        this.lastcontainerstatusid = lastcontainerstatusid;
+    }
+
+    public void setLastcontaineridId(int lastcontaineridId) {
+        this.lastcontaineridId = lastcontaineridId;
+    }
+
+    public void setLastappattemptidId(int lastappattemptidId) {
+        this.lastappattemptidId = lastappattemptidId;
+    }
+
+    public void setLastapplicationidId(int lastapplicationidId) {
+        this.lastapplicationidId = lastapplicationidId;
     }
 }
