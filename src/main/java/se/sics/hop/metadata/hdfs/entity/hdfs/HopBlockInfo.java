@@ -12,7 +12,7 @@ public class HopBlockInfo {
 
   private long blockId;
   private int blockIndex;
-  private long inodeId;
+  private int inodeId;
   private long numBytes;
   private long generationStamp;
   private int blockUCState;
@@ -20,7 +20,7 @@ public class HopBlockInfo {
   private int primaryNodeIndex;
   private long blockRecoveryId;
 
-  public HopBlockInfo(long blockId, int blockIndex, long inodeId, long numBytes, long generationStamp, int blockUnderConstructionState, long timeStamp) {
+  public HopBlockInfo(long blockId, int blockIndex, int inodeId, long numBytes, long generationStamp, int blockUnderConstructionState, long timeStamp) {
     this.blockId = blockId;
     this.blockIndex = blockIndex;
     this.inodeId = inodeId;
@@ -30,7 +30,7 @@ public class HopBlockInfo {
     this.timeStamp = timeStamp;
   }
 
-  public HopBlockInfo(long blockId, int blockIndex, long inodeId, long numBytes, long generationStamp, int blockUnderConstructionState, long timeStamp, int primaryNodeIndex, long blockRecoveryId) {
+  public HopBlockInfo(long blockId, int blockIndex, int inodeId, long numBytes, long generationStamp, int blockUnderConstructionState, long timeStamp, int primaryNodeIndex, long blockRecoveryId) {
     this(blockId, blockIndex, inodeId, numBytes, generationStamp, blockUnderConstructionState, timeStamp);
     this.primaryNodeIndex = primaryNodeIndex;
     this.blockRecoveryId = blockRecoveryId;
@@ -44,7 +44,7 @@ public class HopBlockInfo {
     return blockIndex;
   }
 
-  public long getInodeId() {
+  public int getInodeId() {
     return inodeId;
   }
 
@@ -80,7 +80,7 @@ public class HopBlockInfo {
     this.blockIndex = blockIndex;
   }
 
-  public void setInodeId(long inodeId) {
+  public void setInodeId(int inodeId) {
     this.inodeId = inodeId;
   }
 

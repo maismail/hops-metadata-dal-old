@@ -23,13 +23,13 @@ package se.sics.hop.metadata.hdfs.entity.hdfs;
  * dirs )
  */
 public class HopINodeAttributes implements Comparable<HopINodeAttributes>  {
-  private Long inodeId;
+  private Integer inodeId;
   private Long nsQuota; /// NameSpace quota
   private Long nsCount;
   private Long dsQuota; /// disk space quota
   private Long diskspace;
 
-    public HopINodeAttributes(Long inodeId, Long nsQuota, Long nsCount, Long dsQuota, Long diskspace) {
+    public HopINodeAttributes(Integer inodeId, Long nsQuota, Long nsCount, Long dsQuota, Long diskspace) {
         this.inodeId = inodeId;
         this.nsQuota = nsQuota;
         this.nsCount = nsCount;
@@ -37,7 +37,7 @@ public class HopINodeAttributes implements Comparable<HopINodeAttributes>  {
         this.diskspace = diskspace;
     }
 
-    public Long getInodeId() {
+    public Integer getInodeId() {
         return inodeId;
     }
 
@@ -57,7 +57,7 @@ public class HopINodeAttributes implements Comparable<HopINodeAttributes>  {
         return diskspace;
     }
     
-    public void setInodeId(Long inodeId) {
+    public void setInodeId(Integer inodeId) {
         this.inodeId = inodeId;
     }
 
