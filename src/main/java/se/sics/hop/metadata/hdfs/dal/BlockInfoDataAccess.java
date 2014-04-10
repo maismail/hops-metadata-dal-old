@@ -13,13 +13,13 @@ public interface BlockInfoDataAccess<T> extends EntityDataAccess {
 
   int countAll() throws StorageException;
 
-  T findById(long blockId) throws StorageException;
+  T findById(long blockId, int partKey) throws StorageException;
 
-  List<T> findByInodeId(int id) throws StorageException;
+  List<T> findByInodeId(int id, int partKey) throws StorageException;
 
   List<T> findAllBlocks() throws StorageException;
 
-  List<T> findByStorageId(int storageId) throws StorageException;
+//  List<T> findByStorageId(int storageId) throws StorageException;
 
   void prepare(Collection<T> removed, Collection<T> newed, Collection<T> modified) throws StorageException;
 }

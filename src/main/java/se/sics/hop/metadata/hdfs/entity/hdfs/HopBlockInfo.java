@@ -11,6 +11,7 @@ package se.sics.hop.metadata.hdfs.entity.hdfs;
 public class HopBlockInfo {
 
   private long blockId;
+  private int partKey;
   private int blockIndex;
   private int inodeId;
   private long numBytes;
@@ -20,8 +21,9 @@ public class HopBlockInfo {
   private int primaryNodeIndex;
   private long blockRecoveryId;
 
-  public HopBlockInfo(long blockId, int blockIndex, int inodeId, long numBytes, long generationStamp, int blockUnderConstructionState, long timeStamp) {
+  public HopBlockInfo(long blockId, int partKey, int blockIndex, int inodeId, long numBytes, long generationStamp, int blockUnderConstructionState, long timeStamp) {
     this.blockId = blockId;
+    this.partKey = partKey;
     this.blockIndex = blockIndex;
     this.inodeId = inodeId;
     this.numBytes = numBytes;
@@ -30,8 +32,8 @@ public class HopBlockInfo {
     this.timeStamp = timeStamp;
   }
 
-  public HopBlockInfo(long blockId, int blockIndex, int inodeId, long numBytes, long generationStamp, int blockUnderConstructionState, long timeStamp, int primaryNodeIndex, long blockRecoveryId) {
-    this(blockId, blockIndex, inodeId, numBytes, generationStamp, blockUnderConstructionState, timeStamp);
+  public HopBlockInfo(long blockId, int partKey, int blockIndex, int inodeId, long numBytes, long generationStamp, int blockUnderConstructionState, long timeStamp, int primaryNodeIndex, long blockRecoveryId) {
+    this(blockId, partKey, blockIndex, inodeId, numBytes, generationStamp, blockUnderConstructionState, timeStamp);
     this.primaryNodeIndex = primaryNodeIndex;
     this.blockRecoveryId = blockRecoveryId;
   }
@@ -72,6 +74,10 @@ public class HopBlockInfo {
     return blockRecoveryId;
   }
 
+  public int getPartKey() {
+    return partKey;
+  }
+
   public void setBlockId(long blockId) {
     this.blockId = blockId;
   }
@@ -107,4 +113,9 @@ public class HopBlockInfo {
   public void setBlockRecoveryId(long blockRecoveryId) {
     this.blockRecoveryId = blockRecoveryId;
   }
+
+  public void setPartKey(int partKey) {
+    this.partKey = partKey;
+  }
+  
 }
