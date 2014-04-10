@@ -9,6 +9,7 @@ public interface INodeTableDef {
   public static final String TABLE_NAME = "inodes";
   public static final String ID = "id";
   public static final String NAME = "name";
+  public static final String PART_KEY = "part_key"; //partitioning key
   public static final String PARENT_ID = "parent_id";
   public static final String PART_ID = "part_id";
   public static final String IS_DIR = "is_dir";

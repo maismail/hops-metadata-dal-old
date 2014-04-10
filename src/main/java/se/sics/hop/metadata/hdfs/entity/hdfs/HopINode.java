@@ -14,6 +14,7 @@ public class HopINode implements Comparable<HopINode> {
     private int id;
     private String name;
     private int parent_id;
+    private int part_key;
     private int is_dir;
     private int is_dir_with_quota;
     private long modification_time;
@@ -30,10 +31,11 @@ public class HopINode implements Comparable<HopINode> {
     public HopINode(){
     }
     
-    public HopINode(int id, String name, int parent_id, int is_dir, int is_dir_with_quota, long modification_time, long access_time, byte[] permission, int is_under_construction, String client_name, String client_machine, String client_node, int is_closed_file, long header, String symlink) {
+    public HopINode(int id, String name, int parent_id, int part_key, int is_dir, int is_dir_with_quota, long modification_time, long access_time, byte[] permission, int is_under_construction, String client_name, String client_machine, String client_node, int is_closed_file, long header, String symlink) {
         this.id = id;
         this.name = name;
         this.parent_id = parent_id;
+        this.part_key = part_key;
         this.is_dir = is_dir;
         this.is_dir_with_quota = is_dir_with_quota;
         this.modification_time = modification_time;
@@ -58,6 +60,10 @@ public class HopINode implements Comparable<HopINode> {
 
     public int getParentId() {
         return parent_id;
+    }
+    
+    public int getPartKey(){
+      return part_key;
     }
 
     public int getIsDir() {
@@ -118,6 +124,10 @@ public class HopINode implements Comparable<HopINode> {
 
     public void setParentId(int parent_id) {
         this.parent_id = parent_id;
+    }
+    
+    public void setPartKey(int part_key){
+      this.part_key = part_key;
     }
 
     public void setIsDir(int is_dir) {
