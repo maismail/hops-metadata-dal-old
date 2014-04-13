@@ -71,6 +71,10 @@ public class HopUnderReplicatedBlock {
   public void setLevel(int level) {
     this.level = level;
   }
+  
+  public int getPartKey(){
+    return 0;
+  }
 
   @Override
   public String toString() {
