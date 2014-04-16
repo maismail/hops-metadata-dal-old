@@ -8,6 +8,9 @@ public interface YarnVariablesTableDef {
 
     public static final String TABLE_NAME = "ha_variables";
     public static final String ID = "id";
+    public static final String VALUE = "value";
+    
+    //Used in previous implementation with single row in table.
     public static final String LAST_UPDATEDCONTAINERINFO_ID = "last_updatedcontainerinfo_id";
     public static final String LAST_NODEID_ID = "last_nodeid_id";
     public static final String LAST_NODE_ID = "last_node_id";

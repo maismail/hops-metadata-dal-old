@@ -34,22 +34,33 @@ public abstract class LightWeightRequestHandler extends RequestHandler {
           //If in the outer tx lock level was set to some thing other than read-commited 
           //then we will end up taking un necessary locks.
           //To make sure that we done have this problem I explicitly set the locks to read-commited. 
-          connector.readCommitted();
-
-          return performTask();
+          
+         
+          //connector.beginTransaction();
+          //connector.readCommitted();
+          Object toReturn = performTask();
+          //connector.commit();
+          return toReturn;
         } catch (PersistanceException ex) {
           log.error("Could not perfortm task", ex);
+          
           retry = true;
         } catch (IOException ex) {
           exception = ex;
-        } finally {
+        } catch (Exception e){
+            System.out.println("");
+        }finally {
+            if(connector.isTransactionActive()){
+            connector.rollback();
+        }
           NDC.pop();
-          if (tryCount == RETRY_COUNT && exception != null) {
-            throw exception;
-          }
+          
         }
       }
     } finally {
+        if(connector.isTransactionActive()){
+            connector.rollback();
+        }
     }
     return null;
   }

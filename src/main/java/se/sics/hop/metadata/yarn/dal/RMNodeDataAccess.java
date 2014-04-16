@@ -21,6 +21,8 @@ public interface RMNodeDataAccess<T> extends EntityDataAccess {
     List<T> findByNodeAddress(String nodeAddress) throws StorageException;
 
     void prepare(Collection<T> modified, Collection<T> removed) throws StorageException;
+    
+    void deleteAll(int startId, int endId) throws StorageException;
 
     void createRMNode(T rmNode) throws StorageException;
 }

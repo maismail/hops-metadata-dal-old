@@ -10,9 +10,15 @@ import se.sics.hop.metadata.hdfs.dal.EntityDataAccess;
  */
 public interface YarnVariablesDataAccess<T> extends EntityDataAccess {
 
-    T findById() throws StorageException;
+    /**
+     * To fetch the only row in the table with id zero, param id must be equal
+     * to Integer.MIN_VALUE.
+     *
+     * @param id
+     * @return
+     * @throws StorageException
+     */
+    T findById(int id) throws StorageException;
 
     void prepare(Collection<T> modifided, Collection<T> removed) throws StorageException;
-
-    /*T findByIdIncrementUpdatedContainerInfo() throws StorageException;*/
 }

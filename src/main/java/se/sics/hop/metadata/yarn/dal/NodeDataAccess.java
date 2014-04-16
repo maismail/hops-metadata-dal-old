@@ -16,5 +16,7 @@ public interface NodeDataAccess<T> extends EntityDataAccess {
 
     void prepare(Collection<T> modified, Collection<T> removed) throws StorageException;
 
+    void deleteAll(int startId, int endId) throws StorageException;
+
     void createNode(T node, int id) throws StorageException;
 }
