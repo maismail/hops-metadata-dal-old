@@ -75,6 +75,10 @@ public class HopUnderReplicatedBlock {
   public int getPartKey(){
     return 0;
   }
+  
+  public int getInodeId(){
+    return 0;
+  }
 
   @Override
   public String toString() {

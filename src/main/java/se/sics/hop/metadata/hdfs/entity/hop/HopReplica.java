@@ -8,6 +8,7 @@ public abstract class HopReplica implements Comparable<HopReplica> {
 
   protected int storageId;
   protected long blockId;
+  
 
   public HopReplica(int storageId, long blockId) {
     this.storageId = storageId;

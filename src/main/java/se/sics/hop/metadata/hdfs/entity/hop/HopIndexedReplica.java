@@ -12,7 +12,7 @@ public class HopIndexedReplica extends HopReplica {
 
   public static enum Finder implements FinderType<HopIndexedReplica> {
 
-    ByBlockId;
+    ByBlockId, ByINodeId;
 
     @Override
     public Class getType() {
@@ -34,14 +34,34 @@ public class HopIndexedReplica extends HopReplica {
     };
   }
   int index;
+  int inodeID;
+  int partKey;
 
-  public HopIndexedReplica(long blockId, int storageId, int index) {
+  public HopIndexedReplica(long blockId, int storageId, int inodeID, int partKey, int index) {
     super(storageId, blockId);
     this.index = index;
+    this.inodeID = inodeID;
+    this.partKey = partKey;
   }
 
   public int getIndex() {
     return index;
+  }
+
+  public int getInodeID() {
+    return inodeID;
+  }
+
+  public int getPartKey() {
+    return partKey;
+  }
+
+  public void setInodeID(int inodeID) {
+    this.inodeID = inodeID;
+  }
+
+  public void setPartKey(int partKey) {
+    this.partKey = partKey;
   }
 
   public void setIndex(int index) {

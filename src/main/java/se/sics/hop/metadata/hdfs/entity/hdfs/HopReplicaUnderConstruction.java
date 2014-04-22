@@ -12,14 +12,18 @@ public class HopReplicaUnderConstruction {
 
   private long blockId;
   private int storageId;
+  private int inodeId;
+  private int partKey;
   private int index;
   private int state;
 
-  public HopReplicaUnderConstruction(int state, int storageId, long blockId, int index) {
+  public HopReplicaUnderConstruction(int state, int storageId, long blockId, int inodeId, int partKey, int index) {
     this.state = state;
     this.storageId = storageId;
     this.blockId = blockId;
     this.index = index;
+    this.inodeId = inodeId;
+    this.partKey = partKey;
   }
 
   public long getBlockId() {
@@ -32,6 +36,22 @@ public class HopReplicaUnderConstruction {
 
   public int getStorageId() {
     return storageId;
+  }
+
+  public int getInodeId() {
+    return inodeId;
+  }
+
+  public int getPartKey() {
+    return partKey;
+  }
+
+  public void setInodeId(int inodeId) {
+    this.inodeId = inodeId;
+  }
+
+  public void setPartKey(int partKey) {
+    this.partKey = partKey;
   }
 
   public void setStorageId(int storageId) {
