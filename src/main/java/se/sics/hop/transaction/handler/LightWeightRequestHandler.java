@@ -42,14 +42,12 @@ public abstract class LightWeightRequestHandler extends RequestHandler {
           //connector.commit();
           return toReturn;
         } catch (PersistanceException ex) {
-          log.error("Could not perfortm task", ex);
+          log.error("Could not perfortm task-"+ex.getMessage());
           
           retry = true;
         } catch (IOException ex) {
           exception = ex;
-        } catch (Exception e){
-            System.out.println("");
-        }finally {
+        } finally {
             if(connector.isTransactionActive()){
             connector.rollback();
         }
