@@ -15,7 +15,9 @@ public interface PendingBlockDataAccess<T> extends EntityDataAccess {
 
   List<T> findAll() throws StorageException;
 
-  T findByPKey(long blockId) throws StorageException;
+  T findByPKey(long blockId, int inodeId, int partKey) throws StorageException;
+  
+  List<T> findByINodeId(int inodeId, int partKey) throws StorageException;
 
   int countValidPendingBlocks(long timeLimit) throws StorageException;
 
