@@ -9,6 +9,9 @@ import se.sics.hop.metadata.hdfs.entity.FinderType;
  */
 public class HopCorruptReplica extends HopReplica {
 
+  private int inodeId;
+  private int partKey;
+  
   public static enum Counter implements CounterType<HopCorruptReplica> {
 
     All;
@@ -21,7 +24,7 @@ public class HopCorruptReplica extends HopReplica {
 
   public static enum Finder implements FinderType<HopCorruptReplica> {
 
-    All, ByBlockId, ByPk;
+    All, ByINodeId, ByBlockId, ByPk;
 
     @Override
     public Class getType() {
@@ -29,8 +32,26 @@ public class HopCorruptReplica extends HopReplica {
     }
   }
 
-  public HopCorruptReplica(long blockId, int storageId) {
+  public int getInodeId() {
+    return inodeId;
+  }
+
+  public void setInodeId(int inodeId) {
+    this.inodeId = inodeId;
+  }
+
+  public int getPartKey() {
+    return partKey;
+  }
+
+  public void setPartKey(int partKey) {
+    this.partKey = partKey;
+  }
+
+  public HopCorruptReplica(long blockId, int storageId, int inodeId, int partKey) {
     super(storageId, blockId);
+    this.inodeId = inodeId;
+    this.partKey = partKey;
   }
 //  public String persistanceKey() {
 //    return blockId + storageId;

@@ -15,11 +15,13 @@ public interface CorruptReplicaDataAccess<T> extends EntityDataAccess {
 
   int countAllUniqueBlk() throws StorageException;
 
-  T findByPk(long blockId, int storageId) throws StorageException;
+  T findByPk(long blockId, int storageId, int inodeId, int partKey) throws StorageException;
 
   List<T> findAll() throws StorageException;
 
-  List<T> findByBlockId(long blockId) throws StorageException;
+  List<T> findByBlockId(long blockId, int inodeId, int partKey) throws StorageException;
+  
+  List<T> findByINodeId(int inodeId, int partKey) throws StorageException;
 
   void prepare(Collection<T> removed, Collection<T> newed, Collection<T> modified) throws StorageException;
 }

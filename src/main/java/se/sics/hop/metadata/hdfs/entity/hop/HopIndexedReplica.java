@@ -48,7 +48,7 @@ public class HopIndexedReplica extends HopReplica {
     return index;
   }
 
-  public int getInodeID() {
+  public int getInodeId() {
     return inodeID;
   }
 
