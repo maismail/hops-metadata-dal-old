@@ -90,4 +90,5 @@ public class HopINodeAttributes implements Comparable<HopINodeAttributes>  {
     public int compareTo(HopINodeAttributes o) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
 }
