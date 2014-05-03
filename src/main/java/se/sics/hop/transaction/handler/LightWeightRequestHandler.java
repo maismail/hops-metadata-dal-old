@@ -47,7 +47,9 @@ public abstract class LightWeightRequestHandler extends RequestHandler {
           retry = true;
         } catch (IOException ex) {
           exception = ex;
-        } finally {
+        } catch (Exception ex) {
+          
+        }finally {
             if(connector.isTransactionActive()){
             connector.rollback();
         }

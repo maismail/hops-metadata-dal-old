@@ -27,6 +27,13 @@ public interface InvokeRequestDataAccess<T> extends EntityDataAccess {
      */
     List<T> findAll() throws StorageException;
 
+	/**
+     * Returns the first numberOfRequests from the table. 
+     * @param numberOfRequests
+     * @return
+     * @throws StorageException 
+     */
+    List<T> findAll(int numberOfRequests) throws StorageException;
     /**
      * Modify and/or delete rows.
      *
