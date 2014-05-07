@@ -14,11 +14,13 @@ public interface InvalidateBlockDataAccess<T> extends EntityDataAccess {
 
   Collection<T> findInvalidatedBlockByStorageId(int storageId) throws StorageException;
 
-  Collection<T> findInvalidatedBlocksByBlockId(long bid) throws StorageException;
+  Collection<T> findInvalidatedBlocksByBlockId(long bid, int inodeId, int partKey) throws StorageException;
+  
+  Collection<T> findInvalidatedBlocksByINodeId(int inodeId, int partKey) throws StorageException;
 
   Collection<T> findAllInvalidatedBlocks() throws StorageException;
 
-  T findInvBlockByPkey(Object[] params) throws StorageException;
+  T findInvBlockByPkey(long blockId, int storageId, int inodeId, int partkey) throws StorageException;
 
   void prepare(Collection<T> removed, Collection<T> newed, Collection<T> modified) throws StorageException;
 

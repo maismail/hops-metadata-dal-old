@@ -9,19 +9,19 @@ import se.sics.hop.metadata.hdfs.entity.FinderType;
  */
 public class HopInvalidatedBlock extends HopReplica {
 
-  public static enum Counter implements CounterType<HopInvalidatedBlock> {
-
-    All;
-
-    @Override
-    public Class getType() {
-      return HopInvalidatedBlock.class;
-    }
-  }
+//  public static enum Counter implements CounterType<HopInvalidatedBlock> {
+//
+//    All;
+//
+//    @Override
+//    public Class getType() {
+//      return HopInvalidatedBlock.class;
+//    }
+//  }
 
   public static enum Finder implements FinderType<HopInvalidatedBlock> {
 
-    ByBlockId, ByStorageId, ByPrimaryKey, All;
+    ByBlockId, ByINodeId, ByStorageId, ByPK, All;
 
     @Override
     public Class getType() {
@@ -30,15 +30,38 @@ public class HopInvalidatedBlock extends HopReplica {
   }
   private long generationStamp;
   private long numBytes;
+  private int inodeId;
+  private int partKey;
+  
 
-  public HopInvalidatedBlock(int storageId, long blockId) {
+  public HopInvalidatedBlock(int storageId, long blockId, int inodeId, int partKey) {
     super(storageId, blockId);
+    this.inodeId = inodeId;
+    this.partKey = partKey;
   }
 
-  public HopInvalidatedBlock(int storageId, long blockId, long generationStamp, long numBytes) {
+  public HopInvalidatedBlock(int storageId, long blockId, long generationStamp, long numBytes, int inodeId, int partKey) {
     super(storageId, blockId);
     this.generationStamp = generationStamp;
     this.numBytes = numBytes;
+    this.inodeId = inodeId;
+    this.partKey = partKey;
+  }
+
+  public int getInodeId() {
+    return inodeId;
+  }
+
+  public void setInodeId(int inodeId) {
+    this.inodeId = inodeId;
+  }
+
+  public int getPartKey() {
+    return partKey;
+  }
+
+  public void setPartKey(int partKey) {
+    this.partKey = partKey;
   }
 
   /**

@@ -39,7 +39,7 @@ public abstract class TransactionalRequestHandler extends RequestHandler {
     TransactionLocks locks = null;
     Object txRetValue = null;
     
-    boolean enableTxStats = false;
+    boolean enableTxStats = true;
     boolean enableTxStatsForSuccessfulOps = false;
     String logFilePath = "/tmp/hop_tx_stats.txt";
 
