@@ -6,6 +6,8 @@ public class HopEncodingStatus {
   public static final int ENCODING_ACTIVE = 1;
   public static final int ENCODED = 2;
   public static final int REPAIR_ACTIVE = 3;
+  public static final int REPAIR_FAILED = 4;
+  public static final int ENCODING_FAILED = 5;
 
   private long inodeId;
   private int status;
