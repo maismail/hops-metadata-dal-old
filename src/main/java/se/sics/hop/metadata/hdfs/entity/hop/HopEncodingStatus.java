@@ -15,16 +15,18 @@ public class HopEncodingStatus {
   private long inodeId;
   private int status;
   private String codec;
+  private int targetReplication;
   private long modification_time;
 
   public HopEncodingStatus() {
 
   }
 
-  public HopEncodingStatus(long inodeId, int status, String codec, long modification_time) {
+  public HopEncodingStatus(long inodeId, int status, String codec, int targetReplication, long modification_time) {
     this.inodeId = inodeId;
     this.status = status;
     this.codec = codec;
+    this.targetReplication = targetReplication;
     this.modification_time = modification_time;
   }
 
@@ -38,6 +40,10 @@ public class HopEncodingStatus {
 
   public void setCodec(String codec) {
     this.codec = codec;
+  }
+
+  public void setTargetReplication(int targetReplication) {
+    this.targetReplication = targetReplication;
   }
 
   public void setModification_time(long modification_time) {
@@ -54,6 +60,10 @@ public class HopEncodingStatus {
 
   public String getCodec() {
     return codec;
+  }
+
+  public int getTargetReplication() {
+    return targetReplication;
   }
 
   public long getModificationTime() {

@@ -7,5 +7,6 @@ public interface EncodingStatusTableDef {
   public static final String INODE_ID = "inode_id";
   public static final String STATUS = "status";
   public static final String CODEC = "codec";
+  public static final String TARGET_REPLICATION = "target_replication";
   public static final String MODIFICATION_TIME = "modification_time";
 }
