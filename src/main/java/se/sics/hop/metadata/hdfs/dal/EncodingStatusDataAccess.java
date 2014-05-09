@@ -16,6 +16,8 @@ public interface EncodingStatusDataAccess<T> extends EntityDataAccess {
 
   Collection<T> findRequestedEncodings(long limit) throws StorageException;
 
+  Collection<T> findRequestedRepairs(long limit) throws StorageException;
+
   int countRequestedEncodings() throws StorageException;
 
   Collection<T> findActiveEncodings() throws StorageException;
