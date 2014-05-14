@@ -8,11 +8,14 @@ public abstract class HopReplica implements Comparable<HopReplica> {
 
   protected int storageId;
   protected long blockId;
-  
+  private int inodeId;
+  private int partKey;
 
-  public HopReplica(int storageId, long blockId) {
+  public HopReplica(int storageId, long blockId, int inodeId, int partKey) {
     this.storageId = storageId;
     this.blockId = blockId;
+    this.inodeId = inodeId;
+    this.partKey = partKey;
   }
 
   /**
@@ -69,6 +72,21 @@ public abstract class HopReplica implements Comparable<HopReplica> {
     return true;
   }
 
+  public int getInodeId() {
+    return inodeId;
+  }
+
+  public void setInodeId(int inodeId) {
+    this.inodeId = inodeId;
+  }
+
+  public int getPartKey() {
+    return partKey;
+  }
+
+  public void setPartKey(int partKey) {
+    this.partKey = partKey;
+  }
 
   @Override
   public int compareTo(HopReplica t) {

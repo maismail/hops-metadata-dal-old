@@ -34,34 +34,14 @@ public class HopIndexedReplica extends HopReplica {
     };
   }
   int index;
-  int inodeID;
-  int partKey;
 
-  public HopIndexedReplica(long blockId, int storageId, int inodeID, int partKey, int index) {
-    super(storageId, blockId);
+  public HopIndexedReplica(long blockId, int storageId, int inodeId, int partKey, int index) {
+    super(storageId, blockId, inodeId, partKey);
     this.index = index;
-    this.inodeID = inodeID;
-    this.partKey = partKey;
   }
 
   public int getIndex() {
     return index;
-  }
-
-  public int getInodeId() {
-    return inodeID;
-  }
-
-  public int getPartKey() {
-    return partKey;
-  }
-
-  public void setInodeID(int inodeID) {
-    this.inodeID = inodeID;
-  }
-
-  public void setPartKey(int partKey) {
-    this.partKey = partKey;
   }
 
   public void setIndex(int index) {

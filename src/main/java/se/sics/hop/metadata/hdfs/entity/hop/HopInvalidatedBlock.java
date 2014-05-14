@@ -30,38 +30,16 @@ public class HopInvalidatedBlock extends HopReplica {
   }
   private long generationStamp;
   private long numBytes;
-  private int inodeId;
-  private int partKey;
   
 
   public HopInvalidatedBlock(int storageId, long blockId, int inodeId, int partKey) {
-    super(storageId, blockId);
-    this.inodeId = inodeId;
-    this.partKey = partKey;
+    super(storageId, blockId, inodeId, partKey);
   }
 
   public HopInvalidatedBlock(int storageId, long blockId, long generationStamp, long numBytes, int inodeId, int partKey) {
-    super(storageId, blockId);
+    super(storageId, blockId, inodeId, partKey);
     this.generationStamp = generationStamp;
     this.numBytes = numBytes;
-    this.inodeId = inodeId;
-    this.partKey = partKey;
-  }
-
-  public int getInodeId() {
-    return inodeId;
-  }
-
-  public void setInodeId(int inodeId) {
-    this.inodeId = inodeId;
-  }
-
-  public int getPartKey() {
-    return partKey;
-  }
-
-  public void setPartKey(int partKey) {
-    this.partKey = partKey;
   }
 
   /**
