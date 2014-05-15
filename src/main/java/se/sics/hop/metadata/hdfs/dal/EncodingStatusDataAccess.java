@@ -31,4 +31,8 @@ public interface EncodingStatusDataAccess<T> extends EntityDataAccess {
   Collection<T> findActiveRepairs() throws StorageException;
 
   int countActiveRepairs() throws StorageException;
+
+  Collection<T> findPotentiallyFixed(long limit) throws StorageException;
+
+  int countPotentiallyFixed() throws StorageException;
 }

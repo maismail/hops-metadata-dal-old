@@ -11,6 +11,7 @@ public class HopEncodingStatus {
   public static final int ENCODING_CANCELED = 6;
   public static final int REPAIR_CANCELED = 7;
   public static final int REPAIR_REQUESTED = 8;
+  public static final int POTENTIALLY_FIXED = 9;
 
   private long inodeId;
   private int status;
