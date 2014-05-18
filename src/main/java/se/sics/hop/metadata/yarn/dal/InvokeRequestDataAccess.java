@@ -20,20 +20,20 @@ public interface InvokeRequestDataAccess<T> extends EntityDataAccess {
     void createInvokeRequest(T invokeRequest) throws StorageException;
 
     /**
-     * Returns all rows in the table.
+     * Primary key lookup based on rmnode ID.
+     * @return
+     * @throws StorageException 
+     */
+    T findByNodeId(int rmNodeId) throws StorageException;
+
+    /**
+     * Returns all rows, pending id==1.
      *
      * @return
      * @throws StorageException
      */
-    List<T> findAll() throws StorageException;
+    List<T> findAll(int numberOfRequests, boolean id) throws StorageException;
 
-	/**
-     * Returns the first numberOfRequests from the table. 
-     * @param numberOfRequests
-     * @return
-     * @throws StorageException 
-     */
-    List<T> findAll(int numberOfRequests) throws StorageException;
     /**
      * Modify and/or delete rows.
      *
