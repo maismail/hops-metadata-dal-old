@@ -29,7 +29,7 @@ public class HopCorruptReplica extends HopReplica {
     }
   }
 
-  public HopCorruptReplica(long blockId, int storageId, int inodeId, int partKey) {
-    super(storageId, blockId, inodeId, partKey);
+  public HopCorruptReplica(long blockId, int storageId, int inodeId) {
+    super(storageId, blockId, inodeId, -1);
   }
 }
