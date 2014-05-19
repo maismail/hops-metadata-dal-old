@@ -32,12 +32,12 @@ public class HopInvalidatedBlock extends HopReplica {
   private long numBytes;
   
 
-  public HopInvalidatedBlock(int storageId, long blockId, int inodeId, int partKey) {
-    super(storageId, blockId, inodeId, partKey);
+  public HopInvalidatedBlock(int storageId, long blockId, int inodeId) {
+    super(storageId, blockId, inodeId, -1);
   }
 
-  public HopInvalidatedBlock(int storageId, long blockId, long generationStamp, long numBytes, int inodeId, int partKey) {
-    super(storageId, blockId, inodeId, partKey);
+  public HopInvalidatedBlock(int storageId, long blockId, long generationStamp, long numBytes, int inodeId) {
+    super(storageId, blockId, inodeId, -1);
     this.generationStamp = generationStamp;
     this.numBytes = numBytes;
   }
