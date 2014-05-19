@@ -15,11 +15,11 @@ public interface ExcessReplicaDataAccess<T> extends EntityDataAccess {
 
   List<T> findExcessReplicaByStorageId(int sId) throws StorageException;
 
-  List<T> findExcessReplicaByBlockId(long bId, int inodeId, int partKey) throws StorageException;
+  List<T> findExcessReplicaByBlockId(long bId, int inodeId) throws StorageException;
   
-  List<T> findExcessReplicaByINodeId(int inodeId, int partKey) throws StorageException;
+  List<T> findExcessReplicaByINodeId(int inodeId) throws StorageException;
 
-  T findByPK(long bId, int sId, int inodeId, int partKey) throws StorageException;
+  T findByPK(long bId, int sId, int inodeId) throws StorageException;
 
   void prepare(Collection<T> removed, Collection<T> newed, Collection<T> modified) throws StorageException;
 
