@@ -13,11 +13,9 @@ import se.sics.hop.metadata.hdfs.entity.hop.HopReplica;
 public class HopINodeCandidatePK  implements Comparable<HopINodeCandidatePK>{
 
   int inodeId;
-  int partKey;
 
-  public HopINodeCandidatePK(int inodeId, int partKey) {
+  public HopINodeCandidatePK(int inodeId) {
     this.inodeId = inodeId;
-    this.partKey = partKey;
   }
 
   public int getInodeId() {
@@ -28,19 +26,11 @@ public class HopINodeCandidatePK  implements Comparable<HopINodeCandidatePK>{
     this.inodeId = inodeId;
   }
 
-  public int getPartKey() {
-    return partKey;
-  }
-
-  public void setPartKey(int partKey) {
-    this.partKey = partKey;
-  }
-
   @Override
   public boolean equals(Object obj) {
     if (obj instanceof HopINodeCandidatePK) {
       HopINodeCandidatePK other = (HopINodeCandidatePK) obj;
-      if (this.inodeId == other.inodeId && this.partKey == other.partKey) {
+      if (this.inodeId == other.inodeId) {
         return true;
       }
     }
@@ -50,7 +40,7 @@ public class HopINodeCandidatePK  implements Comparable<HopINodeCandidatePK>{
   
   @Override
   public String toString() {
-    return "Id:"+inodeId+" "+"partKey:"+partKey+" ";
+    return "Id:"+inodeId;
   }
 
 
@@ -58,7 +48,6 @@ public class HopINodeCandidatePK  implements Comparable<HopINodeCandidatePK>{
   public int hashCode() {
     int hash = 7;
     hash = 59 * hash + this.inodeId;
-    hash = 59 * hash + (int) (this.partKey ^ (this.partKey >>> 32));
     return hash;
   }
 
@@ -69,19 +58,11 @@ public class HopINodeCandidatePK  implements Comparable<HopINodeCandidatePK>{
       return 0;
     }
 
-    if (this.getInodeId() == t.getInodeId()) {
-      if (this.getPartKey() > t.getPartKey()) {
-        return 1;
-      } else {
-        return -1;
-      }
-    } else {
       if (this.getInodeId() > t.getInodeId()) {
         return 1;
       } else {
         return -1;
       }
-    }
   }
   
   

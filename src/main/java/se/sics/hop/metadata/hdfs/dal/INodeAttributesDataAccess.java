@@ -13,7 +13,7 @@ import se.sics.hop.metadata.hdfs.entity.hdfs.HopINodeCandidatePK;
  */
 public interface INodeAttributesDataAccess<T> extends EntityDataAccess {
 
-  T findAttributesByPk(Integer inodeId, Integer partKey) throws StorageException;
+  T findAttributesByPk(Integer inodeId) throws StorageException;
   
   Collection<T> findAttributesByPkList(List<HopINodeCandidatePK> inodePks) throws StorageException;
 
