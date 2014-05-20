@@ -8,12 +8,10 @@ public class HopBlockLookUp implements Comparable<HopBlockLookUp> {
 
   private long block_id;
   private int inode_id;
-  private int part_key;
 
-  public HopBlockLookUp(long block_id, int inode_id, int part_key) {
+  public HopBlockLookUp(long block_id, int inode_id) {
     this.block_id = block_id;
     this.inode_id = inode_id;
-    this.part_key = part_key;
   }
 
   public long getBlockId() {
@@ -24,10 +22,6 @@ public class HopBlockLookUp implements Comparable<HopBlockLookUp> {
     return inode_id;
   }
 
-  public int getPartKey() {
-    return part_key;
-  }
-
   public void setBlockId(long block_id) {
     this.block_id = block_id;
   }
@@ -35,11 +29,6 @@ public class HopBlockLookUp implements Comparable<HopBlockLookUp> {
   public void setInodeId(int inode_id) {
     this.inode_id = inode_id;
   }
-
-  public void setPartKey(int part_key) {
-    this.part_key = part_key;
-  }
-  
  
   @Override
   public boolean equals(Object obj) {
@@ -50,7 +39,7 @@ public class HopBlockLookUp implements Comparable<HopBlockLookUp> {
       return false;
     }
     final HopBlockLookUp other = (HopBlockLookUp) obj;
-    if (this.block_id == other.block_id && this.inode_id == other.inode_id && this.part_key == other.part_key) {
+    if (this.block_id == other.block_id && this.inode_id == other.inode_id) {
       return true;
     }
     return false;
@@ -62,7 +51,6 @@ public class HopBlockLookUp implements Comparable<HopBlockLookUp> {
     int hash = 7;
     hash = 59 * hash + this.inode_id;
     hash = 59 * hash + (int) (this.block_id ^ (this.block_id >>> 32));
-    hash = 59 * hash + (int) (this.part_key ^ (this.part_key >>> 32));
     return hash;
   }
 

@@ -8,7 +8,6 @@ public interface BlockInfoTableDef {
 
   public static final String TABLE_NAME = "block_infos";
   public static final String BLOCK_ID = "block_id";
-  public static final String PART_KEY = "part_key";
   public static final String BLOCK_INDEX = "block_index";
   public static final String INODE_ID = "inode_id";
   public static final String NUM_BYTES = "num_bytes";
