@@ -30,6 +30,6 @@ public class HopCorruptReplica extends HopReplica {
   }
 
   public HopCorruptReplica(long blockId, int storageId, int inodeId) {
-    super(storageId, blockId, inodeId, -1);
+    super(storageId, blockId, inodeId);
   }
 }

@@ -30,6 +30,6 @@ public class HopExcessReplica extends HopReplica {
   }
 
   public HopExcessReplica(int storageId, long blockId, int inodeId) {
-    super(storageId, blockId, inodeId, -1);
+    super(storageId, blockId, inodeId);
   }
 }
