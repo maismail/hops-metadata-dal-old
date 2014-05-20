@@ -8,14 +8,12 @@ public class HopPendingBlockInfo {
 
   private long blockId;
   private int inodeId;
-  private int partKey;
   private long timeStamp;
   private int numReplicas;
 
-  public HopPendingBlockInfo(long blockId, int inodeId, int partKey, long timestamp, int numReplicas) {
+  public HopPendingBlockInfo(long blockId, int inodeId, long timestamp, int numReplicas) {
     this.blockId = blockId;
     this.inodeId = inodeId;
-    this.partKey = partKey;
     this.timeStamp = timestamp;
     this.numReplicas = numReplicas;
   }
@@ -26,10 +24,6 @@ public class HopPendingBlockInfo {
 
   public int getInodeId() {
     return inodeId;
-  }
-
-  public int getPartKey() {
-    return partKey;
   }
 
   public void setBlockId(long blockId) {
@@ -54,10 +48,6 @@ public class HopPendingBlockInfo {
 
   public void setInodeId(int inodeId) {
     this.inodeId = inodeId;
-  }
-
-  public void setPartKey(int partKey) {
-    this.partKey = partKey;
   }
   
 }

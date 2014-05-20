@@ -11,9 +11,9 @@ import se.sics.hop.exception.StorageException;
  */
 public interface UnderReplicatedBlockDataAccess<T> extends EntityDataAccess {
 
-  T findByPk(long blockId, int inodeId, int partKey) throws StorageException;
+  T findByPk(long blockId, int inodeId) throws StorageException;
 
-  List<T> findByINodeId(int inodeId, int partKey) throws StorageException;
+  List<T> findByINodeId(int inodeId) throws StorageException;
   
   List<T> findAll() throws StorageException;
 

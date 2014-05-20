@@ -55,13 +55,11 @@ public class HopUnderReplicatedBlock {
   int level;
   long blockId;
   int inodeId;
-  int partKey;
 
-  public HopUnderReplicatedBlock(int level, long blockId, int inodeId, int partKey) {
+  public HopUnderReplicatedBlock(int level, long blockId, int inodeId) {
     this.level = level;
     this.blockId = blockId;
     this.inodeId = inodeId;
-    this.partKey = partKey;
   }
 
   public long getBlockId() {
@@ -76,10 +74,6 @@ public class HopUnderReplicatedBlock {
     this.level = level;
   }
   
-  public int getPartKey(){
-    return partKey;
-  }
-  
   public int getInodeId(){
     return inodeId;
   }
@@ -91,11 +85,6 @@ public class HopUnderReplicatedBlock {
   public void setInodeId(int inodeId) {
     this.inodeId = inodeId;
   }
-
-  public void setPartKey(int partKey) {
-    this.partKey = partKey;
-  }
-
   
   @Override
   public String toString() {
