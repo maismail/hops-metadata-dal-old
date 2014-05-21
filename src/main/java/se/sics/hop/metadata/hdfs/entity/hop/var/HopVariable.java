@@ -97,7 +97,7 @@ public abstract class HopVariable {
       case BlockID:
         return new HopLongVariable(varType);
       case INodeID:
-        return new HopLongVariable(varType);
+        return new HopIntVariable(varType);
       case ReplicationIndex:
         return new HopArrayVariable(varType);
       case StorageInfo:

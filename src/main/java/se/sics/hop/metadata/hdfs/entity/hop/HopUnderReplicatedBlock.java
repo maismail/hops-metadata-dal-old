@@ -17,7 +17,7 @@ public class HopUnderReplicatedBlock {
   }
   public static enum Finder implements FinderType<HopUnderReplicatedBlock> {
 
-    ByBlockId, All, ByLevel;
+    ByBlockId, ByINodeId, All, ByLevel;
 
     @Override
     public Class getType() {
@@ -54,10 +54,12 @@ public class HopUnderReplicatedBlock {
 
   int level;
   long blockId;
+  int inodeId;
 
-  public HopUnderReplicatedBlock(int level, long blockId) {
+  public HopUnderReplicatedBlock(int level, long blockId, int inodeId) {
     this.level = level;
     this.blockId = blockId;
+    this.inodeId = inodeId;
   }
 
   public long getBlockId() {
@@ -71,7 +73,19 @@ public class HopUnderReplicatedBlock {
   public void setLevel(int level) {
     this.level = level;
   }
+  
+  public int getInodeId(){
+    return inodeId;
+  }
 
+  public void setBlockId(long blockId) {
+    this.blockId = blockId;
+  }
+
+  public void setInodeId(int inodeId) {
+    this.inodeId = inodeId;
+  }
+  
   @Override
   public String toString() {
     return "UnderReplicatedBlock{" + "level=" + level + ", blockId=" + blockId + '}';
