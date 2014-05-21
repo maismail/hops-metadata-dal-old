@@ -21,8 +21,9 @@ public interface InvokeRequestDataAccess<T> extends EntityDataAccess {
 
     /**
      * Primary key lookup based on rmnode ID.
+     *
      * @return
-     * @throws StorageException 
+     * @throws StorageException
      */
     T findByNodeId(int rmNodeId) throws StorageException;
 
@@ -42,6 +43,4 @@ public interface InvokeRequestDataAccess<T> extends EntityDataAccess {
      * @throws StorageException
      */
     void prepare(Collection<T> modified, Collection<T> removed) throws StorageException;
-
-    void deleteAll(int startId, int endId) throws StorageException;
 }

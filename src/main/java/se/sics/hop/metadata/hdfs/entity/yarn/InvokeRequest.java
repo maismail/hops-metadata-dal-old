@@ -8,39 +8,42 @@ package se.sics.hop.metadata.hdfs.entity.yarn;
  */
 public class InvokeRequest {
 
-    private int id;
     private int nodeid;
     private int type;
+    private int status;
 
-    public InvokeRequest(int id, int nodeid, int type) {
-        this.id = id;
+    public InvokeRequest(int nodeid, int type, int status) {
         this.nodeid = nodeid;
         this.type = type;
-    }
-
-    public InvokeRequest(int nodeid, int type) {
-        this.nodeid = nodeid;
-        this.type = type;
-    }
-
-    public int getId() {
-        return id;
+        this.status = status;
     }
 
     public int getNodeid() {
         return nodeid;
     }
 
+    public void setNodeid(int nodeid) {
+        this.nodeid = nodeid;
+    }
+
     public int getType() {
         return type;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setType(int type) {
+        this.type = type;
+    }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
     }
 
     @Override
     public String toString() {
-        return "InvokeRequest{" + "id=" + id + ", nodeid=" + nodeid + ", type=" + type + '}';
+        return "InvokeRequest{" + "nodeid=" + nodeid + ", type=" + type + ", status=" + status + '}';
     }
 }
