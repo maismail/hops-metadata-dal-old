@@ -14,11 +14,15 @@ public interface EncodingStatusDataAccess<T> extends EntityDataAccess {
 
   T findByInodeId(long inodeId) throws StorageException;
 
+  T findByParityInodeId(long inodeId) throws StorageException;
+
   Collection<T> findRequestedEncodings(long limit) throws StorageException;
+
+  int countRequestedEncodings() throws StorageException;
 
   Collection<T> findRequestedRepairs(long limit) throws StorageException;
 
-  int countRequestedEncodings() throws StorageException;
+  int countRequestedRepairs() throws StorageException;
 
   Collection<T> findActiveEncodings() throws StorageException;
 
@@ -35,4 +39,16 @@ public interface EncodingStatusDataAccess<T> extends EntityDataAccess {
   Collection<T> findPotentiallyFixed(long limit) throws StorageException;
 
   int countPotentiallyFixed() throws StorageException;
+
+  Collection<T> findRequestedParityRepairs(long limit) throws StorageException;
+
+  int countRequestedParityRepairs() throws StorageException;
+
+  Collection<T> findActiveParityRepairs() throws StorageException;
+
+  int countActiveParityRepairs() throws StorageException;
+
+  Collection<T> findPotentiallyFixedParities(long limit) throws StorageException;
+
+  int countPotentiallyFixedParities() throws StorageException;
 }
