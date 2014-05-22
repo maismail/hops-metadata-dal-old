@@ -21,7 +21,7 @@ public class HopInvalidatedBlock extends HopReplica {
 
   public static enum Finder implements FinderType<HopInvalidatedBlock> {
 
-    ByBlockId, ByINodeId, ByStorageId, ByPK, All;
+    ByBlockId, ByINodeId, ByStorageId, ByPK, ByPKS, All;
 
     @Override
     public Class getType() {

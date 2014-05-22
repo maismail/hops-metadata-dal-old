@@ -1,6 +1,7 @@
 package se.sics.hop.metadata.hdfs.dal;
 
 import java.util.Collection;
+import java.util.List;
 import se.sics.hop.exception.StorageException;
 
 /**
@@ -13,13 +14,15 @@ public interface InvalidateBlockDataAccess<T> extends EntityDataAccess {
 
   int countAll() throws StorageException;
 
-  Collection<T> findInvalidatedBlockByStorageId(int storageId) throws StorageException;
+  List<T> findInvalidatedBlockByStorageId(int storageId) throws StorageException;
 
-  Collection<T> findInvalidatedBlocksByBlockId(long bid, int inodeId) throws StorageException;
+  List<T> findInvalidatedBlocksByBlockId(long bid, int inodeId) throws StorageException;
   
-  Collection<T> findInvalidatedBlocksByINodeId(int inodeId) throws StorageException;
+  List<T> findInvalidatedBlocksByINodeId(int inodeId) throws StorageException;
 
-  Collection<T> findAllInvalidatedBlocks() throws StorageException;
+  List<T> findAllInvalidatedBlocks() throws StorageException;
+
+  List<T> findInvalidatedBlocksbyPKS(long[] blockIds, int[] inodesIds, int[] storageIds) throws StorageException;
 
   T findInvBlockByPkey(long blockId, int storageId, int inodeId) throws StorageException;
 
