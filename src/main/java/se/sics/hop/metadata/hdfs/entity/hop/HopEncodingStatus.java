@@ -22,15 +22,15 @@ public class HopEncodingStatus {
   public static final int PARITY_REPAIR_CANCELED = 4;
   public static final int PARITY_POTENTIALLY_FIXED = 5;
 
-  private Long inodeId = null;
-  private Long parityInodeId = null;
-  private Integer status = null;
-  private Integer parityStatus = null;
-  private String codec = null;
-  private Integer targetReplication = null;
-  private Long statusModificationTime = null;
-  private Long parityStatusModificationTime = null;
-  private String parityFileName = null;
+  private Long inodeId;
+  private Long parityInodeId;
+  private Integer status;
+  private Integer parityStatus;
+  private String codec;
+  private Integer targetReplication;
+  private Long statusModificationTime;
+  private Long parityStatusModificationTime;
+  private String parityFileName;
 
   public HopEncodingStatus() {
 
