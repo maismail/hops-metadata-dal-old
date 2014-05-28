@@ -120,4 +120,19 @@ public class HopEncodingStatus {
   public void setParityFileName(String parityFileName) {
     this.parityFileName = parityFileName;
   }
+
+  @Override
+  public String toString() {
+    return "HopEncodingStatus{" +
+        "inodeId=" + inodeId +
+        ", parityInodeId=" + parityInodeId +
+        ", status=" + status +
+        ", parityStatus=" + parityStatus +
+        ", codec='" + codec + '\'' +
+        ", targetReplication=" + targetReplication +
+        ", statusModificationTime=" + statusModificationTime +
+        ", parityStatusModificationTime=" + parityStatusModificationTime +
+        ", parityFileName='" + parityFileName + '\'' +
+        '}';
+  }
 }
