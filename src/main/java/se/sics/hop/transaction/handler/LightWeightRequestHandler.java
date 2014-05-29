@@ -41,7 +41,10 @@ public abstract class LightWeightRequestHandler extends RequestHandler {
 
                 //connector.beginTransaction();
                 //connector.readCommitted();
+                long startTime = System.currentTimeMillis();
                 Object toReturn = performTask();
+                long elapsedTime  = System.currentTimeMillis()-startTime;
+                log.info("HOP :: Tx time(ms)="+elapsedTime);
                 //connector.commit();
                 return toReturn;
             } catch (PersistanceException ex) {
