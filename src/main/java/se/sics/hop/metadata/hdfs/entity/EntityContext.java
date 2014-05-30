@@ -111,8 +111,8 @@ public abstract class EntityContext<T> {
     log(opName, state, (String) null);
   }
 
-  public void preventStorageCall() {
-    storageCallPrevented = true;
+  public void preventStorageCall(boolean val) {
+    storageCallPrevented = val;
   }
 
   public static void setLockMode(LockMode lock) {
