@@ -12,9 +12,9 @@ public interface EncodingStatusDataAccess<T> extends EntityDataAccess {
 
   void delete(T status) throws StorageException;
 
-  T findByInodeId(long inodeId) throws StorageException;
+  T findByInodeId(int inodeId) throws StorageException;
 
-  T findByParityInodeId(long inodeId) throws StorageException;
+  T findByParityInodeId(int inodeId) throws StorageException;
 
   Collection<T> findRequestedEncodings(long limit) throws StorageException;
 

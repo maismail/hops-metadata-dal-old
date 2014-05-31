@@ -22,8 +22,8 @@ public class HopEncodingStatus {
   public static final int PARITY_REPAIR_CANCELED = 4;
   public static final int PARITY_POTENTIALLY_FIXED = 5;
 
-  private Long inodeId;
-  private Long parityInodeId;
+  private Integer inodeId;
+  private Integer parityInodeId;
   private Integer status;
   private Integer parityStatus;
   private String codec;
@@ -36,7 +36,7 @@ public class HopEncodingStatus {
 
   }
 
-  public HopEncodingStatus(Long inodeId, Long parityInodeId, Integer status, String codec, Integer targetReplication,
+  public HopEncodingStatus(Integer inodeId, Integer parityInodeId, Integer status, String codec, Integer targetReplication,
       Long statusModificationTime, Integer parityStatus, Long parityStatusModificationTime, String parityFileName) {
     this.inodeId = inodeId;
     this.parityInodeId = parityInodeId;
@@ -49,19 +49,19 @@ public class HopEncodingStatus {
     this.parityFileName = parityFileName;
   }
 
-  public Long getInodeId() {
+  public Integer getInodeId() {
     return inodeId;
   }
 
-  public void setInodeId(Long inodeId) {
+  public void setInodeId(Integer inodeId) {
     this.inodeId = inodeId;
   }
 
-  public Long getParityInodeId() {
+  public Integer getParityInodeId() {
     return parityInodeId;
   }
 
-  public void setParityInodeId(Long parityInodeId) {
+  public void setParityInodeId(Integer parityInodeId) {
     this.parityInodeId = parityInodeId;
   }
 
