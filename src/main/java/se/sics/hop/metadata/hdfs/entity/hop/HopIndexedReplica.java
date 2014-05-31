@@ -12,7 +12,7 @@ public class HopIndexedReplica extends HopReplica {
 
   public static enum Finder implements FinderType<HopIndexedReplica> {
 
-    ByBlockId;
+    ByBlockId, ByINodeId, ByPK, ByPKS;
 
     @Override
     public Class getType() {
@@ -35,8 +35,8 @@ public class HopIndexedReplica extends HopReplica {
   }
   int index;
 
-  public HopIndexedReplica(long blockId, int storageId, int index) {
-    super(storageId, blockId);
+  public HopIndexedReplica(long blockId, int storageId, int inodeId, int index) {
+    super(storageId, blockId, inodeId);
     this.index = index;
   }
 

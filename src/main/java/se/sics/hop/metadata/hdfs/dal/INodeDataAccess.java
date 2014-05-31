@@ -11,12 +11,12 @@ import se.sics.hop.exception.StorageException;
  * @author salman <salman@sics.se>
  */
 public interface INodeDataAccess<T> extends EntityDataAccess {
+  
+  T indexScanfindInodeById(int inodeId) throws StorageException;
 
-  T indexScanfindInodeById(long inodeId) throws StorageException;
+  List<T> indexScanFindInodesByParentId(int parentId) throws StorageException;
 
-  List<T> indexScanFindInodesByParentId(long parentId) throws StorageException;
-
-  T pkLookUpFindInodeByNameAndParentId(String name, long parentId) throws StorageException;
+  T pkLookUpFindInodeByNameAndParentId(String name, int parentId) throws StorageException;
 
   void prepare(Collection<T> removed, Collection<T> newed, Collection<T> modified) throws StorageException;
 

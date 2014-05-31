@@ -24,6 +24,7 @@ import static se.sics.hop.transaction.handler.RequestHandler.log;
  * @author salman <salman@sics.se>
  */
 public abstract class TransactionalRequestHandler extends RequestHandler {
+
   public TransactionalRequestHandler(OperationType opType) {
     super(opType);
   }
@@ -38,7 +39,7 @@ public abstract class TransactionalRequestHandler extends RequestHandler {
     long txStartTime = 0;
     TransactionLocks locks = null;
     Object txRetValue = null;
-    
+
     boolean enableTxStats = false;
     boolean enableTxStatsForSuccessfulOps = false;
     String logFilePath = "/tmp/hop_tx_stats.txt";
@@ -73,7 +74,7 @@ public abstract class TransactionalRequestHandler extends RequestHandler {
           oldTime = 0;
           EntityManager.begin();
           log.debug("TX Started");
- 
+
           oldTime = System.currentTimeMillis();
           locks = acquireLock();
           acquireLockTime = (System.currentTimeMillis() - oldTime);
@@ -84,19 +85,19 @@ public abstract class TransactionalRequestHandler extends RequestHandler {
           try {
             txRetValue = performTask();
           } catch (IOException e) { // all HDFS exceptions are of type IOException
-                                    // all Clusterj exceptions are RuntimeException
-                                    // keep running the Tx is the exception is RecoveryInProgressException
-            if(e.getMessage().contains("Lease recovery is in progress")) // dont abort in case of RecoveryInProgressException
+            // all Clusterj exceptions are RuntimeException
+            // keep running the Tx is the exception is RecoveryInProgressException
+            if (e.getMessage().contains("Lease recovery is in progress")) // dont abort in case of RecoveryInProgressException
             {
               exception = e;
-            }else{
+            } else {
               throw e;
             }
           }
           inMemoryProcessingTime = (System.currentTimeMillis() - oldTime);
           log.debug("In Memory Processing Finished. Time " + inMemoryProcessingTime + " ms");
           oldTime = System.currentTimeMillis();
-          if(enableTxStats && enableTxStatsForSuccessfulOps){
+          if (enableTxStats && enableTxStatsForSuccessfulOps) {
             collectStats(logFilePath, exception);
           }
           EntityManager.commit(locks);
@@ -110,9 +111,9 @@ public abstract class TransactionalRequestHandler extends RequestHandler {
           //post TX phase
           //any error in this phase will not re-start the tx
           //TODO: XXX handle failures in post tx phase
-            if (info != null && info instanceof TransactionInfo) {
-              ((TransactionInfo) info).performPostTransactionAction();
-            }
+          if (info != null && info instanceof TransactionInfo) {
+            ((TransactionInfo) info).performPostTransactionAction();
+          }
           return txRetValue;
         } catch (Exception ex) { // catch checked and unchecked exceptions
           rollback = true;
@@ -136,7 +137,7 @@ public abstract class TransactionalRequestHandler extends RequestHandler {
         } finally {
           if (rollback) {
             try {
-              if(enableTxStats){
+              if (enableTxStats) {
                 collectStats(logFilePath, exception);
               }
               EntityManager.rollback();
@@ -176,40 +177,40 @@ public abstract class TransactionalRequestHandler extends RequestHandler {
     // Do nothing.
     // This can be overriden.
   }
-  
-  private void collectStats(String logFilePath, Exception exception) throws PersistanceException{
-    
-    List<EntityContextStat> stats = (List<EntityContextStat>)EntityManager.collectSnapshotStat();
+
+  private void collectStats(String logFilePath, Exception exception) throws PersistanceException {
+
+    List<EntityContextStat> stats = (List<EntityContextStat>) EntityManager.collectSnapshotStat();
     try {
-          boolean nothingChanged = true;
-          for(EntityContextStat stat : stats){ // if nothing was changed in the snapshot the dont print it
-            if((stat.getDeletedRows()+stat.getModifiedRows()+stat.getNewRows()) > 0){
-              nothingChanged = false;
-              break;
-            }
-          }
-          if(nothingChanged){
-            return;
-          }
-          
-          File file = new File(logFilePath);
-          BufferedWriter output = new BufferedWriter(new FileWriter(file,true));
-          String opName = NDC.peek();
-          output.write("Operation Name: "+opName+"\n");
-          if(exception != null){
-            output.write(exception.toString()+"\n\n");
-          }
-          Formatter formatter = new Formatter(Locale.US);
-          // Explicit argument indices may be used to re-order output.
-          formatter.format("%30s %5s %5s %5s\n", "Context Name", "New", "Mod", "Del");
-          output.write(formatter.toString());
-          for(EntityContextStat line : stats){
-            output.write(line.toString()+"\n");
-          }
-          output.write("===================================================================\n\n\n\n\n");
-          output.close();
-        } catch ( IOException e ) {
-           e.printStackTrace();
+      boolean nothingChanged = true;
+      for (EntityContextStat stat : stats) { // if nothing was changed in the snapshot the dont print it
+        if ((stat.getDeletedRows() + stat.getModifiedRows() + stat.getNewRows()) > 0) {
+          nothingChanged = false;
+          break;
         }
+      }
+      if (nothingChanged) {
+        return;
+      }
+
+      File file = new File(logFilePath);
+      BufferedWriter output = new BufferedWriter(new FileWriter(file, true));
+      String opName = NDC.peek();
+      output.write("Operation Name: " + opName + "\n");
+      if (exception != null) {
+        output.write(exception.toString() + "\n\n");
+      }
+      Formatter formatter = new Formatter(Locale.US);
+      // Explicit argument indices may be used to re-order output.
+      formatter.format("%30s %5s %5s %5s\n", "Context Name", "New", "Mod", "Del");
+      output.write(formatter.toString());
+      for (EntityContextStat line : stats) {
+        output.write(line.toString() + "\n");
+      }
+      output.write("===================================================================\n\n\n\n\n");
+      output.close();
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
   }
 }
