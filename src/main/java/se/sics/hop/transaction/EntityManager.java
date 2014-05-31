@@ -55,8 +55,8 @@ public class EntityManager {
     context().begin();
   }
 
-  public static void preventStorageCall(boolean val) {
-    context().preventStorageCall(val);
+  public static void preventStorageCall() {
+    context().preventStorageCall();
   }
 
   public static void commit(TransactionLocks tlm) throws StorageException {

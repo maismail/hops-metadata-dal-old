@@ -57,7 +57,6 @@ public abstract class TransactionalRequestHandler extends RequestHandler {
         long inMemoryProcessingTime = 0;
         long commitTime = 0;
         long totalTime = 0;
-        EntityManager.preventStorageCall(false);
         try {
           // Defines a context for every operation to track them in the logs easily.
           if (info != null && info instanceof TransactionInfo) {
@@ -80,7 +79,7 @@ public abstract class TransactionalRequestHandler extends RequestHandler {
           acquireLockTime = (System.currentTimeMillis() - oldTime);
           log.debug("All Locks Acquired. Time " + acquireLockTime + " ms");
           oldTime = System.currentTimeMillis();
-          EntityManager.preventStorageCall(true);
+          EntityManager.preventStorageCall();
 
           try {
             txRetValue = performTask();
