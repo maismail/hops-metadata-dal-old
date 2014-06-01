@@ -149,7 +149,7 @@ public abstract class TransactionalRequestHandler extends RequestHandler {
           }
 
           NDC.pop();
-          if (tryCount == RETRY_COUNT && exception != null /*&& !txSuccessful*/) {
+          if (tryCount == RETRY_COUNT && exception != null || !retry && exception != null /*&& !txSuccessful*/) {
             log.debug("Throwing exception " + exception);
             if (exception instanceof IOException) {
               throw (IOException) exception;
@@ -159,7 +159,6 @@ public abstract class TransactionalRequestHandler extends RequestHandler {
               throw new HOPExceptionWrapper(exception);
             }
           }
-
         }
       }
     } finally {
