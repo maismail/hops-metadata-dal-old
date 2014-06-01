@@ -128,7 +128,8 @@ public abstract class TransactionalRequestHandler extends RequestHandler {
           } else {
             exception = ex;
             rollback = true;
-            if (ex instanceof StorageException) {
+            // TODO STEFFEN - Using contains is such a poor solution...
+            if (ex instanceof StorageException || ex.getMessage().contains("NdbJTie")) {
               retry = true;
             } else {
               retry = false;
