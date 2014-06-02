@@ -60,9 +60,9 @@ public class TransactionContext {
     connector.beginTransaction();
   }
 
-  public void preventStorageCall() {
+  public void preventStorageCall(boolean val) {
     for (EntityContext context : contexts) {
-      context.preventStorageCall();
+      context.preventStorageCall(val);
     }
   }
 

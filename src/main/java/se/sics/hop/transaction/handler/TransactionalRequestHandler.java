@@ -40,129 +40,148 @@ public abstract class TransactionalRequestHandler extends RequestHandler {
     TransactionLocks locks = null;
     Object txRetValue = null;
 
-    boolean enableTxStats = false;
+    boolean enableTxStats = true;
     boolean enableTxStatsForSuccessfulOps = false;
     String logFilePath = "/tmp/hop_tx_stats.txt";
 
-    try {
-      while (retry && tryCount < RETRY_COUNT && !txSuccessful) {
-        retry = true;
-        rollback = false;
-        tryCount++;
-        exception = null;
-        txSuccessful = false;
 
-        long oldTime = 0;
-        long setupTime = 0;
-        long acquireLockTime = 0;
-        long inMemoryProcessingTime = 0;
-        long commitTime = 0;
-        long totalTime = 0;
-        try {
-          // Defines a context for every operation to track them in the logs easily.
-          if (info != null && info instanceof TransactionInfo) {
-            NDC.push(((TransactionInfo) info).getContextName(opType));
-          } else {
-            NDC.push(opType.toString());
-          }
+    while (retry && tryCount < RETRY_COUNT && !txSuccessful) {
+      retry = true;
+      rollback = false;
+      tryCount++;
+      exception = null;
+      txSuccessful = false;
 
-          txStartTime = System.currentTimeMillis();
-          oldTime = System.currentTimeMillis();
-          setUp();
-          setupTime = (System.currentTimeMillis() - oldTime);
-          log.debug("Pretransaction phase finished. Time " + setupTime + " ms");
-          oldTime = 0;
-          EntityManager.begin();
-          log.debug("TX Started");
-
-          oldTime = System.currentTimeMillis();
-          locks = acquireLock();
-          acquireLockTime = (System.currentTimeMillis() - oldTime);
-          log.debug("All Locks Acquired. Time " + acquireLockTime + " ms");
-          oldTime = System.currentTimeMillis();
-          EntityManager.preventStorageCall();
-
-          try {
-            txRetValue = performTask();
-          } catch (IOException e) { // all HDFS exceptions are of type IOException
-            // all Clusterj exceptions are RuntimeException
-            // keep running the Tx is the exception is RecoveryInProgressException
-            if (e.getMessage().contains("Lease recovery is in progress")) // dont abort in case of RecoveryInProgressException
-            {
-              exception = e;
-            } else {
-              throw e;
-            }
-          }
-          inMemoryProcessingTime = (System.currentTimeMillis() - oldTime);
-          log.debug("In Memory Processing Finished. Time " + inMemoryProcessingTime + " ms");
-          oldTime = System.currentTimeMillis();
-          if (enableTxStats && enableTxStatsForSuccessfulOps) {
-            collectStats(logFilePath, exception);
-          }
-          EntityManager.commit(locks);
-          txSuccessful = true;
-          commitTime = (System.currentTimeMillis() - oldTime);
-          log.debug("TX committed. Time " + commitTime + " ms");
-          oldTime = System.currentTimeMillis();
-          totalTime = (System.currentTimeMillis() - txStartTime);
-          log.debug("TX Finished. TX Stats : Acquire Locks: " + acquireLockTime + "ms, In Memory Processing: " + inMemoryProcessingTime + "ms, Commit Time: " + commitTime + "ms, Total Time: " + totalTime + "ms");
-
-          //post TX phase
-          //any error in this phase will not re-start the tx
-          //TODO: XXX handle failures in post tx phase
-          if (info != null && info instanceof TransactionInfo) {
-            ((TransactionInfo) info).performPostTransactionAction();
-          }
-          return txRetValue;
-        } catch (Exception ex) { // catch checked and unchecked exceptions
-          rollback = true;
-
-          if (txSuccessful) { // exception in post Tx stage 
-            retry = false;
-            rollback = true;
-            log.warn("Exception in Post Tx Stage. Exception is " + ex);
-            ex.printStackTrace();
-            return txRetValue;
-          } else {
-            exception = ex;
-            rollback = true;
-            if (ex instanceof StorageException) {
-              retry = true;
-            } else {
-              retry = false;
-            }
-            log.error("Tx Failed. total tx time " + (System.currentTimeMillis() - txStartTime) + " msec. Retry(" + retry + ") TotalRetryCount(" + RETRY_COUNT + ") RemainingRetries(" + (RETRY_COUNT - tryCount) + ")", ex);
-          }
-        } finally {
-          if (rollback) {
-            try {
-              if (enableTxStats) {
-                collectStats(logFilePath, exception);
-              }
-              EntityManager.rollback();
-            } catch (Exception ex) {
-              log.error("Could not rollback transaction", ex);
-            }
-          }
-
-          NDC.pop();
-          if (tryCount == RETRY_COUNT && exception != null /*&& !txSuccessful*/) {
-            log.debug("Throwing exception " + exception);
-            if (exception instanceof IOException) {
-              throw (IOException) exception;
-            } else if (exception instanceof RuntimeException) { // runtime exceptions etc
-              throw (RuntimeException) exception;
-            } else { // wrap the exception and handle it in the code 
-              throw new HOPExceptionWrapper(exception);
-            }
-          }
-
+      long oldTime = 0;
+      long setupTime = 0;
+      long acquireLockTime = 0;
+      long inMemoryProcessingTime = 0;
+      long commitTime = 0;
+      long totalTime = 0;
+      EntityManager.preventStorageCall(false);
+      
+      try {
+        randWait(tryCount != 1 );
+        // Defines a context for every operation to track them in the logs easily.
+        if (info != null && info instanceof TransactionInfo) {
+          NDC.push(((TransactionInfo) info).getContextName(opType));
+        } else {
+          NDC.push(opType.toString());
         }
+
+        txStartTime = System.currentTimeMillis();
+        oldTime = System.currentTimeMillis();
+        log.debug("Pretransaction phase started");
+        setUp();
+        setupTime = (System.currentTimeMillis() - oldTime);
+        log.debug("Pretransaction phase finished. Time " + setupTime + " ms");
+        oldTime = 0;
+        EntityManager.begin();
+        log.debug("TX Started");
+
+        oldTime = System.currentTimeMillis();
+        locks = acquireLock();
+        acquireLockTime = (System.currentTimeMillis() - oldTime);
+        log.debug("All Locks Acquired. Time " + acquireLockTime + " ms");
+        oldTime = System.currentTimeMillis();
+        EntityManager.preventStorageCall(true);
+
+        try {
+          txRetValue = performTask();
+        } catch (IOException e) { // all HDFS exceptions are of type IOException
+          // all Clusterj exceptions are RuntimeException
+          // keep running the Tx is the exception is RecoveryInProgressException
+          if (e.getMessage().contains("Lease recovery is in progress")) // dont abort in case of RecoveryInProgressException
+          {
+            exception = e;
+          } else {
+            throw e;
+          }
+        }
+        inMemoryProcessingTime = (System.currentTimeMillis() - oldTime);
+        log.debug("In Memory Processing Finished. Time " + inMemoryProcessingTime + " ms");
+        oldTime = System.currentTimeMillis();
+        if (enableTxStats && enableTxStatsForSuccessfulOps) {
+          collectStats(logFilePath, exception);
+        }
+        EntityManager.commit(locks);
+        txSuccessful = true;
+        commitTime = (System.currentTimeMillis() - oldTime);
+        log.debug("TX committed. Time " + commitTime + " ms");
+        oldTime = System.currentTimeMillis();
+        totalTime = (System.currentTimeMillis() - txStartTime);
+        log.debug("TX Finished. TX Stats : Acquire Locks: " + acquireLockTime + "ms, In Memory Processing: " + inMemoryProcessingTime + "ms, Commit Time: " + commitTime + "ms, Total Time: " + totalTime + "ms");
+
+        //post TX phase
+        //any error in this phase will not re-start the tx
+        //TODO: XXX handle failures in post tx phase
+        if (info != null && info instanceof TransactionInfo) {
+          ((TransactionInfo) info).performPostTransactionAction();
+        }
+        return txRetValue;
+      } catch (Exception ex) { // catch checked and unchecked exceptions
+        rollback = true;
+
+        if (txSuccessful) { // exception in post Tx stage 
+          retry = false;
+          rollback = true;
+          log.warn("Exception in Post Tx Stage. Exception is " + ex);
+          ex.printStackTrace();
+          return txRetValue;
+        } else {
+          exception = ex;
+          rollback = true;
+          if (ex instanceof StorageException) {
+            retry = true;
+          } else {
+            retry = false;
+          }
+          log.error("Tx Failed. total tx time " + (System.currentTimeMillis() - txStartTime) + " msec. Retry(" + retry + ") TotalRetryCount(" + RETRY_COUNT + ") RemainingRetries(" + (RETRY_COUNT - tryCount) + ")", ex);
+        }
+      } finally {
+        if (rollback) {
+          try {
+            if (enableTxStats) {
+              collectStats(logFilePath, exception);
+            }
+            EntityManager.rollback();
+          } catch (Exception ex) {
+            log.error("Could not rollback transaction", ex);
+          }
+        }
+
+        //log.debug("TX Exception "+exception+" retry "+retry+" rollback "+rollback+" count "+tryCount);
+        NDC.pop();
+        if ((tryCount == RETRY_COUNT && exception != null && exception instanceof StorageException/*&& retry == true && !txSuccessful*/) // run out of retries and there is an exception
+             || ( exception != null && !(exception instanceof StorageException))  //non storage exceptions are not retried. // you may or may not have exhausted the retry count but the tx failed because of some exception like file not found etc. in this case just throw the exception and dont retry
+                ) {
+          log.debug("Throwing exception " + exception);
+          if (exception instanceof IOException) {
+            throw (IOException) exception;
+          } else if (exception instanceof RuntimeException) { // runtime exceptions etc
+            throw (RuntimeException) exception;
+          } else { // wrap the exception and handle it in the code 
+            throw new HOPExceptionWrapper(exception);
+          }
+        }
+
       }
-    } finally {
     }
+
     return null;
+  }
+  
+  private void randWait(boolean wait){
+    try {
+      if (wait) {
+        Random rand = new Random(System.currentTimeMillis());
+        int waitTime = rand.nextInt(5000);
+        log.debug("TX is being retried. Waiting for "+waitTime+" ms before retry. TX name "+opType);
+        Thread.sleep(waitTime);
+      }
+    } catch (InterruptedException ex) {
+      log.warn(ex);
+    }
   }
 
   public abstract TransactionLocks acquireLock() throws PersistanceException, IOException;

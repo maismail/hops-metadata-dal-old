@@ -16,7 +16,7 @@ public abstract class RequestHandler {
   }
   protected static Log log = LogFactory.getLog(RequestHandler.class);
   protected Object[] params = null;
-  public static final int RETRY_COUNT = 1;
+  public static final int RETRY_COUNT = 3;
   protected OperationType opType;
   protected static StorageConnector connector;
 
