@@ -7,6 +7,9 @@ import java.io.IOException;
 import java.util.Formatter;
 import java.util.List;
 import java.util.Locale;
+import java.util.Random;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import se.sics.hop.exception.StorageException;
 import org.apache.log4j.NDC;
 import se.sics.hop.exception.AcquireLockInterruptedException;
@@ -61,21 +64,22 @@ public abstract class TransactionalRequestHandler extends RequestHandler {
       EntityManager.preventStorageCall(false);
       
       try {
+        randWait(tryCount != 1 );
         // Defines a context for every operation to track them in the logs easily.
         if (info != null && info instanceof TransactionInfo) {
           NDC.push(((TransactionInfo) info).getContextName(opType));
         } else {
           NDC.push(opType.toString());
         }
-
         txStartTime = System.currentTimeMillis();
         oldTime = System.currentTimeMillis();
+        log.debug("Pretransaction phase started");
         setUp();
         setupTime = (System.currentTimeMillis() - oldTime);
         log.debug("Pretransaction phase finished. Time " + setupTime + " ms");
         oldTime = 0;
         EntityManager.begin();
-        log.debug("TX Started");
+        log.debug("TX Started ");
 
         oldTime = System.currentTimeMillis();
         locks = acquireLock();
@@ -148,9 +152,10 @@ public abstract class TransactionalRequestHandler extends RequestHandler {
           }
         }
 
+        //log.debug("TX Exception "+exception+" retry "+retry+" rollback "+rollback+" count "+tryCount);
         NDC.pop();
-        if ((tryCount == RETRY_COUNT && exception != null && retry == true /*&& !txSuccessful*/) // run out of retries and there is an exception
-             || (retry == false && exception != null )  // you may or may not have exhausted the retry count but the tx failed because of some exception like file not found etc. in this case just throw the exception and dont retry
+        if ((tryCount == RETRY_COUNT && exception != null && exception instanceof StorageException/*&& retry == true && !txSuccessful*/) // run out of retries and there is an exception
+             || ( exception != null && !(exception instanceof StorageException))  //non storage exceptions are not retried. // you may or may not have exhausted the retry count but the tx failed because of some exception like file not found etc. in this case just throw the exception and dont retry
                 ) {
           log.debug("Throwing exception " + exception);
           if (exception instanceof IOException) {
@@ -166,6 +171,19 @@ public abstract class TransactionalRequestHandler extends RequestHandler {
     }
 
     return null;
+  }
+  
+  private void randWait(boolean wait){
+    try {
+      if (wait) {
+        Random rand = new Random(System.currentTimeMillis());
+        int waitTime = rand.nextInt(5000);
+        log.debug("TX is being retried. Waiting for "+waitTime+" ms before retry. TX name "+opType);
+        Thread.sleep(waitTime);
+      }
+    } catch (InterruptedException ex) {
+      log.warn(ex);
+    }
   }
 
   public abstract TransactionLocks acquireLock() throws PersistanceException, IOException;
