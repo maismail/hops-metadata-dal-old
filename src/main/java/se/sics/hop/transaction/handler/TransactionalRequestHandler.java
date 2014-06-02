@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.util.Formatter;
 import java.util.List;
 import java.util.Locale;
+import java.util.Random;
 import se.sics.hop.exception.StorageException;
 import org.apache.log4j.NDC;
 import se.sics.hop.exception.AcquireLockInterruptedException;
