@@ -3,6 +3,7 @@ package se.sics.hop.transaction;
 import java.util.Collection;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+import org.apache.log4j.NDC;
 import se.sics.hop.metadata.hdfs.entity.EntityContext;
 import se.sics.hop.exception.StorageException;
 import se.sics.hop.metadata.hdfs.entity.CounterType;
@@ -32,21 +33,10 @@ public class EntityManager {
   }
   
   private static TransactionContext context() {
-    Long threadID;
-    Thread currentThread = Thread.currentThread();
-    if(currentThread instanceof ParallelReadThread){
-      threadID = ((ParallelReadThread)currentThread).getParentId();
-    }
-    else{
-      threadID = Thread.currentThread().getId();
-    }
-    
+    Long threadID = getThreadID();
     TransactionContext context = contexts.get(threadID);
     if (context == null) {
-      //System.out.println("EntityManager creating new context ");
-      Map<Class, EntityContext> storageMap = contextInitializer.createEntityContexts();
-      context = new TransactionContext(contextInitializer.getConnector(), storageMap);
-      contexts.put(threadID,context);
+      context = addContext();
     }
     return context;
   }
@@ -61,10 +51,14 @@ public class EntityManager {
 
   public static void commit(TransactionLocks tlm) throws StorageException {
     context().commit(tlm);
+    removeContext();
+    cleanTXLocks(tlm);
   }
 
-  public static void rollback() throws StorageException {
+  public static void rollback(TransactionLocks tlm) throws StorageException {
     context().rollback();
+    removeContext();
+    cleanTXLocks(tlm);
   }
 
   public static <T> void remove(T obj) throws PersistanceException {
@@ -128,4 +122,40 @@ public class EntityManager {
   public static Collection<EntityContextStat> collectSnapshotStat() throws PersistanceException{
     return context().collectSnapshotStat();
   }
+  
+  private static Long getThreadID(){
+    Long threadID;
+    Thread currentThread = Thread.currentThread();
+    if(currentThread instanceof ParallelReadThread){
+      threadID = ((ParallelReadThread)currentThread).getParentId();
+    }
+    else{
+      threadID = Thread.currentThread().getId();
+    }
+    return threadID;
+  }
+  
+  private static TransactionContext addContext(){
+      Long threadID = getThreadID(); 
+      Map<Class, EntityContext> storageMap = contextInitializer.createEntityContexts();
+      TransactionContext context = new TransactionContext(contextInitializer.getConnector(), storageMap);
+      contexts.put(threadID,context);
+      return context;
+  }
+  
+  private static void removeContext(){
+    if (!(Thread.currentThread() instanceof ParallelReadThread)){
+      Long threadID = getThreadID(); 
+      contexts.remove(threadID);
+    }
+  }
+  
+  private static void cleanTXLocks(TransactionLocks tlm){
+    if (!(Thread.currentThread() instanceof ParallelReadThread)){
+       if(tlm!=null){
+         tlm.clean();
+       }
+    }
+  } 
+ 
 }

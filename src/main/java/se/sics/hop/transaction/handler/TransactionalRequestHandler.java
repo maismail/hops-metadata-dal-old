@@ -145,7 +145,7 @@ public abstract class TransactionalRequestHandler extends RequestHandler {
             if (enableTxStats) {
               collectStats(logFilePath, exception);
             }
-            EntityManager.rollback();
+            EntityManager.rollback(locks);
           } catch (Exception ex) {
             log.error("Could not rollback transaction", ex);
           }
