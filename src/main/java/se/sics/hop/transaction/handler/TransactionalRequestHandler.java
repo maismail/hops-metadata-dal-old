@@ -144,7 +144,7 @@ public abstract class TransactionalRequestHandler extends RequestHandler {
             if (enableTxStats) {
               collectStats(logFilePath, exception);
             }
-            EntityManager.rollback();
+            EntityManager.rollback(locks);
           } catch (Exception ex) {
             log.error("Could not rollback transaction", ex);
           }
@@ -152,6 +152,7 @@ public abstract class TransactionalRequestHandler extends RequestHandler {
 
         //log.debug("TX Exception "+exception+" retry "+retry+" rollback "+rollback+" count "+tryCount);
         NDC.pop();
+        NDC.remove();
         if ((tryCount == RETRY_COUNT && exception != null && exception instanceof StorageException/*&& retry == true && !txSuccessful*/) // run out of retries and there is an exception
              || ( exception != null && !(exception instanceof StorageException))  //non storage exceptions are not retried. // you may or may not have exhausted the retry count but the tx failed because of some exception like file not found etc. in this case just throw the exception and dont retry
                 ) {
