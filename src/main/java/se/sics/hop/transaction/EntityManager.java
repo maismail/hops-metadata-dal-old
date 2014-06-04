@@ -52,13 +52,11 @@ public class EntityManager {
   public static void commit(TransactionLocks tlm) throws StorageException {
     context().commit(tlm);
     removeContext();
-    cleanTXLocks(tlm);
   }
 
   public static void rollback(TransactionLocks tlm) throws StorageException {
     context().rollback();
     removeContext();
-    cleanTXLocks(tlm);
   }
 
   public static <T> void remove(T obj) throws PersistanceException {
@@ -149,13 +147,4 @@ public class EntityManager {
       contexts.remove(threadID);
     }
   }
-  
-  private static void cleanTXLocks(TransactionLocks tlm){
-    if (!(Thread.currentThread() instanceof ParallelReadThread)){
-       if(tlm!=null){
-         tlm.clean();
-       }
-    }
-  } 
- 
 }
