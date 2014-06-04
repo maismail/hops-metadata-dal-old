@@ -19,7 +19,7 @@ public abstract class TransactionLockAcquirer {
 
   public abstract TransactionLocks acquire() throws PersistanceException, IOException;
   
-  protected static void setLockMode(TransactionLockTypes.LockType mode) {
+  protected void setLockMode(TransactionLockTypes.LockType mode) {
     switch (mode) {
       case WRITE:
         EntityManager.writeLock();
@@ -34,7 +34,7 @@ public abstract class TransactionLockAcquirer {
   }
 
   //TransacationLockAcquirer Code
-  protected static <T> Collection<T> acquireLockList(
+  protected <T> Collection<T> acquireLockList(
       TransactionLockTypes.LockType lock,
       FinderType<T> finder,
       Object... param) throws PersistanceException {
@@ -47,7 +47,7 @@ public abstract class TransactionLockAcquirer {
     }
   }
 
-  protected static <T> T acquireLock(
+  protected <T> T acquireLock(
       TransactionLockTypes.LockType lock,
       FinderType<T> finder, Object... param) throws PersistanceException {
 
