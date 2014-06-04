@@ -63,17 +63,18 @@ public abstract class TransactionalRequestHandler extends RequestHandler {
       
       try {
         randWait(tryCount != 1 );
-        // Defines a context for every operation to track them in the logs easily.
-        if (info != null && info instanceof TransactionInfo) {
-          NDC.push(((TransactionInfo) info).getContextName(opType));
-        } else {
-          NDC.push(opType.toString());
-        }
+        
+        setNDC(info);
 
         txStartTime = System.currentTimeMillis();
         oldTime = System.currentTimeMillis();
         log.debug("Pretransaction phase started");
         setUp();
+        
+        //sometimes in setup we call light weight request handler that messes up with the NDC
+        removeNDC();
+        setNDC(info);
+        
         setupTime = (System.currentTimeMillis() - oldTime);
         log.debug("Pretransaction phase finished. Time " + setupTime + " ms");
         oldTime = 0;
@@ -152,8 +153,7 @@ public abstract class TransactionalRequestHandler extends RequestHandler {
         }
 
         //log.debug("TX Exception "+exception+" retry "+retry+" rollback "+rollback+" count "+tryCount);
-        NDC.pop();
-        NDC.remove();
+        removeNDC();
         if ((tryCount == RETRY_COUNT && exception != null && exception instanceof StorageException/*&& retry == true && !txSuccessful*/) // run out of retries and there is an exception
              || ( exception != null && !(exception instanceof StorageException))  //non storage exceptions are not retried. // you may or may not have exhausted the retry count but the tx failed because of some exception like file not found etc. in this case just throw the exception and dont retry
                 ) {
@@ -233,5 +233,19 @@ public abstract class TransactionalRequestHandler extends RequestHandler {
     } catch (IOException e) {
       e.printStackTrace();
     }
+  }
+  
+  private void setNDC(Object info){
+    // Defines a context for every operation to track them in the logs easily.
+    if (info != null && info instanceof TransactionInfo) {
+          NDC.push(((TransactionInfo) info).getContextName(opType));
+        } else {
+          NDC.push(opType.toString());
+        }
+  }
+  
+  private void removeNDC(){
+    NDC.clear();
+    NDC.remove();
   }
 }
