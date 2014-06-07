@@ -51,4 +51,6 @@ public interface EncodingStatusDataAccess<T> extends EntityDataAccess {
   void setLostParityBlockCount(int n);
 
   int getLostParityBlockCount();
+
+  Collection<T> findDeleted(long limit) throws StorageException;
 }

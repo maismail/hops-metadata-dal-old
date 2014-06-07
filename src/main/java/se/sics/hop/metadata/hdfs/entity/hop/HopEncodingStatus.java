@@ -12,6 +12,7 @@ public class HopEncodingStatus {
   public static final int ENCODING_CANCELED = 6;
   public static final int REPAIR_CANCELED = 7;
   public static final int REPAIR_REQUESTED = 8;
+  public static final int DELETED = 9;
 
   /* Parity file status */
   public static final int PARITY_HEALTHY = 0;
