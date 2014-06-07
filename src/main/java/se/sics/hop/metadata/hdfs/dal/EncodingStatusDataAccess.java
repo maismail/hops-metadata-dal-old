@@ -36,10 +36,6 @@ public interface EncodingStatusDataAccess<T> extends EntityDataAccess {
 
   int countActiveRepairs() throws StorageException;
 
-  Collection<T> findPotentiallyFixed(long limit) throws StorageException;
-
-  int countPotentiallyFixed() throws StorageException;
-
   Collection<T> findRequestedParityRepairs(long limit) throws StorageException;
 
   int countRequestedParityRepairs() throws StorageException;
@@ -48,7 +44,11 @@ public interface EncodingStatusDataAccess<T> extends EntityDataAccess {
 
   int countActiveParityRepairs() throws StorageException;
 
-  Collection<T> findPotentiallyFixedParities(long limit) throws StorageException;
+  void setLostBlockCount(int n);
 
-  int countPotentiallyFixedParities() throws StorageException;
+  int getLostBlockCount();
+
+  void setLostParityBlockCount(int n);
+
+  int getLostParityBlockCount();
 }

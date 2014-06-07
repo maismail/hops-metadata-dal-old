@@ -12,7 +12,6 @@ public class HopEncodingStatus {
   public static final int ENCODING_CANCELED = 6;
   public static final int REPAIR_CANCELED = 7;
   public static final int REPAIR_REQUESTED = 8;
-  public static final int POTENTIALLY_FIXED = 9;
 
   /* Parity file status */
   public static final int PARITY_HEALTHY = 0;
@@ -20,7 +19,6 @@ public class HopEncodingStatus {
   public static final int PARITY_REPAIR_ACTIVE = 2;
   public static final int PARITY_REPAIR_FAILED = 3;
   public static final int PARITY_REPAIR_CANCELED = 4;
-  public static final int PARITY_POTENTIALLY_FIXED = 5;
 
   private Integer inodeId;
   private Integer parityInodeId;
@@ -31,13 +29,16 @@ public class HopEncodingStatus {
   private Long statusModificationTime;
   private Long parityStatusModificationTime;
   private String parityFileName;
+  private Integer lostBlocks;
+  private Integer lostParityBlocks;
 
   public HopEncodingStatus() {
 
   }
 
   public HopEncodingStatus(Integer inodeId, Integer parityInodeId, Integer status, String codec, Integer targetReplication,
-      Long statusModificationTime, Integer parityStatus, Long parityStatusModificationTime, String parityFileName) {
+      Long statusModificationTime, Integer parityStatus, Long parityStatusModificationTime, String parityFileName,
+      Integer lostBlocks, Integer lostParityBlocks) {
     this.inodeId = inodeId;
     this.parityInodeId = parityInodeId;
     this.status = status;
@@ -47,6 +48,8 @@ public class HopEncodingStatus {
     this.parityStatus = parityStatus;
     this.parityStatusModificationTime = parityStatusModificationTime;
     this.parityFileName = parityFileName;
+    this.lostBlocks = lostBlocks;
+    this.lostParityBlocks = lostParityBlocks;
   }
 
   public Integer getInodeId() {
@@ -121,6 +124,22 @@ public class HopEncodingStatus {
     this.parityFileName = parityFileName;
   }
 
+  public Integer getLostBlocks() {
+    return lostBlocks;
+  }
+
+  public void setLostBlocks(Integer lostBlocks) {
+    this.lostBlocks = lostBlocks;
+  }
+
+  public Integer getLostParityBlocks() {
+    return lostParityBlocks;
+  }
+
+  public void setLostParityBlocks(Integer lostParityBlocks) {
+    this.lostParityBlocks = lostParityBlocks;
+  }
+
   @Override
   public String toString() {
     return "HopEncodingStatus{" +
@@ -133,6 +152,8 @@ public class HopEncodingStatus {
         ", statusModificationTime=" + statusModificationTime +
         ", parityStatusModificationTime=" + parityStatusModificationTime +
         ", parityFileName='" + parityFileName + '\'' +
+        ", lostBlocks=" + lostBlocks +
+        ", lostParityBlocks=" + lostParityBlocks +
         '}';
   }
 }
