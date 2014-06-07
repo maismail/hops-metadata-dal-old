@@ -32,6 +32,7 @@ public class HopEncodingStatus {
   private String parityFileName;
   private Integer lostBlocks;
   private Integer lostParityBlocks;
+  private Boolean revoked;
 
   public HopEncodingStatus() {
 
@@ -39,7 +40,7 @@ public class HopEncodingStatus {
 
   public HopEncodingStatus(Integer inodeId, Integer parityInodeId, Integer status, String codec, Integer targetReplication,
       Long statusModificationTime, Integer parityStatus, Long parityStatusModificationTime, String parityFileName,
-      Integer lostBlocks, Integer lostParityBlocks) {
+      Integer lostBlocks, Integer lostParityBlocks, Boolean revoked) {
     this.inodeId = inodeId;
     this.parityInodeId = parityInodeId;
     this.status = status;
@@ -51,6 +52,7 @@ public class HopEncodingStatus {
     this.parityFileName = parityFileName;
     this.lostBlocks = lostBlocks;
     this.lostParityBlocks = lostParityBlocks;
+    this.revoked = revoked;
   }
 
   public Integer getInodeId() {
@@ -141,6 +143,14 @@ public class HopEncodingStatus {
     this.lostParityBlocks = lostParityBlocks;
   }
 
+  public Boolean getRevoked() {
+    return revoked;
+  }
+
+  public void setRevoked(Boolean revoked) {
+    this.revoked = revoked;
+  }
+
   @Override
   public String toString() {
     return "HopEncodingStatus{" +
@@ -155,6 +165,7 @@ public class HopEncodingStatus {
         ", parityFileName='" + parityFileName + '\'' +
         ", lostBlocks=" + lostBlocks +
         ", lostParityBlocks=" + lostParityBlocks +
+        ", revoked=" + revoked +
         '}';
   }
 }

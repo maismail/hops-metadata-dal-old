@@ -16,4 +16,5 @@ public interface EncodingStatusTableDef {
   public static final String LOST_BLOCKS = "lost_blocks";
   public static final String LOST_PARITY_BLOCKS = "lost_parity_blocks";
   public static final String LOST_BLOCK_SUM = "lost_block_sum";
+  public static final String REVOKED = "revoked";
 }
