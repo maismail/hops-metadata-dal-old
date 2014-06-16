@@ -48,4 +48,9 @@ public class HopLongVariable extends HopVariable {
   public int getLength() {
     return 8;
   }
+
+  @Override
+  public String toString() {
+    return Long.toString(value);
+  }
 }
