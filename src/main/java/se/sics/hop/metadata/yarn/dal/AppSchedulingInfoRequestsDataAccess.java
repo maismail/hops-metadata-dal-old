@@ -15,13 +15,12 @@ import se.sics.hop.metadata.hdfs.dal.EntityDataAccess;
  *
  * @author nickstanogias
  */
-public interface FifoSchedulerAppsDataAccess<T> extends EntityDataAccess {
-    
-    T findEntry(int fifoSchedulerId, int applicationattemptidId) throws StorageException;
+public interface AppSchedulingInfoRequestsDataAccess<T> extends EntityDataAccess {
+    T findEntry(int appSchedulingInfoId, int priorityId, String name) throws StorageException;
 
     void prepare(Collection<T> modified, Collection<T> removed) throws StorageException;
     
-    void createFifoSchedulerAppsEntry(T entry) throws StorageException;
+    void createAppSchedulingInfoRequestsEntry(T entry) throws StorageException;
     
-    List<T> getAllByFifoSchedulerId(int fifoSchedulerId) throws StorageException;
+    List<T> getAllByAppSchedulingInfoId(int appSchedulingInfoId) throws StorageException;
 }
