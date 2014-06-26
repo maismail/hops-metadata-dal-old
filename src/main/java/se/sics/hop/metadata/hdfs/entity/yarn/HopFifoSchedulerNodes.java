@@ -28,4 +28,11 @@ public class HopFifoSchedulerNodes {
     public int getFicaSchedulerNodeID() {
         return ficaSchedulerNodeID;
     }
+
+    @Override
+    public String toString() {
+        return "HopFifoSchedulerNodes{" + "fifoSchedulerID=" + fifoSchedulerID + ", nodeidID=" + nodeidID + ", ficaSchedulerNodeID=" + ficaSchedulerNodeID + '}';
+    }
+    
+    
 }
