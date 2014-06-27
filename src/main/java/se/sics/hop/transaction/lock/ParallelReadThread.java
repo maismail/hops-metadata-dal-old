@@ -10,14 +10,20 @@ package se.sics.hop.transaction.lock;
  */
 public abstract class ParallelReadThread extends Thread {
   private long parentId;
+  private Object  params;
 
-  public ParallelReadThread(long parentId) {
+  public ParallelReadThread(long parentId, Object params) {
     super();
     this.parentId = parentId;
+    this.params = params;
   }
   
   public long getParentId() {
     return parentId;
+  }
+
+  public Object getParams() {
+    return params;
   }
   
 }

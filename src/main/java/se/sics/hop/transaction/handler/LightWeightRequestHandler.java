@@ -19,6 +19,7 @@ public abstract class LightWeightRequestHandler extends RequestHandler {
     boolean retry = true;
     int tryCount = 0;
     IOException exception = null;
+    long totalTime = 0;
 
     try {
       while (retry && tryCount < RETRY_COUNT) {
@@ -35,8 +36,11 @@ public abstract class LightWeightRequestHandler extends RequestHandler {
           //then we will end up taking un necessary locks.
           //To make sure that we done have this problem I explicitly set the locks to read-commited. 
           connector.readCommitted();
-
-          return performTask();
+          totalTime = System.currentTimeMillis();
+          Object ret = performTask();
+          totalTime = System.currentTimeMillis() - totalTime;
+          log.debug("Total time taken. Time " + totalTime + " ms");
+          return ret;
         } catch (PersistanceException ex) {
           log.error("Could not perfortm task", ex);
           retry = true;
@@ -44,6 +48,7 @@ public abstract class LightWeightRequestHandler extends RequestHandler {
           exception = ex;
         } finally {
           NDC.pop();
+          NDC.remove();
           if (tryCount == RETRY_COUNT && exception != null) {
             throw exception;
           }

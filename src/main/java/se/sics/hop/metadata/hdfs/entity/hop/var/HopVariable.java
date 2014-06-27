@@ -69,57 +69,57 @@ public abstract class HopVariable {
 
     public abstract byte[] getBytes();
 
-    public abstract Object getValue();
+  public abstract Object getValue();
 
-    public abstract int getLength();
+  public abstract int getLength();
 
-    public Finder getType() {
-        return type;
+  public Finder getType() {
+    return type;
+  }
+
+  public static HopVariable getVariable(byte varType) {
+    Finder type = Finder.getFinder(varType);
+    return getVariable(type);
+  }
+
+  public static HopVariable getVariable(Finder varType) {
+    switch (varType) {
+
+      case GenericInteger:
+        return new HopIntVariable(varType);
+      case GenericLong:
+        return new HopLongVariable(varType);
+      case GenericString:
+        return new HopStringVariable(varType);
+      case GenericByteArray:
+        return new HopByteArrayVariable(varType);
+      case GenericArray:
+        return new HopArrayVariable(varType);
+
+      case GenerationStamp:
+        return new HopLongVariable(varType);
+      case BlockID:
+        return new HopLongVariable(varType);
+      case INodeID:
+        return new HopIntVariable(varType);
+      case ReplicationIndex:
+        return new HopArrayVariable(varType);
+      case StorageInfo:
+        return new HopArrayVariable(varType);
+      
+      case BlockTokenKeys:
+        return new HopArrayVariable(varType);
+      case BTCurrKey:
+      case BTNextKey:
+      case BTSimpleKey:
+        return new HopByteArrayVariable(varType);
+      case SIdCounter:
+        return new HopIntVariable(varType);
+      case MaxNNID:
+        return new HopLongVariable(varType);
     }
-
-    public static HopVariable getVariable(byte varType) {
-        Finder type = Finder.getFinder(varType);
-        return getVariable(type);
-    }
-
-    public static HopVariable getVariable(Finder varType) {
-        switch (varType) {
-
-            case GenericInteger:
-                return new HopIntVariable(varType);
-            case GenericLong:
-                return new HopLongVariable(varType);
-            case GenericString:
-                return new HopStringVariable(varType);
-            case GenericByteArray:
-                return new HopByteArrayVariable(varType);
-            case GenericArray:
-                return new HopArrayVariable(varType);
-
-            case GenerationStamp:
-                return new HopLongVariable(varType);
-            case BlockID:
-                return new HopLongVariable(varType);
-            case INodeID:
-                return new HopLongVariable(varType);
-            case ReplicationIndex:
-                return new HopArrayVariable(varType);
-            case StorageInfo:
-                return new HopArrayVariable(varType);
-
-            case BlockTokenKeys:
-                return new HopArrayVariable(varType);
-            case BTCurrKey:
-            case BTNextKey:
-            case BTSimpleKey:
-                return new HopByteArrayVariable(varType);
-            case SIdCounter:
-                return new HopIntVariable(varType);
-            case MaxNNID:
-                return new HopLongVariable(varType);
-        }
-        return null;
-    }
+    return null;
+  }
 
     public static HopVariable initVariable(Finder varType, byte[] varData) {
         HopVariable var = getVariable(varType);

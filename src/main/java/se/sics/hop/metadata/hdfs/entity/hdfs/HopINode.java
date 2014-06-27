@@ -11,9 +11,9 @@ import java.util.Comparator;
  */
 public class HopINode implements Comparable<HopINode> {
 
-    private long id;
+    private int id;
     private String name;
-    private long parent_id;
+    private int parent_id;
     private int is_dir;
     private int is_dir_with_quota;
     private long modification_time;
@@ -30,7 +30,7 @@ public class HopINode implements Comparable<HopINode> {
     public HopINode(){
     }
     
-    public HopINode(long id, String name, long parent_id, int is_dir, int is_dir_with_quota, long modification_time, long access_time, byte[] permission, int is_under_construction, String client_name, String client_machine, String client_node, int is_closed_file, long header, String symlink) {
+    public HopINode(int id, String name, int parent_id, int is_dir, int is_dir_with_quota, long modification_time, long access_time, byte[] permission, int is_under_construction, String client_name, String client_machine, String client_node, int is_closed_file, long header, String symlink) {
         this.id = id;
         this.name = name;
         this.parent_id = parent_id;
@@ -48,7 +48,7 @@ public class HopINode implements Comparable<HopINode> {
         this.symlink = symlink;
     }
 
-    public long getId() {
+    public int getId() {
         return id;
     }
 
@@ -56,7 +56,7 @@ public class HopINode implements Comparable<HopINode> {
         return name;
     }
 
-    public long getParentId() {
+    public int getParentId() {
         return parent_id;
     }
 
@@ -108,7 +108,7 @@ public class HopINode implements Comparable<HopINode> {
         return symlink;
     }
 
-    public void setId(long id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -116,7 +116,7 @@ public class HopINode implements Comparable<HopINode> {
         this.name = name;
     }
 
-    public void setParentId(long parent_id) {
+    public void setParentId(int parent_id) {
         this.parent_id = parent_id;
     }
 
