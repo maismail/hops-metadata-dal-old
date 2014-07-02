@@ -19,7 +19,7 @@ public interface INodeTableDef {
   public static final String CLIENT_NAME = "client_name";
   public static final String CLIENT_MACHINE = "client_machine";
   public static final String CLIENT_NODE = "client_node";
-  public static final String IS_CLOSED_FILE = "is_closed_file";
+  public static final String GENERATION_STAMP = "generation_stamp";
   public static final String HEADER = "header";
   public static final String IS_DIR_WITH_QUOTA = "is_dir_with_quota";
   public static final String SYMLINK = "symlink";
