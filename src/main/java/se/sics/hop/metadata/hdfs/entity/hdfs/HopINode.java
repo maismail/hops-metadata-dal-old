@@ -23,14 +23,14 @@ public class HopINode implements Comparable<HopINode> {
     private String client_name;
     private String client_machine;
     private String client_node;
-    private int is_closed_file;
+    private int generation_stamp;
     private long header;
     private String symlink;
 
     public HopINode(){
     }
     
-    public HopINode(int id, String name, int parent_id, int is_dir, int is_dir_with_quota, long modification_time, long access_time, byte[] permission, int is_under_construction, String client_name, String client_machine, String client_node, int is_closed_file, long header, String symlink) {
+    public HopINode(int id, String name, int parent_id, int is_dir, int is_dir_with_quota, long modification_time, long access_time, byte[] permission, int is_under_construction, String client_name, String client_machine, String client_node, int generation_stamp, long header, String symlink) {
         this.id = id;
         this.name = name;
         this.parent_id = parent_id;
@@ -43,7 +43,7 @@ public class HopINode implements Comparable<HopINode> {
         this.client_name = client_name;
         this.client_machine = client_machine;
         this.client_node = client_node;
-        this.is_closed_file = is_closed_file;
+        this.generation_stamp = generation_stamp;
         this.header = header;
         this.symlink = symlink;
     }
@@ -96,8 +96,8 @@ public class HopINode implements Comparable<HopINode> {
         return client_node;
     }
 
-    public int getIsClosedFile() {
-        return is_closed_file;
+    public int getGenerationStamp() {
+        return generation_stamp;
     }
 
     public long getHeader() {
@@ -156,8 +156,8 @@ public class HopINode implements Comparable<HopINode> {
         this.client_node = client_node;
     }
 
-    public void setIsClosedFile(int is_closed_file) {
-        this.is_closed_file = is_closed_file;
+    public void setGenerationStamp(int generation_stamp) {
+        this.generation_stamp = generation_stamp;
     }
 
     public void setHeader(long header) {

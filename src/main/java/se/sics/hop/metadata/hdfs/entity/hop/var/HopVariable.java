@@ -13,14 +13,11 @@ public abstract class HopVariable {
 
     public static void registerVariableDefaultValue(Finder variable, byte[] defaultValue) {
         defaultValues.put(variable, defaultValue);
-    }
 
     public static enum Finder implements FinderType<HopVariable> {
 
         //Named Variables
-//Named Variables
 
-        GenerationStamp,
         BlockID,
         INodeID,
         ReplicationIndex,
@@ -96,8 +93,6 @@ public abstract class HopVariable {
       case GenericArray:
         return new HopArrayVariable(varType);
 
-      case GenerationStamp:
-        return new HopLongVariable(varType);
       case BlockID:
         return new HopLongVariable(varType);
       case INodeID:
