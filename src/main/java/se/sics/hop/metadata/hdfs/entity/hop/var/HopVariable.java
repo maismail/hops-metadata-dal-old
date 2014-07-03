@@ -9,62 +9,61 @@ import java.util.EnumMap;
  */
 public abstract class HopVariable {
 
-    public final static EnumMap<Finder, byte[]> defaultValues = new EnumMap(Finder.class);
+  public final static EnumMap<Finder, byte[]> defaultValues = new EnumMap(Finder.class);
 
-    public static void registerVariableDefaultValue(Finder variable, byte[] defaultValue) {
-        defaultValues.put(variable, defaultValue);
+  public static void registerVariableDefaultValue(Finder variable, byte[] defaultValue) {
+    defaultValues.put(variable, defaultValue);
+  }
 
-    public static enum Finder implements FinderType<HopVariable> {
+  public static enum Finder implements FinderType<HopVariable> {
 
-        //Named Variables
+    //Named Variables
+    BlockID,
+    INodeID,
+    ReplicationIndex,
+    StorageInfo,
+    BlockTokenKeys,
+    BTCurrKey,
+    BTNextKey,
+    BTSimpleKey,
+    SIdCounter,
+    MaxNNID,
+    //Generic Variables
+    GenericInteger,
+    GenericLong,
+    GenericString,
+    GenericByteArray,
+    GenericArray;
 
-        BlockID,
-        INodeID,
-        ReplicationIndex,
-        StorageInfo,
-        BlockTokenKeys,
-        BTCurrKey,
-        BTNextKey,
-        BTSimpleKey,
-        SIdCounter,
-        MaxNNID,
-        
-        //Generic Variables
-        GenericInteger,
-        GenericLong,
-        GenericString,
-        GenericByteArray,
-        GenericArray;
-
-        public int getId() {
-            return this.ordinal();
-        }
-
-        public byte[] getDefaultValue() {
-            return defaultValues.get(this);
-        }
-
-        public static Finder getFinder(int varType) {
-            if (varType >= Finder.values().length) {
-                throw new IllegalArgumentException("Variable Type " + varType + " doesn't exist");
-            }
-            return Finder.values()[varType];
-        }
-
-        @Override
-        public Class getType() {
-            return HopVariable.class;
-        }
-    }
-    private final Finder type;
-
-    public HopVariable(Finder type) {
-        this.type = type;
+    public int getId() {
+      return this.ordinal();
     }
 
-    public abstract void setValue(byte[] val);
+    public byte[] getDefaultValue() {
+      return defaultValues.get(this);
+    }
 
-    public abstract byte[] getBytes();
+    public static Finder getFinder(int varType) {
+      if (varType >= Finder.values().length) {
+        throw new IllegalArgumentException("Variable Type " + varType + " doesn't exist");
+      }
+      return Finder.values()[varType];
+    }
+
+    @Override
+    public Class getType() {
+      return HopVariable.class;
+    }
+  }
+  private final Finder type;
+
+  public HopVariable(Finder type) {
+    this.type = type;
+  }
+
+  public abstract void setValue(byte[] val);
+
+  public abstract byte[] getBytes();
 
   public abstract Object getValue();
 
@@ -101,7 +100,7 @@ public abstract class HopVariable {
         return new HopArrayVariable(varType);
       case StorageInfo:
         return new HopArrayVariable(varType);
-      
+
       case BlockTokenKeys:
         return new HopArrayVariable(varType);
       case BTCurrKey:
@@ -116,11 +115,11 @@ public abstract class HopVariable {
     return null;
   }
 
-    public static HopVariable initVariable(Finder varType, byte[] varData) {
-        HopVariable var = getVariable(varType);
-        if (var != null) {
-            var.setValue(varData);
-        }
-        return var;
+  public static HopVariable initVariable(Finder varType, byte[] varData) {
+    HopVariable var = getVariable(varType);
+    if (var != null) {
+      var.setValue(varData);
     }
+    return var;
+  }
 }
