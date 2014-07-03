@@ -1,8 +1,9 @@
 package se.sics.hop.transaction.handler;
 
 import java.io.IOException;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
+//import org.apache.commons.logging.Log;
+//import org.apache.commons.logging.LogFactory;
 import se.sics.hop.StorageConnector;
 import se.sics.hop.exception.PersistanceException;
 
@@ -14,7 +15,7 @@ public abstract class RequestHandler {
 
   public interface OperationType {
   }
-  protected static Log log = LogFactory.getLog(RequestHandler.class);
+  protected static Logger log = Logger.getLogger(RequestHandler.class);
   protected Object[] params = null;
   public static final int RETRY_COUNT = 2;
   protected OperationType opType;

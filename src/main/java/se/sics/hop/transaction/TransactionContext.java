@@ -4,8 +4,9 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
+//import org.apache.commons.logging.Log;
+//import org.apache.commons.logging.LogFactory;
 import se.sics.hop.exception.PersistanceException;
 import se.sics.hop.StorageConnector;
 import se.sics.hop.exception.StorageException;
@@ -20,7 +21,7 @@ import se.sics.hop.transaction.lock.TransactionLocks;
  */
 public class TransactionContext {
 
-  private static Log logger = LogFactory.getLog(TransactionContext.class);
+  private static Logger logger = Logger.getLogger(TransactionContext.class);
   private static String UNKNOWN_TYPE = "Unknown type:";
   private boolean activeTxExpected = false;
   private Map<Class, EntityContext> typeContextMap;

@@ -2,8 +2,9 @@ package se.sics.hop.metadata.hdfs.entity;
 
 import se.sics.hop.transaction.TransactionContext;
 import java.util.Collection;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
+//import org.apache.commons.logging.Log;
+//import org.apache.commons.logging.LogFactory;
 import se.sics.hop.exception.PersistanceException;
 import se.sics.hop.exception.StorageCallPreventedException;
 import se.sics.hop.exception.StorageException;
@@ -18,7 +19,7 @@ public abstract class EntityContext<T> {
   protected static String NOT_SUPPORTED_YET = "Not supported yet.";
   protected static String UNSUPPORTED_FINDER = "Unsupported finder.";
   protected static String UNSUPPORTED_COUNTER = "Unsupported counter.";
-  private static final Log LOG = LogFactory.getLog(TransactionContext.class);
+  private static final Logger LOG = Logger.getLogger(TransactionContext.class);
   public static final String ANSI_RESET = "\u001B[0m";
   public static final String ANSI_BLACK = "\u001B[30m";
   public static final String ANSI_RED = "\u001B[31m";
