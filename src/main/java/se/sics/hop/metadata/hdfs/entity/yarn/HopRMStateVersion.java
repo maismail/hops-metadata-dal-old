@@ -10,11 +10,11 @@ package se.sics.hop.metadata.hdfs.entity.yarn;
  *
  * @author nickstanogias
  */
-public class HopVersion {
+public class HopRMStateVersion {
     private final int id;
     private final byte[] version;
 
-    public HopVersion(int id, byte[] version) {
+    public HopRMStateVersion(int id, byte[] version) {
         this.id = id;
         this.version = version;
     }
