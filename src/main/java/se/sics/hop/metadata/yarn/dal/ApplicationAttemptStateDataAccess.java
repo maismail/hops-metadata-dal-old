@@ -15,7 +15,9 @@ public interface ApplicationAttemptStateDataAccess<T> extends EntityDataAccess {
 
     List<T> findByApplicationId(int applicationid) throws StorageException;
 
-    List<String> findByApplicationAttemptIdByApplicationId(int applicationid) throws StorageException;
+    List<String> findApplicationAttemptIdStrByApplicationId(String applicationid) throws StorageException;
+    
+    List<T> findApplicationAttemptIdByApplicationId(String applicationid) throws StorageException;
     
     void prepare(Collection<T> modified, Collection<T> removed) throws StorageException;
 

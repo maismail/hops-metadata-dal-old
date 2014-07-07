@@ -27,4 +27,14 @@ public class HopApplicationAttemptState {
     public byte[] getApplicationattemptstate() {
         return applicationattemptstate;
     }
+    
+    @Override
+    public String toString() {
+        String str = "HopApplicationState{" + "applicationid=" + applicationid +", applicationattemptid=" +applicationattemptid;
+        if (applicationattemptstate != null) {
+            str += ", applicationattemptstate length=" + applicationattemptstate.length;
+        }
+        str += '}';
+        return str;
+    }
 }

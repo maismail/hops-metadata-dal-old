@@ -21,4 +21,14 @@ public class HopApplicationState {
     public byte[] getAppstate() {
         return this.appstate;
     }
+
+    @Override
+    public String toString() {
+        String str = "HopApplicationState{" + "applicationid=" + applicationid;
+        if (appstate != null) {
+            str += ", appstate length=" + appstate.length;
+        }
+        str += '}';
+        return str;
+    }
 }
