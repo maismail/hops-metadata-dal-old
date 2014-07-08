@@ -69,7 +69,7 @@ public abstract class TransactionalRequestHandler extends RequestHandler {
         txStartTime = System.currentTimeMillis();
         oldTime = System.currentTimeMillis();
         log.debug("Pretransaction phase started");
-        setUp();
+        preTransactionSetup();
         
         //sometimes in setup we call light weight request handler that messes up with the NDC
         removeNDC();
@@ -194,7 +194,7 @@ public abstract class TransactionalRequestHandler extends RequestHandler {
     return this;
   }
 
-  public void setUp() throws PersistanceException, IOException {
+  public void preTransactionSetup() throws PersistanceException, IOException {
     // Do nothing.
     // This can be overriden.
   }
