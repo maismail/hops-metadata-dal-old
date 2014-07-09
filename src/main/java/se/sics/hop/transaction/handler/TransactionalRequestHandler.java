@@ -54,11 +54,11 @@ public abstract class TransactionalRequestHandler extends RequestHandler {
       txSuccessful = false;
 
       long oldTime = 0;
-      long setupTime = 0;
-      long acquireLockTime = 0;
-      long inMemoryProcessingTime = 0;
-      long commitTime = 0;
-      long totalTime = 0;
+      long setupTime = -1;
+      long acquireLockTime = -1;
+      long inMemoryProcessingTime = -1;
+      long commitTime = -1;
+      long totalTime = -1;
       EntityManager.preventStorageCall(false);
       
       try {
@@ -133,12 +133,18 @@ public abstract class TransactionalRequestHandler extends RequestHandler {
         } else {
           exception = ex;
           rollback = true;
-          if (ex instanceof StorageException) {
+          if (ex instanceof PersistanceException) {
             retry = true;
           } else {
             retry = false;
           }
-          log.error("Tx Failed. total tx time " + (System.currentTimeMillis() - txStartTime) + " msec. Retry(" + retry + ") TotalRetryCount(" + RETRY_COUNT + ") RemainingRetries(" + (RETRY_COUNT - tryCount) + ")", ex);
+          log.error("Tx Failed. total tx time " + (System.currentTimeMillis() - txStartTime) + 
+                  " msec. Retry(" + retry + ") TotalRetryCount(" + RETRY_COUNT + 
+                  ") RemainingRetries(" + (RETRY_COUNT - tryCount) + 
+                  ") TX Stats : Acquire Locks: " + acquireLockTime + 
+                  "ms, In Memory Processing: " + inMemoryProcessingTime + 
+                  "ms, Commit Time: " + commitTime + 
+                  "ms, Total Time: " + totalTime + "ms", ex);
         }
       } finally {
         if (rollback) {
