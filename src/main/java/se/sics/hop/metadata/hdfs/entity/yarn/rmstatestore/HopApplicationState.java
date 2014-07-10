@@ -1,4 +1,4 @@
-package se.sics.hop.metadata.hdfs.entity.yarn;
+package se.sics.hop.metadata.hdfs.entity.yarn.rmstatestore;
 
 /**
  *

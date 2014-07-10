@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-package se.sics.hop.metadata.hdfs.entity.yarn;
+package se.sics.hop.metadata.hdfs.entity.yarn.rmstatestore;
 
 /**
  *

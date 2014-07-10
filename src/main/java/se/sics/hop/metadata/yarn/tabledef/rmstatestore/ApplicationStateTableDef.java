@@ -1,4 +1,4 @@
-package se.sics.hop.metadata.yarn.tabledef;
+package se.sics.hop.metadata.yarn.tabledef.rmstatestore;
 
 /**
  *
