@@ -30,5 +30,5 @@ public interface InvalidateBlockDataAccess<T> extends EntityDataAccess {
 
   void removeAll() throws StorageException;
 
-  void remove(T invBlk);
+  void remove(T invBlk) throws StorageException;;
 }
