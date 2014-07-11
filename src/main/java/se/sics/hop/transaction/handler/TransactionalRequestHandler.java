@@ -128,7 +128,7 @@ public abstract class TransactionalRequestHandler extends RequestHandler {
           retry = false;
           rollback = true;
           log.warn("Exception in Post Tx Stage. Exception is " + ex);
-          ex.printStackTrace();
+          //ex.printStackTrace();
           return txRetValue;
         } else {
           exception = ex;
