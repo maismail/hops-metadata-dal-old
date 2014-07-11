@@ -18,6 +18,8 @@ public interface INodeDataAccess<T> extends EntityDataAccess {
 
   T pkLookUpFindInodeByNameAndParentId(String name, int parentId) throws StorageException;
 
+  List<T> getINodesPkBatched(String[] names, int[] parentIds) throws StorageException;
+  
   void prepare(Collection<T> removed, Collection<T> newed, Collection<T> modified) throws StorageException;
 
   int countAll() throws StorageException;
