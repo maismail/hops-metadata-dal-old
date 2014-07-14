@@ -10,4 +10,5 @@ public interface CorruptReplicaTableDef {
   public static final String BLOCK_ID = "block_id";
   public static final String INODE_ID = "inode_id";
   public static final String STORAGE_ID = "storage_id";
+  public static final String TIMESTAMP = "timestamp";
 }
