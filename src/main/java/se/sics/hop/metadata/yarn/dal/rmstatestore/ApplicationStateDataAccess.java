@@ -1,4 +1,4 @@
-package se.sics.hop.metadata.yarn.dal;
+package se.sics.hop.metadata.yarn.dal.rmstatestore;
 
 import java.util.Collection;
 import java.util.List;
