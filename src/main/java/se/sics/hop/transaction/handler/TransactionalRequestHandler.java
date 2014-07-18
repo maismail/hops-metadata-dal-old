@@ -85,6 +85,11 @@ public abstract class TransactionalRequestHandler extends RequestHandler {
         locks = acquireLock();
         acquireLockTime = (System.currentTimeMillis() - oldTime);
         log.debug("All Locks Acquired. Time " + acquireLockTime + " ms");
+        
+        //sometimes in setup we call light weight request handler that messes up with the NDC
+        removeNDC();
+        setNDC(info);
+        
         oldTime = System.currentTimeMillis();
         EntityManager.preventStorageCall(true);
 
