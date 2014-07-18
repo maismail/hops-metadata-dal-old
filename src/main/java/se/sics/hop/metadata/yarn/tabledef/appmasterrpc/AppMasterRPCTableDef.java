@@ -13,6 +13,6 @@ package se.sics.hop.metadata.yarn.tabledef.appmasterrpc;
 public interface AppMasterRPCTableDef {
     public static final String TABLE_NAME = "appmaster_rpc";
     public static final String ID = "id";
-    public static final String ENUM = "enum";
-    public static final String PROTO = "proto";
+    public static final String TYPE = "type";
+    public static final String RPC = "rpc";
 }
