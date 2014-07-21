@@ -9,13 +9,13 @@ public class HopApplicationId {
     private int ndbId;
     private int id;
     private long clustertimestamp;
-    private int finished;
+    //private int finished;
 
-    public HopApplicationId(int ndbId, int id, long clustertimestamp, int finished) {
+    public HopApplicationId(int ndbId, int id, long clustertimestamp) {
         this.ndbId = ndbId;
         this.id = id;
         this.clustertimestamp = clustertimestamp;
-        this.finished = finished;
+        //this.finished = finished;
     }
 
     public int getNdbId() {
@@ -36,7 +36,7 @@ public class HopApplicationId {
      *
      * @return
      */
-    public int getFinished() {
-        return finished;
-    }
+//    public int getFinished() {
+//        return finished;
+//    }
 }
