@@ -27,11 +27,12 @@ public class HopRMNode {
     private final int resourceId;
     private final int nodebaseId;
     private final String healthReport;
-    private final int rmcontextId;
     private final long lastHealthReportTime;
     private final String currentState;
+    private final String nodemanagerVersion;
+    private final int overcommittimeout;
 
-    public HopRMNode(int nodeId, String hostName, int commandPort, int httpPort, String nodeAddress, String httpAddress, boolean nextHeartbeat, int resourceId, int nodebaseId, String healthReport, int rmcontextId, long lastHealthReportTime, String currentState) {
+    public HopRMNode(int nodeId, String hostName, int commandPort, int httpPort, String nodeAddress, String httpAddress, boolean nextHeartbeat, int resourceId, int nodebaseId, String healthReport, long lastHealthReportTime, String currentState, String nodemanagerVersion, int overcommittimeout) {
         this.nodeId = nodeId;
         this.hostName = hostName;
         this.commandPort = commandPort;
@@ -42,9 +43,18 @@ public class HopRMNode {
         this.resourceId = resourceId;
         this.nodebaseId = nodebaseId;
         this.healthReport = healthReport;
-        this.rmcontextId = rmcontextId;
         this.lastHealthReportTime = lastHealthReportTime;
         this.currentState = currentState;
+        this.nodemanagerVersion = nodemanagerVersion;
+        this.overcommittimeout = overcommittimeout;
+    }
+
+    public String getNodemanagerVersion() {
+        return nodemanagerVersion;
+    }
+
+    public int getOvercommittimeout() {
+        return overcommittimeout;
     }
 
     public int getNodeId() {
@@ -85,10 +95,6 @@ public class HopRMNode {
 
     public String getHealthReport() {
         return healthReport;
-    }
-
-    public int getRmcontextId() {
-        return rmcontextId;
     }
 
     public long getLastHealthReportTime() {

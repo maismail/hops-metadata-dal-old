@@ -7,18 +7,12 @@ package se.sics.hop.metadata.hdfs.entity.yarn;
  */
 public class HopRMContextNodes {
 
-    private final int rmcontextid;
     private final int nodeidId;
     private final int rmnodeId;
 
-    public HopRMContextNodes(int rmcontextid, int nodeidId, int rmnodeId) {
-        this.rmcontextid = rmcontextid;
+    public HopRMContextNodes(int nodeidId, int rmnodeId) {
         this.nodeidId = nodeidId;
         this.rmnodeId = rmnodeId;
-    }
-
-    public int getRmcontextid() {
-        return rmcontextid;
     }
 
     public int getNodeidId() {

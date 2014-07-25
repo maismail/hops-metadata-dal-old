@@ -7,9 +7,9 @@ package se.sics.hop.metadata.hdfs.entity.yarn;
 public class HopNodeHBResponse {
 
     private final int id;
-    private final int responseid;
+    private final byte[] responseid;
 
-    public HopNodeHBResponse(int id, int responseid) {
+    public HopNodeHBResponse(int id, byte[] responseid) {
         this.id = id;
         this.responseid = responseid;
     }
@@ -18,7 +18,7 @@ public class HopNodeHBResponse {
         return id;
     }
 
-    public int getResponseid() {
+    public byte[] getResponseid() {
         return responseid;
     }
 }

@@ -2,9 +2,11 @@ package se.sics.hop.metadata.yarn.tabledef;
 
 /**
  * Defines table structure for RMNodeImpl class.
+ *
  * @author Theofilos Kakantousis <tkak@sics.se>
  */
 public interface RMNodeTableDef {
+
     public static final String TABLE_NAME = "ha_rmnode";
     public static final String NODEID = "nodeid";
     public static final String HOST_NAME = "hostname";
@@ -20,4 +22,7 @@ public interface RMNodeTableDef {
     public static final String LAST_HEALTH_REPORT_TIME = "lasthealthreporttime";
     public static final String NODEHBRESPONSE_ID = "lastnodehbresponse_id";
     public static final String CURRENT_STATE = "currentstate";
+    public static final String OVERCOMMIT_TIMEOUT = "overcommittimeout";
+    public static final String NODEMANAGER_VERSION = "nodemanager_version";
+
 }

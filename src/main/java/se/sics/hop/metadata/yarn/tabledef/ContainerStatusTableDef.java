@@ -12,6 +12,6 @@ public interface ContainerStatusTableDef {
     public static final String CONTAINER_ID = "containerid";
     public static final String DIAGNOSTICS = "diagnostics";
     public static final String EXIT_STATUS = "exitstatus";
-    public static final String TYPE = "type";
-    public static final String UPDATEDCONTAINERINFO_ID = "updatedcontainerinfoid";
+    //public static final String TYPE = "type";
+    //public static final String UPDATEDCONTAINERINFO_ID = "updatedcontainerinfoid";
 }
