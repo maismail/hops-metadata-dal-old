@@ -54,11 +54,11 @@ public abstract class TransactionalRequestHandler extends RequestHandler {
       txSuccessful = false;
 
       long oldTime = 0;
-      long setupTime = 0;
-      long acquireLockTime = 0;
-      long inMemoryProcessingTime = 0;
-      long commitTime = 0;
-      long totalTime = 0;
+      long setupTime = -1;
+      long acquireLockTime = -1;
+      long inMemoryProcessingTime = -1;
+      long commitTime = -1;
+      long totalTime = -1;
       EntityManager.preventStorageCall(false);
       
       try {
@@ -117,7 +117,7 @@ public abstract class TransactionalRequestHandler extends RequestHandler {
         log.debug("TX committed. Time " + commitTime + " ms");
         oldTime = System.currentTimeMillis();
         totalTime = (System.currentTimeMillis() - txStartTime);
-        log.debug("TX Finished. TX Stats : Acquire Locks: " + acquireLockTime + "ms, In Memory Processing: " + inMemoryProcessingTime + "ms, Commit Time: " + commitTime + "ms, Total Time: " + totalTime + "ms");
+        log.debug("TX Finished. TX Stats: Stepup: "+setupTime+"ms Acquire Locks: " + acquireLockTime + "ms, In Memory Processing: " + inMemoryProcessingTime + "ms, Commit Time: " + commitTime + "ms, Total Time: " + totalTime + "ms");
 
         //post TX phase
         //any error in this phase will not re-start the tx
@@ -133,17 +133,23 @@ public abstract class TransactionalRequestHandler extends RequestHandler {
           retry = false;
           rollback = true;
           log.warn("Exception in Post Tx Stage. Exception is " + ex);
-          ex.printStackTrace();
+          //ex.printStackTrace();
           return txRetValue;
         } else {
           exception = ex;
           rollback = true;
-          if (ex instanceof StorageException) {
+          if (ex instanceof PersistanceException) {
             retry = true;
           } else {
             retry = false;
           }
-          log.error("Tx Failed. total tx time " + (System.currentTimeMillis() - txStartTime) + " msec. Retry(" + retry + ") TotalRetryCount(" + RETRY_COUNT + ") RemainingRetries(" + (RETRY_COUNT - tryCount) + ")", ex);
+          log.error("Tx Failed. total tx time " + (System.currentTimeMillis() - txStartTime) + 
+                  " msec. Retry(" + retry + ") TotalRetryCount(" + RETRY_COUNT + 
+                  ") RemainingRetries(" + (RETRY_COUNT - tryCount) + 
+                  ") TX Stats: Stepup: "+setupTime+"ms Acquire Locks: " + acquireLockTime + 
+                  "ms, In Memory Processing: " + inMemoryProcessingTime + 
+                  "ms, Commit Time: " + commitTime + 
+                  "ms, Total Time: " + totalTime + "ms", ex);
         }
       } finally {
         if (rollback) {
@@ -162,7 +168,7 @@ public abstract class TransactionalRequestHandler extends RequestHandler {
         if ((tryCount == RETRY_COUNT && exception != null && exception instanceof StorageException/*&& retry == true && !txSuccessful*/) // run out of retries and there is an exception
              || ( exception != null && !(exception instanceof StorageException))  //non storage exceptions are not retried. // you may or may not have exhausted the retry count but the tx failed because of some exception like file not found etc. in this case just throw the exception and dont retry
                 ) {
-          log.debug("Throwing exception " + exception);
+          log.debug("Transaction failed after "+RETRY_COUNT+" retries. Throwing exception " + exception);
           if (exception instanceof IOException) {
             throw (IOException) exception;
           } else if (exception instanceof RuntimeException) { // runtime exceptions etc

@@ -91,22 +91,22 @@ public class EntityManager {
     context().snapshotMaintenance(cmds, params);
   }
 
-  public static void writeLock() {
+  public static void writeLock() throws StorageException {
     EntityContext.setLockMode(EntityContext.LockMode.WRITE_LOCK);
     contextInitializer.getConnector().writeLock();
   }
 
-  public static void readLock() {
+  public static void readLock() throws StorageException {
     EntityContext.setLockMode(EntityContext.LockMode.READ_LOCK);
     contextInitializer.getConnector().readLock();
   }
 
-  public static void readCommited() {
+  public static void readCommited() throws StorageException {
     EntityContext.setLockMode(EntityContext.LockMode.READ_COMMITTED);
     contextInitializer.getConnector().readCommitted();
   }
 
-  public static void setPartitionKey(Class name, Object key) {
+  public static void setPartitionKey(Class name, Object key) throws StorageException {
     contextInitializer.getConnector().setPartitionKey(name, key);
   }
 
