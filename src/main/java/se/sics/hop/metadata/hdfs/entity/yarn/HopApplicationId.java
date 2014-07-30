@@ -6,20 +6,13 @@ package se.sics.hop.metadata.hdfs.entity.yarn;
  */
 public class HopApplicationId {
 
-    private int ndbId;
-    private int id;
-    private long clustertimestamp;
+    private final int id;
+    private final long clustertimestamp;
     //private int finished;
 
-    public HopApplicationId(int ndbId, int id, long clustertimestamp) {
-        this.ndbId = ndbId;
+    public HopApplicationId(int id, long clustertimestamp) {
         this.id = id;
         this.clustertimestamp = clustertimestamp;
-        //this.finished = finished;
-    }
-
-    public int getNdbId() {
-        return ndbId;
     }
 
     public int getId() {

@@ -11,26 +11,19 @@ package se.sics.hop.metadata.hdfs.entity.yarn;
  * @author nickstanogias
  */
 public class HopFifoSchedulerApps {
-    private int fifoscheduler_id;
-    private int applicationattemptid_id;
-    private int ficaschedulerapp_id;
+    private final int applicationid;
+    private final int schedulerapplication_id;
 
-    
-    public HopFifoSchedulerApps(int fifoscheduler_id, int applicationattemptid_id, int ficaschedulerapp_id) {
-        this.fifoscheduler_id = fifoscheduler_id;
-        this.applicationattemptid_id = applicationattemptid_id;
-        this.ficaschedulerapp_id = ficaschedulerapp_id;
-    }
-        
-    public int getFifoscheduler_id() {
-        return fifoscheduler_id;
+    public HopFifoSchedulerApps(int applicationid, int schedulerapplication_id) {
+        this.applicationid = applicationid;
+        this.schedulerapplication_id = schedulerapplication_id;
     }
 
-    public int getApplicationattemptid_id() {
-        return applicationattemptid_id;
+    public int getApplicationid() {
+        return applicationid;
     }
 
-    public int getFicaschedulerapp_id() {
-        return ficaschedulerapp_id;
+    public int getSchedulerapplication_id() {
+        return schedulerapplication_id;
     }
 }
