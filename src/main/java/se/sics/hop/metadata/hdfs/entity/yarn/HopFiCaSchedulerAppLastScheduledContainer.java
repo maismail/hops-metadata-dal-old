@@ -8,19 +8,17 @@ package se.sics.hop.metadata.hdfs.entity.yarn;
 
 /**
  *
- * @author nickstanogias
+ * @author Nikos Stanogias <niksta@sics.se>
  */
-public class HopFiCaSchedulerAppReservedContainers {
+public class HopFiCaSchedulerAppLastScheduledContainer {
     private final int ficaschedulerapp_id;
     private final int priority_id;
-    private final int nodeid;
-    private final int rmcontainer_id;
+    private final long time;
 
-    public HopFiCaSchedulerAppReservedContainers(int ficaschedulerapp_id, int priority_id, int nodeid, int rmcontainer_id) {
+    public HopFiCaSchedulerAppLastScheduledContainer(int ficaschedulerapp_id, int priority_id, long time) {
         this.ficaschedulerapp_id = ficaschedulerapp_id;
         this.priority_id = priority_id;
-        this.nodeid = nodeid;
-        this.rmcontainer_id = rmcontainer_id;
+        this.time = time;
     }
 
     public int getFicaschedulerapp_id() {
@@ -31,11 +29,7 @@ public class HopFiCaSchedulerAppReservedContainers {
         return priority_id;
     }
 
-    public int getNodeid() {
-        return nodeid;
-    }
-
-    public int getRmcontainer_id() {
-        return rmcontainer_id;
+    public long getTime() {
+        return time;
     }
 }
