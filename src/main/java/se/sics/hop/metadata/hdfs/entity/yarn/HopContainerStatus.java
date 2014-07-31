@@ -7,34 +7,24 @@ package se.sics.hop.metadata.hdfs.entity.yarn;
  */
 public class HopContainerStatus {
 
-    private int id = Integer.MIN_VALUE;
+    private final String containerid;
     private final String state;
-    private int containerid = Integer.MIN_VALUE;
     private final String diagnostics;
     private final int exitstatus;
-    //private final String type;
-    //private int updatedcontainerinfoid = Integer.MIN_VALUE;
 
-    public HopContainerStatus(int id, String state, int containerid, String diagnostics, int exitstatus/*, String type, int updatedcontainerinfoid*/) {
-        this.id = id;
-        this.state = state;
+    public HopContainerStatus(String containerid, String state, String diagnostics, int exitstatus) {
         this.containerid = containerid;
+        this.state = state;
         this.diagnostics = diagnostics;
         this.exitstatus = exitstatus;
-        //this.type = type;
-        //this.updatedcontainerinfoid = updatedcontainerinfoid;
     }
 
-    public int getId() {
-        return id;
+    public String getContainerid() {
+        return containerid;
     }
 
     public String getState() {
         return state;
-    }
-
-    public int getContainerid() {
-        return containerid;
     }
 
     public String getDiagnostics() {
@@ -44,12 +34,4 @@ public class HopContainerStatus {
     public int getExitstatus() {
         return exitstatus;
     }
-
-    /*public String getType() {
-     return type;
-     }
-
-     public int getUpdatedcontainerinfoid() {
-     return updatedcontainerinfoid;
-     }*/
 }

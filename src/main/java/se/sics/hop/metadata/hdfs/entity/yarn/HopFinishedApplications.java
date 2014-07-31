@@ -1,23 +1,20 @@
 package se.sics.hop.metadata.hdfs.entity.yarn;
 
 /**
+ * Pojo for RMNode.finishedApplications list.
  *
  * @author Theofilos Kakantousis <tkak@sics.se>
  */
-public class HopUpdatedContainerInfo {
+public class HopFinishedApplications {
 
-    private final int id;
     private final String hostname;
     private final int commandport;
+    private final int applicationId;
 
-    public HopUpdatedContainerInfo(int id, String hostname, int commandport) {
-        this.id = id;
+    public HopFinishedApplications(String hostname, int commandport, int applicationId) {
         this.hostname = hostname;
         this.commandport = commandport;
-    }
-
-    public int getId() {
-        return id;
+        this.applicationId = applicationId;
     }
 
     public String getHostname() {
@@ -26,5 +23,9 @@ public class HopUpdatedContainerInfo {
 
     public int getCommandport() {
         return commandport;
+    }
+
+    public int getApplicationId() {
+        return applicationId;
     }
 }

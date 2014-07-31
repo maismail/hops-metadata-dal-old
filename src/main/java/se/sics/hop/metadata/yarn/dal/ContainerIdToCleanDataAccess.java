@@ -10,7 +10,7 @@ import se.sics.hop.metadata.hdfs.dal.EntityDataAccess;
  */
 public interface ContainerIdToCleanDataAccess<T> extends EntityDataAccess {
 
-    T findEntry(int rmnodeid, int containerid) throws StorageException;
+    T findEntry(String hostname, int commandport, String containerid) throws StorageException;
 
     void prepare(Collection<T> modified, Collection<T> removed) throws StorageException;
 }

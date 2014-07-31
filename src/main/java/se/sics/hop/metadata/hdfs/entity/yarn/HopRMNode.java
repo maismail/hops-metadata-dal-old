@@ -1,22 +1,11 @@
 package se.sics.hop.metadata.hdfs.entity.yarn;
 
-import se.sics.hop.metadata.hdfs.entity.FinderType;
-
 /**
  *
  * @author Theofilos Kakantousis <tkak@sics.se>
  */
 public class HopRMNode {
 
-    public static enum Finder implements FinderType<HopRMNode> {
-
-        ByNodeId, ByHostNameHttpPort, ByNodeAddress;
-
-        @Override
-        public Class getType() {
-            return HopRMNode.class;
-        }
-    }
     private final int nodeId;
     private final String hostName;
     private final int commandPort;

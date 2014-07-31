@@ -10,7 +10,7 @@ import se.sics.hop.metadata.hdfs.dal.EntityDataAccess;
  */
 public interface JustLaunchedContainersDataAccess<T> extends EntityDataAccess {
 
-    T findEntry(int key, int rmnode) throws StorageException;
+    T findEntry(String hostname, int commandport, int containerId) throws StorageException;
 
     void prepare(Collection<T> modified, Collection<T> removed) throws StorageException;
 
