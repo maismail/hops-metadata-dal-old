@@ -12,6 +12,8 @@ public interface ApplicationAttemptIdDataAccess<T> extends EntityDataAccess {
 
     T findById(int id) throws StorageException;
 
+    T findByAttemptIdAppId(int attemptId, int appId) throws StorageException; 
+    
     void prepare(Collection<T> modified, Collection<T> removed) throws StorageException;
 
     void createApplicationAttemptId(T applicationattemptid) throws StorageException;
