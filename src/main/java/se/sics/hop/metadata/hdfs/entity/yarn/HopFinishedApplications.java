@@ -7,25 +7,19 @@ package se.sics.hop.metadata.hdfs.entity.yarn;
  */
 public class HopFinishedApplications {
 
-    private final String hostname;
-    private final int commandport;
-    private final int applicationId;
+    private final String rmnodeid;
+    private final String applicationId;
 
-    public HopFinishedApplications(String hostname, int commandport, int applicationId) {
-        this.hostname = hostname;
-        this.commandport = commandport;
+    public HopFinishedApplications(String hostname, String applicationId) {
+        this.rmnodeid = hostname;
         this.applicationId = applicationId;
     }
 
-    public String getHostname() {
-        return hostname;
+    public String getRMNodeID() {
+        return rmnodeid;
     }
 
-    public int getCommandport() {
-        return commandport;
-    }
-
-    public int getApplicationId() {
+    public String getApplicationId() {
         return applicationId;
     }
 }

@@ -8,18 +8,18 @@ package se.sics.hop.metadata.hdfs.entity.yarn;
  */
 public class HopUpdatedContainerInfoContainers {
 
-    private int containerstatusId;
+    private String containerstatusId;
     private int updatedcontainerinfoId;
     //Type is zero(0:NEWLYLAUNCHED), one (1:COMPLETED)
     private int type;
 
-    public HopUpdatedContainerInfoContainers(int containerstatusId, int updatedcontainerinfoId, int type) {
+    public HopUpdatedContainerInfoContainers(String containerstatusId, int updatedcontainerinfoId, int type) {
         this.containerstatusId = containerstatusId;
         this.updatedcontainerinfoId = updatedcontainerinfoId;
         this.type = type;
     }
 
-    public int getContainerstatusId() {
+    public String getContainerstatusId() {
         return containerstatusId;
     }
 
