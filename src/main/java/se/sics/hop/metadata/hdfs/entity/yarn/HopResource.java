@@ -6,21 +6,21 @@ package se.sics.hop.metadata.hdfs.entity.yarn;
  */
 public class HopResource {
 
-    private int id;
+    private String id;
     private int memory;
     private int virtualcores;
 
-    public HopResource(int id, int memory, int virtualcores) {
+    public HopResource(String id, int memory, int virtualcores) {
         this.id = id;
         this.memory = memory;
         this.virtualcores = virtualcores;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 

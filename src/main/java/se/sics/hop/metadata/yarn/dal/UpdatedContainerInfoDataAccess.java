@@ -11,9 +11,9 @@ import se.sics.hop.metadata.hdfs.dal.EntityDataAccess;
  */
 public interface UpdatedContainerInfoDataAccess<T> extends EntityDataAccess {
 
-    List<T> findByRMNode(String hostname, int commandport) throws StorageException;
+    List<T> findByRMNode(String rmnodeid) throws StorageException;
 
-    T findEntry(int id, String hostname, int commandport) throws StorageException;
+    T findEntry(String hostname, int id) throws StorageException;
 
     void prepare(Collection<T> modified, Collection<T> removed) throws StorageException;
 

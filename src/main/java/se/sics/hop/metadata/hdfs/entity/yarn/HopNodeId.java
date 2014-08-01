@@ -1,23 +1,23 @@
 package se.sics.hop.metadata.hdfs.entity.yarn;
 
 /**
- * Pojo to represent NodeId interface.
+ * Hop object that represents NodeId interface.
  *
  * @author Theofilos Kakantousis <tkak@sics.se>
  */
 public class HopNodeId {
 
-    private final int id;
+    private final String id;
     private final String host;
     private final int port;
 
-    public HopNodeId(int id, String host, int port) {
+    public HopNodeId(String id, String host, int port) {
         this.id = id;
         this.host = host;
         this.port = port;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 

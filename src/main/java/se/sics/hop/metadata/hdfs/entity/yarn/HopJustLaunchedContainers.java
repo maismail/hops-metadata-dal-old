@@ -6,31 +6,25 @@ package se.sics.hop.metadata.hdfs.entity.yarn;
  */
 public class HopJustLaunchedContainers {
 
-    private final String hostname;
-    private final int commandport;
-    private final int containerid;
-    private final int containerstatusid;
+    private final String rmnodeid;
+    private final String containerid;
+    private final String containerstatusid;
 
-    public HopJustLaunchedContainers(String hostname, int commandport, int containerid, int containerstatusid) {
-        this.hostname = hostname;
-        this.commandport = commandport;
+    public HopJustLaunchedContainers(String rmnodeid, String containerid, String containerstatusid) {
+        this.rmnodeid = rmnodeid;
         this.containerid = containerid;
         this.containerstatusid = containerstatusid;
     }
 
-    public int getCommandport() {
-        return commandport;
+    public String getRmnodeid() {
+        return rmnodeid;
     }
 
-    public String getHostname() {
-        return hostname;
-    }
-
-    public int getContainerid() {
+    public String getContainerid() {
         return containerid;
     }
 
-    public int getContainerstatusid() {
+    public String getContainerstatusid() {
         return containerstatusid;
     }
 }

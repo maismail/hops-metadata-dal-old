@@ -8,22 +8,16 @@ package se.sics.hop.metadata.hdfs.entity.yarn;
  */
 public class HopContainerIdToClean {
 
-    private String hostname;
-    private int commandport;
+    private String rmnodeid;
     private String containerId;
 
-    public HopContainerIdToClean(String hostname, int commandport, String containerId) {
-        this.hostname = hostname;
-        this.commandport = commandport;
+    public HopContainerIdToClean(String rmnodeid, String containerId) {
+        this.rmnodeid = rmnodeid;
         this.containerId = containerId;
     }
 
-    public String getHostname() {
-        return hostname;
-    }
-
-    public int getCommandport() {
-        return commandport;
+    public String getRmnodeid() {
+        return rmnodeid;
     }
 
     public String getContainerId() {
