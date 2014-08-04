@@ -11,19 +11,19 @@ package se.sics.hop.metadata.hdfs.entity.yarn;
  * @author nickstanogias
  */
 public class HopFifoSchedulerApps {
-    private final int applicationid;
-    private final int schedulerapplication_id;
+    private final String applicationid;
+    private final String schedulerapplication_id;
 
-    public HopFifoSchedulerApps(int applicationid, int schedulerapplication_id) {
+    public HopFifoSchedulerApps(String applicationid, String schedulerapplication_id) {
         this.applicationid = applicationid;
         this.schedulerapplication_id = schedulerapplication_id;
     }
 
-    public int getApplicationid() {
+    public String getApplicationid() {
         return applicationid;
     }
 
-    public int getSchedulerapplication_id() {
+    public String getSchedulerapplication_id() {
         return schedulerapplication_id;
     }
 }
