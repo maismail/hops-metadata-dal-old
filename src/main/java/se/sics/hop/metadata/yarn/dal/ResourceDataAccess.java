@@ -10,7 +10,9 @@ import se.sics.hop.metadata.hdfs.dal.EntityDataAccess;
  */
 public interface ResourceDataAccess<T> extends EntityDataAccess {
 
-    T findById(int id) throws StorageException;
+    T findById(String id) throws StorageException;
+
+    T findEntry(String id, int type) throws StorageException;
 
     void prepare(Collection<T> modified, Collection<T> removed) throws StorageException;
 
