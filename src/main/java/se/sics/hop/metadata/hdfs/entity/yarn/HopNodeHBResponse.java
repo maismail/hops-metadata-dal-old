@@ -6,22 +6,16 @@ package se.sics.hop.metadata.hdfs.entity.yarn;
  */
 public class HopNodeHBResponse {
 
-    private final String hostname;
-    private final int commandport;
+    private final String rmnodeId;
     private final byte[] responseid;
 
-    public HopNodeHBResponse(String hostname, int commandport, byte[] responseid) {
-        this.hostname = hostname;
-        this.commandport = commandport;
+    public HopNodeHBResponse(String rmnodeId, byte[] responseid) {
+        this.rmnodeId = rmnodeId;
         this.responseid = responseid;
     }
 
-    public String getHostname() {
-        return hostname;
-    }
-
-    public int getCommandport() {
-        return commandport;
+    public String getRMNodeId() {
+        return rmnodeId;
     }
 
     public byte[] getResponseid() {

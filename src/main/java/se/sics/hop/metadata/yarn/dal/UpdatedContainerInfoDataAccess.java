@@ -13,7 +13,7 @@ public interface UpdatedContainerInfoDataAccess<T> extends EntityDataAccess {
 
     List<T> findByRMNode(String rmnodeid) throws StorageException;
 
-    T findEntry(String hostname, int id) throws StorageException;
+    T findEntry(String rmnodeid, int id) throws StorageException;
 
     void prepare(Collection<T> modified, Collection<T> removed) throws StorageException;
 

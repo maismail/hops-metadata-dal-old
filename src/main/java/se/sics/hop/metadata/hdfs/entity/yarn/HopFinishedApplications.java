@@ -10,8 +10,8 @@ public class HopFinishedApplications {
     private final String rmnodeid;
     private final String applicationId;
 
-    public HopFinishedApplications(String hostname, String applicationId) {
-        this.rmnodeid = hostname;
+    public HopFinishedApplications(String rmnodeid, String applicationId) {
+        this.rmnodeid = rmnodeid;
         this.applicationId = applicationId;
     }
 
