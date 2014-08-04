@@ -11,25 +11,19 @@ package se.sics.hop.metadata.hdfs.entity.yarn;
  * @author Nikos Stanogias <niksta@sics.se>
  */
 public class HopSchedulerApplication {
-    private final int id;
+    private final String appid;
     private final String user;
-    private final int currentattempt_id;
 
-    public HopSchedulerApplication(int id, String user, int currentattempt_id) {
-        this.id = id;
+    public HopSchedulerApplication(String appid, String user) {
+        this.appid = appid;
         this.user = user;
-        this.currentattempt_id = currentattempt_id;
     }
 
-    public int getId() {
-        return id;
+    public String getAppid() {
+        return appid;
     }
 
     public String getUser() {
         return user;
-    }
-
-    public int getCurrentattempt_id() {
-        return currentattempt_id;
     }
 }

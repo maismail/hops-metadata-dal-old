@@ -11,17 +11,15 @@ package se.sics.hop.metadata.hdfs.entity.yarn;
  * @author nickstanogias
  */
 public class HopFiCaSchedulerApp {
-    private final int id;
-    private final int appschedulinginfo_id;
+    private final String appattemptid;
     private final int currentreservation_id;
     private final int resourcelimit_id;
     private final int currentconsumption_id;
     private final boolean isstoped;
     private final int rmcontext_id;
 
-    public HopFiCaSchedulerApp(int id, int appschedulinginfo_id, int currentreservation_id, int resourcelimit_id, int currentconsumption_id, boolean isstoped, int rmcontext_id) {
-        this.id = id;
-        this.appschedulinginfo_id = appschedulinginfo_id;
+    public HopFiCaSchedulerApp(String appattemptid, int currentreservation_id, int resourcelimit_id, int currentconsumption_id, boolean isstoped, int rmcontext_id) {
+        this.appattemptid = appattemptid;
         this.currentreservation_id = currentreservation_id;
         this.resourcelimit_id = resourcelimit_id;
         this.currentconsumption_id = currentconsumption_id;
@@ -29,12 +27,8 @@ public class HopFiCaSchedulerApp {
         this.rmcontext_id = rmcontext_id;
     }
 
-    public int getId() {
-        return id;
-    }
-
-    public int getAppschedulinginfo_id() {
-        return appschedulinginfo_id;
+    public String getAppattemptid() {
+        return appattemptid;
     }
 
     public int getCurrentreservation_id() {
@@ -56,6 +50,4 @@ public class HopFiCaSchedulerApp {
     public int getRmcontext_id() {
         return rmcontext_id;
     }
-    
-    
 }

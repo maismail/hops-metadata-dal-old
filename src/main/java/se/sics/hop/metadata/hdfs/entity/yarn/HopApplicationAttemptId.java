@@ -6,19 +6,19 @@ package se.sics.hop.metadata.hdfs.entity.yarn;
  */
 public class HopApplicationAttemptId {
 
-    private final int attemptId;
-    private final int appid;
+    private final String attemptId;
+    private final String appid;
 
-    public HopApplicationAttemptId(int attemptId, int appid) {
+    public HopApplicationAttemptId(String attemptId, String appid) {
         this.attemptId = attemptId;
         this.appid = appid;
     }
 
-    public int getAttemptId() {
+    public String getAttemptId() {
         return attemptId;
     }
 
-    public int getAppid() {
+    public String getAppid() {
         return appid;
     }
 }

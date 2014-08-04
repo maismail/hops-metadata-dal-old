@@ -6,30 +6,25 @@ package se.sics.hop.metadata.hdfs.entity.yarn;
  */
 public class HopApplicationId {
 
-    private final int id;
+    private final String id;
+    private final int appid;
     private final long clustertimestamp;
-    //private int finished;
 
-    public HopApplicationId(int id, long clustertimestamp) {
+    public HopApplicationId(String id, int appid, long clustertimestamp) {
         this.id = id;
+        this.appid = appid;
         this.clustertimestamp = clustertimestamp;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
+    }
+
+    public int getAppid() {
+        return appid;
     }
 
     public long getClustertimestamp() {
         return clustertimestamp;
     }
-
-    /**
-     * Denotes if this ApplicationId is in the finishedApplictions map of
-     * RMNODe.
-     *
-     * @return
-     */
-//    public int getFinished() {
-//        return finished;
-//    }
 }
