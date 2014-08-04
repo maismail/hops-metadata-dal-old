@@ -13,14 +13,14 @@ public class HopRMNode {
     private final String nodeAddress;
     private final String httpAddress;
     private final boolean nextHeartbeat;
-    private final int nodebaseId;
+    private final String nodebaseId;
     private final String healthReport;
     private final long lastHealthReportTime;
     private final String currentState;
     private final String nodemanagerVersion;
     private final int overcommittimeout;
 
-    public HopRMNode(String nodeId, String hostName, int commandPort, int httpPort, String nodeAddress, String httpAddress, boolean nextHeartbeat, int nodebaseId, String healthReport, long lastHealthReportTime, String currentState, String nodemanagerVersion, int overcommittimeout) {
+    public HopRMNode(String nodeId, String hostName, int commandPort, int httpPort, String nodeAddress, String httpAddress, boolean nextHeartbeat, String nodebaseId, String healthReport, long lastHealthReportTime, String currentState, String nodemanagerVersion, int overcommittimeout) {
         this.nodeId = nodeId;
         this.hostName = hostName;
         this.commandPort = commandPort;
@@ -72,7 +72,7 @@ public class HopRMNode {
         return nextHeartbeat;
     }
 
-    public int getNodebaseId() {
+    public String getNodebaseId() {
         return nodebaseId;
     }
 
