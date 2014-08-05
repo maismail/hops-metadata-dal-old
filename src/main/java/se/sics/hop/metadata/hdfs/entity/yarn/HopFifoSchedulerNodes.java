@@ -7,19 +7,19 @@ package se.sics.hop.metadata.hdfs.entity.yarn;
  */
 public class HopFifoSchedulerNodes {
 
-    private final int nodeidID;
-    private final int ficaSchedulerNodeID;
+    private final String nodeidID;
+    private final String ficaSchedulerNodeID;
 
-    public HopFifoSchedulerNodes(int nodeidID, int ficaSchedulerNodeID) {
+    public HopFifoSchedulerNodes(String nodeidID, String ficaSchedulerNodeID) {
         this.nodeidID = nodeidID;
         this.ficaSchedulerNodeID = ficaSchedulerNodeID;
     }
 
-    public int getNodeidID() {
+    public String getNodeidID() {
         return nodeidID;
     }
 
-    public int getFicaSchedulerNodeID() {
+    public String getFicaSchedulerNodeID() {
         return ficaSchedulerNodeID;
     }
 

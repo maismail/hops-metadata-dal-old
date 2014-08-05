@@ -14,9 +14,9 @@ public class HopFiCaSchedulerAppReservedContainers {
     private final String ficaschedulerapp_id;
     private final int priority_id;
     private final int nodeid;
-    private final int rmcontainer_id;
+    private final String rmcontainer_id;
 
-    public HopFiCaSchedulerAppReservedContainers(String ficaschedulerapp_id, int priority_id, int nodeid, int rmcontainer_id) {
+    public HopFiCaSchedulerAppReservedContainers(String ficaschedulerapp_id, int priority_id, int nodeid, String rmcontainer_id) {
         this.ficaschedulerapp_id = ficaschedulerapp_id;
         this.priority_id = priority_id;
         this.nodeid = nodeid;
@@ -35,7 +35,7 @@ public class HopFiCaSchedulerAppReservedContainers {
         return nodeid;
     }
 
-    public int getRmcontainer_id() {
+    public String getRmcontainer_id() {
         return rmcontainer_id;
     }
 }
