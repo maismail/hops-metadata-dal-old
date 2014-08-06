@@ -11,7 +11,7 @@ import se.sics.hop.metadata.hdfs.dal.EntityDataAccess;
  */
 public interface FifoSchedulerNodesDataAccess<T> extends EntityDataAccess {
 
-    T findById(int nodeidId) throws StorageException;
+    T findById(String nodeidId) throws StorageException;
 
     void prepare(Collection<T> modified, Collection<T> removed) throws StorageException;
 
