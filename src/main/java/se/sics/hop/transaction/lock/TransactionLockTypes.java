@@ -29,8 +29,8 @@ public class TransactionLockTypes {
 
     WRITE,
     WRITE_ON_PARENT // Write lock on the parent of the last path component. This has the WRITE effect when using inode-id.
-    , READ, READ_COMMITED // No Lock
-  }
+    , READ, READ_COMMITTED // No Lock
+    }
 
   public enum INodeResolveType {
     PATH // resolve only the given path
