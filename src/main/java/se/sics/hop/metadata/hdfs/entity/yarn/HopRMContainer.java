@@ -7,8 +7,7 @@ package se.sics.hop.metadata.hdfs.entity.yarn;
  */
 public class HopRMContainer {
 
-    private final int id;
-    private final int containerIdID;
+    private final String containerIdID;
     private final int applicationAttemptIdID;
     private final int nodeIdID;
     private final int containerID;
@@ -21,8 +20,7 @@ public class HopRMContainer {
     private final long finishtime;
     private final int containerstatus_id;
 
-    public HopRMContainer(int id, int containerIdID, int applicationAttemptIdID, int nodeIdID, int containerID, int rmcontextID, String user, int reservedResourceID, int reservedNodeIdID, int reservedPriorityID, long starttime, long finishtime, int containerstatus_id) {
-        this.id = id;
+    public HopRMContainer(String containerIdID, int applicationAttemptIdID, int nodeIdID, int containerID, int rmcontextID, String user, int reservedResourceID, int reservedNodeIdID, int reservedPriorityID, long starttime, long finishtime, int containerstatus_id) {
         this.containerIdID = containerIdID;
         this.applicationAttemptIdID = applicationAttemptIdID;
         this.nodeIdID = nodeIdID;
@@ -37,11 +35,7 @@ public class HopRMContainer {
         this.containerstatus_id = containerstatus_id;
     }
 
-    public int getId() {
-        return id;
-    }
-
-    public int getContainerIdID() {
+    public String getContainerIdID() {
         return containerIdID;
     }
 

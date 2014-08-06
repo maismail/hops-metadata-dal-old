@@ -12,8 +12,7 @@ package se.sics.hop.metadata.yarn.tabledef;
  */
 public interface AppSchedulingInfoTableDef {
     public static final String TABLE_NAME = "ha_appschedulinginfo";
-    public static final String ID = "id";
-    public static final String APPATTEMPTID_ID = "appattemptid_id";
+    public static final String APPATTEMPTID = "appattemptid";
     public static final String QUEUENAME = "queuename";
     public static final String USER = "user";
     public static final String CONTAINERIDCOUNTER = "containeridcounter";
