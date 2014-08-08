@@ -12,7 +12,7 @@ public interface ResourceDataAccess<T> extends EntityDataAccess {
 
     T findById(String id) throws StorageException;
 
-    T findEntry(String id, int type) throws StorageException;
+    T findEntry(String id, int type, int parent) throws StorageException;
 
     void prepare(Collection<T> modified, Collection<T> removed) throws StorageException;
 
