@@ -10,13 +10,11 @@ import se.sics.hop.metadata.hdfs.dal.EntityDataAccess;
  */
 public interface NodeDataAccess<T> extends EntityDataAccess {
 
-    T findById(int id) throws StorageException;
+    T findById(String id) throws StorageException;
 
     T findByNameLocation(String name, String location) throws StorageException;
 
     void prepare(Collection<T> modified, Collection<T> removed) throws StorageException;
-
-    void deleteAll(int startId, int endId) throws StorageException;
 
     void createNode(T node) throws StorageException;
 }

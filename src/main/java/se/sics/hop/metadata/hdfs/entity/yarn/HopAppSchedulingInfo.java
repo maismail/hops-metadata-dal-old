@@ -11,37 +11,37 @@ package se.sics.hop.metadata.hdfs.entity.yarn;
  * @author nickstanogias
  */
 public class HopAppSchedulingInfo {
-    private int id;
-    private int applicationattemptid_id;
-    private String queue_name;
-    private String user;
-    private String containeridcounter;
+    private final String appattemptid;
+    private final String queuename;
+    private final String user;
+    private final int containeridcounter;
+    private final boolean pending;
 
-    public HopAppSchedulingInfo(int id, int applicationattemptid_id, String queue_name, String user, String containeridcounter) {
-        this.id = id;
-        this.applicationattemptid_id = applicationattemptid_id;
-        this.queue_name = queue_name;
+    public HopAppSchedulingInfo(String appattemptid, String queuename, String user, int containeridcounter, boolean pending) {
+        this.appattemptid = appattemptid;
+        this.queuename = queuename;
         this.user = user;
         this.containeridcounter = containeridcounter;
+        this.pending = pending;
     }
 
-    public int getId() {
-        return id;
+    public String getAppattemptid() {
+        return appattemptid;
     }
 
-    public int getApplicationattemptid_id() {
-        return applicationattemptid_id;
-    }
-
-    public String getQueue_name() {
-        return queue_name;
+    public String getQueuename() {
+        return queuename;
     }
 
     public String getUser() {
         return user;
     }
 
-    public String getContaineridcounter() {
+    public int getContaineridcounter() {
         return containeridcounter;
+    }
+
+    public boolean isPending() {
+        return pending;
     }
 }

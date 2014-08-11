@@ -12,7 +12,7 @@ import se.sics.hop.metadata.hdfs.dal.EntityDataAccess;
  */
 public interface RMNodeDataAccess<T> extends EntityDataAccess {
 
-    T findByNodeId(int nodeid) throws StorageException;
+    T findByNodeId(String nodeid) throws StorageException;
 
     T findByHostNameCommandPort(String hostName, int httpPort) throws StorageException;
 

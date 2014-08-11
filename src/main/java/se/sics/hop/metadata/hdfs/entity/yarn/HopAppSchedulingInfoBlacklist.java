@@ -11,15 +11,15 @@ package se.sics.hop.metadata.hdfs.entity.yarn;
  * @author nickstanogias
  */
 public class HopAppSchedulingInfoBlacklist {
-    private int appschedulinginfo_id;
+    private String appschedulinginfo_id;
     private String blacklisted;
 
-    public HopAppSchedulingInfoBlacklist(int appschedulinginfo_id, String blacklisted) {
+    public HopAppSchedulingInfoBlacklist(String appschedulinginfo_id, String blacklisted) {
         this.appschedulinginfo_id = appschedulinginfo_id;
         this.blacklisted = blacklisted;
     }
 
-    public int getAppschedulinginfo_id() {
+    public String getAppschedulinginfo_id() {
         return appschedulinginfo_id;
     }
 

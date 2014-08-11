@@ -11,19 +11,17 @@ package se.sics.hop.metadata.hdfs.entity.yarn;
  * @author nickstanogias
  */
 public class HopAppSchedulingInfoRequests {
-    private final int appschedulinginfo_id;
+    private final String appschedulinginfo_id;
     private final int priority_id;
     private final String name;
-    private final int resourcerequest_id;
 
-    public HopAppSchedulingInfoRequests(int appschedulinginfo_id, int priority_id, String name, int resourcerequest_id) {
+    public HopAppSchedulingInfoRequests(String appschedulinginfo_id, int priority_id, String name) {
         this.appschedulinginfo_id = appschedulinginfo_id;
         this.priority_id = priority_id;
         this.name = name;
-        this.resourcerequest_id = resourcerequest_id;
     }
 
-    public int getAppschedulinginfo_id() {
+    public String getAppschedulinginfo_id() {
         return appschedulinginfo_id;
     }
 
@@ -34,9 +32,4 @@ public class HopAppSchedulingInfoRequests {
     public String getName() {
         return name;
     }
-
-    public int getResourcerequest_id() {
-        return resourcerequest_id;
-    }
-
 }

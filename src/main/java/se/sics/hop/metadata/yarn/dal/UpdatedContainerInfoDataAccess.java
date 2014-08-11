@@ -11,18 +11,18 @@ import se.sics.hop.metadata.hdfs.dal.EntityDataAccess;
  */
 public interface UpdatedContainerInfoDataAccess<T> extends EntityDataAccess {
 
-    T findById(int id) throws StorageException;
+    List<T> findByRMNode(String rmnodeid) throws StorageException;
 
-    List<T> findByRMNodeId(int rmnodeid) throws StorageException;
+    T findEntry(String rmnodeid, int id) throws StorageException;
 
     void prepare(Collection<T> modified, Collection<T> removed) throws StorageException;
 
-    void createUpdatedContainerInfo(T updatedContainerInfo) throws StorageException;
     /**
      * Remove all instances of UpdatedContainerInfo that belong to a particular
      * RMNode.
+     *
      * @param rmnodeid
-     * @throws StorageException 
+     * @throws StorageException
      */
     void clear(List<T> toRemove) throws StorageException;
 }

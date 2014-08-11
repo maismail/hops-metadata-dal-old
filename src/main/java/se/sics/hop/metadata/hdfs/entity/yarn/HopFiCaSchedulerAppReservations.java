@@ -11,15 +11,15 @@ package se.sics.hop.metadata.hdfs.entity.yarn;
  * @author nickstanogias
  */
 public class HopFiCaSchedulerAppReservations {
-    private int ficaschedulerapp_id;
+    private String ficaschedulerapp_id;
     private int priority_id;
 
-    public HopFiCaSchedulerAppReservations(int ficaschedulerapp_id, int priority_id) {
+    public HopFiCaSchedulerAppReservations(String ficaschedulerapp_id, int priority_id) {
         this.ficaschedulerapp_id = ficaschedulerapp_id;
         this.priority_id = priority_id;
     }
 
-    public int getFicaschedulerapp_id() {
+    public String getFicaschedulerapp_id() {
         return ficaschedulerapp_id;
     }
 

@@ -11,9 +11,12 @@ public interface RMContainerTableDef {
     public static final String APPLICATIONATTEMPTID_ID = "appattemptid_id";
     public static final String NODEID_ID = "nodeid_id";
     public static final String CONTAINER_ID = "container_id";
+    public static final String RMCONTEXT_ID = "rmcontext_id";
+    public static final String USER = "user";
     public static final String RESERVED_RESOURCE_ID = "reservedresource_id";
     public static final String RESERVED_NODEID_ID = "reservednodeid_id";
     public static final String RESERVED_PRIORITY_ID = "reservedpriority_id";
-    public static final String STATE = "state";
-    public static final String NEWLY_ALLOCATED = "newlyallocated";
+    public static final String STARTTIME = "starttime";
+    public static final String FINISHTIME = "finishtime";
+    public static final String CONTAINERSTATUS_ID = "containerstatus_id";
 }

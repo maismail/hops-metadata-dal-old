@@ -1,31 +1,25 @@
 package se.sics.hop.metadata.hdfs.entity.yarn;
 
 /**
- * Pojo representing the nodes Map of RMContext.
+ * Hop object representing the nodes Map of RMContext.
  *
  * @author Theofilos Kakantousis <tkak@sics.se>
  */
 public class HopRMContextNodes {
 
-    private final int rmcontextid;
-    private final int nodeidId;
-    private final int rmnodeId;
+    private final String nodeidId;
+    private final String rmnodeId;
 
-    public HopRMContextNodes(int rmcontextid, int nodeidId, int rmnodeId) {
-        this.rmcontextid = rmcontextid;
+    public HopRMContextNodes(String nodeidId, String rmnodeId) {
         this.nodeidId = nodeidId;
         this.rmnodeId = rmnodeId;
     }
 
-    public int getRmcontextid() {
-        return rmcontextid;
-    }
-
-    public int getNodeidId() {
+    public String getNodeidId() {
         return nodeidId;
     }
 
-    public int getRmnodeId() {
+    public String getRmnodeId() {
         return rmnodeId;
     }
 }

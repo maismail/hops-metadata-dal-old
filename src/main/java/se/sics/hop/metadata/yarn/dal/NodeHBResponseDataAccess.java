@@ -10,7 +10,7 @@ import se.sics.hop.metadata.hdfs.dal.EntityDataAccess;
  */
 public interface NodeHBResponseDataAccess<T> extends EntityDataAccess {
 
-    T findById(int id) throws StorageException;
+    T findById(String rmnodeid) throws StorageException;
 
     void prepare(Collection<T> modified, Collection<T> removed) throws StorageException;
 

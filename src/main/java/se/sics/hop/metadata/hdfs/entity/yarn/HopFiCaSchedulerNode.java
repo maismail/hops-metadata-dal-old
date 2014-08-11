@@ -7,49 +7,31 @@ package se.sics.hop.metadata.hdfs.entity.yarn;
  */
 public class HopFiCaSchedulerNode {
 
-    private int id;
-    private int availableResourceID;
-    private int usedResourceID;
-    private int totalCapabilityID;
-    private int numOfContainers;
-    private int rmNodeID;
+    private String rmnodeId;
     private String nodeName;
+    private int numOfContainers;
+    private String rmcontainerId;
 
-    public HopFiCaSchedulerNode(int id, int availableResourceID, int usedResourceID, int totalCapabilityID, int numOfContainers, int rmNodeID, String nodeName) {
-        this.id = id;
-        this.availableResourceID = availableResourceID;
-        this.usedResourceID = usedResourceID;
-        this.totalCapabilityID = totalCapabilityID;
-        this.numOfContainers = numOfContainers;
-        this.rmNodeID = rmNodeID;
+    public HopFiCaSchedulerNode(String rmnodeId, String nodeName, int numOfContainers, String rmcontainerId) {
+        this.rmnodeId = rmnodeId;
         this.nodeName = nodeName;
+        this.numOfContainers = numOfContainers;
+        this.rmcontainerId = rmcontainerId;
     }
 
-    public int getId() {
-        return id;
+    public String getRmnodeId() {
+        return rmnodeId;
     }
 
-    public int getAvailableResourceID() {
-        return availableResourceID;
-    }
-
-    public int getUsedResourceID() {
-        return usedResourceID;
-    }
-
-    public int getTotalCapabilityID() {
-        return totalCapabilityID;
+    public String getNodeName() {
+        return nodeName;
     }
 
     public int getNumOfContainers() {
         return numOfContainers;
     }
 
-    public int getRmNodeID() {
-        return rmNodeID;
-    }
-
-    public String getNodeName() {
-        return nodeName;
+    public String getRmcontainerId() {
+        return rmcontainerId;
     }
 }

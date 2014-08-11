@@ -11,9 +11,9 @@ import se.sics.hop.metadata.hdfs.dal.EntityDataAccess;
  */
 public interface LaunchedContainersDataAccess<T> extends EntityDataAccess {
 
-    T findEntry(int ficaschedulernodeId, int containeridId) throws StorageException;
+    T findEntry(String ficaschedulernodeId, String containeridId) throws StorageException;
 
-    List<T> findByFiCaSchedulerNode(int ficaschedulernodeId) throws StorageException;
+    List<T> findByFiCaSchedulerNode(String ficaschedulernodeId) throws StorageException;
 
     void prepare(Collection<T> modified, Collection<T> removed) throws StorageException;
 

@@ -1,7 +1,6 @@
 package se.sics.hop.metadata.yarn.dal;
 
 import java.util.Collection;
-import java.util.List;
 import se.sics.hop.exception.StorageException;
 import se.sics.hop.metadata.hdfs.dal.EntityDataAccess;
 
@@ -37,11 +36,4 @@ public interface RMContextNodesDataAccess<T> extends EntityDataAccess {
      * @throws StorageException
      */
     void createRMContextNodesEntry(T entry) throws StorageException;
-
-    /**
-     * Retrieve all rmnodes of specific RMContext.
-     * @return
-     * @throws StorageException 
-     */
-    List<T> getAllByRMContextId(int rmcontextId) throws StorageException;
 }

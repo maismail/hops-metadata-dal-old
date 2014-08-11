@@ -6,31 +6,19 @@ package se.sics.hop.metadata.hdfs.entity.yarn;
  */
 public class HopContainerId {
 
-    private final int ndbId;
-    private final int contid;
+    private final int containerId;
     private final int applicationAttemptId;
-    private final int toClean;
 
-    public HopContainerId(int ndbId, int contid, int applicationAttemptId, int toClean) {
-        this.ndbId = ndbId;
-        this.contid = contid;
+    public HopContainerId(int containerId, int applicationAttemptId) {
+        this.containerId = containerId;
         this.applicationAttemptId = applicationAttemptId;
-        this.toClean = toClean;
     }
 
-    public int getNdbId() {
-        return ndbId;
-    }
-
-    public int getContid() {
-        return contid;
+    public int getContainerId() {
+        return containerId;
     }
 
     public int getApplicationAttemptId() {
         return applicationAttemptId;
-    }
-
-    public int getToClean() {
-        return toClean;
     }
 }

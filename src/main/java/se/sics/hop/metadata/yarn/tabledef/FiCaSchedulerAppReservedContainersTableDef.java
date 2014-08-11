@@ -15,5 +15,5 @@ public interface FiCaSchedulerAppReservedContainersTableDef {
     public static final String FICASCHEDULERAPP_ID = "ficaschedulerapp_id";
     public static final String PRIORITY_ID = "priority_id";
     public static final String NODEID = "nodeid";
-    public static final String RMCONTAINER = "rmcontainer";
+    public static final String RMCONTAINER_ID = "rmcontainer_id";
 }
