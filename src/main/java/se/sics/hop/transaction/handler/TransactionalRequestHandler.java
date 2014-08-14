@@ -8,6 +8,8 @@ import java.util.Formatter;
 import java.util.List;
 import java.util.Locale;
 import java.util.Random;
+import java.util.concurrent.ExecutionException;
+
 import se.sics.hop.exception.StorageException;
 import org.apache.log4j.NDC;
 import se.sics.hop.exception.AcquireLockInterruptedException;
@@ -197,7 +199,7 @@ public abstract class TransactionalRequestHandler extends RequestHandler {
     }
   }
 
-  public abstract TransactionLocks acquireLock() throws PersistanceException, IOException;
+  public abstract TransactionLocks acquireLock() throws PersistanceException, IOException, ExecutionException;
 
   @Override
   public TransactionalRequestHandler setParams(Object... params) {

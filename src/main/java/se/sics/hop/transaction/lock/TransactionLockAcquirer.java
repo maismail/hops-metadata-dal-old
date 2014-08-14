@@ -1,6 +1,8 @@
 package se.sics.hop.transaction.lock;
 
 import java.io.IOException;
+import java.util.concurrent.ExecutionException;
+
 import se.sics.hop.exception.PersistanceException;
 import se.sics.hop.exception.StorageException;
 import static se.sics.hop.transaction.lock.TransactionLockTypes.LockType.READ;
@@ -14,7 +16,7 @@ import se.sics.hop.transaction.EntityManager;
  */
 public abstract class TransactionLockAcquirer {
 
-  public abstract TransactionLocks acquire() throws PersistanceException, IOException;
+  public abstract TransactionLocks acquire() throws PersistanceException, IOException, ExecutionException;
   
   protected static void setLockMode(TransactionLockTypes.LockType mode) throws StorageException {
     switch (mode) {
