@@ -48,7 +48,10 @@ public abstract class LightWeightRequestHandler extends RequestHandler {
           exception = ex;
         } finally {
           NDC.pop();
-          NDC.remove();
+          if(!connector.isTransactionActive()){
+            NDC.remove();
+          }
+          
           if (tryCount == RETRY_COUNT && exception != null) {
             throw exception;
           }
