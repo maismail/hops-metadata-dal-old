@@ -17,7 +17,7 @@ public class HopUnderReplicatedBlock {
   }
   public static enum Finder implements FinderType<HopUnderReplicatedBlock> {
 
-    ByBlockId, ByINodeId, All, ByLevel;
+    ByBlockId, ByINodeId, ByINodeIds, All, ByLevel;
 
     @Override
     public Class getType() {

@@ -19,6 +19,8 @@ public interface PendingBlockDataAccess<T> extends EntityDataAccess {
   
   List<T> findByINodeId(int inodeId) throws StorageException;
 
+  List<T> findByINodeIds(int[] inodeIds) throws StorageException;
+  
   int countValidPendingBlocks(long timeLimit) throws StorageException;
 
   void prepare(Collection<T> removed, Collection<T> newed, Collection<T> modified) throws StorageException;

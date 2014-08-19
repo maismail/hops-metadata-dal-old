@@ -20,6 +20,8 @@ public interface InvalidateBlockDataAccess<T> extends EntityDataAccess {
   
   List<T> findInvalidatedBlocksByINodeId(int inodeId) throws StorageException;
 
+  List<T> findInvalidatedBlocksByINodeIds(int[] inodeIds) throws StorageException;
+  
   List<T> findAllInvalidatedBlocks() throws StorageException;
 
   List<T> findInvalidatedBlocksbyPKS(long[] blockIds, int[] inodesIds, int[] storageIds) throws StorageException;

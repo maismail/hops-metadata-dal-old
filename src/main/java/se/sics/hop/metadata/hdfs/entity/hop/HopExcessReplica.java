@@ -21,7 +21,7 @@ public class HopExcessReplica extends HopReplica {
 
   public static enum Finder implements FinderType<HopExcessReplica> {
 
-    ByPKey, ByBlockId, ByINodeId;
+    ByPKey, ByBlockId, ByINodeId, ByINodeIds;
 
     @Override
     public Class getType() {
