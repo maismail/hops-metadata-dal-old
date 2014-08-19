@@ -8,7 +8,7 @@ package se.sics.hop.transaction.lock;
  *
  * @author salman
  */
-public abstract class ParallelReadThread extends Thread {
+public abstract class ParallelReadThread implements Runnable {
   private long parentId;
   private Object  params;
 

@@ -3,6 +3,7 @@ package se.sics.hop.metadata.hdfs.dal;
 import java.util.Collection;
 import java.util.List;
 import se.sics.hop.exception.StorageException;
+import se.sics.hop.metadata.INodeIdentifier;
 
 /**
  *
@@ -19,6 +20,8 @@ public interface INodeDataAccess<T> extends EntityDataAccess {
   T pkLookUpFindInodeByNameAndParentId(String name, int parentId) throws StorageException;
 
   List<T> getINodesPkBatched(String[] names, int[] parentIds) throws StorageException;
+    
+  List<INodeIdentifier> getAllINodeFiles() throws StorageException;
   
   void prepare(Collection<T> removed, Collection<T> newed, Collection<T> modified) throws StorageException;
 
