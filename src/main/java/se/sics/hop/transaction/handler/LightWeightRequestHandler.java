@@ -52,9 +52,11 @@ public abstract class LightWeightRequestHandler extends RequestHandler {
                 rollback = true;
                 retry = true;
             } catch (IOException ex) {
+              log.error("Could not perfortm task-", ex);
                 rollback = true;
                 exception = ex;
             } catch (Exception ex) {
+              log.error("Could not perfortm task-", ex);
                 rollback = true;
             } finally {
                 if (rollback && connector.isTransactionActive()) {
