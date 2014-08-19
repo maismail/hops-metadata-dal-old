@@ -120,7 +120,8 @@ public abstract class TransactionalRequestHandler extends RequestHandler {
         oldTime = System.currentTimeMillis();
         totalTime = (System.currentTimeMillis() - txStartTime);
         log.debug("TX Finished. TX Stats: Stepup: "+setupTime+"ms Acquire Locks: " + acquireLockTime + "ms, In Memory Processing: " + inMemoryProcessingTime + "ms, Commit Time: " + commitTime + "ms, Total Time: " + totalTime + "ms");
-
+        
+        removeNDC();
         //post TX phase
         //any error in this phase will not re-start the tx
         //TODO: XXX handle failures in post tx phase
