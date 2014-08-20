@@ -24,4 +24,6 @@ public interface FifoSchedulerAppsDataAccess<T> extends EntityDataAccess {
     void createFifoSchedulerAppsEntry(T entry) throws StorageException;
     
     List<T> getAllByAppId(int appId) throws StorageException;
+    
+    List<T> findAll() throws StorageException;
 }
