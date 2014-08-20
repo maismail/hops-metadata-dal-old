@@ -8,51 +8,37 @@ package se.sics.hop.metadata.hdfs.entity.yarn;
 public class HopRMContainer {
 
     private final String containerIdID;
-    private final int applicationAttemptIdID;
-    private final int nodeIdID;
-    private final int containerID;
-    private final int rmcontextID;
+    private final String applicationAttemptIdID;
+    private final String nodeIdID;
     private final String user;
     private final int reservedResourceID;
     private final int reservedNodeIdID;
     private final int reservedPriorityID;
     private final long starttime;
     private final long finishtime;
-    private final int containerstatus_id;
 
-    public HopRMContainer(String containerIdID, int applicationAttemptIdID, int nodeIdID, int containerID, int rmcontextID, String user, int reservedResourceID, int reservedNodeIdID, int reservedPriorityID, long starttime, long finishtime, int containerstatus_id) {
+    public HopRMContainer(String containerIdID, String applicationAttemptIdID, String nodeIdID, String user, int reservedResourceID, int reservedNodeIdID, int reservedPriorityID, long starttime, long finishtime) {
         this.containerIdID = containerIdID;
         this.applicationAttemptIdID = applicationAttemptIdID;
         this.nodeIdID = nodeIdID;
-        this.containerID = containerID;
-        this.rmcontextID = rmcontextID;
         this.user = user;
         this.reservedResourceID = reservedResourceID;
         this.reservedNodeIdID = reservedNodeIdID;
         this.reservedPriorityID = reservedPriorityID;
         this.starttime = starttime;
         this.finishtime = finishtime;
-        this.containerstatus_id = containerstatus_id;
     }
 
     public String getContainerIdID() {
         return containerIdID;
     }
 
-    public int getApplicationAttemptIdID() {
+    public String getApplicationAttemptIdID() {
         return applicationAttemptIdID;
     }
 
-    public int getNodeIdID() {
+    public String getNodeIdID() {
         return nodeIdID;
-    }
-
-    public int getContainerID() {
-        return containerID;
-    }
-
-    public int getRmcontextID() {
-        return rmcontextID;
     }
 
     public String getUser() {
@@ -77,9 +63,5 @@ public class HopRMContainer {
 
     public long getFinishtime() {
         return finishtime;
-    }
-
-    public int getContainerstatus_id() {
-        return containerstatus_id;
     }
 }

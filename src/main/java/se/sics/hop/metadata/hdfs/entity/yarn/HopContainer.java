@@ -7,42 +7,18 @@ package se.sics.hop.metadata.hdfs.entity.yarn;
 public class HopContainer {
 
     private String containerIdID;
-    private int nodeIdID;
-    private String nodehttpaddress;
-    private int resourceID;
-    private int priorityID;
-    private int tokenID;
+    private byte[] containerstate;
 
-    public HopContainer(String containerIdID, int nodeIdID, String nodehttpaddress, int resourceID, int priorityID, int tokenID) {
+    public HopContainer(String containerIdID, byte[] containerstate) {
         this.containerIdID = containerIdID;
-        this.nodeIdID = nodeIdID;
-        this.nodehttpaddress = nodehttpaddress;
-        this.resourceID = resourceID;
-        this.priorityID = priorityID;
-        this.tokenID = tokenID;
+        this.containerstate = containerstate;
     }
 
     public String getContainerIdID() {
         return containerIdID;
     }
 
-    public int getNodeIdID() {
-        return nodeIdID;
-    }
-
-    public String getNodehttpaddress() {
-        return nodehttpaddress;
-    }
-
-    public int getResourceID() {
-        return resourceID;
-    }
-
-    public int getPriorityID() {
-        return priorityID;
-    }
-
-    public int getTokenID() {
-        return tokenID;
+    public byte[] getContainerstate() {
+        return containerstate;
     }
 }
