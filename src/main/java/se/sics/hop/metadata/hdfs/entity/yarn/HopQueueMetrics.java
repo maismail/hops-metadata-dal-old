@@ -27,6 +27,7 @@ public class HopQueueMetrics {
     private final int availablevcores;
     private final int pendingmb;
     private final int pendingvcores;
+    private final int pendingContainers;
     private final int reservedmb;
     private final int reservedvcores;
     private final int reservedcontainers;
@@ -35,7 +36,13 @@ public class HopQueueMetrics {
     private final int parentid;
     private final String queuename;
 
-    public HopQueueMetrics(int id, int appssubmitted, int appsrunning, int appspending, int appscompleted, int appskilled, int appsfailed, int allocatedmb, int allocatedvcores, int allocatedcontainers, long aggregatecontainersallocated, long aggregatecontainersreleased, int availablemb, int availablevcores, int pendingmb, int pendingvcores, int reservedmb, int reservedvcores, int reservedcontainers, int activeusers, int activeapplications, int parentid, String queuename) {
+    public HopQueueMetrics(int id, int appssubmitted, int appsrunning, int appspending,
+            int appscompleted, int appskilled, int appsfailed, int allocatedmb, 
+            int allocatedvcores, int allocatedcontainers, long aggregatecontainersallocated, 
+            long aggregatecontainersreleased, int availablemb, int availablevcores, 
+            int pendingmb, int pendingvcores, int pendingContainers, int reservedmb, int reservedvcores, 
+            int reservedcontainers, int activeusers, int activeapplications, 
+            int parentid, String queuename) {
         this.id = id;
         this.appssubmitted = appssubmitted;
         this.appsrunning = appsrunning;
@@ -52,6 +59,7 @@ public class HopQueueMetrics {
         this.availablevcores = availablevcores;
         this.pendingmb = pendingmb;
         this.pendingvcores = pendingvcores;
+        this.pendingContainers= pendingContainers;
         this.reservedmb = reservedmb;
         this.reservedvcores = reservedvcores;
         this.reservedcontainers = reservedcontainers;
@@ -125,6 +133,10 @@ public class HopQueueMetrics {
         return pendingvcores;
     }
 
+    public int getPendingContainers(){
+      return pendingContainers;
+    }
+    
     public int getReservedmb() {
         return reservedmb;
     }
