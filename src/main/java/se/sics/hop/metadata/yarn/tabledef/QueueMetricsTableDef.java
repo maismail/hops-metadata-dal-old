@@ -26,6 +26,7 @@ public interface QueueMetricsTableDef {
     public static final String AGGREGATE_CONTAINERS_RELEASED = "aggregate_containers_released";
     public static final String AVAILABLE_MB = "available_mb";
     public static final String AVAILABLE_VCORES = "available_vcores";
+    public static final String PENDING_CONTAINERS = "pending_containers";
     public static final String PENDING_MB = "pending_mb";
     public static final String PENDING_VCORES = "pending_vcores";
     public static final String RESERVED_MB = "reserved_mb";
@@ -35,4 +36,5 @@ public interface QueueMetricsTableDef {
     public static final String ACTIVE_APPLICATIONS = "active_applications";
     public static final String PARENT_ID = "parent_id";
     public static final String QUEUE_NAME = "queue_name";
+    
 }
