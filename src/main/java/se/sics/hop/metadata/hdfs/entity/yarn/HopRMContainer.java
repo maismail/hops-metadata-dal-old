@@ -11,18 +11,16 @@ public class HopRMContainer {
     private final String applicationAttemptIdID;
     private final String nodeIdID;
     private final String user;
-    private final int reservedResourceID;
-    private final int reservedNodeIdID;
+    private final String reservedNodeIdID;
     private final int reservedPriorityID;
     private final long starttime;
     private final long finishtime;
 
-    public HopRMContainer(String containerIdID, String applicationAttemptIdID, String nodeIdID, String user, int reservedResourceID, int reservedNodeIdID, int reservedPriorityID, long starttime, long finishtime) {
+    public HopRMContainer(String containerIdID, String applicationAttemptIdID, String nodeIdID, String user, String reservedNodeIdID, int reservedPriorityID, long starttime, long finishtime) {
         this.containerIdID = containerIdID;
         this.applicationAttemptIdID = applicationAttemptIdID;
         this.nodeIdID = nodeIdID;
         this.user = user;
-        this.reservedResourceID = reservedResourceID;
         this.reservedNodeIdID = reservedNodeIdID;
         this.reservedPriorityID = reservedPriorityID;
         this.starttime = starttime;
@@ -45,11 +43,7 @@ public class HopRMContainer {
         return user;
     }
 
-    public int getReservedResourceID() {
-        return reservedResourceID;
-    }
-
-    public int getReservedNodeIdID() {
+    public String getReservedNodeIdID() {
         return reservedNodeIdID;
     }
 
