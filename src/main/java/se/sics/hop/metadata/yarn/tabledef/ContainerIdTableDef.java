@@ -7,6 +7,7 @@ package se.sics.hop.metadata.yarn.tabledef;
 public interface ContainerIdTableDef {
 
     public static final String TABLE_NAME = "ha_containerid";
+    public static final String ID = "id";
     public static final String CONTAINERID = "containerid";
     public static final String APPLICATIONATTEMPT_ID = "appattemptid";
 }
