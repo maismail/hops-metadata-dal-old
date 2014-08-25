@@ -11,7 +11,7 @@ import se.sics.hop.metadata.hdfs.dal.EntityDataAccess;
  */
 public interface ApplicationAttemptIdDataAccess<T> extends EntityDataAccess {
 
-    T findById(int id) throws StorageException;
+    T findById(String id) throws StorageException;
 
     T findByAttemptIdAppId(int attemptId, int appId) throws StorageException; 
     
