@@ -17,7 +17,7 @@ import se.sics.hop.metadata.hdfs.dal.EntityDataAccess;
  */
 public interface AppSchedulingInfoDataAccess<T> extends EntityDataAccess {
 
-  T findById(int id) throws StorageException;
+  T findById(String id) throws StorageException;
 
   List<T> findAll() throws StorageException, IOException;
 

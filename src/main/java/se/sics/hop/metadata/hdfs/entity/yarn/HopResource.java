@@ -12,12 +12,17 @@ public class HopResource {
      */
     public static final int FICASCHEDULERNODE = 1;
     public static final int RMNODE = 2;
+    public static final int SCHEDULERAPPLICATIONATTEMPT = 3;
     /**
      * Resource types, useful when an entity has more than one resources.
      */
     public static final int TOTAL_CAPABILITY = 1;
     public static final int USED = 2;
     public static final int AVAILABLE = 3;
+    public static final int CURRENTRESERVATION = 4;
+    public static final int RESOURCELIMIT = 5;
+    public static final int CURRENTCONSUMPTION = 6;
+    
     private String id;
     private int type;
     private int parent;

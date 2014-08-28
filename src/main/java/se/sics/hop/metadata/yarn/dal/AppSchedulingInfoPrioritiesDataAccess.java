@@ -18,4 +18,6 @@ public interface AppSchedulingInfoPrioritiesDataAccess<T> extends EntityDataAcce
     T findById(int id) throws StorageException;
 
     void prepare(Collection<T> modified, Collection<T> removed) throws StorageException;
+    
+    void truncateTable();
 }
