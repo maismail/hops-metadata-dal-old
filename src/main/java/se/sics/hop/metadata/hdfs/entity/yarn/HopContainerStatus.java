@@ -34,4 +34,10 @@ public class HopContainerStatus {
     public int getExitstatus() {
         return exitstatus;
     }
+
+    @Override
+    public String toString() {
+        return "HopContainerStatus{" + "containerid=" + containerid + ", state=" + state + ", diagnostics=" + diagnostics + ", exitstatus=" + exitstatus + '}';
+    }
+    
 }
