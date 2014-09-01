@@ -1,6 +1,7 @@
 package se.sics.hop.metadata.yarn.dal;
 
 import java.util.Collection;
+import java.util.List;
 import se.sics.hop.exception.StorageException;
 import se.sics.hop.metadata.hdfs.dal.EntityDataAccess;
 
@@ -20,6 +21,12 @@ public interface RMContextInactiveNodesDataAccess<T> extends EntityDataAccess {
      */
     T findById(String host) throws StorageException;
 
+    /**
+     * Return all inactive nodes from ndb.
+     * @return
+     * @throws StorageException 
+     */
+    List<T> findAll() throws StorageException;
     /**
      * Modify and/or delete table rows.
      *
