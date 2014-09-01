@@ -2,9 +2,9 @@ package se.sics.hop.metadata.hdfs.entity;
 
 import se.sics.hop.transaction.TransactionContext;
 import java.util.Collection;
-import org.apache.log4j.Logger;
-//import org.apache.commons.logging.Log;
-//import org.apache.commons.logging.LogFactory;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.NDC;
 import se.sics.hop.exception.PersistanceException;
 import se.sics.hop.exception.StorageCallPreventedException;
 import se.sics.hop.exception.StorageException;
@@ -43,7 +43,7 @@ public abstract class EntityContext<T> {
    */
   public enum CacheHitState {
 
-    HIT, LOSS, NA
+    HIT, LOSS, LOSS_LOCK_UPGRADE, NA
   }
 
   public abstract void add(T entity) throws PersistanceException;
@@ -63,6 +63,13 @@ public abstract class EntityContext<T> {
   public abstract void removeAll() throws PersistanceException;
 
   public abstract void update(T entity) throws PersistanceException;
+  
+  public abstract void snapshotMaintenance(TransactionContextMaintenanceCmds cmds, Object... params) throws PersistanceException;
+  
+  public EntityContextStat collectSnapshotStat() throws PersistanceException 
+  {
+    throw new UnsupportedOperationException("Please Implement Me");
+  }
 
   public static void log(String opName, CacheHitState state, String... params) {
     StringBuilder message = new StringBuilder();
@@ -75,7 +82,15 @@ public abstract class EntityContext<T> {
         message.append(curLock.name()).append(" ");
       }
       message.append(opName).append(" ").append("loss").append(ANSI_RESET);
-    } else {
+    } else if(state == CacheHitState.LOSS_LOCK_UPGRADE){
+      LockMode curLock = currentLockMode.get();
+      message.append(ANSI_BLUE);
+      if (curLock != null) {
+        message.append(curLock.name()).append(" ");
+      }
+      message.append(opName).append(" ").append("loss").append(ANSI_RESET);
+    }
+    else {
       message.append(opName).append(" ");
     }
     message.append(" ");
@@ -104,8 +119,8 @@ public abstract class EntityContext<T> {
     log(opName, state, (String) null);
   }
 
-  public void preventStorageCall() {
-    storageCallPrevented = true;
+  public void preventStorageCall(boolean val) {
+    storageCallPrevented = val;
   }
 
   public static void setLockMode(LockMode lock) {
@@ -128,7 +143,7 @@ public abstract class EntityContext<T> {
     }
   }
 
-  protected boolean isTxRunning() {
+  protected boolean preventStorageCalls() {
     return storageCallPrevented;
   }
 }

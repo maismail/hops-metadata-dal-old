@@ -9,19 +9,19 @@ import se.sics.hop.metadata.hdfs.entity.FinderType;
  */
 public class HopExcessReplica extends HopReplica {
 
-  public static enum Counter implements CounterType<HopExcessReplica> {
-
-    All;
-
-    @Override
-    public Class getType() {
-      return HopExcessReplica.class;
-    }
-  }
+//  public static enum Counter implements CounterType<HopExcessReplica> {
+//
+//    All;
+//
+//    @Override
+//    public Class getType() {
+//      return HopExcessReplica.class;
+//    }
+//  }
 
   public static enum Finder implements FinderType<HopExcessReplica> {
 
-    ByStorageId, ByPKey, ByBlockId;
+    ByPKey, ByBlockId, ByINodeId;
 
     @Override
     public Class getType() {
@@ -29,7 +29,7 @@ public class HopExcessReplica extends HopReplica {
     }
   }
 
-  public HopExcessReplica(String storageId, long blockId) {
-    super(storageId, blockId);
+  public HopExcessReplica(int storageId, long blockId, int inodeId) {
+    super(storageId, blockId, inodeId);
   }
 }

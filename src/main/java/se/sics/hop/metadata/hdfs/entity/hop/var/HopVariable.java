@@ -16,8 +16,8 @@ public abstract class HopVariable {
   }
 
   public static enum Finder implements FinderType<HopVariable> {
+
     //Named Variables
-    GenerationStamp,
     BlockID,
     INodeID,
     ReplicationIndex,
@@ -26,7 +26,8 @@ public abstract class HopVariable {
     BTCurrKey,
     BTNextKey,
     BTSimpleKey,
-    
+    SIdCounter,
+    MaxNNID,
     //Generic Variables
     GenericInteger,
     GenericLong,
@@ -91,23 +92,25 @@ public abstract class HopVariable {
       case GenericArray:
         return new HopArrayVariable(varType);
 
-      case GenerationStamp:
-        return new HopLongVariable(varType);
       case BlockID:
         return new HopLongVariable(varType);
       case INodeID:
-        return new HopLongVariable(varType);
+        return new HopIntVariable(varType);
       case ReplicationIndex:
         return new HopArrayVariable(varType);
       case StorageInfo:
         return new HopArrayVariable(varType);
-      
+
       case BlockTokenKeys:
         return new HopArrayVariable(varType);
       case BTCurrKey:
       case BTNextKey:
       case BTSimpleKey:
         return new HopByteArrayVariable(varType);
+      case SIdCounter:
+        return new HopIntVariable(varType);
+      case MaxNNID:
+        return new HopLongVariable(varType);
     }
     return null;
   }

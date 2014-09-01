@@ -1,7 +1,10 @@
 package se.sics.hop.metadata.hdfs.dal;
 
 import java.util.Collection;
+import java.util.List;
+import java.util.Map;
 import se.sics.hop.exception.StorageException;
+import se.sics.hop.metadata.hdfs.entity.hdfs.HopINodeCandidatePK;
 
 /**
  *
@@ -10,7 +13,9 @@ import se.sics.hop.exception.StorageException;
  */
 public interface INodeAttributesDataAccess<T> extends EntityDataAccess {
 
-  T findAttributesByPk(long inodeId) throws StorageException;
+  T findAttributesByPk(Integer inodeId) throws StorageException;
+  
+  Collection<T> findAttributesByPkList(List<HopINodeCandidatePK> inodePks) throws StorageException;
 
   void prepare(Collection<T> modified, Collection<T> removed) throws StorageException;
 }

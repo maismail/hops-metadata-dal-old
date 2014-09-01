@@ -8,7 +8,7 @@ import se.sics.hop.metadata.hdfs.entity.FinderType;
  * @author jude
  */
 public class HopCorruptReplica extends HopReplica {
-
+  
   public static enum Counter implements CounterType<HopCorruptReplica> {
 
     All;
@@ -21,7 +21,7 @@ public class HopCorruptReplica extends HopReplica {
 
   public static enum Finder implements FinderType<HopCorruptReplica> {
 
-    All, ByBlockId, ByPk;
+    All, ByINodeId, ByBlockId, ByPk;
 
     @Override
     public Class getType() {
@@ -29,10 +29,7 @@ public class HopCorruptReplica extends HopReplica {
     }
   }
 
-  public HopCorruptReplica(long blockId, String storageId) {
-    super(storageId, blockId);
+  public HopCorruptReplica(long blockId, int storageId, int inodeId) {
+    super(storageId, blockId, inodeId);
   }
-//  public String persistanceKey() {
-//    return blockId + storageId;
-//  }
 }

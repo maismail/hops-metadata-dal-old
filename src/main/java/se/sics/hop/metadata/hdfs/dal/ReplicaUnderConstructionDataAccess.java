@@ -11,7 +11,9 @@ import se.sics.hop.exception.StorageException;
  */
 public interface ReplicaUnderConstructionDataAccess<T> extends EntityDataAccess {
 
-  List<T> findReplicaUnderConstructionByBlockId(long blockId) throws StorageException;
+  List<T> findReplicaUnderConstructionByBlockId(long blockId, int inodeId) throws StorageException;
 
+  List<T> findReplicaUnderConstructionByINodeId(int inodeId) throws StorageException;
+  
   void prepare(Collection<T> removed, Collection<T> newed, Collection<T> modified) throws StorageException;
 }

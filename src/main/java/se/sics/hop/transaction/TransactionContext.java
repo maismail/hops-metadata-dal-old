@@ -1,7 +1,10 @@
 package se.sics.hop.transaction;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import org.apache.log4j.Logger;
@@ -12,7 +15,10 @@ import se.sics.hop.StorageConnector;
 import se.sics.hop.exception.StorageException;
 import se.sics.hop.metadata.hdfs.entity.CounterType;
 import se.sics.hop.metadata.hdfs.entity.EntityContext;
+import se.sics.hop.metadata.hdfs.entity.EntityContextStat;
 import se.sics.hop.metadata.hdfs.entity.FinderType;
+import se.sics.hop.metadata.hdfs.entity.TransactionContextMaintenanceCmds;
+import se.sics.hop.transaction.lock.ParallelReadThread;
 import se.sics.hop.transaction.lock.TransactionLocks;
 
 /**
@@ -55,15 +61,14 @@ public class TransactionContext {
     connector.beginTransaction();
   }
 
-  public void preventStorageCall() {
+  public void preventStorageCall(boolean val) {
     for (EntityContext context : contexts) {
-      context.preventStorageCall();
+      context.preventStorageCall(val);
     }
   }
 
   public void commit(final TransactionLocks tlm) throws StorageException {
     aboutToPerform();
-
     for (EntityContext context : contexts) {
       context.prepare(tlm);
     }
@@ -146,11 +151,24 @@ public class TransactionContext {
     }
   }
 
+  public void snapshotMaintenance(TransactionContextMaintenanceCmds cmds, Object... params) throws PersistanceException{
+    for (EntityContext context : contexts) {
+        context.snapshotMaintenance(cmds, params);
+      }
+  }
+  
   private void aboutToPerform() throws StorageException {
-    if (activeTxExpected && !connector.isTransactionActive()) {
-      throw new StorageException("Active transaction is expected while storage doesn't have it.");
-    } else if (!activeTxExpected) {
+    if (!activeTxExpected) {
       throw new RuntimeException("Transaction is not begun.");
     }
+  }
+  
+  public Collection<EntityContextStat> collectSnapshotStat() throws PersistanceException{
+    List<EntityContextStat> stats = new ArrayList<EntityContextStat>();
+     for (EntityContext context : contexts) {
+        stats.add(context.collectSnapshotStat());
+      }
+    Collections.sort(stats);
+    return stats;
   }
 }

@@ -9,19 +9,19 @@ import se.sics.hop.metadata.hdfs.entity.FinderType;
  */
 public class HopInvalidatedBlock extends HopReplica {
 
-  public static enum Counter implements CounterType<HopInvalidatedBlock> {
-
-    All;
-
-    @Override
-    public Class getType() {
-      return HopInvalidatedBlock.class;
-    }
-  }
+//  public static enum Counter implements CounterType<HopInvalidatedBlock> {
+//
+//    All;
+//
+//    @Override
+//    public Class getType() {
+//      return HopInvalidatedBlock.class;
+//    }
+//  }
 
   public static enum Finder implements FinderType<HopInvalidatedBlock> {
 
-    ByBlockId, ByStorageId, ByPrimaryKey, All;
+    ByBlockId, ByINodeId, ByStorageId, ByPK, ByPKS, All;
 
     @Override
     public Class getType() {
@@ -30,13 +30,14 @@ public class HopInvalidatedBlock extends HopReplica {
   }
   private long generationStamp;
   private long numBytes;
+  
 
-  public HopInvalidatedBlock(String storageId, long blockId) {
-    super(storageId, blockId);
+  public HopInvalidatedBlock(int storageId, long blockId, int inodeId) {
+    super(storageId, blockId, inodeId);
   }
 
-  public HopInvalidatedBlock(String storageId, long blockId, long generationStamp, long numBytes) {
-    super(storageId, blockId);
+  public HopInvalidatedBlock(int storageId, long blockId, long generationStamp, long numBytes, int inodeId) {
+    super(storageId, blockId, inodeId);
     this.generationStamp = generationStamp;
     this.numBytes = numBytes;
   }
