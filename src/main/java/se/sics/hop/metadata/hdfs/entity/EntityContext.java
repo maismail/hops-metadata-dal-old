@@ -2,9 +2,7 @@ package se.sics.hop.metadata.hdfs.entity;
 
 import se.sics.hop.transaction.TransactionContext;
 import java.util.Collection;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-import org.apache.log4j.NDC;
+import org.apache.log4j.Logger;
 import se.sics.hop.exception.PersistanceException;
 import se.sics.hop.exception.StorageCallPreventedException;
 import se.sics.hop.exception.StorageException;

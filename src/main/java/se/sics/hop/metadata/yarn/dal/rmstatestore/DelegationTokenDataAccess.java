@@ -16,7 +16,7 @@ public interface DelegationTokenDataAccess<T> extends EntityDataAccess {
 
     void prepare(Collection<T> modified, Collection<T> removed) throws StorageException;
 
-    public void createDelegationTokenEntry(HopDelegationToken hopDelegationToken);
+    public void createDelegationTokenEntry(HopDelegationToken hopDelegationToken) throws StorageException;
 
     List<T> getAll() throws StorageException;
 }

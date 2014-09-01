@@ -16,7 +16,7 @@ public interface DelegationKeyDataAccess<T> extends EntityDataAccess {
 
     void prepare(Collection<T> modified, Collection<T> removed) throws StorageException;
 
-    public void createDTMasterKeyEntry(HopDelegationKey hopDelegationKey);
+    public void createDTMasterKeyEntry(HopDelegationKey hopDelegationKey) throws StorageException;
 
     List<T> getAll() throws StorageException;
 }

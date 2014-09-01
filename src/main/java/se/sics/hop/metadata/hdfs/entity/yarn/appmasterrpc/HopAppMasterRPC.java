@@ -12,10 +12,11 @@ package se.sics.hop.metadata.hdfs.entity.yarn.appmasterrpc;
  */
 public class HopAppMasterRPC {
     private final int id;
-    private final String type;
+    private final Type type;
+//    private final String type;
     private final byte[] rpc;
 
-    public HopAppMasterRPC(int id, String type, byte[] rpc) {
+    public HopAppMasterRPC(int id, Type type, byte[] rpc) {
         this.id = id;
         this.type = type;
         this.rpc = rpc;
@@ -25,12 +26,22 @@ public class HopAppMasterRPC {
         return id;
     }
 
-    public String getType() {
+    public Type getType() {
         return type;
     }
 
     public byte[] getRpc() {
         return rpc;
+    }
+    
+    public enum Type{
+      RegisterApplicationMaster,
+      FinishApplicationMaster,
+      Allocate,
+      SubmitApplication,
+      ForceKillApplication,
+      RegisterNM,
+      NodeHeartbeat;
     }
 }
 
