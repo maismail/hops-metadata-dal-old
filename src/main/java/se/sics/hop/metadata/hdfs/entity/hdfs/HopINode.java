@@ -26,6 +26,8 @@ public class HopINode implements Comparable<HopINode> {
   private int generationStamp;
   private long header;
   private String symlink;
+  private boolean subtreeLocked;
+  private long subtreeLockOwner;
 
   public HopINode() {
   }
@@ -39,13 +41,15 @@ public class HopINode implements Comparable<HopINode> {
       long modificationTime,
       long accessTime,
       byte[] permission,
-      boolean isUnderConstruction,
+      boolean underConstruction,
       String clientName,
       String clientMachine,
       String clientNode,
       int generationStamp,
       long header,
-      String symlink) {
+      String symlink,
+      boolean subtreeLocked,
+      long subtreeLockOwner) {
 
     this.id = id;
     this.name = name;
@@ -55,13 +59,15 @@ public class HopINode implements Comparable<HopINode> {
     this.modificationTime = modificationTime;
     this.accessTime = accessTime;
     this.permission = permission;
-    this.underConstruction = isUnderConstruction;
+    this.underConstruction = underConstruction;
     this.clientName = clientName;
     this.clientMachine = clientMachine;
     this.clientNode = clientNode;
     this.generationStamp = generationStamp;
     this.header = header;
     this.symlink = symlink;
+    this.subtreeLocked = subtreeLocked;
+    this.subtreeLockOwner = subtreeLockOwner;
   }
 
   public int getId() {
@@ -182,6 +188,22 @@ public class HopINode implements Comparable<HopINode> {
 
   public void setSymlink(String symlink) {
     this.symlink = symlink;
+  }
+
+  public boolean isSubtreeLocked() {
+    return subtreeLocked;
+  }
+
+  public void setSubtreeLocked(boolean subtreeLocked) {
+    this.subtreeLocked = subtreeLocked;
+  }
+
+  public long getSubtreeLockOwner() {
+    return subtreeLockOwner;
+  }
+
+  public void setSubtreeLockOwner(long subtreeLockOwner) {
+    this.subtreeLockOwner = subtreeLockOwner;
   }
 
   @Override
