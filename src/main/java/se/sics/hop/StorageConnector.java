@@ -14,7 +14,7 @@ public interface StorageConnector<T> {
 
   public <T> T obtainSession() throws StorageException;
 
-  public void beginTransaction() throws StorageException;
+  public void beginTransaction(String name) throws StorageException;
 
   public void commit() throws StorageException;
 

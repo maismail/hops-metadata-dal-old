@@ -58,7 +58,7 @@ public class TransactionContext {
 
   public void begin() throws StorageException {
     activeTxExpected = true;
-    connector.beginTransaction();
+    connector.beginTransaction("TransactionContext");
   }
 
   public void preventStorageCall(boolean val) {
