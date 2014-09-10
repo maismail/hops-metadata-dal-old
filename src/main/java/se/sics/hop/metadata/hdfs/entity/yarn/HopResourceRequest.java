@@ -13,11 +13,13 @@ package se.sics.hop.metadata.hdfs.entity.yarn;
 public class HopResourceRequest {
     private final String id;
     private final int priority;
+    private final String name;
     private final byte[] resourcerequeststate;
 
-    public HopResourceRequest(String id, int priority, byte[] resourcerequeststate) {
+    public HopResourceRequest(String id, int priority, String name, byte[] resourcerequeststate) {
         this.id = id;
         this.priority = priority;
+        this.name = name;
         this.resourcerequeststate = resourcerequeststate;
     }
 
@@ -27,6 +29,10 @@ public class HopResourceRequest {
 
     public int getPriority() {
         return priority;
+    }
+
+    public String getName() {
+        return name;
     }
 
     public byte[] getResourcerequeststate() {
