@@ -20,6 +20,8 @@ public interface StorageConnector<T> {
 
   public void rollback() throws StorageException;
 
+  public boolean formatStorageNonTransactional() throws StorageException;
+  
   public boolean formatStorage() throws StorageException;
   
   public boolean formatStorage(Class<? extends EntityDataAccess>... das) throws StorageException;
