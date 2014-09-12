@@ -43,7 +43,7 @@ public abstract class TransactionalRequestHandler extends RequestHandler {
     TransactionLocks locks = null;
     Object txRetValue = null;
 
-    boolean enableTxStats = true;
+    boolean enableTxStats = false;
     boolean enableTxStatsForSuccessfulOps = false;
     String logFilePath = "/tmp/hop_tx_stats.txt";
 
@@ -119,7 +119,7 @@ public abstract class TransactionalRequestHandler extends RequestHandler {
         log.debug("TX committed. Time " + commitTime + " ms");
         oldTime = System.currentTimeMillis();
         totalTime = (System.currentTimeMillis() - txStartTime);
-        log.debug("TX Finished. TX Stats: Stepup: "+setupTime+"ms Acquire Locks: " + acquireLockTime + "ms, In Memory Processing: " + inMemoryProcessingTime + "ms, Commit Time: " + commitTime + "ms, Total Time: " + totalTime + "ms");
+        log.debug("TX Finished. TX Stats: Setup: "+setupTime+"ms Acquire Locks: " + acquireLockTime + "ms, In Memory Processing: " + inMemoryProcessingTime + "ms, Commit Time: " + commitTime + "ms, Total Time: " + totalTime + "ms");
         
         removeNDC();
         //post TX phase
@@ -149,7 +149,7 @@ public abstract class TransactionalRequestHandler extends RequestHandler {
           log.error("Tx Failed. total tx time " + (System.currentTimeMillis() - txStartTime) + 
                   " msec. Retry(" + retry + ") TotalRetryCount(" + RETRY_COUNT + 
                   ") RemainingRetries(" + (RETRY_COUNT - tryCount) + 
-                  ") TX Stats: Stepup: "+setupTime+"ms Acquire Locks: " + acquireLockTime + 
+                  ") TX Stats: Setup: "+setupTime+"ms Acquire Locks: " + acquireLockTime + 
                   "ms, In Memory Processing: " + inMemoryProcessingTime + 
                   "ms, Commit Time: " + commitTime + 
                   "ms, Total Time: " + totalTime + "ms", ex);
