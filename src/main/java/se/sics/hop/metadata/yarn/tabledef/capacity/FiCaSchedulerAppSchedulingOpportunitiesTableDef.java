@@ -4,14 +4,14 @@
  * and open the template in the editor.
  */
 
-package se.sics.hop.metadata.yarn.tabledef;
+package se.sics.hop.metadata.yarn.tabledef.capacity;
 
 /**
  *
  * @author nickstanogias
  */
-public interface ContainerStopPreemptTableDef {
-    public static final String TABLE_NAME = "ha_containerstoppreempt";
+public interface FiCaSchedulerAppSchedulingOpportunitiesTableDef {
+    public static final String TABLE_NAME = "ha_ficaschedulerapp_schedulingopportunities";
     public static final String FICASCHEDULERAPP_ID = "ficaschedulerapp_id";
-    public static final String CONTAINER_ID = "container_id";
+    public static final String PRIORITY_ID = "priority_id";
 }

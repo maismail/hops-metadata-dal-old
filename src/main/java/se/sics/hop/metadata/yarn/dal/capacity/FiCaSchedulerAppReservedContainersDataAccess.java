@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-package se.sics.hop.metadata.yarn.dal;
+package se.sics.hop.metadata.yarn.dal.capacity;
 
 import java.util.Collection;
 import se.sics.hop.exception.StorageException;
@@ -14,7 +14,7 @@ import se.sics.hop.metadata.hdfs.dal.EntityDataAccess;
  *
  * @author nickstanogias
  */
-public interface AllocatedContainersDataAccess<T> extends EntityDataAccess {
+public interface FiCaSchedulerAppReservedContainersDataAccess<T> extends EntityDataAccess {
     T findById(int id) throws StorageException;
 
     void prepare(Collection<T> modified, Collection<T> removed) throws StorageException;
