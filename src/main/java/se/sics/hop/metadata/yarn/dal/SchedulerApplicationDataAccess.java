@@ -10,7 +10,6 @@ import java.util.Collection;
 import java.util.List;
 import se.sics.hop.exception.StorageException;
 import se.sics.hop.metadata.hdfs.dal.EntityDataAccess;
-import se.sics.hop.metadata.hdfs.entity.yarn.HopSchedulerApplication;
 
 /**
  *

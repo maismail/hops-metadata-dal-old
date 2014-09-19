@@ -4,21 +4,23 @@
  * and open the template in the editor.
  */
 
-package se.sics.hop.metadata.hdfs.entity.yarn;
+package se.sics.hop.metadata.hdfs.entity.yarn.capacity;
 
 /**
  *
- * @author Nikos Stanogias <niksta@sics.se>
+ * @author nickstanogias
  */
-public class HopFiCaSchedulerAppLastScheduledContainer {
+public class HopFiCaSchedulerAppReservedContainers {
     private final String ficaschedulerapp_id;
     private final int priority_id;
-    private final long time;
+    private final int nodeid;
+    private final String rmcontainer_id;
 
-    public HopFiCaSchedulerAppLastScheduledContainer(String ficaschedulerapp_id, int priority_id, long time) {
+    public HopFiCaSchedulerAppReservedContainers(String ficaschedulerapp_id, int priority_id, int nodeid, String rmcontainer_id) {
         this.ficaschedulerapp_id = ficaschedulerapp_id;
         this.priority_id = priority_id;
-        this.time = time;
+        this.nodeid = nodeid;
+        this.rmcontainer_id = rmcontainer_id;
     }
 
     public String getFicaschedulerapp_id() {
@@ -29,7 +31,11 @@ public class HopFiCaSchedulerAppLastScheduledContainer {
         return priority_id;
     }
 
-    public long getTime() {
-        return time;
+    public int getNodeid() {
+        return nodeid;
+    }
+
+    public String getRmcontainer_id() {
+        return rmcontainer_id;
     }
 }

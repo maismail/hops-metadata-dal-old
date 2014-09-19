@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-package se.sics.hop.metadata.yarn.tabledef;
+package se.sics.hop.metadata.yarn.tabledef.capacity;
 
 /**
  *
