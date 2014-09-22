@@ -8,6 +8,8 @@ import java.util.Formatter;
 import java.util.List;
 import java.util.Locale;
 import java.util.Random;
+import java.util.concurrent.ExecutionException;
+
 import se.sics.hop.exception.StorageException;
 import org.apache.log4j.NDC;
 import se.sics.hop.exception.AcquireLockInterruptedException;
@@ -36,7 +38,7 @@ public abstract class TransactionalRequestHandler extends RequestHandler {
     boolean rollback = false;
     boolean txSuccessful = false;
     int tryCount = 0;
-    Exception exception = null;
+    Throwable throwable = null;
     long txStartTime = 0;
     TransactionLocks locks = null;
     Object txRetValue = null;
@@ -49,15 +51,15 @@ public abstract class TransactionalRequestHandler extends RequestHandler {
       retry = true;
       rollback = false;
       tryCount++;
-      exception = null;
+      throwable = null;
       txSuccessful = false;
 
       long oldTime = 0;
-      long setupTime = 0;
-      long acquireLockTime = 0;
-      long inMemoryProcessingTime = 0;
-      long commitTime = 0;
-      long totalTime = 0;
+      long setupTime = -1;
+      long acquireLockTime = -1;
+      long inMemoryProcessingTime = -1;
+      long commitTime = -1;
+      long totalTime = -1;
       EntityManager.preventStorageCall(false);
       
       try {
@@ -84,6 +86,11 @@ public abstract class TransactionalRequestHandler extends RequestHandler {
         locks = acquireLock();
         acquireLockTime = (System.currentTimeMillis() - oldTime);
         log.debug("All Locks Acquired. Time " + acquireLockTime + " ms");
+        
+        //sometimes in setup we call light weight request handler that messes up with the NDC
+        removeNDC();
+        setNDC(info);
+        
         oldTime = System.currentTimeMillis();
         EntityManager.preventStorageCall(true);
 
@@ -94,7 +101,7 @@ public abstract class TransactionalRequestHandler extends RequestHandler {
           // keep running the Tx is the exception is RecoveryInProgressException
           if (e.getMessage().contains("Lease recovery is in progress")) // dont abort in case of RecoveryInProgressException
           {
-            exception = e;
+            throwable = e;
           } else {
             throw e;
           }
@@ -103,7 +110,7 @@ public abstract class TransactionalRequestHandler extends RequestHandler {
         log.debug("In Memory Processing Finished. Time " + inMemoryProcessingTime + " ms");
         oldTime = System.currentTimeMillis();
         if (enableTxStats && enableTxStatsForSuccessfulOps) {
-          collectStats(logFilePath, exception);
+          collectStats(logFilePath, throwable);
         }
         EntityManager.commit(locks);
         txSuccessful = true;
@@ -111,7 +118,7 @@ public abstract class TransactionalRequestHandler extends RequestHandler {
         log.debug("TX committed. Time " + commitTime + " ms");
         oldTime = System.currentTimeMillis();
         totalTime = (System.currentTimeMillis() - txStartTime);
-        log.debug("TX Finished. TX Stats : Acquire Locks: " + acquireLockTime + "ms, In Memory Processing: " + inMemoryProcessingTime + "ms, Commit Time: " + commitTime + "ms, Total Time: " + totalTime + "ms");
+        log.debug("TX Finished. TX Stats: Stepup: "+setupTime+"ms Acquire Locks: " + acquireLockTime + "ms, In Memory Processing: " + inMemoryProcessingTime + "ms, Commit Time: " + commitTime + "ms, Total Time: " + totalTime + "ms");
 
         //post TX phase
         //any error in this phase will not re-start the tx
@@ -120,30 +127,36 @@ public abstract class TransactionalRequestHandler extends RequestHandler {
           ((TransactionInfo) info).performPostTransactionAction();
         }
         return txRetValue;
-      } catch (Exception ex) { // catch checked and unchecked exceptions
+      } catch (Throwable ex) { // catch checked and unchecked exceptions
         rollback = true;
 
         if (txSuccessful) { // exception in post Tx stage 
           retry = false;
           rollback = true;
           log.warn("Exception in Post Tx Stage. Exception is " + ex);
-          ex.printStackTrace();
+          //ex.printStackTrace();
           return txRetValue;
         } else {
-          exception = ex;
+          throwable = ex;
           rollback = true;
-          if (ex instanceof StorageException) {
+          if (ex instanceof PersistanceException) {
             retry = true;
           } else {
             retry = false;
           }
-          log.error("Tx Failed. total tx time " + (System.currentTimeMillis() - txStartTime) + " msec. Retry(" + retry + ") TotalRetryCount(" + RETRY_COUNT + ") RemainingRetries(" + (RETRY_COUNT - tryCount) + ")", ex);
+          log.error("Tx Failed. total tx time " + (System.currentTimeMillis() - txStartTime) + 
+                  " msec. Retry(" + retry + ") TotalRetryCount(" + RETRY_COUNT + 
+                  ") RemainingRetries(" + (RETRY_COUNT - tryCount) + 
+                  ") TX Stats: Stepup: "+setupTime+"ms Acquire Locks: " + acquireLockTime + 
+                  "ms, In Memory Processing: " + inMemoryProcessingTime + 
+                  "ms, Commit Time: " + commitTime + 
+                  "ms, Total Time: " + totalTime + "ms", ex);
         }
       } finally {
         if (rollback) {
           try {
             if (enableTxStats) {
-              collectStats(logFilePath, exception);
+              collectStats(logFilePath, throwable);
             }
             EntityManager.rollback(locks);
           } catch (Exception ex) {
@@ -153,16 +166,16 @@ public abstract class TransactionalRequestHandler extends RequestHandler {
 
         //log.debug("TX Exception "+exception+" retry "+retry+" rollback "+rollback+" count "+tryCount);
         removeNDC();
-        if ((tryCount == RETRY_COUNT && exception != null && exception instanceof StorageException/*&& retry == true && !txSuccessful*/) // run out of retries and there is an exception
-             || ( exception != null && !(exception instanceof StorageException))  //non storage exceptions are not retried. // you may or may not have exhausted the retry count but the tx failed because of some exception like file not found etc. in this case just throw the exception and dont retry
+        if ((tryCount == RETRY_COUNT && throwable != null && throwable instanceof StorageException/*&& retry == true && !txSuccessful*/) // run out of retries and there is an exception
+             || ( throwable != null && !(throwable instanceof StorageException))  //non storage exceptions are not retried. // you may or may not have exhausted the retry count but the tx failed because of some exception like file not found etc. in this case just throw the exception and dont retry
                 ) {
-          log.debug("Throwing exception " + exception);
-          if (exception instanceof IOException) {
-            throw (IOException) exception;
-          } else if (exception instanceof RuntimeException) { // runtime exceptions etc
-            throw (RuntimeException) exception;
-          } else { // wrap the exception and handle it in the code 
-            throw new HOPExceptionWrapper(exception);
+          log.debug("Transaction failed after "+RETRY_COUNT+" retries. Throwing exception " + throwable);
+          if (throwable instanceof IOException) {
+            throw (IOException) throwable;
+          } else if (throwable instanceof RuntimeException) { // runtime exceptions etc
+            throw (RuntimeException) throwable;
+          } else { // wrap the exception and handle it in the code
+            throw new HOPExceptionWrapper(throwable);
           }
         }
       }
@@ -184,7 +197,7 @@ public abstract class TransactionalRequestHandler extends RequestHandler {
     }
   }
 
-  public abstract TransactionLocks acquireLock() throws PersistanceException, IOException;
+  public abstract TransactionLocks acquireLock() throws PersistanceException, IOException, ExecutionException;
 
   @Override
   public TransactionalRequestHandler setParams(Object... params) {
@@ -197,7 +210,7 @@ public abstract class TransactionalRequestHandler extends RequestHandler {
     // This can be overriden.
   }
 
-  private void collectStats(String logFilePath, Exception exception) throws PersistanceException {
+  private void collectStats(String logFilePath, Throwable exception) throws PersistanceException {
 
     List<EntityContextStat> stats = (List<EntityContextStat>) EntityManager.collectSnapshotStat();
     try {

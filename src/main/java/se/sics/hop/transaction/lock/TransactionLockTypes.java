@@ -26,15 +26,22 @@ public class TransactionLockTypes {
   }
 
   public enum INodeLockType {
-
-    WRITE,
-    WRITE_ON_PARENT // Write lock on the parent of the last path component. This has the WRITE effect when using inode-id.
-    , READ, READ_COMMITED // No Lock
-  }
+      READ_COMMITTED, // No Lock
+      READ,
+      WRITE,
+      WRITE_ON_PARENT; // Write lock on the parent of the last path component. This has the WRITE effect when using inode-id.
+      public boolean gt(INodeLockType second){
+        if(ordinal() > second.ordinal()){
+          return true;
+        }else{
+          return false;
+        }
+      }
+    }
 
   public enum INodeResolveType {
+    INDIVIDUAL,
     PATH // resolve only the given path
-    , PATH_WITH_UNKNOWN_HEAD // resolve a path which some of its path components might not exist
     , PATH_AND_IMMEDIATE_CHILDREN // resolve path and find the given directory's children
     , PATH_AND_ALL_CHILDREN_RECURESIVELY // resolve the given path and find all the children recursively.
   }

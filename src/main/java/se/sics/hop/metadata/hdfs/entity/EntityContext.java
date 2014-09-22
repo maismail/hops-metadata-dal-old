@@ -43,7 +43,7 @@ public abstract class EntityContext<T> {
    */
   public enum CacheHitState {
 
-    HIT, LOSS, NA
+    HIT, LOSS, LOSS_LOCK_UPGRADE, NA
   }
 
   public abstract void add(T entity) throws PersistanceException;
@@ -82,7 +82,15 @@ public abstract class EntityContext<T> {
         message.append(curLock.name()).append(" ");
       }
       message.append(opName).append(" ").append("loss").append(ANSI_RESET);
-    } else {
+    } else if(state == CacheHitState.LOSS_LOCK_UPGRADE){
+      LockMode curLock = currentLockMode.get();
+      message.append(ANSI_BLUE);
+      if (curLock != null) {
+        message.append(curLock.name()).append(" ");
+      }
+      message.append(opName).append(" ").append("loss").append(ANSI_RESET);
+    }
+    else {
       message.append(opName).append(" ");
     }
     message.append(" ");
@@ -135,7 +143,7 @@ public abstract class EntityContext<T> {
     }
   }
 
-  protected boolean isTxRunning() {
+  protected boolean preventStorageCalls() {
     return storageCallPrevented;
   }
 }

@@ -24,15 +24,15 @@ public interface StorageConnector<T> {
   
   public boolean formatStorage(Class<? extends EntityDataAccess>... das) throws StorageException;
   
-  public boolean isTransactionActive();
+  public boolean isTransactionActive() throws StorageException;
 
-  public void stopStorage();
+  public void stopStorage()throws StorageException;
 
-  public void readLock();
+  public void readLock()throws StorageException;
 
-  public void writeLock();
+  public void writeLock()throws StorageException;
 
-  public void readCommitted();
+  public void readCommitted()throws StorageException;
 
-  public void setPartitionKey(Class className, Object key);
+  public void setPartitionKey(Class className, Object key)throws StorageException;
 }

@@ -1,7 +1,9 @@
 package se.sics.hop.transaction;
 
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 import org.apache.log4j.NDC;
 import se.sics.hop.metadata.hdfs.entity.EntityContext;
@@ -75,6 +77,14 @@ public class EntityManager {
     return context().find(finder, params);
   }
 
+  public static <T> Collection<T> concurrentFindList(FinderType<T> finder, Long parentThreadId, Object... params) throws PersistanceException {
+    return contexts.get(parentThreadId).findList(finder, params);
+  }
+
+  public static <T> T concurrentFind(FinderType<T> finder, Long parentThreadId, Object... params) throws PersistanceException {
+    return contexts.get(parentThreadId).find(finder, params);
+  }
+
   public static int count(CounterType counter, Object... params) throws PersistanceException {
     return context().count(counter, params);
   }
@@ -91,22 +101,22 @@ public class EntityManager {
     context().snapshotMaintenance(cmds, params);
   }
 
-  public static void writeLock() {
+  public static void writeLock() throws StorageException {
     EntityContext.setLockMode(EntityContext.LockMode.WRITE_LOCK);
     contextInitializer.getConnector().writeLock();
   }
 
-  public static void readLock() {
+  public static void readLock() throws StorageException {
     EntityContext.setLockMode(EntityContext.LockMode.READ_LOCK);
     contextInitializer.getConnector().readLock();
   }
 
-  public static void readCommited() {
+  public static void readCommited() throws StorageException {
     EntityContext.setLockMode(EntityContext.LockMode.READ_COMMITTED);
     contextInitializer.getConnector().readCommitted();
   }
 
-  public static void setPartitionKey(Class name, Object key) {
+  public static void setPartitionKey(Class name, Object key) throws StorageException {
     contextInitializer.getConnector().setPartitionKey(name, key);
   }
 
@@ -122,29 +132,19 @@ public class EntityManager {
   }
   
   private static Long getThreadID(){
-    Long threadID;
-    Thread currentThread = Thread.currentThread();
-    if(currentThread instanceof ParallelReadThread){
-      threadID = ((ParallelReadThread)currentThread).getParentId();
-    }
-    else{
-      threadID = Thread.currentThread().getId();
-    }
-    return threadID;
+    return Thread.currentThread().getId();
   }
   
   private static TransactionContext addContext(){
-      Long threadID = getThreadID(); 
-      Map<Class, EntityContext> storageMap = contextInitializer.createEntityContexts();
-      TransactionContext context = new TransactionContext(contextInitializer.getConnector(), storageMap);
-      contexts.put(threadID,context);
-      return context;
+    Long threadID = getThreadID();
+    Map<Class, EntityContext> storageMap = contextInitializer.createEntityContexts();
+    TransactionContext context = new TransactionContext(contextInitializer.getConnector(), storageMap);
+    contexts.put(threadID,context);
+    return context;
   }
   
   private static void removeContext(){
-    if (!(Thread.currentThread() instanceof ParallelReadThread)){
-      Long threadID = getThreadID(); 
-      contexts.remove(threadID);
-    }
+    Long threadID = getThreadID();
+    contexts.remove(threadID);
   }
 }

@@ -12,7 +12,9 @@ import se.sics.hop.exception.StorageException;
 public interface BlockInfoDataAccess<T> extends EntityDataAccess {
 
   int countAll() throws StorageException;
-
+  
+  int countAllCompleteBlocks() throws StorageException;
+   
   T findById(long blockId, int inodeId) throws StorageException;
 
   List<T> findByInodeId(int inodeId) throws StorageException;

@@ -67,27 +67,17 @@ public class TransactionContext {
   }
 
   public void commit(final TransactionLocks tlm) throws StorageException {
-    if (Thread.currentThread() instanceof ParallelReadThread) {
-      aboutToPerform();
-      connector.commit();
-    } else {
-      aboutToPerform();
-      for (EntityContext context : contexts) {
-        context.prepare(tlm);
-      }
-      resetContext();
-      connector.commit();
+    aboutToPerform();
+    for (EntityContext context : contexts) {
+      context.prepare(tlm);
     }
+    resetContext();
+    connector.commit();
   }
 
   public void rollback() throws StorageException {
-    if (Thread.currentThread() instanceof ParallelReadThread) {
-      aboutToPerform();
-      connector.rollback();
-    } else {
-      resetContext();
-      connector.rollback();
-    }
+    resetContext();
+    connector.rollback();
   }
 
   public <T> void update(T obj) throws PersistanceException {

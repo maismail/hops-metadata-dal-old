@@ -1,15 +1,13 @@
 package se.sics.hop.transaction.lock;
 
-import java.io.IOException;
-import java.util.Collection;
-
 import se.sics.hop.exception.PersistanceException;
-import static se.sics.hop.transaction.lock.TransactionLockTypes.LockType.READ;
-import static se.sics.hop.transaction.lock.TransactionLockTypes.LockType.READ_COMMITTED;
-import static se.sics.hop.transaction.lock.TransactionLockTypes.LockType.WRITE;
-
+import se.sics.hop.exception.StorageException;
 import se.sics.hop.metadata.hdfs.entity.FinderType;
 import se.sics.hop.transaction.EntityManager;
+
+import java.io.IOException;
+import java.util.Collection;
+import java.util.concurrent.ExecutionException;
 
 /**
  *
@@ -17,9 +15,9 @@ import se.sics.hop.transaction.EntityManager;
  */
 public abstract class TransactionLockAcquirer {
 
-  public abstract TransactionLocks acquire() throws PersistanceException, IOException;
-  
-  protected void setLockMode(TransactionLockTypes.LockType mode) {
+  public abstract TransactionLocks acquire() throws PersistanceException, IOException, ExecutionException;
+
+  protected static void setLockMode(TransactionLockTypes.LockType mode) throws StorageException {
     switch (mode) {
       case WRITE:
         EntityManager.writeLock();

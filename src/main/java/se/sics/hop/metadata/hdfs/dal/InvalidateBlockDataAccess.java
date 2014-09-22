@@ -29,6 +29,6 @@ public interface InvalidateBlockDataAccess<T> extends EntityDataAccess {
   void prepare(Collection<T> removed, Collection<T> newed, Collection<T> modified) throws StorageException;
 
   void removeAll() throws StorageException;
-  
+
   void removeAllByStorageId(int storageId) throws StorageException;
 }
