@@ -11,16 +11,16 @@ package se.sics.hop.metadata.hdfs.entity.yarn.capacity;
  * @author nickstanogias
  */
 public class HopFiCaSchedulerAppSchedulingOpportunities {
-    private String ficaschedulerapp_id;
-    private int priority_id;
+    private final String schedulerapp_id;
+    private final int priority_id;
 
-    public HopFiCaSchedulerAppSchedulingOpportunities(String ficaschedulerapp_id, int priority_id) {
-        this.ficaschedulerapp_id = ficaschedulerapp_id;
+    public HopFiCaSchedulerAppSchedulingOpportunities(String schedulerapp_id, int priority_id) {
+        this.schedulerapp_id = schedulerapp_id;
         this.priority_id = priority_id;
     }
 
-    public String getFicaschedulerapp_id() {
-        return ficaschedulerapp_id;
+    public String getSchedulerapp_id() {
+        return schedulerapp_id;
     }
 
     public int getPriority_id() {

@@ -11,7 +11,7 @@ package se.sics.hop.metadata.yarn.tabledef;
  * @author Nikos Stanogias <niksta@sics.se>
  */
 public interface FiCaSchedulerAppNewlyAllocatedContainersTableDef {
-    public static final String TABLE_NAME = "ha_ficaschedulerapp_newlyallocatedcontainers";
-    public static final String FICASCHEDULERAPP_ID = "ficaschedulerapp_id";
+    public static final String TABLE_NAME = "ha_schedulerapp_newlyallocatedcontainers";
+    public static final String SCHEDULERAPP_ID = "schedulerapp_id";
     public static final String RMCONTAINER_ID = "rmcontainer_id";
 }

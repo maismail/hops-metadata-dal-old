@@ -6,18 +6,18 @@ package se.sics.hop.metadata.hdfs.entity.yarn;
  */
 public class HopFiCaSchedulerApp {
 
-    private final String ficaAppId;
+    private final String schedulerAppId;
     private final int appId;
     private final boolean isstoped;
 
-    public HopFiCaSchedulerApp(String ficaAppId, int appId, boolean isstoped) {
-        this.ficaAppId = ficaAppId;
+    public HopFiCaSchedulerApp(String schedulerAppId, int appId, boolean isstoped) {
+        this.schedulerAppId = schedulerAppId;
         this.appId = appId;
         this.isstoped = isstoped;
     }
 
-    public String getFicaAppId() {
-        return ficaAppId;
+    public String getSchedulerAppId() {
+        return schedulerAppId;
     }
 
     public int getAppId() {

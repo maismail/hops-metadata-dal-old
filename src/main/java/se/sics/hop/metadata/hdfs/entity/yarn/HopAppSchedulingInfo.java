@@ -11,15 +11,15 @@ package se.sics.hop.metadata.hdfs.entity.yarn;
  * @author nickstanogias
  */
 public class HopAppSchedulingInfo {
-    private final String ficaAppId;
+    private final String schedulerappId;
     private final int appId;
     private final String queuename;
     private final String user;
     private final int containeridcounter;
     private final boolean pending;
 
-    public HopAppSchedulingInfo(String ficaAppId, int appId, String queuename, String user, int containeridcounter, boolean pending) {
-        this.ficaAppId = ficaAppId;
+    public HopAppSchedulingInfo(String schedulerappId, int appId, String queuename, String user, int containeridcounter, boolean pending) {
+        this.schedulerappId = schedulerappId;
         this.appId = appId;
         this.queuename = queuename;
         this.user = user;
@@ -27,8 +27,8 @@ public class HopAppSchedulingInfo {
         this.pending = pending;
     }
 
-    public String getFicaAppId() {
-        return ficaAppId;
+    public String getSchedulerappId() {
+        return schedulerappId;
     }
 
     public int getAppId() {
@@ -50,6 +50,4 @@ public class HopAppSchedulingInfo {
     public boolean isPending() {
         return pending;
     }
-
-    
 }

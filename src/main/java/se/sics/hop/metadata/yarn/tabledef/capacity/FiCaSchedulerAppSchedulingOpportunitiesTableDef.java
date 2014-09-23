@@ -11,7 +11,7 @@ package se.sics.hop.metadata.yarn.tabledef.capacity;
  * @author nickstanogias
  */
 public interface FiCaSchedulerAppSchedulingOpportunitiesTableDef {
-    public static final String TABLE_NAME = "ha_ficaschedulerapp_schedulingopportunities";
-    public static final String FICASCHEDULERAPP_ID = "ficaschedulerapp_id";
+    public static final String TABLE_NAME = "ha_schedulerapp_schedulingopportunities";
+    public static final String SCHEDULERAPP_ID = "schedulerapp_id";
     public static final String PRIORITY_ID = "priority_id";
 }

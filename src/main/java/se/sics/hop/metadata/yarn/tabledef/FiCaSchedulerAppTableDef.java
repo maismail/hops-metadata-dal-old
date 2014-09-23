@@ -11,8 +11,8 @@ package se.sics.hop.metadata.yarn.tabledef;
  * @author nickstanogias
  */
 public interface FiCaSchedulerAppTableDef {
-    public static final String TABLE_NAME = "ha_ficascheduler_app";
-    public static final String FICASCHEDULERAPP_ID = "ficaschedulerapp_id";
+    public static final String TABLE_NAME = "ha_scheduler_app";
+    public static final String SCHEDULERAPP_ID = "schedulerapp_id";
     public static final String APPID = "appid";
     public static final String ISSTOPPED = "isstopped";    
 }

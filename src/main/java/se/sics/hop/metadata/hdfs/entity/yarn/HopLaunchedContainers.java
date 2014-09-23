@@ -7,18 +7,18 @@ package se.sics.hop.metadata.hdfs.entity.yarn;
  */
 public class HopLaunchedContainers {
 
-    private String ficaSchedulerNodeID;
-    private String containerIdID;
-    private String rmContainerID;
+    private final String schedulerNodeID;
+    private final String containerIdID;
+    private final String rmContainerID;
 
-    public HopLaunchedContainers(String ficaSchedulerNodeID, String containerIdID, String rmContainerID) {
-        this.ficaSchedulerNodeID = ficaSchedulerNodeID;
+    public HopLaunchedContainers(String schedulerNodeID, String containerIdID, String rmContainerID) {
+        this.schedulerNodeID = schedulerNodeID;
         this.containerIdID = containerIdID;
         this.rmContainerID = rmContainerID;
     }
-
-    public String getFicaSchedulerNodeID() {
-        return ficaSchedulerNodeID;
+        
+    public String getSchedulerNodeID() {
+        return schedulerNodeID;
     }
 
     public String getContainerIdID() {
@@ -27,5 +27,5 @@ public class HopLaunchedContainers {
 
     public String getRmContainerID() {
         return rmContainerID;
-    }
+    }   
 }
