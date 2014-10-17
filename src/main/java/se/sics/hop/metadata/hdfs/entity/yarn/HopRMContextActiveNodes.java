@@ -5,12 +5,12 @@ package se.sics.hop.metadata.hdfs.entity.yarn;
  *
  * @author Theofilos Kakantousis <tkak@sics.se>
  */
-public class HopRMContextNodes {
+public class HopRMContextActiveNodes {
 
     private final String nodeidId;
-    private final String rmnodeId;
+    private final String rmnodeId;//TORECOVER remove, redodant with nodeidId
 
-    public HopRMContextNodes(String nodeidId, String rmnodeId) {
+    public HopRMContextActiveNodes(String nodeidId, String rmnodeId) {
         this.nodeidId = nodeidId;
         this.rmnodeId = rmnodeId;
     }

@@ -8,7 +8,7 @@ package se.sics.hop.metadata.hdfs.entity.yarn;
 public class HopRMContextInactiveNodes {
 
     private final String rmnodeid;
-    private final String host;
+    private final String host; //TORECOVER remove, useless
 
     public HopRMContextInactiveNodes(String host, String rmnodeid) {
         this.rmnodeid = rmnodeid;

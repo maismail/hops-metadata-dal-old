@@ -1,5 +1,8 @@
 package se.sics.hop.metadata.hdfs.entity.yarn;
 
+import com.google.common.base.Splitter;
+import java.util.Iterator;
+
 /**
  *
  * @author Theofilos Kakantousis <tkak@sics.se>
@@ -7,23 +10,30 @@ package se.sics.hop.metadata.hdfs.entity.yarn;
 public class HopApplicationId {
 
   private final String id;
-  private final int appid;
-  private final long clustertimestamp;
+  private long clustertimestamp;
+  private int appId;
 
-  public HopApplicationId(String id, int appid, long clustertimestamp) {
+  public HopApplicationId(String id) {
     this.id = id;
-    this.appid = appid;
-    this.clustertimestamp = clustertimestamp;
+    build();
   }
 
   public String getId() {
     return id;
   }
 
-  public int getAppid() {
-    return appid;
+  public int getAppId(){
+      return appId;
+  }
+  
+   private void build() {
+    Iterator<String> it = Splitter.on('_').trimResults().split(id).iterator();
+    it.next(); // prefix.
+    clustertimestamp = Long.parseLong(it.next());
+    appId = Integer.parseInt(it.next());
   }
 
+  
   public long getClustertimestamp() {
     return clustertimestamp;
   }
@@ -37,7 +47,7 @@ public class HopApplicationId {
   public boolean equals(Object object) {
     if (object instanceof HopApplicationId) {
       HopApplicationId oth = (HopApplicationId) object;
-      return id.equals(oth.getId()) && appid == oth.getAppid() && clustertimestamp == oth.getClustertimestamp();
+      return id.equals(oth.getId()) && clustertimestamp == oth.getClustertimestamp();
     } else {
       return false;
     }
@@ -48,7 +58,6 @@ public class HopApplicationId {
   public int hashCode() {
     int hash = 5;
     hash = 53 * hash + (this.id != null ? this.id.hashCode() : 0);
-    hash = 53 * hash + this.appid;
     hash = 53 * hash + (int) (this.clustertimestamp ^ (this.clustertimestamp >>> 32));
     return hash;
   }

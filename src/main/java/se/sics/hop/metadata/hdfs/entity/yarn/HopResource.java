@@ -29,6 +29,12 @@ public class HopResource {
     private int memory;
     private int virtualcores;
 
+    public HopResource(String id, int type, int parent){
+         this.id = id;
+        this.type = type;
+        this.parent = parent;
+    }
+    
     public HopResource(String id, int type, int parent, int memory, int virtualcores) {
         this.id = id;
         this.type = type;

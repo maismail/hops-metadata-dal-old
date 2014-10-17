@@ -6,7 +6,7 @@ package se.sics.hop.metadata.yarn.tabledef;
  */
 public interface NodeTableDef {
     public static final String TABLE_NAME = "ha_node";
-    public static final String ID = "id";
+    public static final String NODEID = "nodeid";
     public static final String NAME = "name";
     public static final String LOCATION = "location";
     public static final String LEVEL = "level";

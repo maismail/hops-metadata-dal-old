@@ -8,23 +8,18 @@ public class HopJustLaunchedContainers {
 
     private final String rmnodeid;
     private final String containerid;
-    private final String containerstatusid;
 
-    public HopJustLaunchedContainers(String rmnodeid, String containerid, String containerstatusid) {
+    public HopJustLaunchedContainers(String rmnodeid, String containerid) {
         this.rmnodeid = rmnodeid;
         this.containerid = containerid;
-        this.containerstatusid = containerstatusid;
     }
 
     public String getRmnodeid() {
         return rmnodeid;
     }
 
-    public String getContainerid() {
+    public String getContainerId() {
         return containerid;
     }
 
-    public String getContainerstatusid() {
-        return containerstatusid;
-    }
 }
