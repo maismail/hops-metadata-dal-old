@@ -17,17 +17,20 @@ public class HopAppSchedulingInfo {
     private final String user;
     private final int containeridcounter;
     private final boolean pending;
+    private final boolean stoped;
 
-    public HopAppSchedulingInfo(String schedulerappId, int appId, String queuename, String user, int containeridcounter, boolean pending) {
+    public HopAppSchedulingInfo(String schedulerappId, int appId, String queuename, 
+            String user, int containeridcounter, boolean pending, boolean stoped) {
         this.schedulerappId = schedulerappId;
         this.appId = appId;
         this.queuename = queuename;
         this.user = user;
         this.containeridcounter = containeridcounter;
         this.pending = pending;
+        this.stoped = stoped;
     }
 
-    public String getSchedulerappId() {
+    public String getSchedulerAppId() {
         return schedulerappId;
     }
 
@@ -49,5 +52,9 @@ public class HopAppSchedulingInfo {
 
     public boolean isPending() {
         return pending;
+    }
+
+    public boolean isStoped() {
+        return stoped;
     }
 }

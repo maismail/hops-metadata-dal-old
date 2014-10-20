@@ -18,4 +18,5 @@ public interface AppSchedulingInfoTableDef {
     public static final String USER = "user";
     public static final String CONTAINERIDCOUNTER = "containeridcounter";
     public static final String PENDING = "pending";
+    public static final String STOPED = "stoped";
 }
