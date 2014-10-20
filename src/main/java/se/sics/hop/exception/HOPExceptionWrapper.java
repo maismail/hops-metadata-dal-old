@@ -6,15 +6,15 @@ package se.sics.hop.exception;
  */
 public class HOPExceptionWrapper extends StorageException {
 
-  Exception ex;
+  Throwable ex;
   
-  public HOPExceptionWrapper(Exception ex)
+  public HOPExceptionWrapper(Throwable ex)
   {
     super(ex);
     this.ex = ex;
   }
   
-  public Exception getOriginalException(){
+  public Throwable getOriginalException(){
     return ex;
   }
 
@@ -22,6 +22,4 @@ public class HOPExceptionWrapper extends StorageException {
   public String toString() {
     return ex.toString();
   }
-  
-  
 }

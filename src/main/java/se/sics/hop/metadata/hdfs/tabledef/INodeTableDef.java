@@ -22,4 +22,6 @@ public interface INodeTableDef {
   public static final String DIR = "dir";
   public static final String QUOTA_ENABLED = "quota_enabled";
   public static final String UNDER_CONSTRUCTION = "under_construction";
+  public static final String SUBTREE_LOCKED = "subtree_locked";
+  public static final String SUBTREE_LOCK_OWNER = "subtree_lock_owner";
 }
