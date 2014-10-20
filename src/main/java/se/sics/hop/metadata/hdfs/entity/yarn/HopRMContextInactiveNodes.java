@@ -8,18 +8,13 @@ package se.sics.hop.metadata.hdfs.entity.yarn;
 public class HopRMContextInactiveNodes {
 
     private final String rmnodeid;
-    private final String host;
 
-    public HopRMContextInactiveNodes(String host, String rmnodeid) {
+    public HopRMContextInactiveNodes(String rmnodeid) {
         this.rmnodeid = rmnodeid;
-        this.host = host;
     }
 
     public String getRmnodeid() {
         return rmnodeid;
     }
 
-    public String getHost() {
-        return host;
-    }
 }

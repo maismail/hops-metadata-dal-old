@@ -9,7 +9,7 @@ import se.sics.hop.metadata.hdfs.dal.EntityDataAccess;
  *
  * @author Theofilos Kakantousis <tkak@sics.se>
  */
-public interface RMContextNodesDataAccess<T> extends EntityDataAccess {
+public interface RMContextActiveNodesDataAccess<T> extends EntityDataAccess {
 
     /**
      * Find Map entry by provided ids of RMContext and NodeId.
