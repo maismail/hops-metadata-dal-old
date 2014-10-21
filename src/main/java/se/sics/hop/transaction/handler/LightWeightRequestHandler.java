@@ -1,8 +1,8 @@
 package se.sics.hop.transaction.handler;
 
 import java.io.IOException;
-import org.apache.log4j.NDC;
 import se.sics.hop.exception.PersistanceException;
+import se.sics.hop.log.NDCWrapper;
 
 /**
  *
@@ -27,7 +27,7 @@ public abstract class LightWeightRequestHandler extends RequestHandler {
         tryCount++;
         exception = null;
         try {
-          NDC.push(opType.toString()); // Defines a context for every operation to track them in the logs easily.
+          NDCWrapper.push(opType.toString()); // Defines a context for every operation to track them in the logs easily.
 
           //In a tx if the lock level is set to write, does 
           //it mean that all the operations after seting the lock will use write lcok? 
@@ -47,8 +47,8 @@ public abstract class LightWeightRequestHandler extends RequestHandler {
         } catch (IOException ex) {
           exception = ex;
         } finally {
-          NDC.pop();
-          NDC.remove();
+          NDCWrapper.pop();
+          NDCWrapper.remove();
           if (tryCount == RETRY_COUNT && exception != null) {
             throw exception;
           }
