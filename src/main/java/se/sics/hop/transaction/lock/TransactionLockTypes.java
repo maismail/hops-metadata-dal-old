@@ -40,6 +40,7 @@ public class TransactionLockTypes {
     }
 
   public enum INodeResolveType {
+    INDIVIDUAL,
     PATH // resolve only the given path
     , PATH_AND_IMMEDIATE_CHILDREN // resolve path and find the given directory's children
     , PATH_AND_ALL_CHILDREN_RECURESIVELY // resolve the given path and find all the children recursively.

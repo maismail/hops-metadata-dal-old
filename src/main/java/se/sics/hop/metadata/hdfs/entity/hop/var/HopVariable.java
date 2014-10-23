@@ -20,6 +20,7 @@ public abstract class HopVariable {
     //Named Variables
     BlockID,
     INodeID,
+    QuotaUpdateID,
     ReplicationIndex,
     StorageInfo,
     BlockTokenKeys,
@@ -95,6 +96,8 @@ public abstract class HopVariable {
       case BlockID:
         return new HopLongVariable(varType);
       case INodeID:
+        return new HopIntVariable(varType);
+      case QuotaUpdateID:
         return new HopIntVariable(varType);
       case ReplicationIndex:
         return new HopArrayVariable(varType);

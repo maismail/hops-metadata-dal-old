@@ -29,56 +29,66 @@ public class HopINodeAttributes implements Comparable<HopINodeAttributes>  {
   private Long dsQuota; /// disk space quota
   private Long diskspace;
 
-    public HopINodeAttributes(Integer inodeId, Long nsQuota, Long nsCount, Long dsQuota, Long diskspace) {
-        this.inodeId = inodeId;
-        this.nsQuota = nsQuota;
-        this.nsCount = nsCount;
-        this.dsQuota = dsQuota;
-        this.diskspace = diskspace;
-    }
+  public HopINodeAttributes(Integer inodeId, Long nsQuota, Long nsCount, Long dsQuota, Long diskspace) {
+    this.inodeId = inodeId;
+    this.nsQuota = nsQuota;
+    this.nsCount = nsCount;
+    this.dsQuota = dsQuota;
+    this.diskspace = diskspace;
+  }
 
-    public Integer getInodeId() {
-        return inodeId;
-    }
+  public Integer getInodeId() {
+      return inodeId;
+  }
 
-    public Long getNsQuota() {
-        return nsQuota;
-    }
+  public Long getNsQuota() {
+      return nsQuota;
+  }
 
-    public Long getNsCount() {
-        return nsCount;
-    }
+  public Long getNsCount() {
+      return nsCount;
+  }
 
-    public Long getDsQuota() {
-        return dsQuota;
-    }
+  public Long getDsQuota() {
+      return dsQuota;
+  }
 
-    public Long getDiskspace() {
-        return diskspace;
-    }
-    
-    public void setInodeId(Integer inodeId) {
-        this.inodeId = inodeId;
-    }
+  public Long getDiskspace() {
+      return diskspace;
+  }
 
-    public void setNsQuota(Long nsQuota) {
-        this.nsQuota = nsQuota;
-    }
+  public void setInodeId(Integer inodeId) {
+      this.inodeId = inodeId;
+  }
 
-    public void setNsCount(Long nsCount) {
-        this.nsCount = nsCount;
-    }
+  public void setNsQuota(Long nsQuota) {
+      this.nsQuota = nsQuota;
+  }
 
-    public void setDsQuota(Long dsQuota) {
-        this.dsQuota = dsQuota;
-    }
+  public void setNsCount(Long nsCount) {
+      this.nsCount = nsCount;
+  }
 
-    public void setDiskspace(Long diskspace) {
-        this.diskspace = diskspace;
-    }
+  public void setDsQuota(Long dsQuota) {
+      this.dsQuota = dsQuota;
+  }
 
-    public int compareTo(HopINodeAttributes o) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+  public void setDiskspace(Long diskspace) {
+      this.diskspace = diskspace;
+  }
 
+  public int compareTo(HopINodeAttributes o) {
+      throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+  }
+
+  @Override
+  public String toString() {
+    return "HopINodeAttributes{" +
+        "inodeId=" + inodeId +
+        ", nsQuota=" + nsQuota +
+        ", nsCount=" + nsCount +
+        ", dsQuota=" + dsQuota +
+        ", diskspace=" + diskspace +
+        '}';
+  }
 }
