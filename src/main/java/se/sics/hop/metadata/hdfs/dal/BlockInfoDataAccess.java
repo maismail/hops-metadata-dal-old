@@ -2,6 +2,7 @@ package se.sics.hop.metadata.hdfs.dal;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Set;
 import se.sics.hop.exception.StorageException;
 
 /**
@@ -24,7 +25,9 @@ public interface BlockInfoDataAccess<T> extends EntityDataAccess {
   List<T> findAllBlocks() throws StorageException;
 
   List<T> findByStorageId(int storageId) throws StorageException;
-
+  
+  Set<Long> findByStorageIdOnlyIds(int storageId) throws StorageException;
+  
   List<T> findByIds(long[] blockIds, int[] inodeIds) throws StorageException;
     
   void prepare(Collection<T> removed, Collection<T> newed, Collection<T> modified) throws StorageException;
