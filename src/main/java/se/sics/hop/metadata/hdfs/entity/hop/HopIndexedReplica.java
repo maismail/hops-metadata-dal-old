@@ -12,7 +12,7 @@ public class HopIndexedReplica extends HopReplica {
 
   public static enum Finder implements FinderType<HopIndexedReplica> {
 
-    ByBlockId, ByINodeId, ByINodeIds, ByPK, ByPKS;
+    ByBlockId, ByINodeId, ByINodeIds, ByPK, ByStorageId, ByPKS;
 
     @Override
     public Class getType() {
