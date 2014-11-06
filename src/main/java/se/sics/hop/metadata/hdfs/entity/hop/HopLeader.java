@@ -49,15 +49,15 @@ public class HopLeader implements Comparable<HopLeader> {
   private long counter;
   private long timeStamp;
   private String hostName;
-  private int avgRequestProcessingLatency;
+  private String httpAddress;
   private int partitionVal;
 
-  public HopLeader(long id, long counter, long timeStamp, String hostName, int avgRequestProcessingLatency, int partitionVal) {
+  public HopLeader(long id, long counter, long timeStamp, String hostName, String httpAddress, int partitionVal) {
     this.id = id;
     this.counter = counter;
     this.timeStamp = timeStamp;
     this.hostName = hostName;
-    this.avgRequestProcessingLatency = avgRequestProcessingLatency;
+    this.httpAddress = httpAddress;
     this.partitionVal = partitionVal;
 
     if (partitionVal != 0) {
@@ -66,12 +66,12 @@ public class HopLeader implements Comparable<HopLeader> {
     }
   }
 
-  public HopLeader(long id, long counter, long timeStamp, String hostName) {
+  public HopLeader(long id, long counter, long timeStamp, String hostName, String httpAddress ) {
     this.id = id;
     this.counter = counter;
     this.timeStamp = timeStamp;
     this.hostName = hostName;
-    this.avgRequestProcessingLatency = 0;
+    this.httpAddress = httpAddress;
     this.partitionVal = 0; // to store all rows on one machine
   }
 
@@ -107,13 +107,15 @@ public class HopLeader implements Comparable<HopLeader> {
     this.hostName = hostName;
   }
 
-  public int getAvgRequestProcessingLatency() {
-    return avgRequestProcessingLatency;
+  public String getHttpAddress() {
+     return httpAddress;
   }
 
-  public void setAvgRequestProcessingLatency(int avgRequestProcessingLatency) {
-    this.avgRequestProcessingLatency = avgRequestProcessingLatency;
+  public void setHttpAddress(String httpAddress) {
+      this.httpAddress = httpAddress;
   }
+
+ 
 
   public int getPartitionVal() {
     return partitionVal;

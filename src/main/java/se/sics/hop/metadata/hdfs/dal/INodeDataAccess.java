@@ -4,6 +4,7 @@ import java.util.Collection;
 import java.util.List;
 import se.sics.hop.exception.StorageException;
 import se.sics.hop.metadata.INodeIdentifier;
+import se.sics.hop.metadata.hdfs.entity.hdfs.ProjectedINode;
 
 /**
  *
@@ -16,6 +17,8 @@ public interface INodeDataAccess<T> extends EntityDataAccess {
   T indexScanfindInodeById(int inodeId) throws StorageException;
 
   List<T> indexScanFindInodesByParentId(int parentId) throws StorageException;
+
+  List<ProjectedINode> findInodesForSubtreeOperationsWithReadLock(int parentId) throws StorageException;
 
   T pkLookUpFindInodeByNameAndParentId(String name, int parentId) throws StorageException;
 
