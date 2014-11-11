@@ -11,10 +11,9 @@ import java.util.Random;
 import java.util.concurrent.ExecutionException;
 
 import se.sics.hop.exception.StorageException;
-import org.apache.log4j.NDC;
-import se.sics.hop.exception.AcquireLockInterruptedException;
 import se.sics.hop.exception.HOPExceptionWrapper;
 import se.sics.hop.exception.PersistanceException;
+import se.sics.hop.log.NDCWrapper;
 import se.sics.hop.metadata.hdfs.entity.EntityContextStat;
 import se.sics.hop.transaction.lock.TransactionLocks;
 import se.sics.hop.transaction.EntityManager;
@@ -38,8 +37,7 @@ public abstract class TransactionalRequestHandler extends RequestHandler {
     boolean rollback = false;
     boolean txSuccessful = false;
     int tryCount = 0;
-    Exception exception = null;
-    long txStartTime = 0;
+    Throwable throwable = null;
     TransactionLocks locks = null;
     Object txRetValue = null;
 
@@ -49,27 +47,26 @@ public abstract class TransactionalRequestHandler extends RequestHandler {
 
 
     while (retry && tryCount < RETRY_COUNT && !txSuccessful) {
-      retry = true;
-      rollback = false;
-      tryCount++;
-      exception = null;
-      txSuccessful = false;
-
-      long oldTime = 0;
+      long randWaitTime = randWait(tryCount != 0);
+      long txStartTime = System.currentTimeMillis();
+      long oldTime = System.currentTimeMillis();
       long setupTime = -1;
+      long beginTxTime = -1;
       long acquireLockTime = -1;
       long inMemoryProcessingTime = -1;
       long commitTime = -1;
       long totalTime = -1;
-      EntityManager.preventStorageCall(false);
       
-      try {
-        randWait(tryCount != 1 );
-        
+      
+      retry = true;
+      rollback = false;
+      tryCount++;
+      throwable = null;
+      txSuccessful = false;
+      
+      EntityManager.preventStorageCall(false);
+      try {  
         setNDC(info);
-
-        txStartTime = System.currentTimeMillis();
-        oldTime = System.currentTimeMillis();
         log.debug("Pretransaction phase started");
         preTransactionSetup();
         
@@ -78,23 +75,23 @@ public abstract class TransactionalRequestHandler extends RequestHandler {
         setNDC(info);
         
         setupTime = (System.currentTimeMillis() - oldTime);
-        log.debug("Pretransaction phase finished. Time " + setupTime + " ms");
-        oldTime = 0;
-        EntityManager.begin();
-        log.debug("TX Started");
-
         oldTime = System.currentTimeMillis();
+        log.debug("Pretransaction phase finished. Time " + setupTime + " ms");
+        setRandomPartitioningKey();
+        EntityManager.begin();
+        log.debug("TX Started");     
+        beginTxTime = (System.currentTimeMillis() - oldTime);
+        oldTime = System.currentTimeMillis();
+        
         locks = acquireLock();
         acquireLockTime = (System.currentTimeMillis() - oldTime);
+        oldTime = System.currentTimeMillis();
         log.debug("All Locks Acquired. Time " + acquireLockTime + " ms");
-        
         //sometimes in setup we call light weight request handler that messes up with the NDC
         removeNDC();
         setNDC(info);
         
-        oldTime = System.currentTimeMillis();
         EntityManager.preventStorageCall(true);
-
         try {
           txRetValue = performTask();
         } catch (IOException e) { // all HDFS exceptions are of type IOException
@@ -102,26 +99,24 @@ public abstract class TransactionalRequestHandler extends RequestHandler {
           // keep running the Tx is the exception is RecoveryInProgressException
           if (e.getMessage().contains("Lease recovery is in progress")) // dont abort in case of RecoveryInProgressException
           {
-            exception = e;
+            throwable = e;
           } else {
             throw e;
           }
         }
         inMemoryProcessingTime = (System.currentTimeMillis() - oldTime);
-        log.debug("In Memory Processing Finished. Time " + inMemoryProcessingTime + " ms");
         oldTime = System.currentTimeMillis();
+        log.debug("In Memory Processing Finished. Time " + inMemoryProcessingTime + " ms");
         if (enableTxStats && enableTxStatsForSuccessfulOps) {
-          collectStats(logFilePath, exception);
+          collectStats(logFilePath, throwable);
         }
         EntityManager.commit(locks);
-        txSuccessful = true;
         commitTime = (System.currentTimeMillis() - oldTime);
-        log.debug("TX committed. Time " + commitTime + " ms");
         oldTime = System.currentTimeMillis();
+        log.debug("TX committed. Time " + commitTime + " ms");
+        txSuccessful = true;
         totalTime = (System.currentTimeMillis() - txStartTime);
-        log.debug("TX Finished. TX Stats: Setup: "+setupTime+"ms Acquire Locks: " + acquireLockTime + "ms, In Memory Processing: " + inMemoryProcessingTime + "ms, Commit Time: " + commitTime + "ms, Total Time: " + totalTime + "ms");
-        
-        removeNDC();
+        log.debug("TX Finished. TX Stats: Try Count: "+tryCount+" Rand Wait:"+randWaitTime+" Stepup: "+setupTime+"ms Begin Tx:"+beginTxTime+" Acquire Locks: " + acquireLockTime + "ms, In Memory Processing: " + inMemoryProcessingTime + "ms, Commit Time: " + commitTime + "ms, Total Time: " + totalTime + "ms");
         //post TX phase
         //any error in this phase will not re-start the tx
         //TODO: XXX handle failures in post tx phase
@@ -129,7 +124,7 @@ public abstract class TransactionalRequestHandler extends RequestHandler {
           ((TransactionInfo) info).performPostTransactionAction();
         }
         return txRetValue;
-      } catch (Exception ex) { // catch checked and unchecked exceptions
+      } catch (Throwable ex) { // catch checked and unchecked exceptions
         rollback = true;
 
         if (txSuccessful) { // exception in post Tx stage 
@@ -139,14 +134,14 @@ public abstract class TransactionalRequestHandler extends RequestHandler {
           //ex.printStackTrace();
           return txRetValue;
         } else {
-          exception = ex;
+          throwable = ex;
           rollback = true;
           if (ex instanceof PersistanceException) {
             retry = true;
           } else {
             retry = false;
           }
-          log.error("Tx Failed. total tx time " + (System.currentTimeMillis() - txStartTime) + 
+          log.warn("Tx Failed. total tx time " + (System.currentTimeMillis() - txStartTime) + 
                   " msec. Retry(" + retry + ") TotalRetryCount(" + RETRY_COUNT + 
                   ") RemainingRetries(" + (RETRY_COUNT - tryCount) + 
                   ") TX Stats: Setup: "+setupTime+"ms Acquire Locks: " + acquireLockTime + 
@@ -158,46 +153,48 @@ public abstract class TransactionalRequestHandler extends RequestHandler {
         if (rollback) {
           try {
             if (enableTxStats) {
-              collectStats(logFilePath, exception);
+              collectStats(logFilePath, throwable);
             }
+            log.error("Rollback the TX");
             EntityManager.rollback(locks);
           } catch (Exception ex) {
-            log.error("Could not rollback transaction", ex);
+            log.warn("Could not rollback transaction. Error that triggered Rollback was "+throwable+" new error is "+ex, ex);
           }
         }
 
         //log.debug("TX Exception "+exception+" retry "+retry+" rollback "+rollback+" count "+tryCount);
         removeNDC();
-        if ((tryCount == RETRY_COUNT && exception != null && exception instanceof StorageException/*&& retry == true && !txSuccessful*/) // run out of retries and there is an exception
-             || ( exception != null && !(exception instanceof StorageException))  //non storage exceptions are not retried. // you may or may not have exhausted the retry count but the tx failed because of some exception like file not found etc. in this case just throw the exception and dont retry
+        if ((tryCount == RETRY_COUNT && throwable != null && throwable instanceof StorageException/*&& retry == true && !txSuccessful*/) // run out of retries and there is an exception
+             || ( throwable != null && !(throwable instanceof StorageException))  //non storage exceptions are not retried. // you may or may not have exhausted the retry count but the tx failed because of some exception like file not found etc. in this case just throw the exception and dont retry
                 ) {
-          log.debug("Transaction failed after "+RETRY_COUNT+" retries. Throwing exception " + exception);
-          if (exception instanceof IOException) {
-            throw (IOException) exception;
-          } else if (exception instanceof RuntimeException) { // runtime exceptions etc
-            throw (RuntimeException) exception;
-          } else { // wrap the exception and handle it in the code 
-            throw new HOPExceptionWrapper(exception);
+          log.debug("Transaction failed after "+RETRY_COUNT+" retries. Throwing exception " + throwable);
+          if (throwable instanceof IOException) {
+            throw (IOException) throwable;
+          } else if (throwable instanceof RuntimeException) { // runtime exceptions etc
+            throw (RuntimeException) throwable;
+          } else { // wrap the exception and handle it in the code
+            throw new HOPExceptionWrapper(throwable);
           }
         }
-
       }
     }
 
     return null;
   }
   
-  private void randWait(boolean wait){
+  private long randWait(boolean wait){
     try {
       if (wait) {
         Random rand = new Random(System.currentTimeMillis());
         int waitTime = rand.nextInt(5000);
         log.debug("TX is being retried. Waiting for "+waitTime+" ms before retry. TX name "+opType);
         Thread.sleep(waitTime);
+        return waitTime;
       }
     } catch (InterruptedException ex) {
       log.warn(ex);
     }
+    return 0;
   }
 
   public abstract TransactionLocks acquireLock() throws PersistanceException, IOException, ExecutionException;
@@ -213,7 +210,7 @@ public abstract class TransactionalRequestHandler extends RequestHandler {
     // This can be overriden.
   }
 
-  private void collectStats(String logFilePath, Exception exception) throws PersistanceException {
+  private void collectStats(String logFilePath, Throwable exception) throws PersistanceException {
 
     List<EntityContextStat> stats = (List<EntityContextStat>) EntityManager.collectSnapshotStat();
     try {
@@ -230,7 +227,7 @@ public abstract class TransactionalRequestHandler extends RequestHandler {
 
       File file = new File(logFilePath);
       BufferedWriter output = new BufferedWriter(new FileWriter(file, true));
-      String opName = NDC.peek();
+      String opName = NDCWrapper.peek();
       output.write("Operation Name: " + opName + "\n");
       if (exception != null) {
         output.write(exception.toString() + "\n\n");
@@ -252,14 +249,28 @@ public abstract class TransactionalRequestHandler extends RequestHandler {
   private void setNDC(Object info){
     // Defines a context for every operation to track them in the logs easily.
     if (info != null && info instanceof TransactionInfo) {
-          NDC.push(((TransactionInfo) info).getContextName(opType));
+          NDCWrapper.push(((TransactionInfo) info).getContextName(opType));
         } else {
-          NDC.push(opType.toString());
+          NDCWrapper.push(opType.toString());
         }
   }
   
   private void removeNDC(){
-    NDC.clear();
-    NDC.remove();
+    NDCWrapper.clear();
+    NDCWrapper.remove();
+  }
+  private void setRandomPartitioningKey() throws StorageException, PersistanceException {
+        //      Random rand =new Random(System.currentTimeMillis());
+        //      Integer partKey = new Integer(rand.nextInt());
+        //      //set partitioning key
+        //      Object[] pk = new Object[2];
+        //      pk[0] = partKey;
+        //      pk[1] = Integer.toString(partKey);
+        //
+        //      EntityManager.setPartitionKey(INodeDataAccess.class, pk);
+        //      
+        ////      EntityManager.readCommited();
+        ////      EntityManager.find(INode.Finder.ByPK_NameAndParentId, "", partKey);
+    
   }
 }

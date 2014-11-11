@@ -1,6 +1,7 @@
 package se.sics.hop.transaction.handler;
 
 import java.io.IOException;
+import javax.security.auth.login.Configuration;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import se.sics.hop.StorageConnector;

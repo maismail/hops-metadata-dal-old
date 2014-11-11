@@ -36,8 +36,8 @@ public class HopINodeCandidatePK  implements Comparable<HopINodeCandidatePK>{
     }
     return false;
   }
-  
-  
+
+
   @Override
   public String toString() {
     return "Id:"+inodeId;
@@ -51,7 +51,7 @@ public class HopINodeCandidatePK  implements Comparable<HopINodeCandidatePK>{
     return hash;
   }
 
-  
+
   @Override
   public int compareTo(HopINodeCandidatePK t) {
     if (this.equals(t)) {
@@ -64,6 +64,6 @@ public class HopINodeCandidatePK  implements Comparable<HopINodeCandidatePK>{
         return -1;
       }
   }
-  
-  
+
+
 }
