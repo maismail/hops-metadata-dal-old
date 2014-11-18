@@ -40,6 +40,7 @@ public abstract class TransactionalRequestHandler extends RequestHandler {
     Throwable throwable = null;
     TransactionLocks locks = null;
     Object txRetValue = null;
+
     boolean enableTxStats = false;
     boolean enableTxStatsForSuccessfulOps = false;
     String logFilePath = "/tmp/hop_tx_stats.txt";
@@ -115,7 +116,6 @@ public abstract class TransactionalRequestHandler extends RequestHandler {
         txSuccessful = true;
         totalTime = (System.currentTimeMillis() - txStartTime);
         log.debug("TX Finished. TX Stats: Try Count: "+tryCount+" Rand Wait:"+randWaitTime+" Stepup: "+setupTime+"ms Begin Tx:"+beginTxTime+" Acquire Locks: " + acquireLockTime + "ms, In Memory Processing: " + inMemoryProcessingTime + "ms, Commit Time: " + commitTime + "ms, Total Time: " + totalTime + "ms");
-
         //post TX phase
         //any error in this phase will not re-start the tx
         //TODO: XXX handle failures in post tx phase
@@ -143,7 +143,7 @@ public abstract class TransactionalRequestHandler extends RequestHandler {
           log.warn("Tx Failed. total tx time " + (System.currentTimeMillis() - txStartTime) + 
                   " msec. Retry(" + retry + ") TotalRetryCount(" + RETRY_COUNT + 
                   ") RemainingRetries(" + (RETRY_COUNT - tryCount) + 
-                  ") TX Stats: Stepup: "+setupTime+"ms Acquire Locks: " + acquireLockTime + 
+                  ") TX Stats: Setup: "+setupTime+"ms Acquire Locks: " + acquireLockTime + 
                   "ms, In Memory Processing: " + inMemoryProcessingTime + 
                   "ms, Commit Time: " + commitTime + 
                   "ms, Total Time: " + totalTime + "ms", ex);

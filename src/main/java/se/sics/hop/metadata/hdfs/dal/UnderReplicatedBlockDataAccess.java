@@ -15,10 +15,14 @@ public interface UnderReplicatedBlockDataAccess<T> extends EntityDataAccess {
 
   List<T> findByINodeId(int inodeId) throws StorageException;
   
+  List<T> findByINodeIds(int[] inodeIds) throws StorageException;
+  
   List<T> findAll() throws StorageException;
   
   List<T> findByLevel(int level) throws StorageException;
-    
+  
+  List<T> findByLevel(int level, int offset, int count) throws StorageException;
+  
   void prepare(Collection<T> removed, Collection<T> newed, Collection<T> modified) throws StorageException;
 
   void removeAll() throws StorageException;

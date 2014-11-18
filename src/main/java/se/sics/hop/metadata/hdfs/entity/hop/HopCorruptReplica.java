@@ -21,7 +21,7 @@ public class HopCorruptReplica extends HopReplica {
 
   public static enum Finder implements FinderType<HopCorruptReplica> {
 
-    All, ByINodeId, ByBlockId, ByPk;
+    All, ByINodeId, ByINodeIds, ByBlockId, ByPk;
 
     @Override
     public Class getType() {
