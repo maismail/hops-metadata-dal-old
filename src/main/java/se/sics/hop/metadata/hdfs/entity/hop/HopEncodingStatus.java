@@ -26,7 +26,7 @@ public class HopEncodingStatus {
   private Integer status;
   private Integer parityStatus;
   private String codec;
-  private Integer targetReplication;
+  private Short targetReplication;
   private Long statusModificationTime;
   private Long parityStatusModificationTime;
   private String parityFileName;
@@ -38,7 +38,7 @@ public class HopEncodingStatus {
 
   }
 
-  public HopEncodingStatus(Integer inodeId, Integer parityInodeId, Integer status, String codec, Integer targetReplication,
+  public HopEncodingStatus(Integer inodeId, Integer parityInodeId, Integer status, String codec, Short targetReplication,
       Long statusModificationTime, Integer parityStatus, Long parityStatusModificationTime, String parityFileName,
       Integer lostBlocks, Integer lostParityBlocks, Boolean revoked) {
     this.inodeId = inodeId;
@@ -95,11 +95,11 @@ public class HopEncodingStatus {
     this.codec = codec;
   }
 
-  public Integer getTargetReplication() {
+  public Short getTargetReplication() {
     return targetReplication;
   }
 
-  public void setTargetReplication(Integer targetReplication) {
+  public void setTargetReplication(Short targetReplication) {
     this.targetReplication = targetReplication;
   }
 
