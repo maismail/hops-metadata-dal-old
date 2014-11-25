@@ -30,13 +30,6 @@ public class TransactionLockTypes {
       READ,
       WRITE,
       WRITE_ON_PARENT; // Write lock on the parent of the last path component. This has the WRITE effect when using inode-id.
-      public boolean gt(INodeLockType second){
-        if(ordinal() > second.ordinal()){
-          return true;
-        }else{
-          return false;
-        }
-      }
     }
 
   public enum INodeResolveType {

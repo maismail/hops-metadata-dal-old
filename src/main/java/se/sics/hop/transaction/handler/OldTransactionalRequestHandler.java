@@ -19,18 +19,15 @@ import se.sics.hop.transaction.lock.OldTransactionLocks;
 import se.sics.hop.transaction.EntityManager;
 import se.sics.hop.transaction.TransactionInfo;
 import static se.sics.hop.transaction.handler.RequestHandler.log;
-import se.sics.hop.transaction.lock.HopsLock;
-import se.sics.hop.transaction.lock.TransactionLockAcquirer;
-import se.sics.hop.transaction.lock.TransactionLocks;
 
 /**
  *
  * @author kamal hakimzadeh<kamal@sics.se>
  * @author salman <salman@sics.se>
  */
-public abstract class TransactionalRequestHandler extends RequestHandler {
-  
-  public TransactionalRequestHandler(OperationType opType) {
+public abstract class OldTransactionalRequestHandler extends RequestHandler {
+
+  public OldTransactionalRequestHandler(OperationType opType) {
     super(opType);
   }
 
@@ -41,7 +38,7 @@ public abstract class TransactionalRequestHandler extends RequestHandler {
     boolean txSuccessful = false;
     int tryCount = 0;
     Throwable throwable = null;
-    TransactionLocks locks = null;
+    OldTransactionLocks locks = null;
     Object txRetValue = null;
 
     boolean enableTxStats = false;
@@ -85,11 +82,7 @@ public abstract class TransactionalRequestHandler extends RequestHandler {
         beginTxTime = (System.currentTimeMillis() - oldTime);
         oldTime = System.currentTimeMillis();
         
-        TransactionLockAcquirer locksAcquirer = newLockAcquirer();
-        acquireLock(locksAcquirer.getLocks());
-       
-        locksAcquirer.acquire();
-        
+        locks = acquireLock();
         acquireLockTime = (System.currentTimeMillis() - oldTime);
         oldTime = System.currentTimeMillis();
         log.debug("All Locks Acquired. Time " + acquireLockTime + " ms");
@@ -116,7 +109,7 @@ public abstract class TransactionalRequestHandler extends RequestHandler {
         if (enableTxStats && enableTxStatsForSuccessfulOps) {
           collectStats(logFilePath, throwable);
         }
-        EntityManager.commit(locksAcquirer.getLocks());
+        EntityManager.commit(locks);
         commitTime = (System.currentTimeMillis() - oldTime);
         oldTime = System.currentTimeMillis();
         log.debug("TX committed. Time " + commitTime + " ms");
@@ -203,23 +196,20 @@ public abstract class TransactionalRequestHandler extends RequestHandler {
     return 0;
   }
 
-  public abstract void acquireLock(TransactionLocks locks) throws IOException, ExecutionException;
-  
-  protected abstract TransactionLockAcquirer newLockAcquirer();
+  public abstract OldTransactionLocks acquireLock() throws PersistanceException, IOException, ExecutionException;
 
   @Override
-  public TransactionalRequestHandler setParams(Object... params) {
+  public OldTransactionalRequestHandler setParams(Object... params) {
     this.params = params;
     return this;
   }
 
-  public void preTransactionSetup() throws IOException {
+  public void preTransactionSetup() throws PersistanceException, IOException {
     // Do nothing.
     // This can be overriden.
   }
- 
-    
-  private void collectStats(String logFilePath, Throwable exception) throws IOException {
+
+  private void collectStats(String logFilePath, Throwable exception) throws PersistanceException {
 
     List<EntityContextStat> stats = (List<EntityContextStat>) EntityManager.collectSnapshotStat();
     try {

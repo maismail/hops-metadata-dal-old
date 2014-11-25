@@ -1,9 +1,7 @@
 package se.sics.hop.transaction;
 
 import java.util.Collection;
-import java.util.Collections;
 import java.util.Map;
-import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 //import org.apache.hadoop.conf.Configuration;
 import se.sics.hop.metadata.hdfs.entity.EntityContext;
@@ -13,9 +11,8 @@ import se.sics.hop.metadata.hdfs.entity.FinderType;
 import se.sics.hop.exception.PersistanceException;
 import se.sics.hop.metadata.hdfs.entity.EntityContextStat;
 import se.sics.hop.metadata.hdfs.entity.TransactionContextMaintenanceCmds;
-import se.sics.hop.transaction.lock.TransactionLocks;
+import se.sics.hop.transaction.lock.OldTransactionLocks;
 import se.sics.hop.transaction.handler.RequestHandler;
-import se.sics.hop.transaction.lock.ParallelReadThread;
 
 /**
  *
@@ -51,12 +48,12 @@ public class EntityManager {
     context().preventStorageCall(val);
   }
 
-  public static void commit(TransactionLocks tlm) throws StorageException {
+  public static void commit(OldTransactionLocks tlm) throws StorageException {
     context().commit(tlm);
     removeContext();
   }
 
-  public static void rollback(TransactionLocks tlm) throws StorageException {
+  public static void rollback(OldTransactionLocks tlm) throws StorageException {
     context().rollback();
     removeContext();
   }

@@ -7,7 +7,7 @@ import org.apache.commons.logging.LogFactory;
 import se.sics.hop.exception.PersistanceException;
 import se.sics.hop.exception.StorageCallPreventedException;
 import se.sics.hop.exception.StorageException;
-import se.sics.hop.transaction.lock.TransactionLocks;
+import se.sics.hop.transaction.lock.OldTransactionLocks;
 
 /**
  *
@@ -55,7 +55,7 @@ public abstract class EntityContext<T> {
 
   public abstract Collection<T> findList(FinderType<T> finder, Object... params) throws PersistanceException;
 
-  public abstract void prepare(TransactionLocks tlm) throws StorageException;
+  public abstract void prepare(OldTransactionLocks tlm) throws StorageException;
 
   public abstract void remove(T entity) throws PersistanceException;
 
