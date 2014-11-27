@@ -32,7 +32,7 @@ public abstract class OldTransactionalRequestHandler extends RequestHandler {
   }
 
   @Override
-  protected Object run(Object info) throws IOException {
+  protected Object execute(Object info) throws IOException {
     boolean retry = true;
     boolean rollback = false;
     boolean txSuccessful = false;
@@ -163,7 +163,7 @@ public abstract class OldTransactionalRequestHandler extends RequestHandler {
 
         //log.debug("TX Exception "+exception+" retry "+retry+" rollback "+rollback+" count "+tryCount);
         removeNDC();
-        if ((tryCount == RETRY_COUNT && throwable != null && throwable instanceof StorageException/*&& retry == true && !txSuccessful*/) // run out of retries and there is an exception
+        if ((tryCount == RETRY_COUNT && throwable != null && throwable instanceof StorageException/*&& retry == true && !txSuccessful*/) // execute out of retries and there is an exception
              || ( throwable != null && !(throwable instanceof StorageException))  //non storage exceptions are not retried. // you may or may not have exhausted the retry count but the tx failed because of some exception like file not found etc. in this case just throw the exception and dont retry
                 ) {
           log.debug("Transaction failed after "+RETRY_COUNT+" retries. Throwing exception " + throwable);

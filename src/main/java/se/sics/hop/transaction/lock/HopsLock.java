@@ -28,7 +28,7 @@ import se.sics.hop.transaction.EntityManager;
  * @author Steffen Grohsschmiedt <steffeng@sics.se>
  */
 public abstract class HopsLock implements Comparable<HopsLock>{
-  
+
   /*
    * The Order of entries in Type defines the order
    * by which it's acquired
@@ -45,7 +45,8 @@ public abstract class HopsLock implements Comparable<HopsLock>{
     ReplicaUnderConstruction,
     InvalidatedBlock,
     UnderReplicatedBlock,
-    PendingBlock
+    PendingBlock,
+    QuotaUpdate
   }
 
   protected final static TransactionLockTypes.LockType DEFAULT_LOCK_TYPE = TransactionLockTypes.LockType.READ_COMMITTED;

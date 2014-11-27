@@ -34,8 +34,10 @@ public abstract class TransactionalRequestHandler extends RequestHandler {
     super(opType);
   }
 
+  public abstract void setUp() throws IOException;
+
   @Override
-  protected Object run(Object info) throws IOException {
+  protected Object execute(Object info) throws IOException {
     boolean retry = true;
     boolean rollback = false;
     boolean txSuccessful = false;
@@ -70,7 +72,7 @@ public abstract class TransactionalRequestHandler extends RequestHandler {
       try {  
         setNDC(info);
         log.debug("Pretransaction phase started");
-        preTransactionSetup();
+        setUp();
         
         //sometimes in setup we call light weight request handler that messes up with the NDC
         removeNDC();
@@ -170,7 +172,7 @@ public abstract class TransactionalRequestHandler extends RequestHandler {
 
         //log.debug("TX Exception "+exception+" retry "+retry+" rollback "+rollback+" count "+tryCount);
         removeNDC();
-        if ((tryCount == RETRY_COUNT && throwable != null && throwable instanceof StorageException/*&& retry == true && !txSuccessful*/) // run out of retries and there is an exception
+        if ((tryCount == RETRY_COUNT && throwable != null && throwable instanceof StorageException/*&& retry == true && !txSuccessful*/) // execute out of retries and there is an exception
              || ( throwable != null && !(throwable instanceof StorageException))  //non storage exceptions are not retried. // you may or may not have exhausted the retry count but the tx failed because of some exception like file not found etc. in this case just throw the exception and dont retry
                 ) {
           log.debug("Transaction failed after "+RETRY_COUNT+" retries. Throwing exception " + throwable);
@@ -213,12 +215,6 @@ public abstract class TransactionalRequestHandler extends RequestHandler {
     return this;
   }
 
-  public void preTransactionSetup() throws IOException {
-    // Do nothing.
-    // This can be overriden.
-  }
- 
-    
   private void collectStats(String logFilePath, Throwable exception) throws IOException {
 
     List<EntityContextStat> stats = (List<EntityContextStat>) EntityManager.collectSnapshotStat();

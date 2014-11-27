@@ -15,7 +15,7 @@ public abstract class LightWeightRequestHandler extends RequestHandler {
   }
 
   @Override
-  protected Object run(Object info) throws IOException {
+  protected Object execute(Object info) throws IOException {
     boolean retry = true;
     int tryCount = 0;
     IOException exception = null;

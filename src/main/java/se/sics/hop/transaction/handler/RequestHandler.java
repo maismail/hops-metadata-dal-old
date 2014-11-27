@@ -1,7 +1,7 @@
 package se.sics.hop.transaction.handler;
 
 import java.io.IOException;
-import javax.security.auth.login.Configuration;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import se.sics.hop.StorageConnector;
@@ -30,14 +30,14 @@ public abstract class RequestHandler {
   }
 
   public Object handle() throws IOException {
-    return run(null);
+    return execute(null);
   }
 
   public Object handle(Object info) throws IOException {
-    return run(info);
+    return execute(info);
   }
 
-  protected abstract Object run(Object info) throws IOException;
+  protected abstract Object execute(Object info) throws IOException;
 
   public abstract Object performTask() throws PersistanceException, IOException;
 

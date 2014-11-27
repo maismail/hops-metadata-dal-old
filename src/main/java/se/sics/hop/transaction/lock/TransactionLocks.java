@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package se.sics.hop.transaction.lock;
 
 /**
@@ -10,7 +6,7 @@ package se.sics.hop.transaction.lock;
  */
 public interface TransactionLocks extends OldTransactionLocks{
 
-  void addLock(HopsLock lock);
+  TransactionLocks addLock(HopsLock lock);
 
   HopsLock getLock(HopsLock.Type lock);
 }
