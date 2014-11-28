@@ -36,6 +36,7 @@ public abstract class HopsLock implements Comparable<HopsLock>{
   public static enum Type{
     INode,
     Block,
+    NameNodeLease,
     Lease,
     LeasePath,
     Variable,
@@ -53,7 +54,7 @@ public abstract class HopsLock implements Comparable<HopsLock>{
 
   protected final static TransactionLockTypes.LockType DEFAULT_LOCK_TYPE = TransactionLockTypes.LockType.READ_COMMITTED;
   
-  abstract void acquire(TransactionLocks locks) throws IOException;
+  abstract void acquire(TransactionLocks locks) throws Exception;
   
   abstract Type getType();
 

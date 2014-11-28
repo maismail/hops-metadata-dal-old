@@ -12,7 +12,7 @@ public abstract class TransactionLockAcquirer {
 
   public abstract void addLock(HopsLock lock);
 
-  public abstract void acquire() throws IOException, ExecutionException;
+  public abstract void acquire() throws Exception;
   
   public abstract TransactionLocks getLocks();
 }

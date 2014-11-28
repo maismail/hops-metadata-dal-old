@@ -170,6 +170,12 @@ public abstract class TransactionalRequestHandler extends RequestHandler {
           }
         }
 
+        if (throwable instanceof Error) { // TODO We need to check if there
+        // is a better way than catching throwable. Maybe set rollback to
+        // true first and to false at the end
+          throw (Error) throwable;
+        }
+
         //log.debug("TX Exception "+exception+" retry "+retry+" rollback "+rollback+" count "+tryCount);
         removeNDC();
         if ((tryCount == RETRY_COUNT && throwable != null && throwable
