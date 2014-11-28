@@ -28,6 +28,7 @@ import se.sics.hop.transaction.EntityManager;
  * @author Steffen Grohsschmiedt <steffeng@sics.se>
  */
 public abstract class HopsLock implements Comparable<HopsLock>{
+  private static boolean setPartitionKeyEnabled = false;
 
   /*
    * The Order of entries in Type defines the order
@@ -40,6 +41,7 @@ public abstract class HopsLock implements Comparable<HopsLock>{
     Lease,
     LeasePath,
     Variable,
+    LeaderLock,
     Replica,
     CorruptReplica,
     ExcessReplica,
@@ -99,5 +101,17 @@ public abstract class HopsLock implements Comparable<HopsLock>{
       return null;
     }
     return EntityManager.find(finder, param);
+  }
+
+  public static void enableSetPartitionKey() {
+    setPartitionKeyEnabled = true;
+  }
+
+  public static void disableSetPartitionKey() {
+    setPartitionKeyEnabled = false;
+  }
+
+  public static boolean isSetPartitionKeyEnabled() {
+    return setPartitionKeyEnabled;
   }
 }
