@@ -46,7 +46,9 @@ public abstract class HopsLock implements Comparable<HopsLock>{
     InvalidatedBlock,
     UnderReplicatedBlock,
     PendingBlock,
-    QuotaUpdate
+    QuotaUpdate,
+    EncodingStatus,
+    BlockChecksum
   }
 
   protected final static TransactionLockTypes.LockType DEFAULT_LOCK_TYPE = TransactionLockTypes.LockType.READ_COMMITTED;
