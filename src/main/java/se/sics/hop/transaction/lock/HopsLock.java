@@ -54,6 +54,10 @@ public abstract class HopsLock implements Comparable<HopsLock>{
     BlockChecksum
   }
 
+  protected HopsLock() {
+
+  }
+
   protected final static TransactionLockTypes.LockType DEFAULT_LOCK_TYPE = TransactionLockTypes.LockType.READ_COMMITTED;
   
   abstract void acquire(TransactionLocks locks) throws Exception;
