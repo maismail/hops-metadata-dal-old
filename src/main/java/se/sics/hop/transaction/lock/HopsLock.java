@@ -15,7 +15,6 @@
  */
 package se.sics.hop.transaction.lock;
 
-import java.io.IOException;
 import java.util.Collection;
 import se.sics.hop.exception.PersistanceException;
 import se.sics.hop.exception.StorageException;

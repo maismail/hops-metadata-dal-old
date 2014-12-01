@@ -1,5 +1,7 @@
 package se.sics.hop.transaction.lock;
 
+import java.util.Collection;
+
 /**
  *
  * @author Mahmoud Ismail <maism@sics.se>
@@ -22,15 +24,11 @@ public interface TransactionLocks extends OldTransactionLocks {
     public LockNotAddedException(Throwable cause) {
       super(cause);
     }
-
-    public LockNotAddedException(String message, Throwable cause,
-        boolean enableSuppression, boolean writableStackTrace) {
-      super(message, cause, enableSuppression, writableStackTrace);
-    }
   }
 
-  TransactionLocks addLock(HopsLock lock);
-
+  TransactionLocks add(HopsLock lock);
+  TransactionLocks add(Collection<HopsLock> locks);
+  
   boolean containsLock(HopsLock.Type lock);
 
   HopsLock getLock(HopsLock.Type lock) throws LockNotAddedException;
