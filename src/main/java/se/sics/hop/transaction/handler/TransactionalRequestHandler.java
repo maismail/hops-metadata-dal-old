@@ -211,7 +211,7 @@ public abstract class TransactionalRequestHandler extends RequestHandler {
     return 0;
   }
 
-  public abstract void acquireLock(TransactionLocks locks) throws IOException, ExecutionException;
+  public abstract void acquireLock(TransactionLocks locks) throws IOException;
   
   protected abstract TransactionLockAcquirer newLockAcquirer();
 
