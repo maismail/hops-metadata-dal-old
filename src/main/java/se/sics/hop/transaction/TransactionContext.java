@@ -17,8 +17,7 @@ import se.sics.hop.metadata.hdfs.entity.EntityContext;
 import se.sics.hop.metadata.hdfs.entity.EntityContextStat;
 import se.sics.hop.metadata.hdfs.entity.FinderType;
 import se.sics.hop.metadata.hdfs.entity.TransactionContextMaintenanceCmds;
-import se.sics.hop.transaction.lock.ParallelReadThread;
-import se.sics.hop.transaction.lock.OldTransactionLocks;
+import se.sics.hop.transaction.lock.TransactionLocks;
 
 /**
  *
@@ -66,7 +65,7 @@ public class TransactionContext {
     }
   }
 
-  public void commit(final OldTransactionLocks tlm) throws StorageException {
+  public void commit(final TransactionLocks tlm) throws StorageException {
     aboutToPerform();
     for (EntityContext context : contexts) {
       context.prepare(tlm);

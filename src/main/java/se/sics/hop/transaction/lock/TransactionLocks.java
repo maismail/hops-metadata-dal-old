@@ -6,7 +6,7 @@ import java.util.Collection;
  *
  * @author Mahmoud Ismail <maism@sics.se>
  */
-public interface TransactionLocks extends OldTransactionLocks {
+public interface TransactionLocks {
 
   public static class LockNotAddedException extends RuntimeException {
 

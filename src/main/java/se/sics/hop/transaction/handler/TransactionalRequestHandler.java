@@ -15,11 +15,9 @@ import se.sics.hop.exception.HOPExceptionWrapper;
 import se.sics.hop.exception.PersistanceException;
 import se.sics.hop.log.NDCWrapper;
 import se.sics.hop.metadata.hdfs.entity.EntityContextStat;
-import se.sics.hop.transaction.lock.OldTransactionLocks;
 import se.sics.hop.transaction.EntityManager;
 import se.sics.hop.transaction.TransactionInfo;
 import static se.sics.hop.transaction.handler.RequestHandler.log;
-import se.sics.hop.transaction.lock.HopsLock;
 import se.sics.hop.transaction.lock.TransactionLockAcquirer;
 import se.sics.hop.transaction.lock.TransactionLocks;
 
