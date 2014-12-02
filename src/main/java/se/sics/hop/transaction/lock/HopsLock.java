@@ -106,15 +106,11 @@ public abstract class HopsLock implements Comparable<HopsLock>{
     return EntityManager.find(finder, param);
   }
 
-  public static void enableSetPartitionKey() {
-    setPartitionKeyEnabled = true;
+  static void enableSetPartitionKey(boolean enable) {
+    setPartitionKeyEnabled = enable;
   }
-
-  public static void disableSetPartitionKey() {
-    setPartitionKeyEnabled = false;
-  }
-
-  public static boolean isSetPartitionKeyEnabled() {
+  
+  static boolean isSetPartitionKeyEnabled() {
     return setPartitionKeyEnabled;
   }
 }

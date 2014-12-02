@@ -1,9 +1,5 @@
 package se.sics.hop.transaction.lock;
 
-
-import java.io.IOException;
-import java.util.concurrent.ExecutionException;
-
 /**
  *
  * @author Mahmoud Ismail <maism@sics.se>
