@@ -6,8 +6,6 @@ package se.sics.hop.transaction.lock;
  */
 public abstract class TransactionLockAcquirer {
 
-  public abstract void addLock(HopsLock lock);
-
   public abstract void acquire() throws Exception;
   
   public abstract TransactionLocks getLocks();
