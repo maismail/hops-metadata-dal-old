@@ -31,7 +31,7 @@ public abstract class TransactionalRequestHandler extends RequestHandler {
     super(opType);
   }
 
-  public abstract void setUp() throws IOException;
+  protected abstract void preTransactionSetup() throws IOException;
 
   @Override
   protected Object execute(Object info) throws IOException {
@@ -69,7 +69,7 @@ public abstract class TransactionalRequestHandler extends RequestHandler {
       try {  
         setNDC(info);
         log.debug("Pretransaction phase started");
-        setUp();
+        preTransactionSetup();
         
         //sometimes in setup we call light weight request handler that messes up with the NDC
         removeNDC();
