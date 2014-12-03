@@ -39,7 +39,7 @@ public abstract class RequestHandler {
 
   protected abstract Object execute(Object info) throws IOException;
 
-  public abstract Object performTask() throws PersistanceException, IOException;
+  public abstract Object performTask() throws IOException;
 
   public RequestHandler setParams(Object... params) {
     this.params = params;
