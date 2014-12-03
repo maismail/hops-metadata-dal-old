@@ -50,7 +50,8 @@ public abstract class HopsLock implements Comparable<HopsLock>{
     PendingBlock,
     QuotaUpdate,
     EncodingStatus,
-    BlockChecksum
+    BlockChecksum,
+    Test
   }
 
   protected HopsLock() {
@@ -59,9 +60,9 @@ public abstract class HopsLock implements Comparable<HopsLock>{
 
   protected final static TransactionLockTypes.LockType DEFAULT_LOCK_TYPE = TransactionLockTypes.LockType.READ_COMMITTED;
   
-  abstract void acquire(TransactionLocks locks) throws Exception;
+  protected abstract void acquire(TransactionLocks locks) throws Exception;
   
-  abstract Type getType();
+  protected abstract Type getType();
 
   @Override
   public int compareTo(HopsLock o) {
