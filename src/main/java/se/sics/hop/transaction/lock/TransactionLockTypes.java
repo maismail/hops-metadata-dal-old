@@ -16,28 +16,63 @@
 package se.sics.hop.transaction.lock;
 
 /**
- *
  * @author salman
  */
 public class TransactionLockTypes {
-    public enum LockType {
-
-    WRITE, READ, READ_COMMITTED
+  public enum LockType {
+    /** No lock */
+    READ_COMMITTED,
+    /** Read lock */
+    READ,
+    /** Write lock */
+    WRITE
   }
 
   public enum INodeLockType {
-      READ_COMMITTED, // No Lock
-      READ,
-      WRITE,
-      WRITE_ON_PARENT; // Write lock on the parent of the last path component. This has the WRITE effect when using inode-id.
-    }
+    /** No lock */
+    READ_COMMITTED,
+    /** Read lock */
+    READ,
+    /** Write lock */
+    WRITE,
+    /**  Write lock on the target component and its parent. */
+    WRITE_ON_TARGET_AND_PARENT
+  }
 
   public enum INodeResolveType {
-    INDIVIDUAL,
-    PATH // resolve only the given path
-    , PATH_AND_IMMEDIATE_CHILDREN // resolve path and find the given directory's children
-    , PATH_AND_ALL_CHILDREN_RECURESIVELY // resolve the given path and find all the children recursively.
+    /** Resolve only the given path */
+    PATH,
+    /** Resolve path and find the given directory's children */
+    PATH_AND_IMMEDIATE_CHILDREN,
+    /** Resolve the given path and find all the children recursively. */
+    PATH_AND_ALL_CHILDREN_RECURSIVELY
   }
-  
-    
+
+  public static boolean impliesTargetWriteLock(INodeLockType lockType) {
+    switch (lockType) {
+      case WRITE:
+      case WRITE_ON_TARGET_AND_PARENT:
+        return true;
+      default:
+        return false;
+    }
+  }
+
+  public static boolean impliesTargetReadLock(INodeLockType lockType) {
+    switch (lockType) {
+      case READ:
+        return true;
+      default:
+        return false;
+    }
+  }
+
+  public static boolean impliesParentWriteLock(INodeLockType lockType) {
+    switch (lockType) {
+      case WRITE_ON_TARGET_AND_PARENT:
+        return true;
+      default:
+        return false;
+    }
+  }
 }
