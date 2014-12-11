@@ -1,12 +1,15 @@
 package se.sics.hop.metadata.hdfs.entity;
 
+import se.sics.hop.exception.LockUpgradeException;
+import se.sics.hop.exception.TransactionContextException;
 import se.sics.hop.transaction.TransactionContext;
+
+import java.io.IOException;
 import java.util.Collection;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import se.sics.hop.exception.PersistanceException;
-import se.sics.hop.exception.StorageCallPreventedException;
 import se.sics.hop.exception.StorageException;
+import se.sics.hop.exception.StorageCallPreventedException;
 import se.sics.hop.transaction.lock.TransactionLocks;
 
 /**
@@ -45,28 +48,81 @@ public abstract class EntityContext<T> {
     HIT, LOSS, LOSS_LOCK_UPGRADE, NA
   }
 
-  public abstract void add(T entity) throws PersistanceException;
+  /**
+   *
+   * @throws TransactionContextException If the context encounters an illegal state
+   * @throws StorageException If database errors occur
+   */
+  public abstract void add(T entity) throws TransactionContextException, StorageException;
 
-  public abstract void clear();
+  /**
+   *
+   * @throws TransactionContextException If the context encounters an illegal state
+   */
+  public abstract void clear() throws TransactionContextException;
 
-  public abstract int count(CounterType<T> counter, Object... params) throws PersistanceException;
+  /**
+   *
+   * @throws TransactionContextException If the context encounters an illegal state
+   * @throws StorageException If database errors occur
+   */
+  public abstract int count(CounterType<T> counter, Object... params)
+      throws TransactionContextException, StorageException;
 
-  public abstract T find(FinderType<T> finder, Object... params) throws PersistanceException;
+  /**
+   *
+   * @throws TransactionContextException If the context encounters an illegal state
+   * @throws StorageException If database errors occur
+   */
+  public abstract T find(FinderType<T> finder, Object... params)
+      throws TransactionContextException, StorageException;
 
-  public abstract Collection<T> findList(FinderType<T> finder, Object... params) throws PersistanceException;
+  /**
+   *
+   * @throws TransactionContextException If the context encounters an illegal state
+   * @throws StorageException If database errors occur
+   */
+  public abstract Collection<T> findList(FinderType<T> finder, Object... params)
+      throws TransactionContextException, StorageException;
 
-  public abstract void prepare(TransactionLocks tlm) throws StorageException;
+  /**
+   *
+   * @throws TransactionContextException If the context encounters an illegal state
+   * @throws StorageException If database errors occur
+   */
+  public abstract void prepare(TransactionLocks tlm) throws TransactionContextException, StorageException;
 
-  public abstract void remove(T entity) throws PersistanceException;
+  /**
+   *
+   * @throws TransactionContextException If the context encounters an illegal state
+   */
+  public abstract void remove(T entity) throws TransactionContextException;
 
-  public abstract void removeAll() throws PersistanceException;
+  /**
+   *
+   * @throws TransactionContextException If the context encounters an illegal state
+   * @throws StorageException If database errors occur
+   */
+  public abstract void removeAll() throws TransactionContextException, StorageException;
 
-  public abstract void update(T entity) throws PersistanceException;
-  
-  public abstract void snapshotMaintenance(TransactionContextMaintenanceCmds cmds, Object... params) throws PersistanceException;
-  
-  public EntityContextStat collectSnapshotStat() throws PersistanceException 
-  {
+  /**
+   *
+   * @throws TransactionContextException If the context encounters an illegal state
+   */
+  public abstract void update(T entity) throws TransactionContextException;
+
+  /**
+   *
+   * @throws TransactionContextException If the context encounters an illegal state
+   */
+  public abstract void snapshotMaintenance(TransactionContextMaintenanceCmds cmds, Object... params)
+      throws TransactionContextException;
+
+  /**
+   *
+   * @throws TransactionContextException If the context encounters an illegal state
+   */
+  public EntityContextStat collectSnapshotStat() throws TransactionContextException {
     throw new UnsupportedOperationException("Please Implement Me");
   }
 

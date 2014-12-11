@@ -1,5 +1,6 @@
 package se.sics.hop.metadata;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import se.sics.hop.exception.StorageException;
@@ -10,7 +11,8 @@ import se.sics.hop.exception.StorageException;
  */
 public abstract class DALAdaptor<HDFSClass, DALClass> {
 
-  public Collection<DALClass> convertHDFStoDAL(Collection<HDFSClass> hdfsCollection) throws StorageException{
+  public Collection<DALClass> convertHDFStoDAL(Collection<HDFSClass> hdfsCollection)
+      throws StorageException {
     Collection<DALClass> dalCollection = new ArrayList<DALClass>();
     if (hdfsCollection != null) {
       for (HDFSClass hdfsClass : hdfsCollection) {
@@ -20,9 +22,11 @@ public abstract class DALAdaptor<HDFSClass, DALClass> {
     return dalCollection;
   }
 
-  public abstract DALClass convertHDFStoDAL(HDFSClass hdfsClass) throws StorageException;
+  public abstract DALClass convertHDFStoDAL(HDFSClass hdfsClass)
+      throws StorageException;
 
-  public Collection<HDFSClass> convertDALtoHDFS(Collection<DALClass> dalCollection) throws StorageException {
+  public Collection<HDFSClass> convertDALtoHDFS(Collection<DALClass> dalCollection)
+      throws StorageException {
     Collection<HDFSClass> hdfsCollection = null;
     if (dalCollection != null) {
       try {
@@ -40,5 +44,6 @@ public abstract class DALAdaptor<HDFSClass, DALClass> {
 
   }
 
-  public abstract HDFSClass convertDALtoHDFS(DALClass dalClass)throws StorageException;
+  public abstract HDFSClass convertDALtoHDFS(DALClass dalClass)
+      throws StorageException;
 }

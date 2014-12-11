@@ -6,7 +6,7 @@ import java.io.IOException;
  *
  * @author Mahmoud Ismail <maism@sics.se>
  */
-public class StorageInitializtionException extends IOException {
+public class StorageInitializtionException extends HopsException {
 
   public StorageInitializtionException(String message) {
     super(message);

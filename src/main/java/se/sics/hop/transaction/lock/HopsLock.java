@@ -15,11 +15,13 @@
  */
 package se.sics.hop.transaction.lock;
 
-import java.util.Collection;
-import se.sics.hop.exception.PersistanceException;
 import se.sics.hop.exception.StorageException;
+import se.sics.hop.exception.TransactionContextException;
 import se.sics.hop.metadata.hdfs.entity.FinderType;
 import se.sics.hop.transaction.EntityManager;
+
+import java.io.IOException;
+import java.util.Collection;
 
 /**
  *
@@ -60,7 +62,7 @@ public abstract class HopsLock implements Comparable<HopsLock>{
 
   protected final static TransactionLockTypes.LockType DEFAULT_LOCK_TYPE = TransactionLockTypes.LockType.READ_COMMITTED;
   
-  protected abstract void acquire(TransactionLocks locks) throws Exception;
+  protected abstract void acquire(TransactionLocks locks) throws IOException;
   
   protected abstract Type getType();
 
@@ -86,7 +88,8 @@ public abstract class HopsLock implements Comparable<HopsLock>{
   protected <T> Collection<T> acquireLockList(
           TransactionLockTypes.LockType lock,
           FinderType<T> finder,
-          Object... param) throws PersistanceException {
+          Object... param) throws StorageException,
+      TransactionContextException {
 
     setLockMode(lock);
     if (param == null) {
@@ -98,7 +101,8 @@ public abstract class HopsLock implements Comparable<HopsLock>{
 
   protected <T> T acquireLock(
           TransactionLockTypes.LockType lock,
-          FinderType<T> finder, Object... param) throws PersistanceException {
+          FinderType<T> finder, Object... param)
+      throws StorageException, TransactionContextException {
 
     setLockMode(lock);
     if (param == null) {

@@ -1,17 +1,18 @@
 package se.sics.hop.exception;
 
-/**
- *
- * @author Hooman <hooman@sics.se>
- */
-public class StorageException extends PersistanceException {
+public class StorageException extends HopsException {
+  public StorageException() {
+  }
 
   public StorageException(String message) {
     super(message);
   }
-  
-  public StorageException(Throwable ex)
-  {
-    super(ex);
+
+  public StorageException(Throwable cause) {
+    super(cause);
+  }
+
+  public StorageException(String message, Throwable cause) {
+    super(message, cause);
   }
 }

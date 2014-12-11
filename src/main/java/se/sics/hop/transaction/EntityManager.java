@@ -1,18 +1,18 @@
 package se.sics.hop.transaction;
 
-import java.util.Collection;
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
-//import org.apache.hadoop.conf.Configuration;
-import se.sics.hop.metadata.hdfs.entity.EntityContext;
 import se.sics.hop.exception.StorageException;
+import se.sics.hop.exception.TransactionContextException;
 import se.sics.hop.metadata.hdfs.entity.CounterType;
-import se.sics.hop.metadata.hdfs.entity.FinderType;
-import se.sics.hop.exception.PersistanceException;
+import se.sics.hop.metadata.hdfs.entity.EntityContext;
 import se.sics.hop.metadata.hdfs.entity.EntityContextStat;
+import se.sics.hop.metadata.hdfs.entity.FinderType;
 import se.sics.hop.metadata.hdfs.entity.TransactionContextMaintenanceCmds;
 import se.sics.hop.transaction.handler.RequestHandler;
 import se.sics.hop.transaction.lock.TransactionLocks;
+
+import java.util.Collection;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  *
@@ -48,53 +48,55 @@ public class EntityManager {
     context().preventStorageCall(val);
   }
 
-  public static void commit(TransactionLocks tlm) throws StorageException {
+  public static void commit(TransactionLocks tlm)
+      throws TransactionContextException, StorageException {
     context().commit(tlm);
     removeContext();
   }
 
-  public static void rollback(TransactionLocks tlm) throws StorageException {
+  public static void rollback(TransactionLocks tlm)
+      throws StorageException, TransactionContextException {
     context().rollback();
     removeContext();
   }
 
-  public static <T> void remove(T obj) throws PersistanceException {
+  public static <T> void remove(T obj)
+      throws StorageException, TransactionContextException {
     context().remove(obj);
   }
 
-  public static void removeAll(Class type) throws PersistanceException {
+  public static void removeAll(Class type)
+      throws StorageException, TransactionContextException {
     context().removeAll(type);
   }
 
-  public static <T> Collection<T> findList(FinderType<T> finder, Object... params) throws PersistanceException {
+  public static <T> Collection<T> findList(FinderType<T> finder, Object... params)
+      throws TransactionContextException, StorageException {
     return context().findList(finder, params);
   }
 
-  public static <T> T find(FinderType<T> finder, Object... params) throws PersistanceException {
+  public static <T> T find(FinderType<T> finder, Object... params)
+      throws TransactionContextException, StorageException {
     return context().find(finder, params);
   }
 
-  public static <T> Collection<T> concurrentFindList(FinderType<T> finder, Long parentThreadId, Object... params) throws PersistanceException {
-    return contexts.get(parentThreadId).findList(finder, params);
-  }
-
-  public static <T> T concurrentFind(FinderType<T> finder, Long parentThreadId, Object... params) throws PersistanceException {
-    return contexts.get(parentThreadId).find(finder, params);
-  }
-
-  public static int count(CounterType counter, Object... params) throws PersistanceException {
+  public static int count(CounterType counter, Object... params)
+      throws TransactionContextException, StorageException {
     return context().count(counter, params);
   }
 
-  public static <T> void update(T entity) throws PersistanceException {
+  public static <T> void update(T entity)
+      throws TransactionContextException, StorageException {
     context().update(entity);
   }
 
-  public static <T> void add(T entity) throws PersistanceException {
+  public static <T> void add(T entity)
+      throws TransactionContextException, StorageException {
     context().add(entity);
   }
   
-  public static <T> void snapshotMaintenance(TransactionContextMaintenanceCmds cmds, Object... params) throws PersistanceException{
+  public static <T> void snapshotMaintenance(TransactionContextMaintenanceCmds cmds, Object... params)
+      throws TransactionContextException {
     context().snapshotMaintenance(cmds, params);
   }
 
@@ -116,15 +118,9 @@ public class EntityManager {
   public static void setPartitionKey(Class name, Object key) throws StorageException {
     contextInitializer.getConnector().setPartitionKey(name, key);
   }
-
-  /**
-   * Clears transaction context's in-memory data
-   */
-  public static void clearContext() {
-    context().clearContext();
-  }
   
-  public static Collection<EntityContextStat> collectSnapshotStat() throws PersistanceException{
+  public static Collection<EntityContextStat> collectSnapshotStat()
+      throws TransactionContextException {
     return context().collectSnapshotStat();
   }
   

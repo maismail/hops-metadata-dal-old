@@ -5,19 +5,21 @@ import java.io.IOException;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import se.sics.hop.StorageConnector;
-import se.sics.hop.exception.PersistanceException;
 
 /**
  *
  * @author Hooman <hooman@sics.se>
  */
 public abstract class RequestHandler {
+  private long waitTime;
 
   public interface OperationType {
   }
   protected static Log log = LogFactory.getLog(RequestHandler.class);
   protected Object[] params = null;
-  public static final int RETRY_COUNT = 3;
+  // TODO These should be in a config file
+  public static final int RETRY_COUNT = 5;
+  public static final long BASE_WAIT_TIME = 1000;
   protected OperationType opType;
   protected static StorageConnector connector;
 
@@ -30,10 +32,11 @@ public abstract class RequestHandler {
   }
 
   public Object handle() throws IOException {
-    return execute(null);
+    return handle(null);
   }
 
   public Object handle(Object info) throws IOException {
+    waitTime = 0;
     return execute(info);
   }
 
@@ -48,5 +51,18 @@ public abstract class RequestHandler {
 
   public Object[] getParams() {
     return this.params;
+  }
+
+  protected long exponentialBackoff(){
+    try {
+      log.debug("TX is being retried. Waiting for " + waitTime +
+          " ms before retry. TX name " + opType);
+      Thread.sleep(waitTime);
+      waitTime = waitTime == 0 ? BASE_WAIT_TIME : waitTime * 2;
+      return waitTime;
+    } catch (InterruptedException ex) {
+      log.warn(ex);
+    }
+    return 0;
   }
 }
