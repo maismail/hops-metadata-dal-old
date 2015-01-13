@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package se.sics.hop.metadata.hdfs.entity;
+package se.sics.hop.transaction.context;
 
 import java.util.Formatter;
 import java.util.Locale;

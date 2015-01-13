@@ -1,4 +1,4 @@
-package se.sics.hop.metadata.hdfs.entity;
+package se.sics.hop.transaction.context;
 
 /**
  *

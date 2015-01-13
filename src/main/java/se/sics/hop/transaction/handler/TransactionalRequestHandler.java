@@ -3,7 +3,7 @@ package se.sics.hop.transaction.handler;
 import se.sics.hop.exception.StorageException;
 import se.sics.hop.exception.TransientStorageException;
 import se.sics.hop.log.NDCWrapper;
-import se.sics.hop.metadata.hdfs.entity.EntityContextStat;
+import se.sics.hop.transaction.context.EntityContextStat;
 import se.sics.hop.transaction.EntityManager;
 import se.sics.hop.transaction.TransactionInfo;
 import se.sics.hop.transaction.lock.TransactionLockAcquirer;
