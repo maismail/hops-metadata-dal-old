@@ -1,10 +1,9 @@
-package se.sics.hop.metadata.hdfs.entity;
+package se.sics.hop.transaction.context;
 
-import se.sics.hop.exception.LockUpgradeException;
 import se.sics.hop.exception.TransactionContextException;
-import se.sics.hop.transaction.TransactionContext;
+import se.sics.hop.metadata.hdfs.entity.CounterType;
+import se.sics.hop.metadata.hdfs.entity.FinderType;
 
-import java.io.IOException;
 import java.util.Collection;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
