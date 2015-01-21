@@ -9,11 +9,16 @@ public class QuotaUpdate {
   private long diskspaceDelta;
 
   public static enum Finder implements FinderType<QuotaUpdate> {
-    ByInodeId;
+    ByINodeId;
 
     @Override
     public Class getType() {
       return QuotaUpdate.class;
+    }
+
+    @Override
+    public Annotation getAnnotated() {
+      return Annotation.PrunedIndexScan;
     }
   }
 

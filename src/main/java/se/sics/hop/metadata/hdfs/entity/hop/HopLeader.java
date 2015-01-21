@@ -28,23 +28,23 @@ public class HopLeader implements Comparable<HopLeader> {
 
   public static enum Finder implements FinderType<HopLeader> {
 
-    ById, AllByCounterGTN, AllByIDLT, All;
-
+    ById, All;
     @Override
     public Class getType() {
       return HopLeader.class;
     }
-  }
-
-  public static enum Counter implements CounterType<HopLeader> {
-
-    All, AllPredecessors, AllSuccessors;
 
     @Override
-    public Class getType() {
-      return HopLeader.class;
+    public Annotation getAnnotated() {
+      switch (this){
+        case ById: return Annotation.PrimaryKey;
+        case All: return Annotation.FullTable;
+        default: throw new IllegalStateException();
+      }
     }
+
   }
+
   private long id;
   private long counter;
   private long timeStamp;

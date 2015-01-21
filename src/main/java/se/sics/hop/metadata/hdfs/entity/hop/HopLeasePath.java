@@ -10,12 +10,24 @@ public class HopLeasePath implements Comparable<HopLeasePath> {
 
   public static enum Finder implements FinderType<HopLeasePath> {
 
-    ByHolderId, ByPKey, ByPrefix, All;
+    ByHolderId,
+    ByPath, ByPrefix;
 
     @Override
     public Class getType() {
       return HopLeasePath.class;
     }
+
+    @Override
+    public Annotation getAnnotated() {
+      switch (this){
+        case ByHolderId: return Annotation.PrunedIndexScan;
+        case ByPath: return Annotation.PrimaryKey;
+        case ByPrefix: return Annotation.PrunedIndexScan;
+        default: throw new IllegalStateException();
+      }
+    }
+
   }
   private int holderId;
   private String path;

@@ -172,9 +172,11 @@ public class TransactionContext {
       throws TransactionContextException {
     List<EntityContextStat> stats = new ArrayList<EntityContextStat>();
     for (EntityContext context : contexts) {
-      stats.add(context.collectSnapshotStat());
+      EntityContextStat stat = context.collectSnapshotStat();
+      if(stat != null) {
+        stats.add(stat);
+      }
     }
-    Collections.sort(stats);
     return stats;
   }
 }

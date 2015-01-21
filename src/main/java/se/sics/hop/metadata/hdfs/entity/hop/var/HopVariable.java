@@ -57,6 +57,11 @@ public abstract class HopVariable {
     public Class getType() {
       return HopVariable.class;
     }
+
+    @Override
+    public Annotation getAnnotated() {
+      return Annotation.PrimaryKey;
+    }
   }
   private final Finder type;
 

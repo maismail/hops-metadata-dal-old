@@ -4,76 +4,283 @@
  */
 package se.sics.hop.transaction.context;
 
+import se.sics.hop.metadata.hdfs.entity.FinderType;
+
+import java.util.EnumMap;
 import java.util.Formatter;
-import java.util.Locale;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
- *
  * @author salman
  */
-public class EntityContextStat implements Comparable {
-  
-  private String contextName;
-  private int newRows;
-  private int modifiedRows;
-  private int deletedRows;
-  private String additionalInfo = "";
+public class EntityContextStat {
 
-  public EntityContextStat(String contextName, int newRows, int modifiedRows, int deletedRows) {
+  static final int CONTEXT_INDENTATION = 2;
+  static final int OPERATION_INDENTATION = 5;
+  static final int CONTEXT_STAT_INDENTATION = 3;
+  static final int NUMBER_WIDTH = 4;
+  static final String NEW_LINE = "\n";
+
+  static class StatsAggregator {
+    private HitMissCounter hitMissCounter = new HitMissCounter();
+    private int newRows = 0;
+    private int modifiedRows = 0;
+    private int deletedRows = 0;
+
+    private EnumMap<FinderType.Annotation, HitMissCounter> annotated =
+        new
+        EnumMap<FinderType.Annotation, HitMissCounter>(FinderType.Annotation.class);
+
+    void hit(FinderType finderType, int hitRowsCount){
+      getCounter(finderType.getAnnotated()).hit(hitRowsCount);
+      hitMissCounter.hit(hitRowsCount);
+    }
+
+    void miss(FinderType finderType, int missRowsCount){
+      getCounter(finderType.getAnnotated()).miss(missRowsCount);
+      hitMissCounter.miss(missRowsCount);
+    }
+
+    HitMissCounter getCounter(FinderType.Annotation annotation){
+      HitMissCounter counter = annotated.get(annotation);
+      if(counter == null){
+        counter = new HitMissCounter();
+        annotated.put(annotation, counter);
+      }
+      return counter;
+    }
+
+    void update(int newRows, int modifiedRows, int deletedRows) {
+      this.newRows += newRows;
+      this.modifiedRows += modifiedRows;
+      this.deletedRows += deletedRows;
+    }
+
+    void update(StatsAggregator statsAggregator) {
+      update(statsAggregator.newRows, statsAggregator.modifiedRows,
+          statsAggregator.deletedRows);
+      for (EnumMap.Entry<FinderType.Annotation, HitMissCounter> e : statsAggregator
+          .annotated.entrySet()) {
+        getCounter(e.getKey()).update(e.getValue());
+      }
+      hitMissCounter.update(statsAggregator.hitMissCounter);
+    }
+
+
+    String getRowStats() {
+      return String
+          .format("N=%-" + NUMBER_WIDTH + "d M=%-" + NUMBER_WIDTH + "d " +
+                  "R=%-" + NUMBER_WIDTH + "d",
+              newRows,
+              modifiedRows,
+              deletedRows);
+    }
+
+    String getHitsMisses() {
+      return hitMissCounter.toString();
+    }
+
+    String getDetailedMisses() {
+      if (annotated.isEmpty()) {
+        return "";
+      }
+      Formatter formatter = new Formatter();
+      formatter.format("Detailed Misses: ");
+      for (EnumMap.Entry<FinderType.Annotation, HitMissCounter> e : annotated
+          .entrySet()) {
+        String onlyMisses = e.getValue().onlyMisses();
+        if(!onlyMisses.isEmpty()) {
+          formatter.format("%s %s ", e.getKey().getShort(), onlyMisses);
+        }
+      }
+      return formatter.toString();
+    }
+
+    boolean isEmpty() {
+      return newRows == 0 && modifiedRows == 0 && deletedRows == 0;
+    }
+
+    String toString(String prefix) {
+      StringBuilder sb = new StringBuilder();
+      sb.append(prefix + "  " + getRowStats() + NEW_LINE);
+      String hitMisses = getHitsMisses();
+      if(!hitMisses.isEmpty()){
+        sb.append(prefix + "  " + hitMisses + NEW_LINE);
+      }
+      String detailedMisses = getDetailedMisses();
+      if (!detailedMisses.isEmpty()) {
+        sb.append(prefix + "  " + detailedMisses + NEW_LINE);
+      }
+      return sb.toString();
+    }
+
+    String toCSFString(String prefix) {
+      StringBuilder sb = new StringBuilder();
+      sb.append(getCSF(prefix + "  " + getRowStats()));
+      String hitMisses = getHitsMisses();
+      if(!hitMisses.isEmpty()){
+        sb.append(getCSF(prefix + "  " + hitMisses));
+      }
+      String detailedMisses = getDetailedMisses();
+      if (!detailedMisses.isEmpty()) {
+        sb.append(getCSF(prefix + "  " + detailedMisses));
+      }
+      return sb.toString();
+    }
+
+    @Override
+    public String toString() {
+      return toString("");
+    }
+  }
+
+  static class HitMissCounter {
+    int hits;
+    int hitsRowsCount;
+    int misses;
+    int missesRowsCount;
+
+    void hit(int hitsRowsCount){
+      hit(1, hitsRowsCount);
+    }
+
+    void miss(int missesRowsCount){
+      miss(1, missesRowsCount);
+    }
+
+    void hit(int hits, int hitsRowsCount){
+      this.hits += hits;
+      this.hitsRowsCount += hitsRowsCount;
+    }
+
+    void miss(int misses, int missesRowsCount){
+      this.misses += misses;
+      this.missesRowsCount+= missesRowsCount;
+    }
+
+    void update(HitMissCounter other){
+      hit(other.hits, other.hitsRowsCount);
+      miss(other.misses, other.missesRowsCount);
+    }
+
+    String onlyMisses(){
+      if(misses == 0)
+        return  "";
+      return String.format("%d(%d)", misses, missesRowsCount);
+    }
+
+    @Override
+    public String toString() {
+      if(hits == 0 && misses == 0)
+        return "";
+      return String
+          .format("Hits=%d(%d) Misses=%d(%d)" + (misses > hits ? " MORE DATA THAN NEEDED" : ""),
+              hits, hitsRowsCount,
+              misses, missesRowsCount);
+    }
+  }
+
+  private final String contextName;
+  private final Map<FinderType, HitMissCounter> operationsStats;
+  private StatsAggregator statsAggregator;
+
+  public EntityContextStat(String contextName) {
     this.contextName = contextName;
-    this.newRows = newRows;
-    this.modifiedRows = modifiedRows;
-    this.deletedRows = deletedRows;
+    this.operationsStats = new HashMap<FinderType, HitMissCounter>();
+    this.statsAggregator = new StatsAggregator();
   }
 
-  public String getAdditionalInfo() {
-    return additionalInfo;
+  public void hit(FinderType finder, int count) {
+    getCounter(finder).hit(count);
+    statsAggregator.hit(finder, count);
   }
 
-  public void setAdditionalInfo(String additionalInfo) {
-    this.additionalInfo = additionalInfo;
+  public void miss(FinderType finder, int count) {
+    getCounter(finder).miss(count);
+    statsAggregator.miss(finder, count);
+  }
+
+  private HitMissCounter getCounter(FinderType finder) {
+    HitMissCounter counter = operationsStats.get(finder);
+    if (counter == null) {
+      counter = new HitMissCounter();
+      operationsStats.put(finder, counter);
+    }
+    return counter;
+  }
+
+
+  public void commited(int newRows, int modifiedRows, int deletedRows) {
+    statsAggregator.update(newRows, modifiedRows, deletedRows);
   }
 
   public String getContextName() {
     return contextName;
   }
 
-  public int getNewRows() {
-    return newRows;
+
+  boolean isEmpty() {
+    return statsAggregator.isEmpty() && operationsStats.isEmpty();
   }
 
-  public int getModifiedRows() {
-    return modifiedRows;
+  StatsAggregator getStatsAggregator() {
+    return statsAggregator;
   }
 
-  public int getDeletedRows() {
-    return deletedRows;
-  }
-    
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-   // Send all output to the Appendable object sb
-   Formatter formatter = new Formatter(sb, Locale.US);
-   // Explicit argument indices may be used to re-order output.
-   formatter.format("%30s %5d %5d %5d %s", contextName, newRows, modifiedRows, deletedRows, additionalInfo);
-   
-   String msg = formatter.toString();
-   return msg;
+    sb.append(getCF("----------------------------------------"));
+    sb.append(getCF(contextName));
+
+    for (Map.Entry<FinderType, HitMissCounter> e :
+        operationsStats.entrySet()) {
+      sb.append(
+          getOPF("%s[%s] H=%-" + NUMBER_WIDTH + "d M=%-" + NUMBER_WIDTH + "d", e
+              .getKey(), e.getKey().getAnnotated().getShort(), e.getValue()
+              .hits, e.getValue().misses));
+    }
+
+    sb.append(getCSF(statsAggregator.getRowStats()));
+    sb.append(getCSF(statsAggregator.getHitsMisses()));
+
+    String detailedMisses = statsAggregator.getDetailedMisses();
+    if (!detailedMisses.isEmpty()) {
+      sb.append(getCSF(detailedMisses));
+    }
+    sb.append(getCF("----------------------------------------"));
+    return sb.toString();
   }
 
-  @Override
-  public int compareTo(Object o) {
-    EntityContextStat other = (EntityContextStat)o;
-//    return other.getContextName().compareTo(contextName);    
-    int myChanges = newRows +  modifiedRows + deletedRows;
-    int othersChanges = other.getDeletedRows() + other.getModifiedRows() + other.getNewRows();
-    if(myChanges == othersChanges){
-      return 0;
-    }else if( myChanges > othersChanges ){
-      return -1;
-    }else {
-      return 1;
-    }         
+  static String getOPF(String format, Object... params) {
+    return String.format(getStringSpacing(OPERATION_INDENTATION) + format +
+        NEW_LINE, prefix
+        ("",
+            params));
   }
+
+  static String getCSF(String format, Object... params) {
+    return String.format(getStringSpacing(CONTEXT_STAT_INDENTATION) + format +
+        NEW_LINE, prefix("",
+        params));
+  }
+
+  static String getCF(String format, Object... params) {
+    return String.format(getStringSpacing(CONTEXT_INDENTATION) + format +
+        NEW_LINE, prefix("",
+        params));
+  }
+
+  private static Object[] prefix(Object p, Object[] params) {
+    Object[] res = new Object[params.length + 1];
+    res[0] = p;
+    System.arraycopy(params, 0, res, 1, params.length);
+    return res;
+  }
+
+  private static String getStringSpacing(int spaces) {
+    return "%" + spaces + "s ";
+  }
+
 }

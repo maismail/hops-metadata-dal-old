@@ -35,6 +35,15 @@ import java.util.Map;
 
 abstract class BaseEntityContext<Key, Entity> extends EntityContext<Entity> {
 
+  private static boolean statsEnabled = false;
+  public static void enableStats(){
+    statsEnabled = true;
+  }
+
+  public static void disableStats(){
+    statsEnabled = false;
+  }
+
   enum State {
     DBREAD,
     ADDED,
@@ -81,6 +90,8 @@ abstract class BaseEntityContext<Key, Entity> extends EntityContext<Entity> {
 
   private final Map<Key, ContextEntity> contextEntities = new HashMap<Key,
       ContextEntity>();
+
+  private EntityContextStat contextStat;
 
   @Override
   public void add(Entity entity) throws TransactionContextException {
@@ -144,9 +155,7 @@ abstract class BaseEntityContext<Key, Entity> extends EntityContext<Entity> {
   @Override
   public final EntityContextStat collectSnapshotStat()
       throws TransactionContextException {
-    return new EntityContextStat(this.getClass().getSimpleName(),
-        getAdded().size()
-        , getModified().size(), getRemoved().size());
+    return resetContextStat();
   }
 
   @Override
@@ -297,4 +306,86 @@ abstract class BaseEntityContext<Key, Entity> extends EntityContext<Entity> {
   final int size() {
     return contextEntities.size();
   }
+
+  protected void hit(FinderType finder, Entity res, Object... params){
+    hit(finder, res == null ? 0 : 1, params);
+  }
+
+  protected void hit(FinderType finder, Collection<Entity> res, Object...
+      params){
+    hit(finder, res == null ? 0 : res.size(), params);
+  }
+
+  protected void miss(FinderType finder, Entity res, Object... params){
+    miss(finder, res == null ? 0 : 1, params);
+  }
+
+  protected void miss(FinderType finder, Collection<Entity> res, Object...
+      params){
+    miss(finder, res == null ? 0 : res.size(), params);
+  }
+
+  protected void missUpgrade(FinderType finder, Entity res, Object... params){
+    missUpgrade(finder, res == null ? 0 : 1, params);
+  }
+
+  protected void missUpgrade(FinderType finder, Collection<Entity> res, Object...
+      params){
+    missUpgrade(finder, res == null ? 0 : res.size(), params);
+  }
+
+
+  private void hit(FinderType finder, int count, Object... params){
+    log(finder, CacheHitState.HIT, params);
+    hit(finder, count);
+  }
+
+  private void miss(FinderType finder, int count, Object... params){
+    miss(finder, CacheHitState.LOSS, count, params);
+  }
+
+  private void missUpgrade(FinderType finder, int count, Object... params){
+    miss(finder, CacheHitState.LOSS_LOCK_UPGRADE, count, params);
+  }
+
+  private void miss(FinderType finder, CacheHitState state, int count, Object
+      ... params){
+    log(finder, state, params);
+    miss(finder, count);
+  }
+
+
+
+  private void hit(FinderType finderType, int count){
+    if(statsEnabled) {
+      getContextStat().hit(finderType, count);
+    }
+  }
+
+  private void miss(FinderType finderType, int count){
+    if(statsEnabled) {
+      getContextStat().miss(finderType, count);
+    }
+  }
+
+  private EntityContextStat getContextStat(){
+    if(contextStat == null){
+      contextStat = new EntityContextStat(this.getClass().getSimpleName());
+    }
+    return contextStat;
+  }
+
+  private EntityContextStat resetContextStat(){
+    if(statsEnabled) {
+      EntityContextStat stat = getContextStat();
+      stat.commited(getAdded().size(), getModified().size(), getRemoved
+          ().size());
+      contextStat = null;
+      if(stat.isEmpty())
+        stat = null;
+      return stat;
+    }
+    return null;
+  }
+
 }

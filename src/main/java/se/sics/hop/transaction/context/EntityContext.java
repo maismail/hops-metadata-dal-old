@@ -42,7 +42,7 @@ public abstract class EntityContext<T> {
    * Defines the cache state of the request. This enum is only used for logging
    * purpose.
    */
-  public enum CacheHitState {
+  enum CacheHitState {
 
     HIT, LOSS, LOSS_LOCK_UPGRADE, NA
   }
@@ -125,7 +125,10 @@ public abstract class EntityContext<T> {
     throw new UnsupportedOperationException("Please Implement Me");
   }
 
-  public static void log(String opName, CacheHitState state, String... params) {
+  private static void log(String opName, CacheHitState state, Object...
+      params) {
+    if(!LOG.isDebugEnabled())
+      return;
     StringBuilder message = new StringBuilder();
     if (state == CacheHitState.HIT) {
       message.append(ANSI_GREEN).append(opName).append(" ").append("hit").append(ANSI_RESET);
@@ -157,7 +160,7 @@ public abstract class EntityContext<T> {
     LOG.debug(message.toString());
   }
 
-  public void logError(String msg) {
+  protected void logError(String msg) {
     StringBuilder message = new StringBuilder();
     message.append(ANSI_RED);
     message.append(msg).append(" ");
@@ -165,12 +168,18 @@ public abstract class EntityContext<T> {
     LOG.fatal(message.toString());
   }
 
-  public void log(String opName) {
-    log(opName, CacheHitState.NA, (String) null);
+  protected void log(String opName, Object... params) {
+    log(opName, CacheHitState.NA, params);
   }
 
-  public void log(String opName, CacheHitState state) {
-    log(opName, state, (String) null);
+  protected static void log(FinderType finderType, CacheHitState state, Object...
+      params) {
+    log(getOperationMessage(finderType), state, params);
+  }
+
+  private static String getOperationMessage(FinderType finder){
+    return "find-" + finder.getType().getSimpleName().toLowerCase() + "-" +
+        finder.toString();
   }
 
   public void preventStorageCall(boolean val) {
