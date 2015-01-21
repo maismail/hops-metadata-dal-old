@@ -7,6 +7,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.CopyOnWriteArrayList;
+
 import org.apache.log4j.NDC;
 import se.sics.hop.metadata.hdfs.entity.EntityContext;
 import se.sics.hop.exception.StorageException;
@@ -29,7 +31,7 @@ public class EntityManager {
   }
   //private static ThreadLocal<TransactionContext> contexts = new ThreadLocal<TransactionContext>();
   private static ConcurrentHashMap<Long, TransactionContext> contexts = new ConcurrentHashMap<Long, TransactionContext>();
-  private static ArrayList<ContextInitializer> contextInitializers = new ArrayList<ContextInitializer>();
+  private static CopyOnWriteArrayList<ContextInitializer> contextInitializers = new CopyOnWriteArrayList<ContextInitializer>();
 
   public static void setContextInitializer(ContextInitializer ci) {
     contextInitializers.add(ci);
