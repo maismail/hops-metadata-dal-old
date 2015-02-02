@@ -22,7 +22,7 @@ import se.sics.hop.metadata.hdfs.entity.FinderType;
  *
  * @author salman
  */
-public class HopLeader implements Comparable<HopLeader> {
+public class HopLeader implements Comparable<HopLeader>, Cloneable {
 
   public static final int DEFAULT_PARTITION_VALUE = 0;
 
@@ -115,8 +115,6 @@ public class HopLeader implements Comparable<HopLeader> {
       this.httpAddress = httpAddress;
   }
 
- 
-
   public int getPartitionVal() {
     return partitionVal;
   }
@@ -170,5 +168,10 @@ public class HopLeader implements Comparable<HopLeader> {
   @Override
   public String toString() {
     return this.id + ", " + hostName + ", " + counter + ", " + timeStamp;
+  }
+
+  @Override
+  public Object clone() throws CloneNotSupportedException {
+    return new HopLeader(id, counter, timeStamp, hostName, httpAddress);
   }
 }
