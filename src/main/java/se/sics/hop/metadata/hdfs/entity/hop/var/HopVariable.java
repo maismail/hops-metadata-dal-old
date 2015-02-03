@@ -28,8 +28,7 @@ public abstract class HopVariable {
     BTNextKey,
     BTSimpleKey,
     SIdCounter,
-    MaxNNID,
-    LeTimePeriod,
+    MaxIDnTP,
     MisReplicatedFilesIndex,
     ClusterInSafeMode,
     //Generic Variables
@@ -115,8 +114,7 @@ public abstract class HopVariable {
         return new HopByteArrayVariable(varType);
       case SIdCounter:
         return new HopIntVariable(varType);
-      case MaxNNID:
-      case LeTimePeriod:
+      case MaxIDnTP:
         return new HopLongVariable(varType);
       case MisReplicatedFilesIndex:
         return new HopLongVariable(varType);

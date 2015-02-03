@@ -47,15 +47,13 @@ public class HopLeader implements Comparable<HopLeader>, Cloneable {
   }
   private long id;
   private long counter;
-  private long timeStamp;
   private String hostName;
   private String httpAddress;
   private int partitionVal;
 
-  public HopLeader(long id, long counter, long timeStamp, String hostName, String httpAddress, int partitionVal) {
+  public HopLeader(long id, long counter, String hostName, String httpAddress, int partitionVal) {
     this.id = id;
     this.counter = counter;
-    this.timeStamp = timeStamp;
     this.hostName = hostName;
     this.httpAddress = httpAddress;
     this.partitionVal = partitionVal;
@@ -66,10 +64,9 @@ public class HopLeader implements Comparable<HopLeader>, Cloneable {
     }
   }
 
-  public HopLeader(long id, long counter, long timeStamp, String hostName, String httpAddress ) {
+  public HopLeader(long id, long counter, String hostName, String httpAddress ) {
     this.id = id;
     this.counter = counter;
-    this.timeStamp = timeStamp;
     this.hostName = hostName;
     this.httpAddress = httpAddress;
     this.partitionVal = 0; // to store all rows on one machine
@@ -89,14 +86,6 @@ public class HopLeader implements Comparable<HopLeader>, Cloneable {
 
   public void setCounter(long counter) {
     this.counter = counter;
-  }
-
-  public long getTimeStamp() {
-    return timeStamp;
-  }
-
-  public void setTimeStamp(long timeStamp) {
-    this.timeStamp = timeStamp;
   }
 
   public String getHostName() {
@@ -144,8 +133,7 @@ public class HopLeader implements Comparable<HopLeader>, Cloneable {
       //both are equal if all the fields match
       if (this.id == l.getId()
               && this.counter == l.getCounter()
-              && this.hostName.equals(l.getHostName())
-              && this.timeStamp == l.getTimeStamp()) {
+              && this.hostName.equals(l.getHostName())) {
         return true;
       } else {
         return false;
@@ -161,17 +149,16 @@ public class HopLeader implements Comparable<HopLeader>, Cloneable {
     hash = hash * 31 + this.hostName.hashCode();
     hash = hash * 31 + (new Long(id)).hashCode();
     hash = hash * 31 + (new Long(counter)).hashCode();
-    hash = hash * 31 + (new Long(timeStamp)).hashCode();
     return hash;
   }
 
   @Override
   public String toString() {
-    return this.id + ", " + hostName + ", " + counter + ", " + timeStamp;
+    return this.id + ", " + hostName + ", " + counter ;
   }
 
   @Override
   public Object clone() throws CloneNotSupportedException {
-    return new HopLeader(id, counter, timeStamp, hostName, httpAddress);
+    return new HopLeader(id, counter, hostName, httpAddress);
   }
 }

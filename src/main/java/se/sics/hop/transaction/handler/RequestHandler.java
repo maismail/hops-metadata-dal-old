@@ -19,7 +19,7 @@ public abstract class RequestHandler {
   protected Object[] params = null;
   // TODO These should be in a config file
   public static final int RETRY_COUNT = 5;
-  public static final long BASE_WAIT_TIME = 1000;
+  public static final long BASE_WAIT_TIME = 500;
   protected OperationType opType;
   protected static StorageConnector connector;
 
@@ -55,9 +55,12 @@ public abstract class RequestHandler {
 
   protected long exponentialBackoff(){
     try {
-      log.debug("TX is being retried. Waiting for " + waitTime +
+      
+      if(waitTime>0){
+        log.debug("TX is being retried. Waiting for " + waitTime +
           " ms before retry. TX name " + opType);
-      Thread.sleep(waitTime);
+        Thread.sleep(waitTime);
+      }
       waitTime = waitTime == 0 ? BASE_WAIT_TIME : waitTime * 2;
       return waitTime;
     } catch (InterruptedException ex) {
