@@ -67,4 +67,10 @@ public class HopStringVariable extends HopByteArrayVariable {
       throw new RuntimeException(ex);
     }
   }
+
+  @Override
+  public String toString() {
+    return value; //To change body of generated methods, choose Tools | Templates.
+  }
+  
 }

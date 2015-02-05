@@ -18,7 +18,7 @@ public abstract class RequestHandler {
   protected static Log log = LogFactory.getLog(RequestHandler.class);
   protected Object[] params = null;
   // TODO These should be in a config file
-  public static final int RETRY_COUNT = 5;
+  public static final int RETRY_COUNT = 0;
   public static final long BASE_WAIT_TIME = 500;
   protected OperationType opType;
   protected static StorageConnector connector;
