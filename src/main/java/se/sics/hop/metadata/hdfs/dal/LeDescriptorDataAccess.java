@@ -8,7 +8,7 @@ import se.sics.hop.exception.StorageException;
  * @author Salman <salman@sics.se>
  * @author Mahmoud Ismail <maism@sics.se>
  */
-public interface LeaderDataAccess<T> extends EntityDataAccess {
+public interface LeDescriptorDataAccess<T> extends EntityDataAccess {
 
   int countAll() throws StorageException;
 

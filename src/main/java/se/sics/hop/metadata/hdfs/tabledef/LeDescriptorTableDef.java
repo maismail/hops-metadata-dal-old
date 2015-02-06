@@ -4,7 +4,7 @@ package se.sics.hop.metadata.hdfs.tabledef;
  *
  * @author Mahmoud Ismail <maism@sics.se>
  */
-public interface LeaderTableDef {
+public interface LeDescriptorTableDef {
 
   public static final String TABLE_NAME = "leader";
   public static final String ID = "id";

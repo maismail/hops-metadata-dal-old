@@ -22,27 +22,27 @@ import se.sics.hop.metadata.hdfs.entity.FinderType;
  *
  * @author salman
  */
-public class HopLeader implements Comparable<HopLeader>, Cloneable {
+public class LeDescriptor implements Comparable<LeDescriptor>, Cloneable {
 
   public static final int DEFAULT_PARTITION_VALUE = 0;
 
-  public static enum Finder implements FinderType<HopLeader> {
+  public static enum Finder implements FinderType<LeDescriptor> {
 
     ById, AllByCounterGTN, AllByIDLT, All;
 
     @Override
     public Class getType() {
-      return HopLeader.class;
+      return LeDescriptor.class;
     }
   }
 
-  public static enum Counter implements CounterType<HopLeader> {
+  public static enum Counter implements CounterType<LeDescriptor> {
 
     All, AllPredecessors, AllSuccessors;
 
     @Override
     public Class getType() {
-      return HopLeader.class;
+      return LeDescriptor.class;
     }
   }
   private long id;
@@ -51,7 +51,7 @@ public class HopLeader implements Comparable<HopLeader>, Cloneable {
   private String httpAddress;
   private int partitionVal;
 
-  public HopLeader(long id, long counter, String hostName, String httpAddress, int partitionVal) {
+  public LeDescriptor(long id, long counter, String hostName, String httpAddress, int partitionVal) {
     this.id = id;
     this.counter = counter;
     this.hostName = hostName;
@@ -64,7 +64,7 @@ public class HopLeader implements Comparable<HopLeader>, Cloneable {
     }
   }
 
-  public HopLeader(long id, long counter, String hostName, String httpAddress ) {
+  public LeDescriptor(long id, long counter, String hostName, String httpAddress ) {
     this.id = id;
     this.counter = counter;
     this.hostName = hostName;
@@ -113,7 +113,7 @@ public class HopLeader implements Comparable<HopLeader>, Cloneable {
   }
 
   @Override
-  public int compareTo(HopLeader l) {
+  public int compareTo(LeDescriptor l) {
 
     if (this.id < l.getId()) {
       return -1;
@@ -128,8 +128,8 @@ public class HopLeader implements Comparable<HopLeader>, Cloneable {
 
   @Override
   public boolean equals(Object obj) {
-    if (obj instanceof HopLeader) {
-      HopLeader l = (HopLeader) obj;
+    if (obj instanceof LeDescriptor) {
+      LeDescriptor l = (LeDescriptor) obj;
       //both are equal if all the fields match
       if (this.id == l.getId()
               && this.counter == l.getCounter()
@@ -159,6 +159,6 @@ public class HopLeader implements Comparable<HopLeader>, Cloneable {
 
   @Override
   public Object clone() throws CloneNotSupportedException {
-    return new HopLeader(id, counter, hostName, httpAddress);
+    return new LeDescriptor(id, counter, hostName, httpAddress);
   }
 }
