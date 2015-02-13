@@ -3,20 +3,13 @@ package se.sics.hop.transaction.handler;
 import se.sics.hop.exception.StorageException;
 import se.sics.hop.exception.TransientStorageException;
 import se.sics.hop.log.NDCWrapper;
-import se.sics.hop.transaction.context.EntityContextStat;
 import se.sics.hop.transaction.EntityManager;
 import se.sics.hop.transaction.TransactionInfo;
 import se.sics.hop.transaction.context.TransactionsStats;
 import se.sics.hop.transaction.lock.TransactionLockAcquirer;
 import se.sics.hop.transaction.lock.TransactionLocks;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
-import java.util.Formatter;
-import java.util.List;
-import java.util.Locale;
 
 /**
  *
@@ -44,13 +37,14 @@ public abstract class TransactionalRequestHandler extends RequestHandler {
       long expWaitTime = exponentialBackoff();
       long txStartTime = System.currentTimeMillis();
       long oldTime = System.currentTimeMillis();
+
       long setupTime = -1;
       long beginTxTime = -1;
       long acquireLockTime = -1;
       long inMemoryProcessingTime = -1;
       long commitTime = -1;
       long totalTime = -1;
-      
+
       rollback = false;
       tryCount++;
       ignoredException = null;
@@ -61,11 +55,9 @@ public abstract class TransactionalRequestHandler extends RequestHandler {
         setNDC(info);
         log.debug("Pretransaction phase started");
         preTransactionSetup();
-        
-        //sometimes in setup we call light weight request handler that messes up with the NDC
+//sometimes in setup we call light weight request handler that messes up with the NDC
         removeNDC();
         setNDC(info);
-        
         setupTime = (System.currentTimeMillis() - oldTime);
         oldTime = System.currentTimeMillis();
         log.debug("Pretransaction phase finished. Time " + setupTime + " ms");
@@ -86,7 +78,6 @@ public abstract class TransactionalRequestHandler extends RequestHandler {
         //sometimes in setup we call light weight request handler that messes up with the NDC
         removeNDC();
         setNDC(info);
-        
         EntityManager.preventStorageCall(true);
         try {
           txRetValue = performTask();

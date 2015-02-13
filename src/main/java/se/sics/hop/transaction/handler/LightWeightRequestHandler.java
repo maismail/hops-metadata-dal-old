@@ -62,6 +62,7 @@ public abstract class LightWeightRequestHandler extends RequestHandler {
         NDCWrapper.remove();
       }
     }
+
     throw new RuntimeException("LightWeightRequestHandler did not execute");
   }
 }

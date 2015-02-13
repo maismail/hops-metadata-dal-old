@@ -15,35 +15,15 @@
  */
 package se.sics.hop.metadata.hdfs.entity.hop;
 
-import se.sics.hop.metadata.hdfs.entity.CounterType;
 import se.sics.hop.metadata.hdfs.entity.FinderType;
 
 /**
  *
  * @author salman
  */
-public class HopLeader implements Comparable<HopLeader> {
+public abstract class HopsLeader implements Comparable<HopsLeader> {
 
   public static final int DEFAULT_PARTITION_VALUE = 0;
-
-  public static enum Finder implements FinderType<HopLeader> {
-
-    ById, All;
-    @Override
-    public Class getType() {
-      return HopLeader.class;
-    }
-
-    @Override
-    public Annotation getAnnotated() {
-      switch (this){
-        case ById: return Annotation.PrimaryKey;
-        case All: return Annotation.FullTable;
-        default: throw new IllegalStateException();
-      }
-    }
-
-  }
 
   private long id;
   private long counter;
@@ -52,21 +32,26 @@ public class HopLeader implements Comparable<HopLeader> {
   private String httpAddress;
   private int partitionVal;
 
-  public HopLeader(long id, long counter, long timeStamp, String hostName, String httpAddress, int partitionVal) {
+  public interface LeaderFinder<T extends HopsLeader> extends FinderType {
+
+  }
+
+  public HopsLeader(long id, long counter, long timeStamp, String hostName,
+      String httpAddress, int partitionVal) {
     this.id = id;
     this.counter = counter;
     this.timeStamp = timeStamp;
     this.hostName = hostName;
     this.httpAddress = httpAddress;
     this.partitionVal = partitionVal;
-
     if (partitionVal != 0) {
       throw new IllegalStateException("Leader.java: partition_val has to be zero");
       // to store all rows on one machine
     }
   }
 
-  public HopLeader(long id, long counter, long timeStamp, String hostName, String httpAddress ) {
+  public HopsLeader(long id, long counter, long timeStamp, String hostName,
+      String httpAddress) {
     this.id = id;
     this.counter = counter;
     this.timeStamp = timeStamp;
@@ -79,54 +64,28 @@ public class HopLeader implements Comparable<HopLeader> {
     return id;
   }
 
-  public void setId(long id) {
-    this.id = id;
-  }
-
   public long getCounter() {
     return counter;
-  }
-
-  public void setCounter(long counter) {
-    this.counter = counter;
   }
 
   public long getTimeStamp() {
     return timeStamp;
   }
 
-  public void setTimeStamp(long timeStamp) {
-    this.timeStamp = timeStamp;
-  }
-
   public String getHostName() {
     return hostName;
-  }
-
-  public void setHostName(String hostName) {
-    this.hostName = hostName;
   }
 
   public String getHttpAddress() {
      return httpAddress;
   }
 
-  public void setHttpAddress(String httpAddress) {
-      this.httpAddress = httpAddress;
-  }
-
- 
-
   public int getPartitionVal() {
     return partitionVal;
   }
 
-  public void setPartitionVal(int partitionVal) {
-    this.partitionVal = partitionVal;
-  }
-
   @Override
-  public int compareTo(HopLeader l) {
+  public int compareTo(HopsLeader l) {
 
     if (this.id < l.getId()) {
       return -1;
@@ -141,8 +100,8 @@ public class HopLeader implements Comparable<HopLeader> {
 
   @Override
   public boolean equals(Object obj) {
-    if (obj instanceof HopLeader) {
-      HopLeader l = (HopLeader) obj;
+    if (obj instanceof HopsLeader) {
+      HopsLeader l = (HopsLeader) obj;
       //both are equal if all the fields match
       if (this.id == l.getId()
               && this.counter == l.getCounter()
@@ -170,5 +129,67 @@ public class HopLeader implements Comparable<HopLeader> {
   @Override
   public String toString() {
     return this.id + ", " + hostName + ", " + counter + ", " + timeStamp;
+  }
+
+  public static class HopsYarnLeader extends HopsLeader {
+
+    public enum Finder implements LeaderFinder<HopsYarnLeader> {
+      ById, All;
+
+      @Override
+      public Class getType() {
+        return HopsYarnLeader.class;
+      }
+
+      @Override
+      public Annotation getAnnotated() {
+        switch (this){
+          case ById: return Annotation.PrimaryKey;
+          case All: return Annotation.FullTable;
+          default: throw new IllegalStateException();
+        }
+      }
+    }
+
+    public HopsYarnLeader(long id, long counter, long timeStamp,
+        String hostName, String httpAddress, int partitionVal) {
+      super(id, counter, timeStamp, hostName, httpAddress, partitionVal);
+    }
+
+    public HopsYarnLeader(long id, long counter, long timeStamp,
+        String hostName, String httpAddress) {
+      super(id, counter, timeStamp, hostName, httpAddress);
+    }
+  }
+
+  public static class HopsHdfsLeader extends HopsLeader {
+
+    public enum Finder implements LeaderFinder<HopsHdfsLeader> {
+      ById, All;
+
+      @Override
+      public Class getType() {
+        return HopsHdfsLeader.class;
+      }
+
+      @Override
+      public Annotation getAnnotated() {
+        switch (this){
+          case ById: return Annotation.PrimaryKey;
+          case All: return Annotation.FullTable;
+          default: throw new IllegalStateException();
+        }
+      }
+    }
+
+    public HopsHdfsLeader(long id, long counter, long timeStamp,
+        String hostName, String httpAddress, int partitionVal) {
+      super(id, counter, timeStamp, hostName, httpAddress, partitionVal);
+    }
+
+    public HopsHdfsLeader(long id, long counter, long timeStamp,
+        String hostName, String httpAddress) {
+      super(id, counter, timeStamp, hostName, httpAddress);
+    }
   }
 }
