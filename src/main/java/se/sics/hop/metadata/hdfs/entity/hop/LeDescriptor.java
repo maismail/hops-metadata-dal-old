@@ -49,27 +49,14 @@ public class LeDescriptor implements Comparable<LeDescriptor>, Cloneable {
   private long counter;
   private String hostName;
   private String httpAddress;
-  private int partitionVal;
+  private final int partitionVal;
 
-  public LeDescriptor(long id, long counter, String hostName, String httpAddress, int partitionVal) {
+  public LeDescriptor(long id, long counter, String hostName, String httpAddress) {
     this.id = id;
     this.counter = counter;
     this.hostName = hostName;
     this.httpAddress = httpAddress;
-    this.partitionVal = partitionVal;
-
-    if (partitionVal != 0) {
-      throw new IllegalStateException("Leader.java: partition_val has to be zero");
-      // to store all rows on one machine
-    }
-  }
-
-  public LeDescriptor(long id, long counter, String hostName, String httpAddress ) {
-    this.id = id;
-    this.counter = counter;
-    this.hostName = hostName;
-    this.httpAddress = httpAddress;
-    this.partitionVal = 0; // to store all rows on one machine
+    this.partitionVal = 0;
   }
 
   public long getId() {
@@ -106,10 +93,6 @@ public class LeDescriptor implements Comparable<LeDescriptor>, Cloneable {
 
   public int getPartitionVal() {
     return partitionVal;
-  }
-
-  public void setPartitionVal(int partitionVal) {
-    this.partitionVal = partitionVal;
   }
 
   @Override
