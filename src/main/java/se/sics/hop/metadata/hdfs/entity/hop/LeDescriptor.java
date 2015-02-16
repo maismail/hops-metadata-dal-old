@@ -28,7 +28,7 @@ public class LeDescriptor implements Comparable<LeDescriptor>, Cloneable {
 
   public static enum Finder implements FinderType<LeDescriptor> {
 
-    ById, AllByCounterGTN, AllByIDLT, All;
+    ById, All;
 
     @Override
     public Class getType() {
