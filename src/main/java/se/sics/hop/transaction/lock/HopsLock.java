@@ -42,7 +42,7 @@ public abstract class HopsLock implements Comparable<HopsLock>{
     Lease,
     LeasePath,
     Variable,
-    LeaderLock,
+    LeDescriptor,
     Replica,
     CorruptReplica,
     ExcessReplica,
