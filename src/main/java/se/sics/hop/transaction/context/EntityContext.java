@@ -4,6 +4,7 @@ import se.sics.hop.exception.TransactionContextException;
 import se.sics.hop.metadata.hdfs.entity.CounterType;
 import se.sics.hop.metadata.hdfs.entity.FinderType;
 
+import java.util.Arrays;
 import java.util.Collection;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -194,15 +195,18 @@ public abstract class EntityContext<T> {
     return currentLockMode.get();
   }
 
-  protected void aboutToAccessStorage() throws StorageCallPreventedException {
-    if (storageCallPrevented) {
-      throw new StorageCallPreventedException("Trying to access storage while it is disable in transaction, inconsistent transaction context statement.");
-    }
+  protected void aboutToAccessStorage(FinderType finderType) throws
+      StorageCallPreventedException {
+    aboutToAccessStorage(finderType, "");
   }
 
-  protected void aboutToAccessStorage(String msg) throws StorageCallPreventedException {
+  protected void aboutToAccessStorage(FinderType finderType, Object... params)
+      throws
+      StorageCallPreventedException {
     if (storageCallPrevented) {
-      throw new StorageCallPreventedException("Trying to access storage while it is disable in transaction, inconsistent transaction context statement. Msg " + msg);
+      throw new StorageCallPreventedException("[" + finderType + "] Trying " +
+          "to access storage while it is disable in transaction, inconsistent" +
+          " transaction context statement. Params=" + Arrays.toString(params));
     }
   }
 

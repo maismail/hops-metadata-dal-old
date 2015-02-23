@@ -59,7 +59,7 @@ public class VariableContext extends BaseEntityContext<HopVariable.Finder,
       var = get(varType);
       hit(varType, var);
     } else {
-      aboutToAccessStorage();
+      aboutToAccessStorage(finder, params);
       var = dataAccess.getVariable(varType);
       gotFromDB(varType, var);
       miss(varType, var);
