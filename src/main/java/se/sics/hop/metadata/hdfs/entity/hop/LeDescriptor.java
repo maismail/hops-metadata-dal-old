@@ -36,27 +36,19 @@ public class LeDescriptor implements Comparable<LeDescriptor>, Cloneable {
     }
   }
 
-  public static enum Counter implements CounterType<LeDescriptor> {
-
-    All, AllPredecessors, AllSuccessors;
-
-    @Override
-    public Class getType() {
-      return LeDescriptor.class;
-    }
-  }
   private long id;
   private long counter;
   private String hostName;
   private String httpAddress;
-  private final int partitionVal;
+  private final int partitionVal = 0;
 
-  public LeDescriptor(long id, long counter, String hostName, String httpAddress) {
+  protected LeDescriptor(){}
+  
+  protected LeDescriptor(long id, long counter, String hostName, String httpAddress) {
     this.id = id;
     this.counter = counter;
     this.hostName = hostName;
     this.httpAddress = httpAddress;
-    this.partitionVal = 0;
   }
 
   public long getId() {
