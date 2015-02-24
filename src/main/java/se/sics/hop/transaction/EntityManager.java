@@ -3,18 +3,20 @@ package se.sics.hop.transaction;
 import se.sics.hop.exception.StorageException;
 import se.sics.hop.exception.TransactionContextException;
 import se.sics.hop.metadata.hdfs.entity.CounterType;
+import se.sics.hop.metadata.hdfs.entity.FinderType;
 import se.sics.hop.transaction.context.ContextInitializer;
 import se.sics.hop.transaction.context.EntityContext;
 import se.sics.hop.transaction.context.EntityContextStat;
-import se.sics.hop.metadata.hdfs.entity.FinderType;
 import se.sics.hop.transaction.context.TransactionContext;
 import se.sics.hop.transaction.context.TransactionContextMaintenanceCmds;
 import se.sics.hop.transaction.handler.RequestHandler;
 import se.sics.hop.transaction.lock.TransactionLocks;
 
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
  *
@@ -26,11 +28,16 @@ public class EntityManager {
   }
   //private static ThreadLocal<TransactionContext> contexts = new ThreadLocal<TransactionContext>();
   private static ConcurrentHashMap<Long, TransactionContext> contexts = new ConcurrentHashMap<Long, TransactionContext>();
-  private static ContextInitializer contextInitializer;
+  private static CopyOnWriteArrayList<ContextInitializer> contextInitializers
+      = new CopyOnWriteArrayList<ContextInitializer>();
+  private static boolean initialized = false;
 
-  public static void setContextInitializer(ContextInitializer ci) {
-    contextInitializer = ci;
-    RequestHandler.setStorageConnector(contextInitializer.getConnector());
+  public static void addContextInitializer(ContextInitializer ci) {
+    contextInitializers.add(ci);
+    if (!initialized) {
+      initialized = true;
+      RequestHandler.setStorageConnector(ci.getConnector());
+    }
   }
   
   private static TransactionContext context() {
@@ -104,21 +111,21 @@ public class EntityManager {
 
   public static void writeLock() throws StorageException {
     EntityContext.setLockMode(EntityContext.LockMode.WRITE_LOCK);
-    contextInitializer.getConnector().writeLock();
+    contextInitializers.get(0).getConnector().writeLock();
   }
 
   public static void readLock() throws StorageException {
     EntityContext.setLockMode(EntityContext.LockMode.READ_LOCK);
-    contextInitializer.getConnector().readLock();
+    contextInitializers.get(0).getConnector().readLock();
   }
 
   public static void readCommited() throws StorageException {
     EntityContext.setLockMode(EntityContext.LockMode.READ_COMMITTED);
-    contextInitializer.getConnector().readCommitted();
+    contextInitializers.get(0).getConnector().readCommitted();
   }
 
   public static void setPartitionKey(Class name, Object key) throws StorageException {
-    contextInitializer.getConnector().setPartitionKey(name, key);
+    contextInitializers.get(0).getConnector().setPartitionKey(name, key);
   }
   
   public static Collection<EntityContextStat> collectSnapshotStat()
@@ -132,8 +139,15 @@ public class EntityManager {
   
   private static TransactionContext addContext(){
     Long threadID = getThreadID();
-    Map<Class, EntityContext> storageMap = contextInitializer.createEntityContexts();
-    TransactionContext context = new TransactionContext(contextInitializer.getConnector(), storageMap);
+    Map<Class, EntityContext> storageMap = new HashMap<Class, EntityContext>();
+    for (ContextInitializer initializer : contextInitializers) {
+      Map<Class, EntityContext> tmp = initializer.createEntityContexts();
+      for (Class clzz : tmp.keySet()) {
+        storageMap.put(clzz, tmp.get(clzz));
+      }
+    }
+    TransactionContext context = new TransactionContext(
+        contextInitializers.get(0).getConnector(), storageMap);
     contexts.put(threadID,context);
     return context;
   }

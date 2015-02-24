@@ -17,7 +17,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-
 /**
  *
  * @author kamal hakimzadeh <kamal@sics.se>
@@ -172,9 +171,11 @@ public class TransactionContext {
       throws TransactionContextException {
     List<EntityContextStat> stats = new ArrayList<EntityContextStat>();
     for (EntityContext context : contexts) {
-      stats.add(context.collectSnapshotStat());
+      EntityContextStat stat = context.collectSnapshotStat();
+      if(stat != null) {
+        stats.add(stat);
+      }
     }
-    Collections.sort(stats);
     return stats;
   }
 }

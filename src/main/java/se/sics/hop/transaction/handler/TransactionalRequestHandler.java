@@ -3,19 +3,13 @@ package se.sics.hop.transaction.handler;
 import se.sics.hop.exception.StorageException;
 import se.sics.hop.exception.TransientStorageException;
 import se.sics.hop.log.NDCWrapper;
-import se.sics.hop.transaction.context.EntityContextStat;
 import se.sics.hop.transaction.EntityManager;
 import se.sics.hop.transaction.TransactionInfo;
+import se.sics.hop.transaction.context.TransactionsStats;
 import se.sics.hop.transaction.lock.TransactionLockAcquirer;
 import se.sics.hop.transaction.lock.TransactionLocks;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
-import java.util.Formatter;
-import java.util.List;
-import java.util.Locale;
 
 /**
  *
@@ -39,21 +33,18 @@ public abstract class TransactionalRequestHandler extends RequestHandler {
     TransactionLocks locks = null;
     Object txRetValue = null;
 
-    boolean enableTxStats = false;
-    boolean enableTxStatsForSuccessfulOps = false;
-    String logFilePath = "/tmp/hop_tx_stats.txt";
-
     while (tryCount <= RETRY_COUNT) {
       long expWaitTime = exponentialBackoff();
       long txStartTime = System.currentTimeMillis();
       long oldTime = System.currentTimeMillis();
+
       long setupTime = -1;
       long beginTxTime = -1;
       long acquireLockTime = -1;
       long inMemoryProcessingTime = -1;
       long commitTime = -1;
       long totalTime = -1;
-      
+
       rollback = false;
       tryCount++;
       ignoredException = null;
@@ -64,11 +55,9 @@ public abstract class TransactionalRequestHandler extends RequestHandler {
         setNDC(info);
         log.debug("Pretransaction phase started");
         preTransactionSetup();
-        
-        //sometimes in setup we call light weight request handler that messes up with the NDC
+//sometimes in setup we call light weight request handler that messes up with the NDC
         removeNDC();
         setNDC(info);
-        
         setupTime = (System.currentTimeMillis() - oldTime);
         oldTime = System.currentTimeMillis();
         log.debug("Pretransaction phase finished. Time " + setupTime + " ms");
@@ -89,7 +78,6 @@ public abstract class TransactionalRequestHandler extends RequestHandler {
         //sometimes in setup we call light weight request handler that messes up with the NDC
         removeNDC();
         setNDC(info);
-        
         EntityManager.preventStorageCall(true);
         try {
           txRetValue = performTask();
@@ -103,9 +91,9 @@ public abstract class TransactionalRequestHandler extends RequestHandler {
         inMemoryProcessingTime = (System.currentTimeMillis() - oldTime);
         oldTime = System.currentTimeMillis();
         log.debug("In Memory Processing Finished. Time " + inMemoryProcessingTime + " ms");
-        if (enableTxStats && enableTxStatsForSuccessfulOps) {
-          collectStats(logFilePath, ignoredException);
-        }
+
+        TransactionsStats.getInstance().collectStats(opType, ignoredException);
+
         EntityManager.commit(locksAcquirer.getLocks());
         committed = true;
         commitTime = (System.currentTimeMillis() - oldTime);
@@ -122,9 +110,6 @@ public abstract class TransactionalRequestHandler extends RequestHandler {
         //TODO: XXX handle failures in post tx phase
         if (info != null && info instanceof TransactionInfo) {
           ((TransactionInfo) info).performPostTransactionAction();
-        }
-        if (enableTxStats) {
-          collectStats(logFilePath, ignoredException);
         }
         return txRetValue;
       } catch (TransientStorageException e) {
@@ -188,42 +173,6 @@ public abstract class TransactionalRequestHandler extends RequestHandler {
     return this;
   }
 
-  private void collectStats(String logFilePath, Throwable exception) throws IOException {
-
-    List<EntityContextStat> stats = (List<EntityContextStat>) EntityManager.collectSnapshotStat();
-    try {
-      boolean nothingChanged = true;
-      for (EntityContextStat stat : stats) { // if nothing was changed in the snapshot the dont print it
-        if ((stat.getDeletedRows() + stat.getModifiedRows() + stat.getNewRows()) > 0) {
-          nothingChanged = false;
-          break;
-        }
-      }
-      if (nothingChanged) {
-        return;
-      }
-
-      File file = new File(logFilePath);
-      BufferedWriter output = new BufferedWriter(new FileWriter(file, true));
-      String opName = NDCWrapper.peek();
-      output.write("Operation Name: " + opName + "\n");
-      if (exception != null) {
-        output.write(exception.toString() + "\n\n");
-      }
-      Formatter formatter = new Formatter(Locale.US);
-      // Explicit argument indices may be used to re-order output.
-      formatter.format("%30s %5s %5s %5s\n", "Context Name", "New", "Mod", "Del");
-      output.write(formatter.toString());
-      for (EntityContextStat line : stats) {
-        output.write(line.toString() + "\n");
-      }
-      output.write("===================================================================\n\n\n\n\n");
-      output.close();
-    } catch (IOException e) {
-      e.printStackTrace();
-    }
-  }
-  
   private void setNDC(Object info){
     // Defines a context for every operation to track them in the logs easily.
     if (info != null && info instanceof TransactionInfo) {

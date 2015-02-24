@@ -4,6 +4,7 @@ import se.sics.hop.exception.TransactionContextException;
 import se.sics.hop.metadata.hdfs.entity.CounterType;
 import se.sics.hop.metadata.hdfs.entity.FinderType;
 
+import java.util.Arrays;
 import java.util.Collection;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -42,7 +43,7 @@ public abstract class EntityContext<T> {
    * Defines the cache state of the request. This enum is only used for logging
    * purpose.
    */
-  public enum CacheHitState {
+  enum CacheHitState {
 
     HIT, LOSS, LOSS_LOCK_UPGRADE, NA
   }
@@ -125,7 +126,10 @@ public abstract class EntityContext<T> {
     throw new UnsupportedOperationException("Please Implement Me");
   }
 
-  public static void log(String opName, CacheHitState state, String... params) {
+  private static void log(String opName, CacheHitState state, Object...
+      params) {
+    if(!LOG.isDebugEnabled())
+      return;
     StringBuilder message = new StringBuilder();
     if (state == CacheHitState.HIT) {
       message.append(ANSI_GREEN).append(opName).append(" ").append("hit").append(ANSI_RESET);
@@ -157,7 +161,7 @@ public abstract class EntityContext<T> {
     LOG.debug(message.toString());
   }
 
-  public void logError(String msg) {
+  protected void logError(String msg) {
     StringBuilder message = new StringBuilder();
     message.append(ANSI_RED);
     message.append(msg).append(" ");
@@ -165,12 +169,18 @@ public abstract class EntityContext<T> {
     LOG.fatal(message.toString());
   }
 
-  public void log(String opName) {
-    log(opName, CacheHitState.NA, (String) null);
+  protected void log(String opName, Object... params) {
+    log(opName, CacheHitState.NA, params);
   }
 
-  public void log(String opName, CacheHitState state) {
-    log(opName, state, (String) null);
+  protected static void log(FinderType finderType, CacheHitState state, Object...
+      params) {
+    log(getOperationMessage(finderType), state, params);
+  }
+
+  private static String getOperationMessage(FinderType finder){
+    return "find-" + finder.getType().getSimpleName().toLowerCase() + "-" +
+        finder.toString();
   }
 
   public void preventStorageCall(boolean val) {
@@ -185,15 +195,18 @@ public abstract class EntityContext<T> {
     return currentLockMode.get();
   }
 
-  protected void aboutToAccessStorage() throws StorageCallPreventedException {
-    if (storageCallPrevented) {
-      throw new StorageCallPreventedException("Trying to access storage while it is disable in transaction, inconsistent transaction context statement.");
-    }
+  protected void aboutToAccessStorage(FinderType finderType) throws
+      StorageCallPreventedException {
+    aboutToAccessStorage(finderType, "");
   }
 
-  protected void aboutToAccessStorage(String msg) throws StorageCallPreventedException {
+  protected void aboutToAccessStorage(FinderType finderType, Object... params)
+      throws
+      StorageCallPreventedException {
     if (storageCallPrevented) {
-      throw new StorageCallPreventedException("Trying to access storage while it is disable in transaction, inconsistent transaction context statement. Msg " + msg);
+      throw new StorageCallPreventedException("[" + finderType + "] Trying " +
+          "to access storage while it is disable in transaction, inconsistent" +
+          " transaction context statement. Params=" + Arrays.toString(params));
     }
   }
 

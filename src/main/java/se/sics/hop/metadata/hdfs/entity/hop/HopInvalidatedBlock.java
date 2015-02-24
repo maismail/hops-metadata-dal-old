@@ -9,24 +9,30 @@ import se.sics.hop.metadata.hdfs.entity.FinderType;
  */
 public class HopInvalidatedBlock extends HopReplica {
 
-//  public static enum Counter implements CounterType<HopInvalidatedBlock> {
-//
-//    All;
-//
-//    @Override
-//    public Class getType() {
-//      return HopInvalidatedBlock.class;
-//    }
-//  }
-
   public static enum Finder implements FinderType<HopInvalidatedBlock> {
 
-    ByBlockId, ByINodeId, ByINodeIds, ByStorageId, ByPK, ByPKS, All;
+    ByBlockIdAndINodeId, ByINodeId, ByINodeIds,
+    ByBlockIdStorageIdAndINodeId,
+    ByBlockIdsStorageIdsAndINodeIds, All;
 
     @Override
     public Class getType() {
       return HopInvalidatedBlock.class;
     }
+
+    @Override
+    public Annotation getAnnotated() {
+      switch (this){
+        case ByBlockIdAndINodeId: return Annotation.PrunedIndexScan;
+        case ByINodeId: return Annotation.PrunedIndexScan;
+        case ByINodeIds: return Annotation.BatchedPrunedIndexScan;
+        case ByBlockIdStorageIdAndINodeId: return Annotation.PrimaryKey;
+        case ByBlockIdsStorageIdsAndINodeIds: return Annotation.Batched;
+        case All: return Annotation.FullTable;
+        default: throw new IllegalStateException();
+      }
+    }
+
   }
   private long generationStamp;
   private long numBytes;

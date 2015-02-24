@@ -55,11 +55,10 @@ public abstract class RequestHandler {
 
   protected long exponentialBackoff(){
     try {
-      
       if(waitTime>0){
-        log.debug("TX is being retried. Waiting for " + waitTime +
+      log.debug("TX is being retried. Waiting for " + waitTime +
           " ms before retry. TX name " + opType);
-        Thread.sleep(waitTime);
+      Thread.sleep(waitTime);
       }
       waitTime = waitTime == 0 ? BASE_WAIT_TIME : waitTime * 2;
       return waitTime;

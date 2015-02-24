@@ -4,9 +4,7 @@ package se.sics.hop.metadata.hdfs.tabledef;
  *
  * @author Mahmoud Ismail <maism@sics.se>
  */
-public interface LeDescriptorTableDef {
-
-  public static final String TABLE_NAME = "le_descriptors";
+public abstract interface LeDescriptorTableDef {
   public static final String ID = "id";
   public static final String COUNTER = "counter";
   public static final String HOSTNAME = "hostname";

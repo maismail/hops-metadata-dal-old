@@ -6,24 +6,25 @@ import se.sics.hop.metadata.hdfs.entity.CounterType;
 import se.sics.hop.metadata.hdfs.entity.FinderType;
 
 public class HopUnderReplicatedBlock {
-  public static enum Counter implements CounterType<HopUnderReplicatedBlock> {
-    All, ByLevel, LessThanLevel;
-
-    @Override
-    public Class getType() {
-      return HopUnderReplicatedBlock.class;
-    }
-    
-  }
   public static enum Finder implements FinderType<HopUnderReplicatedBlock> {
 
-    ByBlockId, ByINodeId, ByINodeIds, All, ByLevel;
+    ByBlockIdAndINodeId, ByINodeId, ByINodeIds;
 
     @Override
     public Class getType() {
       return HopUnderReplicatedBlock.class;
     }
-    
+
+    @Override
+    public Annotation getAnnotated() {
+      switch (this){
+        case ByBlockIdAndINodeId: return Annotation.PrimaryKey;
+        case ByINodeId: return Annotation.PrunedIndexScan;
+        case ByINodeIds: return Annotation.BatchedPrunedIndexScan;
+        default: throw new IllegalStateException();
+      }
+    }
+
   }
   
   public static enum Order implements Comparator<HopUnderReplicatedBlock> {

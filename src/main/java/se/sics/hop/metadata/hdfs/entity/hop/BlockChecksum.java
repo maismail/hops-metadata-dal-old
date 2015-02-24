@@ -15,6 +15,16 @@ public class BlockChecksum {
     public Class getType() {
       return BlockChecksum.class;
     }
+
+    @Override
+    public Annotation getAnnotated() {
+      switch (this){
+        case ByKeyTuple: return Annotation.PrimaryKey;
+        case ByInodeId: return Annotation.PrunedIndexScan;
+        default: throw new IllegalStateException();
+      }
+    }
+
   }
 
   public BlockChecksum() {

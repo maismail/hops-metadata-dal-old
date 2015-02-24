@@ -34,6 +34,15 @@ public class LeDescriptor implements Comparable<LeDescriptor>, Cloneable {
     public Class getType() {
       return LeDescriptor.class;
     }
+
+    @Override
+    public Annotation getAnnotated() {
+      switch (this){
+        case ById: return Annotation.PrimaryKey;
+        case All: return Annotation.FullTable;
+        default: throw new IllegalStateException();
+      }
+    }
   }
 
   private long id;

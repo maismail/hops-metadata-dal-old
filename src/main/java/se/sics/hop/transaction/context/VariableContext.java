@@ -46,8 +46,7 @@ public class VariableContext extends BaseEntityContext<HopVariable.Finder,
     super.update(hopVariable);
     log(
         "updated-" + hopVariable.getType().toString(),
-        CacheHitState.NA,
-        new String[]{"value", hopVariable.toString()});
+        "value", hopVariable.toString());
   }
 
 
@@ -57,13 +56,13 @@ public class VariableContext extends BaseEntityContext<HopVariable.Finder,
     HopVariable.Finder varType = (HopVariable.Finder) finder;
     HopVariable var = null;
     if (contains(varType)) {
-      log("find-" + varType.toString(), CacheHitState.HIT);
       var = get(varType);
+      hit(varType, var);
     } else {
-      log("find-" + varType.toString(), CacheHitState.LOSS);
-      aboutToAccessStorage();
+      aboutToAccessStorage(finder, params);
       var = dataAccess.getVariable(varType);
       gotFromDB(varType, var);
+      miss(varType, var);
     }
     return var;
   }

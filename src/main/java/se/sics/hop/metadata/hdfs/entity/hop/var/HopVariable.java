@@ -29,6 +29,7 @@ public abstract class HopVariable {
     BTSimpleKey,
     SIdCounter,
     LeaderParams,
+	MaxRMID,
     MisReplicatedFilesIndex,
     ClusterInSafeMode,
     //Generic Variables
@@ -56,6 +57,11 @@ public abstract class HopVariable {
     @Override
     public Class getType() {
       return HopVariable.class;
+    }
+
+    @Override
+    public Annotation getAnnotated() {
+      return Annotation.PrimaryKey;
     }
   }
   private final Finder type;
@@ -116,6 +122,8 @@ public abstract class HopVariable {
         return new HopIntVariable(varType);
       case LeaderParams:
         return new HopStringVariable(varType);
+      case MaxRMID:
+        return new HopLongVariable(varType);
       case MisReplicatedFilesIndex:
         return new HopLongVariable(varType);
       case ClusterInSafeMode:
