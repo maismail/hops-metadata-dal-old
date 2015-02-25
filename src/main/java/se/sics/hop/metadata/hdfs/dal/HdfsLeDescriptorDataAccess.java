@@ -9,6 +9,6 @@ package se.sics.hop.metadata.hdfs.dal;
  *
  * @author gautier
  */
-public interface YarnLeaderDataAccess<T> extends LeDescriptorDataAccess<T> {
+public interface HdfsLeDescriptorDataAccess<T> extends LeDescriptorDataAccess<T> {
     
 }

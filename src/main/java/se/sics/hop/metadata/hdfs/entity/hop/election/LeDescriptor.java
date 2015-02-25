@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package se.sics.hop.metadata.hdfs.entity.hop;
+package se.sics.hop.metadata.hdfs.entity.hop.election;
 
 import se.sics.hop.metadata.hdfs.entity.CounterType;
 import se.sics.hop.metadata.hdfs.entity.FinderType;
@@ -26,15 +26,20 @@ public class LeDescriptor implements Comparable<LeDescriptor>, Cloneable {
 
   public static final int DEFAULT_PARTITION_VALUE = 0;
 
-  public static enum Finder implements FinderType<LeDescriptor> {
+  public enum Finder implements FinderType<LeDescriptor> {
 
     ById, All;
 
+    Class type = LeDescriptor.class;
     @Override
     public Class getType() {
-      return LeDescriptor.class;
+      return type;
     }
 
+    public void setType(Class t){
+      type = t;
+    }
+    
     @Override
     public Annotation getAnnotated() {
       switch (this){
@@ -43,6 +48,8 @@ public class LeDescriptor implements Comparable<LeDescriptor>, Cloneable {
         default: throw new IllegalStateException();
       }
     }
+    
+    
   }
 
   private long id;
@@ -139,10 +146,5 @@ public class LeDescriptor implements Comparable<LeDescriptor>, Cloneable {
   @Override
   public String toString() {
     return this.id + ", " + hostName + ", " + counter ;
-  }
-
-  @Override
-  public Object clone() throws CloneNotSupportedException {
-    return new LeDescriptor(id, counter, hostName, httpAddress);
   }
 }
