@@ -5,12 +5,15 @@
 package se.sics.hop.metadata.hdfs.entity.hop.election;
 
 import se.sics.hop.metadata.hdfs.entity.FinderType;
+import se.sics.hop.metadata.hdfs.entity.hop.var.HopVariable;
 
 /**
  *
  * @author salman
  */
-public abstract class LeaderFactory {
+public abstract class LeDescriptorFactory {
+  
+  public abstract HopVariable.Finder getVarsFinder();
   
   public abstract FinderType<LeDescriptor> getAllFinder();
   

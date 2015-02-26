@@ -28,7 +28,8 @@ public abstract class HopVariable {
     BTNextKey,
     BTSimpleKey,
     SIdCounter,
-    LeaderParams,
+    HdfsLeParams,
+    YarnLeParams,
 	MaxRMID,
     MisReplicatedFilesIndex,
     ClusterInSafeMode,
@@ -120,7 +121,8 @@ public abstract class HopVariable {
         return new HopByteArrayVariable(varType);
       case SIdCounter:
         return new HopIntVariable(varType);
-      case LeaderParams:
+      case HdfsLeParams:
+      case YarnLeParams:  
         return new HopStringVariable(varType);
       case MaxRMID:
         return new HopLongVariable(varType);

@@ -22,44 +22,20 @@ import se.sics.hop.metadata.hdfs.entity.FinderType;
  *
  * @author salman
  */
-public class LeDescriptor implements Comparable<LeDescriptor>, Cloneable {
+public abstract class LeDescriptor implements Comparable<LeDescriptor>, Cloneable {
 
-  public static final int DEFAULT_PARTITION_VALUE = 0;
-
-  public enum Finder implements FinderType<LeDescriptor> {
-
-    ById, All;
-
-    Class type = LeDescriptor.class;
-    @Override
-    public Class getType() {
-      return type;
-    }
-
-    public void setType(Class t){
-      type = t;
-    }
-    
-    @Override
-    public Annotation getAnnotated() {
-      switch (this){
-        case ById: return Annotation.PrimaryKey;
-        case All: return Annotation.FullTable;
-        default: throw new IllegalStateException();
-      }
-    }
-    
-    
+  public interface LeDescriptorFinder<T extends LeDescriptor> extends FinderType {
   }
-
+  public static final int DEFAULT_PARTITION_VALUE = 0;
   private long id;
   private long counter;
   private String hostName;
   private String httpAddress;
   private final int partitionVal = 0;
 
-  protected LeDescriptor(){}
-  
+  protected LeDescriptor() {
+  }
+
   protected LeDescriptor(long id, long counter, String hostName, String httpAddress) {
     this.id = id;
     this.counter = counter;
@@ -92,11 +68,11 @@ public class LeDescriptor implements Comparable<LeDescriptor>, Cloneable {
   }
 
   public String getHttpAddress() {
-     return httpAddress;
+    return httpAddress;
   }
 
   public void setHttpAddress(String httpAddress) {
-      this.httpAddress = httpAddress;
+    this.httpAddress = httpAddress;
   }
 
   public int getPartitionVal() {
@@ -145,6 +121,64 @@ public class LeDescriptor implements Comparable<LeDescriptor>, Cloneable {
 
   @Override
   public String toString() {
-    return this.id + ", " + hostName + ", " + counter ;
+    return this.id + ", " + hostName + ", " + counter;
+  }
+
+  public static class YarnLeDescriptor extends LeDescriptor {
+
+    public enum Finder implements LeDescriptorFinder<YarnLeDescriptor> {
+
+      ById, All;
+
+      @Override
+      public Class getType() {
+        return YarnLeDescriptor.class;
+      }
+
+      @Override
+      public FinderType.Annotation getAnnotated() {
+        switch (this) {
+          case ById:
+            return FinderType.Annotation.PrimaryKey;
+          case All:
+            return FinderType.Annotation.FullTable;
+          default:
+            throw new IllegalStateException();
+        }
+      }
+    }
+
+    public YarnLeDescriptor(long id, long counter, String hostName, String httpAddress) {
+      super(id, counter, hostName, httpAddress);
+    }
+  }
+
+  public static class HdfsLeDescriptor extends LeDescriptor {
+
+    public enum Finder implements LeDescriptorFinder<HdfsLeDescriptor> {
+
+      ById, All;
+
+      @Override
+      public Class getType() {
+        return HdfsLeDescriptor.class;
+      }
+
+      @Override
+      public FinderType.Annotation getAnnotated() {
+        switch (this) {
+          case ById:
+            return FinderType.Annotation.PrimaryKey;
+          case All:
+            return FinderType.Annotation.FullTable;
+          default:
+            throw new IllegalStateException();
+        }
+      }
+    }
+
+    public HdfsLeDescriptor(long id, long counter, String hostName, String httpAddress) {
+      super(id, counter, hostName, httpAddress);
+    }
   }
 }
