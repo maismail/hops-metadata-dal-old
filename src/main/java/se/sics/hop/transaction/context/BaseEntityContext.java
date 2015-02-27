@@ -164,6 +164,10 @@ abstract class BaseEntityContext<Key, Entity> extends EntityContext<Entity> {
 
   }
 
+  final Collection<Entity> getRemovedForced() {
+    return filterValuesOnState(State.REMOVED);
+  }
+
   final Collection<Entity> getRemoved() {
     Collection<Entity> entities = Maps.transformValues(contextEntities,
         new Function<ContextEntity, Entity>() {
