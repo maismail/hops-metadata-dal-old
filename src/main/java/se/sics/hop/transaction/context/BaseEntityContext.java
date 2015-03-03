@@ -164,8 +164,23 @@ abstract class BaseEntityContext<Key, Entity> extends EntityContext<Entity> {
 
   }
 
-  final Collection<Entity> getRemoved() {
+  final Collection<Entity> getRemovedForced() {
     return filterValuesOnState(State.REMOVED);
+  }
+
+  final Collection<Entity> getRemoved() {
+    Collection<Entity> entities = Maps.transformValues(contextEntities,
+        new Function<ContextEntity, Entity>() {
+          @Override
+          public Entity apply(ContextEntity input) {
+            if (input.getState() == State.REMOVED && input.firstState !=
+                State.ADDED) {
+              return input.getEntity();
+            }
+            return null;
+          }
+        }).values();
+    return Collections2.filter(entities, Predicates.notNull());
   }
 
   final Collection<Entity> getAdded() {
