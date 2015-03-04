@@ -30,7 +30,6 @@ public abstract class HopVariable {
     SIdCounter,
     HdfsLeParams,
     YarnLeParams,
-	MaxRMID,
     MisReplicatedFilesIndex,
     ClusterInSafeMode,
     //Generic Variables
@@ -101,7 +100,6 @@ public abstract class HopVariable {
         return new HopByteArrayVariable(varType);
       case GenericArray:
         return new HopArrayVariable(varType);
-
       case BlockID:
         return new HopLongVariable(varType);
       case INodeID:
@@ -112,7 +110,6 @@ public abstract class HopVariable {
         return new HopArrayVariable(varType);
       case StorageInfo:
         return new HopArrayVariable(varType);
-
       case BlockTokenKeys:
         return new HopArrayVariable(varType);
       case BTCurrKey:
@@ -124,8 +121,6 @@ public abstract class HopVariable {
       case HdfsLeParams:
       case YarnLeParams:  
         return new HopStringVariable(varType);
-      case MaxRMID:
-        return new HopLongVariable(varType);
       case MisReplicatedFilesIndex:
         return new HopLongVariable(varType);
       case ClusterInSafeMode:
