@@ -19,7 +19,6 @@ public interface INodeTableDef {
   public static final String GENERATION_STAMP = "generation_stamp";
   public static final String HEADER = "header";
   public static final String SYMLINK = "symlink";
-  public static final String DIR = "dir";
   public static final String QUOTA_ENABLED = "quota_enabled";
   public static final String UNDER_CONSTRUCTION = "under_construction";
   public static final String SUBTREE_LOCKED = "subtree_locked";
