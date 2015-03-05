@@ -14,7 +14,6 @@ public class HopINode implements Comparable<HopINode> {
   private int id;
   private String name;
   private int parentId;
-  private boolean dir;
   private boolean dirWithQuota;
   private long modificationTime;
   private long accessTime;
@@ -36,7 +35,6 @@ public class HopINode implements Comparable<HopINode> {
       int id,
       String name,
       int parentId,
-      boolean dir,
       boolean dirWithQuota,
       long modificationTime,
       long accessTime,
@@ -54,7 +52,6 @@ public class HopINode implements Comparable<HopINode> {
     this.id = id;
     this.name = name;
     this.parentId = parentId;
-    this.dir = dir;
     this.dirWithQuota = dirWithQuota;
     this.modificationTime = modificationTime;
     this.accessTime = accessTime;
@@ -95,11 +92,7 @@ public class HopINode implements Comparable<HopINode> {
   }
 
   public boolean isDir() {
-    return dir;
-  }
-
-  public void setDir(boolean dir) {
-    this.dir = dir;
+    return header == 0 && symlink == null;
   }
 
   public boolean isDirWithQuota() {

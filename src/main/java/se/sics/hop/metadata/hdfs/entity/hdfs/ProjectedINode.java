@@ -7,21 +7,19 @@ public class ProjectedINode implements Comparable<ProjectedINode> {
   private byte[] permission;
   private long header;
   private boolean symlink;
-  private boolean dir;
   private boolean dirWithQuota;
   private boolean underConstruction;
   private boolean subtreeLocked;
   private long subtreeLockOwner;
 
   public ProjectedINode(int id, int parentId, String name, byte[] permission, long header, boolean symlink,
-        boolean dir, boolean dirWithQuota, boolean underConstruction, boolean subtreeLocked, long subtreeLockOwner) {
+      boolean dirWithQuota, boolean underConstruction, boolean subtreeLocked, long subtreeLockOwner) {
     this.id = id;
     this.parentId = parentId;
     this.name = name;
     this.permission = permission;
     this.header = header;
     this.symlink = symlink;
-    this.dir = dir;
     this.dirWithQuota = dirWithQuota;
     this.underConstruction = underConstruction;
     this.subtreeLocked = subtreeLocked;
@@ -77,11 +75,7 @@ public class ProjectedINode implements Comparable<ProjectedINode> {
   }
 
   public boolean isDirectory() {
-    return dir;
-  }
-
-  public void setDirectory(boolean dir) {
-    this.dir = dir;
+    return header ==0 && !symlink;
   }
 
   public boolean isDirWithQuota() {
