@@ -9,6 +9,6 @@ package se.sics.hop.metadata.hdfs.tabledef;
  *
  * @author gautier
  */
-public interface HdfsLeaderTableDef extends LeaderTableDef{
-    public static final String TABLE_NAME = "hdfs_leader";
+public interface HdfsLeaderTableDef extends LeDescriptorTableDef{
+    public static String TABLE_NAME = "hdfs_le_descriptors";
 }

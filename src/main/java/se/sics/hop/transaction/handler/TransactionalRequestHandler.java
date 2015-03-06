@@ -99,9 +99,9 @@ public abstract class TransactionalRequestHandler extends RequestHandler {
         commitTime = (System.currentTimeMillis() - oldTime);
         log.debug("TX committed. Time " + commitTime + " ms");
         totalTime = (System.currentTimeMillis() - txStartTime);
-        log.debug("TX Finished. TX Stats: Try Count: " + tryCount + " Wait:" +
-            expWaitTime + " Stepup: " + setupTime + "ms Begin Tx:" +
-            beginTxTime + " Acquire Locks: " + acquireLockTime +
+        log.debug("TX Finished. TX Stats: Try Count: " + tryCount + " Wait Before Next Retry:" +
+            expWaitTime + " Stepup: " + setupTime + " ms, Begin Tx:" +
+            beginTxTime + " ms, Acquire Locks: " + acquireLockTime +
             "ms, In Memory Processing: " + inMemoryProcessingTime +
             "ms, Commit Time: " + commitTime + "ms, Total Time: " + totalTime +
             "ms");
