@@ -29,7 +29,6 @@ import java.util.Collection;
  * @author Steffen Grohsschmiedt <steffeng@sics.se>
  */
 public abstract class HopsLock implements Comparable<HopsLock>{
-  private static boolean setPartitionKeyEnabled = false;
 
   /*
    * The Order of entries in Type defines the order
@@ -109,13 +108,5 @@ public abstract class HopsLock implements Comparable<HopsLock>{
       return null;
     }
     return EntityManager.find(finder, param);
-  }
-
-  static void enableSetPartitionKey(boolean enable) {
-    setPartitionKeyEnabled = enable;
-  }
-  
-  static boolean isSetPartitionKeyEnabled() {
-    return setPartitionKeyEnabled;
   }
 }
