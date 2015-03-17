@@ -66,7 +66,7 @@ public class HopStringVariable extends HopByteArrayVariable {
 
   @Override
   public String toString() {
-    return value; //To change body of generated methods, choose Tools | Templates.
+    return value;
   }
   
 }
