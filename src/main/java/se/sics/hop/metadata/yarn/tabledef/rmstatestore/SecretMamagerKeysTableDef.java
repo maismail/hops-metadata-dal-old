@@ -5,10 +5,6 @@
  */
 package se.sics.hop.metadata.yarn.tabledef.rmstatestore;
 
-/**
- *
- * @author gautier
- */
 public interface SecretMamagerKeysTableDef {
   public static final String TABLE_NAME = "secret_manager_keys";
     public static final String KEYID = "id";

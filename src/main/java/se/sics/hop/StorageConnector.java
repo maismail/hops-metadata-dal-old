@@ -4,10 +4,6 @@ import se.sics.hop.exception.StorageException;
 import java.util.Properties;
 import se.sics.hop.metadata.hdfs.dal.EntityDataAccess;
 
-/**
- *
- * @author Hooman <hooman@sics.se>
- */
 public interface StorageConnector<T> {
    
   public void setConfiguration(Properties conf) throws StorageException;

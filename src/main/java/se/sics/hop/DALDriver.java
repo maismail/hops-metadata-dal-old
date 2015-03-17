@@ -2,10 +2,6 @@ package se.sics.hop;
 
 import se.sics.hop.exception.StorageInitializtionException;
 
-/**
- *
- * @author Mahmoud Ismail <maism@sics.se>
- */
 public class DALDriver {
 
   public static DALStorageFactory load(String storageFactoryClassName) throws StorageInitializtionException {

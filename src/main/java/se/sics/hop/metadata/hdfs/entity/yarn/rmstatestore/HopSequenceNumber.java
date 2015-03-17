@@ -6,10 +6,6 @@
 
 package se.sics.hop.metadata.hdfs.entity.yarn.rmstatestore;
 
-/**
- *
- * @author nickstanogias
- */
 public class HopSequenceNumber {
     private final int id;
     private final int sequencenumber;

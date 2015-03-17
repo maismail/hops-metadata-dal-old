@@ -23,11 +23,6 @@ import se.sics.hop.transaction.EntityManager;
 import java.io.IOException;
 import java.util.Collection;
 
-/**
- *
- * @author Mahmoud Ismail <maism@sics.se>
- * @author Steffen Grohsschmiedt <steffeng@sics.se>
- */
 public abstract class HopsLock implements Comparable<HopsLock>{
   private static boolean setPartitionKeyEnabled = false;
 

@@ -17,10 +17,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-/**
- *
- * @author kamal hakimzadeh <kamal@sics.se>
- */
+
 public class TransactionContext {
 
   private static String UNKNOWN_TYPE = "Unknown type:";

@@ -4,10 +4,6 @@ import java.util.Collection;
 import se.sics.hop.exception.StorageException;
 import se.sics.hop.metadata.hdfs.entity.hop.var.HopVariable;
 
-/**
- *
- * @author Mahmoud Ismail <maism@sics.se>
- */
 public interface VariableDataAccess<T, Finder> extends EntityDataAccess {
 
   T getVariable(Finder varType) throws StorageException;

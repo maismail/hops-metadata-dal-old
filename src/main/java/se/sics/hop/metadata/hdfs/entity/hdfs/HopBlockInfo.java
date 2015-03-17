@@ -4,10 +4,6 @@
  */
 package se.sics.hop.metadata.hdfs.entity.hdfs;
 
-/**
- *
- * @author salman
- */
 public class HopBlockInfo {
 
   private long blockId;

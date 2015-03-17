@@ -6,10 +6,6 @@
 
 package se.sics.hop.metadata.yarn.tabledef.capacity;
 
-/**
- *
- * @author Nikos Stanogias <niksta@sics.se>
- */
 public interface FiCaSchedulerAppLastScheduledContainerTableDef {
     public static final String TABLE_NAME = "ha_schedulerapp_lastscheduledcontainer";
     public static final String SCHEDULERAPP_ID = "schedulerapp_id";

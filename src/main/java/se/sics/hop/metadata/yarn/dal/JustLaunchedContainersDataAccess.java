@@ -7,10 +7,6 @@ import se.sics.hop.exception.StorageException;
 import se.sics.hop.metadata.hdfs.dal.EntityDataAccess;
 import se.sics.hop.metadata.hdfs.entity.yarn.HopJustLaunchedContainers;
 
-/**
- *
- * @author Theofilos Kakantousis <tkak@sics.se>
- */
 public interface JustLaunchedContainersDataAccess<T> extends EntityDataAccess {
 
     T findEntry(String hostname, int commandport, int containerId) throws StorageException;

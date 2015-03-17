@@ -18,7 +18,7 @@ package se.sics.hop.metadata.hdfs.entity.hdfs;
 
 /**
  *
- * @author salman right now it holds quota info. later we can add more
+ * right now it holds quota info. later we can add more
  * information like access time ( if we want to remove locks from the parent
  * dirs )
  */

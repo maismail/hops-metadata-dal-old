@@ -12,10 +12,6 @@ import java.util.List;
 import se.sics.hop.exception.StorageException;
 import se.sics.hop.metadata.hdfs.dal.EntityDataAccess;
 
-/**
- *
- * @author nickstanogias
- */
 public interface QueueMetricsDataAccess<T> extends EntityDataAccess {
     T findById(int id) throws StorageException;
     List<T> findAll() throws StorageException, IOException;

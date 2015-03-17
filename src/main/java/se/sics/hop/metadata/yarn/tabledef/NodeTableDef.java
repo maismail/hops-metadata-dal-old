@@ -2,7 +2,6 @@ package se.sics.hop.metadata.yarn.tabledef;
 
 /**
  * Defines table structure for hayarn_node table.
- * @author Theofilos Kakantousis <tkak@sics.se>
  */
 public interface NodeTableDef {
     public static final String TABLE_NAME = "ha_node";

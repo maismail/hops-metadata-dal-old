@@ -6,10 +6,6 @@
 
 package se.sics.hop.metadata.hdfs.entity.yarn;
 
-/**
- *
- * @author Nikos Stanogias <niksta@sics.se>
- */
 public class HopFiCaSchedulerAppNewlyAllocatedContainers {
     private final String schedulerapp_id;
     private final String rmcontainer_id;

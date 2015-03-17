@@ -3,7 +3,6 @@ package se.sics.hop.metadata.yarn.tabledef;
 /**
  * Defines table structure for RMNodeImpl class.
  *
- * @author Theofilos Kakantousis <tkak@sics.se>
  */
 public interface RMNodeTableDef {
 

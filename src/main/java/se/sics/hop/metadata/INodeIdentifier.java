@@ -15,10 +15,6 @@
  */
 package se.sics.hop.metadata;
 
-/**
- *
- * @author salman
- */
 public class INodeIdentifier {
 
   Integer inodeID;

@@ -1,9 +1,5 @@
 package se.sics.hop.metadata.hdfs.entity.yarn.rmstatestore;
 
-/**
- *
- * @author nickstanogias
- */
 public class HopApplicationState {
 
   private final String applicationId;

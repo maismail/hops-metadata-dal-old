@@ -2,7 +2,6 @@ package se.sics.hop.metadata.hdfs.entity.yarn;
 
 /**
  * Pojo representing Priority class.
- * @author Theofilos Kakantousis <tkak@sics.se>
  */
 public class HopPriority {
 

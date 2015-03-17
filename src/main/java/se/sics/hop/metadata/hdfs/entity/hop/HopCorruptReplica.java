@@ -2,10 +2,6 @@ package se.sics.hop.metadata.hdfs.entity.hop;
 
 import se.sics.hop.metadata.hdfs.entity.FinderType;
 
-/**
- *
- * @author jude
- */
 public class HopCorruptReplica extends HopReplica {
 
   public static enum Finder implements FinderType<HopCorruptReplica> {

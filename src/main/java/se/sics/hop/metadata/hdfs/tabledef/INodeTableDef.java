@@ -1,9 +1,5 @@
 package se.sics.hop.metadata.hdfs.tabledef;
 
-/**
- * @author Mahmoud Ismail <maism@sics.se>
- * @author salman <salman@sics.se>
- */
 public interface INodeTableDef {
   // INode Table Columns
   public static final String TABLE_NAME = "inodes";

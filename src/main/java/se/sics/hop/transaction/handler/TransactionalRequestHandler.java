@@ -11,11 +11,6 @@ import se.sics.hop.transaction.lock.TransactionLocks;
 
 import java.io.IOException;
 
-/**
- *
- * @author kamal hakimzadeh<kamal@sics.se>
- * @author salman <salman@sics.se>
- */
 public abstract class TransactionalRequestHandler extends RequestHandler {
 
   public TransactionalRequestHandler(OperationType opType) {

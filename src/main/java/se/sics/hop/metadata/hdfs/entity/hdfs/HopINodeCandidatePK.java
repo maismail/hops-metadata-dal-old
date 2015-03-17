@@ -6,10 +6,6 @@ package se.sics.hop.metadata.hdfs.entity.hdfs;
 
 import se.sics.hop.metadata.hdfs.entity.hop.HopReplica;
 
-/**
- *
- * @author salman
- */
 public class HopINodeCandidatePK  implements Comparable<HopINodeCandidatePK>{
 
   int inodeId;

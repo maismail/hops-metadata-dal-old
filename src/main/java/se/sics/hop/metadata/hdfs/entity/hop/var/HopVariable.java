@@ -3,10 +3,6 @@ package se.sics.hop.metadata.hdfs.entity.hop.var;
 import se.sics.hop.metadata.hdfs.entity.FinderType;
 import java.util.EnumMap;
 
-/**
- *
- * @author Mahmoud Ismail <maism@sics.se>
- */
 public abstract class HopVariable {
 
   public final static EnumMap<Finder, byte[]> defaultValues = new EnumMap(Finder.class);

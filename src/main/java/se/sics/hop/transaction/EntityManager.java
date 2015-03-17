@@ -18,10 +18,6 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CopyOnWriteArrayList;
 
-/**
- *
- * @author kamal hakimzadeh <kamal@sics.se>
- */
 public class EntityManager {
 
   private EntityManager() {

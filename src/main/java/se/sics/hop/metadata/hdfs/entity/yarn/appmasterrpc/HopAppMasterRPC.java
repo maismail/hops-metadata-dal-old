@@ -6,10 +6,6 @@
 
 package se.sics.hop.metadata.hdfs.entity.yarn.appmasterrpc;
 
-/**
- *
- * @author Nikos Stanogias <niksta@sics.se>
- */
 public class HopAppMasterRPC {
     private final int id;
     private final Type type;

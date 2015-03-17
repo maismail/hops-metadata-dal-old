@@ -6,10 +6,6 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import se.sics.hop.StorageConnector;
 
-/**
- *
- * @author Hooman <hooman@sics.se>
- */
 public abstract class RequestHandler {
   private long waitTime;
 

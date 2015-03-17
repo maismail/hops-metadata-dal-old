@@ -5,10 +5,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import se.sics.hop.exception.StorageException;
 
-/**
- *
- * @author Mahmoud Ismail <maism@sics.se>
- */
 public abstract class DALAdaptor<HDFSClass, DALClass> {
 
   public Collection<DALClass> convertHDFStoDAL(Collection<HDFSClass> hdfsCollection)

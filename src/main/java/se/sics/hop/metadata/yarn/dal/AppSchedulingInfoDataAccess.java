@@ -11,10 +11,6 @@ import java.util.List;
 import se.sics.hop.exception.StorageException;
 import se.sics.hop.metadata.hdfs.dal.EntityDataAccess;
 
-/**
- *
- * @author nickstanogias
- */
 public interface AppSchedulingInfoDataAccess<T> extends EntityDataAccess {
 
   T findById(String id) throws StorageException;

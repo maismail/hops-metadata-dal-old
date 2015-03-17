@@ -1,9 +1,5 @@
 package se.sics.hop.metadata.yarn.tabledef.rmstatestore;
 
-/**
- *
- * @author nickstanogias
- */
 public interface RMStateVersionTableDef {
 
     public static final String TABLE_NAME = "version";

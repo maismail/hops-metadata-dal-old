@@ -6,10 +6,6 @@
 
 package se.sics.hop.metadata.yarn.tabledef;
 
-/**
- *
- * @author nickstanogias
- */
 public interface AppSchedulingInfoTableDef {
     public static final String TABLE_NAME = "ha_appschedulinginfo";
     public static final String SCHEDULERAPP_ID = "schedulerapp_id";

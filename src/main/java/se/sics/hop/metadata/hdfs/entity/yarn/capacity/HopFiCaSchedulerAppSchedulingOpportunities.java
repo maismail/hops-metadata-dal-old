@@ -6,10 +6,6 @@
 
 package se.sics.hop.metadata.hdfs.entity.yarn.capacity;
 
-/**
- *
- * @author nickstanogias
- */
 public class HopFiCaSchedulerAppSchedulingOpportunities {
     private final String schedulerapp_id;
     private final int priority_id;

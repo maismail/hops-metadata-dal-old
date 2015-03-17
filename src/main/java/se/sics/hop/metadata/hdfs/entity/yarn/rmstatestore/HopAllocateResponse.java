@@ -5,10 +5,6 @@
  */
 package se.sics.hop.metadata.hdfs.entity.yarn.rmstatestore;
 
-/**
- *
- * @author gautier
- */
 public class HopAllocateResponse {
 
   private final String applicationattemptid;

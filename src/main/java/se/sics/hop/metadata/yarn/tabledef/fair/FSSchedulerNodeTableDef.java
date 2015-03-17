@@ -6,10 +6,6 @@
 
 package se.sics.hop.metadata.yarn.tabledef.fair;
 
-/**
- *
- * @author Nikos Stanogias <niksta@sics.se>
- */
 public interface FSSchedulerNodeTableDef {
     public static final String TABLE_NAME = "ha_fsscheduler_node";
     public static final String RMNODEID = "rmnodeid";

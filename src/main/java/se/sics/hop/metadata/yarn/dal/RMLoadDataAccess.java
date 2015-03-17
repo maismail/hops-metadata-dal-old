@@ -10,10 +10,6 @@ import se.sics.hop.exception.StorageException;
 import se.sics.hop.metadata.hdfs.dal.EntityDataAccess;
 import se.sics.hop.metadata.hdfs.entity.yarn.HopLoad;
 
-/**
- *
- * @author gautier
- */
 public interface RMLoadDataAccess<T> extends EntityDataAccess {
   void update(T entry)throws StorageException;
   Map<String, T> getAll() throws StorageException;

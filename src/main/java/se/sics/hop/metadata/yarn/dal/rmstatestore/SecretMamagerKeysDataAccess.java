@@ -12,7 +12,6 @@ import se.sics.hop.metadata.hdfs.dal.EntityDataAccess;
 
 /**
  *
- * @author gautier
  * @param <T>
  */
 public interface SecretMamagerKeysDataAccess<T> extends EntityDataAccess {

@@ -6,10 +6,6 @@ package se.sics.hop.metadata.hdfs.dal;
 
 import se.sics.hop.exception.StorageException;
 
-/**
- *
- * @author Mahmoud Ismail <maism@sics.se>
- */
 public interface MisReplicatedRangeQueueDataAccess  extends EntityDataAccess {
   
   void insert(long start, long end) throws StorageException;

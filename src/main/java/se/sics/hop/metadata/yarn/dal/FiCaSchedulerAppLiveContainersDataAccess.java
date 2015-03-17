@@ -13,10 +13,6 @@ import se.sics.hop.exception.StorageException;
 import se.sics.hop.metadata.hdfs.dal.EntityDataAccess;
 import se.sics.hop.metadata.hdfs.entity.yarn.HopFiCaSchedulerAppLiveContainers;
 
-/**
- *
- * @author Nikos Stanogias <niksta@sics.se>
- */
 public interface FiCaSchedulerAppLiveContainersDataAccess<T> extends EntityDataAccess {
     List<T> findById(String ficaId) throws StorageException;
     

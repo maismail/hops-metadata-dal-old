@@ -3,10 +3,6 @@ package se.sics.hop.metadata.hdfs.entity.hop;
 import se.sics.hop.metadata.hdfs.entity.CounterType;
 import se.sics.hop.metadata.hdfs.entity.FinderType;
 
-/**
- *
- * @author Hooman <hooman@sics.se>
- */
 public class HopInvalidatedBlock extends HopReplica {
 
   public static enum Finder implements FinderType<HopInvalidatedBlock> {

@@ -2,8 +2,6 @@ package se.sics.hop.metadata.hdfs.entity.yarn;
 
 /**
  * Pojo representing launchedContainers Map in FiCaSchedulerNode.
- *
- * @author Theofilos Kakantousis <tkak@sics.se>
  */
 public class HopLaunchedContainers {
 

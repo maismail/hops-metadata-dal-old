@@ -1,9 +1,5 @@
 package se.sics.hop.metadata.hdfs.entity.hop;
 
-/**
- *
- * @author Hooman <hooman@sics.se>
- */
 public abstract class HopReplica implements Comparable<HopReplica> {
 
   protected int storageId;

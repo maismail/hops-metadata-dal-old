@@ -2,8 +2,6 @@ package se.sics.hop.metadata.hdfs.entity.yarn;
 
 /**
  * HOP representation of ContainerStatus yarn object.
- *
- * @author Theofilos Kakantousis <tkak@sics.se>
  */
 public class HopContainerStatus {
 

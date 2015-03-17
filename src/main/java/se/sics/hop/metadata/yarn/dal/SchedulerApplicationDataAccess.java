@@ -12,10 +12,6 @@ import se.sics.hop.exception.StorageException;
 import se.sics.hop.metadata.hdfs.dal.EntityDataAccess;
 import se.sics.hop.metadata.hdfs.entity.yarn.HopSchedulerApplication;
 
-/**
- *
- * @author Nikos Stanogias <niksta@sics.se>
- */
 public interface SchedulerApplicationDataAccess<T> extends EntityDataAccess {
     T findById(String id) throws StorageException;
 

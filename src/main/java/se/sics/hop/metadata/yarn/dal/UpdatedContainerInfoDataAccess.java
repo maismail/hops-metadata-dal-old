@@ -7,10 +7,6 @@ import se.sics.hop.exception.StorageException;
 import se.sics.hop.metadata.hdfs.dal.EntityDataAccess;
 import se.sics.hop.metadata.hdfs.entity.yarn.HopUpdatedContainerInfo;
 
-/**
- *
- * @author Theofilos Kakantousis <tkak@sics.se>
- */
 public interface UpdatedContainerInfoDataAccess<T> extends EntityDataAccess {
 
     List<T> findByRMNode(String rmnodeid) throws StorageException;

@@ -6,10 +6,6 @@
 
 package se.sics.hop.metadata.yarn.tabledef;
 
-/**
- *
- * @author Nikos Stanogias <niksta@sics.se>
- */
 public interface SchedulerApplicationTableDef {
     public static final String TABLE_NAME = "ha_schedulerapplication";
     public static final String APPID = "appid";

@@ -6,10 +6,6 @@
 
 package se.sics.hop.metadata.yarn.tabledef;
 
-/**
- *
- * @author nickstanogias
- */
 public interface RMAppTableDef {
     public static final String TABLE_NAME = "ha_rmapp";
     public static final String ID = "id";

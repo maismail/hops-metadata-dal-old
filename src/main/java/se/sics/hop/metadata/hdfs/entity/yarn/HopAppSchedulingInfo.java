@@ -6,10 +6,6 @@
 
 package se.sics.hop.metadata.hdfs.entity.yarn;
 
-/**
- *
- * @author nickstanogias
- */
 public class HopAppSchedulingInfo {
     private final String schedulerappId;
     private final String appId;

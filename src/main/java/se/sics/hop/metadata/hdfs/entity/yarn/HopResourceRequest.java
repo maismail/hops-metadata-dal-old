@@ -6,10 +6,6 @@
 
 package se.sics.hop.metadata.hdfs.entity.yarn;
 
-/**
- *
- * @author Nikos Stanogias <niksta@sics.se>
- */
 public class HopResourceRequest {
     private final String id;
     private final int priority;

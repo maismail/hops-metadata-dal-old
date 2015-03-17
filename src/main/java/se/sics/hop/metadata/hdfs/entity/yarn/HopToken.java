@@ -2,8 +2,6 @@ package se.sics.hop.metadata.hdfs.entity.yarn;
 
 /**
  * Pojo representing Token class.
- *
- * @author Theofilos Kakantousis <tkak@sics.se>
  */
 public class HopToken {
 

@@ -12,10 +12,6 @@ import se.sics.hop.exception.StorageException;
 import se.sics.hop.exception.StorageCallPreventedException;
 import se.sics.hop.transaction.lock.TransactionLocks;
 
-/**
- *
- * @author Hooman <hooman@sics.se>
- */
 public abstract class EntityContext<T> {
 
   protected static String NOT_SUPPORTED_YET = "Not supported yet.";

@@ -6,10 +6,6 @@ package se.sics.hop.log;
 
 import org.apache.log4j.NDC;
 
-/**
- *
- * @author salman
- */
 public class NDCWrapper {
 
     private static boolean NDCEnabled = true;

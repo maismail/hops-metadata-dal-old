@@ -1,9 +1,5 @@
 package se.sics.hop.metadata.hdfs.entity.hdfs;
 
-/**
- *
- * @author Mahmoud Ismail <maism@sics.se>
- */
 public class HopPendingBlockInfo {
 
   private long blockId;

@@ -6,10 +6,6 @@
 
 package se.sics.hop.metadata.hdfs.entity.yarn;
 
-/**
- *
- * @author nickstanogias
- */
 public class HopAppSchedulingInfoBlacklist {
     private String appschedulinginfo_id;
     private String blacklisted;

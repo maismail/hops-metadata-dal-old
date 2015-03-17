@@ -13,10 +13,6 @@ import se.sics.hop.exception.StorageException;
 import se.sics.hop.metadata.hdfs.dal.EntityDataAccess;
 import se.sics.hop.metadata.hdfs.entity.yarn.HopAppSchedulingInfoBlacklist;
 
-/**
- *
- * @author nickstanogias
- */
 public interface AppSchedulingInfoBlacklistDataAccess<T> extends EntityDataAccess {
     List<T> findById(String id) throws StorageException;
 

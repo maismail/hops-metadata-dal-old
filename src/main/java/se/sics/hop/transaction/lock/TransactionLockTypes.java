@@ -15,9 +15,6 @@
  */
 package se.sics.hop.transaction.lock;
 
-/**
- * @author salman
- */
 public class TransactionLockTypes {
   public enum LockType {
     /** No lock */

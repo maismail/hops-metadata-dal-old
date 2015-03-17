@@ -6,9 +6,6 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 
-/**
- * @author salman
- */
 public class HopINode implements Comparable<HopINode> {
 
   private int id;

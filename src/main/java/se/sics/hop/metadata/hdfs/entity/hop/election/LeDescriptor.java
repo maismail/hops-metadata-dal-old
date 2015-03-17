@@ -18,10 +18,6 @@ package se.sics.hop.metadata.hdfs.entity.hop.election;
 import se.sics.hop.metadata.hdfs.entity.CounterType;
 import se.sics.hop.metadata.hdfs.entity.FinderType;
 
-/**
- *
- * @author salman
- */
 public abstract class LeDescriptor implements Comparable<LeDescriptor>, Cloneable {
 
   public interface LeDescriptorFinder<T extends LeDescriptor> extends FinderType {

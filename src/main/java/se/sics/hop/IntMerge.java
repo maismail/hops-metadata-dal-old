@@ -5,9 +5,6 @@
 package se.sics.hop;
 
 /**
- *
- * @author salman
- * 
  * store two ints in one long variable
  */
 

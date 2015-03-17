@@ -6,10 +6,6 @@
 
 package se.sics.hop.metadata.hdfs.entity.yarn;
 
-/**
- *
- * @author nickstanogias
- */
 public class HopRMAppAttempt {
     private final int id;
     private final int rmcontextid;

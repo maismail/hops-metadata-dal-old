@@ -17,10 +17,6 @@ package se.sics.hop.metadata.hdfs.entity.hop.election;
 
 import java.util.StringTokenizer;
 
-/**
- *
- * @author salman
- */
 public class Vars {
 
   private boolean evictFlag;

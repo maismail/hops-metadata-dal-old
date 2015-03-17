@@ -6,10 +6,6 @@
 
 package se.sics.hop.metadata.yarn.tabledef;
 
-/**
- *
- * @author nickstanogias
- */
 public interface FifoSchedulerAppsTableDef {
     public static final String TABLE_NAME = "ha_fifoscheduler_apps";
     public static final String APPID = "appid";

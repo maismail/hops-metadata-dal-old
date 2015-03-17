@@ -7,12 +7,6 @@ import se.sics.hop.exception.StorageException;
 import se.sics.hop.metadata.INodeIdentifier;
 import se.sics.hop.metadata.hdfs.entity.hdfs.ProjectedINode;
 
-/**
- *
- * @author kamal hakimzadeh <kamal@sics.se>
- * @author Mahmoud Ismail <maism@sics.se>
- * @author salman <salman@sics.se>
- */
 public interface INodeDataAccess<T> extends EntityDataAccess {
   
   T indexScanfindInodeById(int inodeId) throws StorageException;

@@ -2,10 +2,6 @@ package se.sics.hop.metadata.hdfs.entity.hop.var;
 
 import java.io.UnsupportedEncodingException;
 
-/**
- *
- * @author Mahmoud Ismail <maism@sics.se>
- */
 public class HopStringVariable extends HopByteArrayVariable {
 
   private String value = null;

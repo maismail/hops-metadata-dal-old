@@ -5,10 +5,6 @@
  */
 package se.sics.hop.metadata.yarn.tabledef;
 
-/**
- *
- * @author gautier
- */
 public interface RMLoadTableDef {
   public static final String TABLE_NAME = "rms_load";
   public static final String RMHOSTNAME = "rmhostname";

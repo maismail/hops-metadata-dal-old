@@ -1,9 +1,5 @@
 package se.sics.hop.metadata.hdfs.entity.yarn;
 
-/**
- *
- * @author Theofilos Kakantousis <tkak@sics.se>
- */
 public class HopJustLaunchedContainers {
 
     private final String rmnodeid;

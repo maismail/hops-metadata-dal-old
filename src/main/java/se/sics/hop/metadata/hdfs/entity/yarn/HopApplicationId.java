@@ -3,10 +3,6 @@ package se.sics.hop.metadata.hdfs.entity.yarn;
 import com.google.common.base.Splitter;
 import java.util.Iterator;
 
-/**
- *
- * @author Theofilos Kakantousis <tkak@sics.se>
- */
 public class HopApplicationId {
 
   private final String id;

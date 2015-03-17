@@ -1,9 +1,5 @@
 package se.sics.hop.metadata.hdfs.entity.hop;
 
-/**
- *
- * @author Salman <salman@sics.se>
- */
 public class HopBlockLookUp implements Comparable<HopBlockLookUp> {
 
   private long block_id;

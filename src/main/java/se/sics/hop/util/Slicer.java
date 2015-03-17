@@ -1,9 +1,5 @@
 package se.sics.hop.util;
 
-/**
- *
- * @author Mahmoud Ismail <maism@sics.se>
- */
 public class Slicer {
 
   public interface OperationHandler {

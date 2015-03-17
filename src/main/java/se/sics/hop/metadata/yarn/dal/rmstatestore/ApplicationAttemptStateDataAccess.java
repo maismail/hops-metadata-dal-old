@@ -7,10 +7,6 @@ import se.sics.hop.exception.StorageException;
 import se.sics.hop.metadata.hdfs.dal.EntityDataAccess;
 import se.sics.hop.metadata.hdfs.entity.yarn.rmstatestore.HopApplicationAttemptState;
 
-/**
- *
- * @author nickstanogias
- */
 public interface ApplicationAttemptStateDataAccess<T> extends EntityDataAccess {
 
     T findEntry(int applicationid, int applicationattemptid) throws StorageException;

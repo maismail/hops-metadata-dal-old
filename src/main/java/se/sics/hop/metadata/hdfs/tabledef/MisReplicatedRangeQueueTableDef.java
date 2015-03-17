@@ -4,10 +4,6 @@
  */
 package se.sics.hop.metadata.hdfs.tabledef;
 
-/**
- *
- * @author Mahmoud Ismail <maism@sics.se>
- */
 public interface MisReplicatedRangeQueueTableDef {
 
   public static final String TABLE_NAME = "misreplicated_range_queue";

@@ -4,11 +4,6 @@ import java.util.Collection;
 import java.util.List;
 import se.sics.hop.exception.StorageException;
 
-/**
- *
- * @author kamal hakimzadeh<kamal@sics.se>
- * @author Mahmoud Ismail <maism@sics.se>
- */
 public interface ExcessReplicaDataAccess<T> extends EntityDataAccess {
 
   int countAll() throws StorageException;

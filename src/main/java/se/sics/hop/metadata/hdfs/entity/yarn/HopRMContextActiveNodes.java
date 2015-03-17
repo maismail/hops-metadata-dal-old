@@ -2,8 +2,6 @@ package se.sics.hop.metadata.hdfs.entity.yarn;
 
 /**
  * Hop object representing the nodes Map of RMContext.
- *
- * @author Theofilos Kakantousis <tkak@sics.se>
  */
 public class HopRMContextActiveNodes {
 

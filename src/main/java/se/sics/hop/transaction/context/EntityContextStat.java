@@ -11,9 +11,6 @@ import java.util.Formatter;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * @author salman
- */
 public class EntityContextStat {
 
   static final int CONTEXT_INDENTATION = 2;

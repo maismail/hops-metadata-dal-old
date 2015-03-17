@@ -9,7 +9,6 @@ import se.sics.hop.metadata.hdfs.entity.yarn.HopRMNode;
 
 /**
  *
- * @author Theofilos Kakantousis <tkak@sics.se>
  * @param <T>
  */
 public interface RMNodeDataAccess<T> extends EntityDataAccess {

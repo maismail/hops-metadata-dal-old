@@ -5,10 +5,6 @@ import se.sics.hop.exception.StorageException;
 import se.sics.hop.exception.TransientStorageException;
 import se.sics.hop.log.NDCWrapper;
 
-/**
- *
- * @author Hooman <hooman@sics.se>
- */
 public abstract class LightWeightRequestHandler extends RequestHandler {
 
   public LightWeightRequestHandler(OperationType opType) {

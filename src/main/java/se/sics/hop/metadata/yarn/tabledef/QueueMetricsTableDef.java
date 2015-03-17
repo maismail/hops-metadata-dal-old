@@ -6,10 +6,6 @@
 
 package se.sics.hop.metadata.yarn.tabledef;
 
-/**
- *
- * @author nickstanogias
- */
 public interface QueueMetricsTableDef {
     public static final String TABLE_NAME = "ha_queuemetrics";
     public static final String ID = "id";

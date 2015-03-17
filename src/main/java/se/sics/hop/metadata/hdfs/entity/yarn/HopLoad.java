@@ -5,10 +5,6 @@
  */
 package se.sics.hop.metadata.hdfs.entity.yarn;
 
-/**
- *
- * @author gautier
- */
 public class HopLoad {
   private final String rmHostName;
   private final long load;

@@ -5,11 +5,6 @@ import java.util.List;
 import java.util.Set;
 import se.sics.hop.exception.StorageException;
 
-/**
- *
- * @author kamal hakimzadeh <kamal@sics.se>
- * @author Mahmoud Ismail <maism@sics.se>
- */
 public interface BlockInfoDataAccess<T> extends EntityDataAccess {
 
   int countAll() throws StorageException;

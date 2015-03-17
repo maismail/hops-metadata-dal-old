@@ -1,9 +1,5 @@
 package se.sics.hop.metadata.hdfs.tabledef;
 
-/**
- *
- * @author salman <salman@sics.se>
- */
 public interface BlockLookUpTableDef {
 
   public static final String TABLE_NAME = "block_lookup_table";

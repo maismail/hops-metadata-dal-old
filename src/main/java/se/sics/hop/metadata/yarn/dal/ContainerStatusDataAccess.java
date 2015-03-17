@@ -6,10 +6,6 @@ import se.sics.hop.exception.StorageException;
 import se.sics.hop.metadata.hdfs.dal.EntityDataAccess;
 import se.sics.hop.metadata.hdfs.entity.yarn.HopContainerStatus;
 
-/**
- *
- * @author Theofilos Kakantousis <tkak@sics.se>
- */
 public interface ContainerStatusDataAccess<T> extends EntityDataAccess {
 
     T findById(String id) throws StorageException;

@@ -4,10 +4,6 @@
  */
 package se.sics.hop.metadata.hdfs.tabledef;
 
-/**
- *
- * @author Mahmoud Ismail <maism@sics.se>
- */
 public interface SafeBlocksTableDef {
 
   public static final String TABLE_NAME = "safe_blocks";

@@ -5,8 +5,6 @@ import se.sics.hop.metadata.hdfs.entity.FinderType;
 
 /**
  * This class holds the information of one replica of a block in one datanode.
- *
- * @author kamal hakimzadeh<kamal@sics.se>
  */
 public class HopIndexedReplica extends HopReplica {
 

@@ -1,9 +1,5 @@
 package se.sics.hop.exception;
 
-/**
- *
- * @author kamal hakimzadeh <kamal@sics.se>
- */
 public class TransactionContextException extends HopsException {
 
   public TransactionContextException() {

@@ -4,11 +4,6 @@ import java.util.Collection;
 import java.util.List;
 import se.sics.hop.exception.StorageException;
 
-/**
- *
- * @author kamal hakimzadeh
- * @author Mahmoud Ismail <maism@sics.se>
- */
 public interface ReplicaUnderConstructionDataAccess<T> extends EntityDataAccess {
 
   List<T> findReplicaUnderConstructionByBlockId(long blockId, int inodeId) throws StorageException;

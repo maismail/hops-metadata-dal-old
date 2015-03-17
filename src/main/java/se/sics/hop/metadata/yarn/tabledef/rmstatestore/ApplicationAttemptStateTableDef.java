@@ -6,10 +6,6 @@
 
 package se.sics.hop.metadata.yarn.tabledef.rmstatestore;
 
-/**
- *
- * @author nickstanogias
- */
 public interface ApplicationAttemptStateTableDef {
    public static final String TABLE_NAME = "applicationattemptstate";
   public static final String APPLICATIONID = "applicationid";

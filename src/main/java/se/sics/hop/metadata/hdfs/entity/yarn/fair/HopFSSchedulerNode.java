@@ -6,10 +6,6 @@
 
 package se.sics.hop.metadata.hdfs.entity.yarn.fair;
 
-/**
- *
- * @author Nikos Stanogias <niksta@sics.se>
- */
 public class HopFSSchedulerNode {
     
     private final String rmnodeid;

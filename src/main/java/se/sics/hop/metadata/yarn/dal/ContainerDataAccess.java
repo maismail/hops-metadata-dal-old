@@ -6,10 +6,6 @@ import se.sics.hop.exception.StorageException;
 import se.sics.hop.metadata.hdfs.dal.EntityDataAccess;
 import se.sics.hop.metadata.hdfs.entity.yarn.HopContainer;
 
-/**
- *
- * @author Theofilos Kakantousis <tkak@sics.se>
- */
 public interface ContainerDataAccess<T> extends EntityDataAccess {
 
     T findById(String id) throws StorageException;

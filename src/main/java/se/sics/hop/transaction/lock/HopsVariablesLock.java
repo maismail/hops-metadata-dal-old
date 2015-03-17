@@ -23,10 +23,6 @@ import se.sics.hop.transaction.lock.HopsLock;
 import se.sics.hop.transaction.lock.TransactionLockTypes;
 import se.sics.hop.transaction.lock.TransactionLocks;
 
-/**
- *
- * @author Mahmoud Ismail <maism@sics.se>
- */
 public final class HopsVariablesLock extends HopsLock {
 
   private final Map<HopVariable.Finder, TransactionLockTypes.LockType> variables;

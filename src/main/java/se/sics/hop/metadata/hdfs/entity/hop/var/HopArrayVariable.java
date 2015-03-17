@@ -4,10 +4,6 @@ import java.nio.ByteBuffer;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- *
- * @author Mahmoud Ismail <maism@sics.se>
- */
 public class HopArrayVariable extends HopVariable {
 
   private List<HopVariable> vars;

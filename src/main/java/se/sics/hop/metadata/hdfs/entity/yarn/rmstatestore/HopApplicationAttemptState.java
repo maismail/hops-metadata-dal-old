@@ -2,10 +2,6 @@ package se.sics.hop.metadata.hdfs.entity.yarn.rmstatestore;
 
 import java.nio.ByteBuffer;
 
-/**
- *
- * @author nickstanogias
- */
 public class HopApplicationAttemptState {
 
     private final String applicationid;

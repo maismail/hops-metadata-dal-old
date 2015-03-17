@@ -6,10 +6,6 @@
 
 package se.sics.hop.metadata.hdfs.entity.yarn.rmstatestore;
 
-/**
- *
- * @author nickstanogias
- */
 public class HopDelegationKey {
     private final int key;
     private final byte[] delegationkey;

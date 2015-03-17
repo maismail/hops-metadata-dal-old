@@ -1,8 +1,5 @@
 package se.sics.hop.exception;
 
-/**
- * @author Salman <salman@sics.se>
- */
 public class LockUpgradeException extends TransactionContextException {
 
   public LockUpgradeException() {

@@ -2,8 +2,6 @@ package se.sics.hop.metadata.hdfs.entity.yarn;
 
 /**
  * Pojo class for nodes ConcurrentMap in FifoScheduler.
- *
- * @author Theofilos Kakantousis <tkak@sics.se>
  */
 public class HopFifoSchedulerNodes {
 

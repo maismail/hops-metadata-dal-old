@@ -3,11 +3,6 @@ package se.sics.hop.metadata.hdfs.dal;
 import java.util.Collection;
 import se.sics.hop.exception.StorageException;
 
-/**
- *
- * @author kamal hakimzadeh<kamal@sics.se>
- * @author Mahmoud Ismail <maism@sics.se>
- */
 public interface LeasePathDataAccess<T> extends EntityDataAccess {
 
   Collection<T> findByHolderId(int holderId) throws StorageException;

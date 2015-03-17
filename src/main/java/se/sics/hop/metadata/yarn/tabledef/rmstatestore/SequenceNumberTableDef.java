@@ -6,10 +6,6 @@
 
 package se.sics.hop.metadata.yarn.tabledef.rmstatestore;
 
-/**
- *
- * @author nickstanogias
- */
 public interface SequenceNumberTableDef {
     public static final String TABLE_NAME = "sequence_number";
     public static final String ID = "id";

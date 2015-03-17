@@ -6,10 +6,6 @@
 
 package se.sics.hop.metadata.yarn.tabledef.rmstatestore;
 
-/**
- *
- * @author nickstanogias
- */
 public interface DelegationTokenTableDef {
     public static final String TABLE_NAME = "delegation_token";
     public static final String SEQ_NUMBER = "seq_number";

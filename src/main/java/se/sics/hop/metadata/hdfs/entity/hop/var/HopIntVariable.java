@@ -2,10 +2,6 @@ package se.sics.hop.metadata.hdfs.entity.hop.var;
 
 import java.nio.ByteBuffer;
 
-/**
- *
- * @author Mahmoud Ismail <maism@sics.se>
- */
 public class HopIntVariable extends HopVariable {
 
   private Integer value;

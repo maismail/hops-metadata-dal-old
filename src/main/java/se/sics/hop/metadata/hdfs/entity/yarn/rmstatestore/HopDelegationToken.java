@@ -6,10 +6,6 @@
 
 package se.sics.hop.metadata.hdfs.entity.yarn.rmstatestore;
 
-/**
- *
- * @author nickstanogias
- */
 public class HopDelegationToken {
     private final int seqnumber;
     private final byte[] rmdtidentifier;

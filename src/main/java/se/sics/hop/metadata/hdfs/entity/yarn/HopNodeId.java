@@ -2,8 +2,6 @@ package se.sics.hop.metadata.hdfs.entity.yarn;
 
 /**
  * Hop object that represents NodeId interface.
- *
- * @author Theofilos Kakantousis <tkak@sics.se>
  */
 public class HopNodeId {
 

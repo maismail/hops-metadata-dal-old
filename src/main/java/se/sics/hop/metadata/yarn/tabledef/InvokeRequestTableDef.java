@@ -1,10 +1,5 @@
 package se.sics.hop.metadata.yarn.tabledef;
 
-/**
- * Table definition of ha_invokerequests table.
- *
- * @author Theofilos Kakantousis <tkak@sics.se>
- */
 public interface InvokeRequestTableDef {
 
     public static final String TABLE_NAME = "ha_invokerequests";

@@ -1,9 +1,5 @@
 package se.sics.hop.metadata.yarn.tabledef;
 
-/**
- *
- * @author Theofilos Kakantousis <tkak@sics.se>
- */
 public interface LaunchedContainersTableDef {
 
     public static final String TABLE_NAME = "ha_launchedcontainers";

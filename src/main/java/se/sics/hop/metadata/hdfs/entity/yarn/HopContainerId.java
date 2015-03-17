@@ -3,8 +3,6 @@ package se.sics.hop.metadata.hdfs.entity.yarn;
 /**
  * Pojo class for the RMNode.containersToClean set. Hostname, commandport point
  * to the RMNode primary key.
- *
- * @author Theofilos Kakantousis <tkak@sics.se>
  */
 public class HopContainerId {
 

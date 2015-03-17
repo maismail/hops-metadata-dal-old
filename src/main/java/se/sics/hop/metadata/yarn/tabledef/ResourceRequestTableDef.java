@@ -6,10 +6,6 @@
 
 package se.sics.hop.metadata.yarn.tabledef;
 
-/**
- *
- * @author Nikos Stanogias <niksta@sics.se>
- */
 public interface ResourceRequestTableDef {
     public static final String TABLE_NAME = "ha_resourcerequest";
     public static final String APPSCHEDULINGINFO_ID = "appschedulinginfo_id";

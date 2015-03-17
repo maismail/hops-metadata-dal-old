@@ -2,10 +2,6 @@ package se.sics.hop.transaction.lock;
 
 import java.util.Collection;
 
-/**
- *
- * @author Mahmoud Ismail <maism@sics.se>
- */
 public interface TransactionLocks {
 
   public static class LockNotAddedException extends RuntimeException {

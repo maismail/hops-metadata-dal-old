@@ -6,11 +6,6 @@ import java.util.Map;
 import se.sics.hop.exception.StorageException;
 import se.sics.hop.metadata.hdfs.entity.hdfs.HopINodeCandidatePK;
 
-/**
- *
- * @author salman
- * @author Mahmoud Ismail <maism@sics.se>
- */
 public interface INodeAttributesDataAccess<T> extends EntityDataAccess {
 
   T findAttributesByPk(Integer inodeId) throws StorageException;

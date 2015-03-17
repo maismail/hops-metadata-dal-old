@@ -5,10 +5,6 @@
  */
 package se.sics.hop.metadata.hdfs.dal;
 
-/**
- *
- * @author gautier
- */
 public interface HdfsLeDescriptorDataAccess<T> extends LeDescriptorDataAccess<T> {
     
 }

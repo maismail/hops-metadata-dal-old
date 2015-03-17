@@ -5,10 +5,6 @@
  */
 package se.sics.hop.metadata.yarn.tabledef.appmasterrpc;
 
-/**
- *
- * @author Nikos Stanogias <niksta@sics.se>
- */
 public interface AppMasterRPCTableDef {
 
   public static final String TABLE_NAME = "appmaster_rpc";

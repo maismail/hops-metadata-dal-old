@@ -6,10 +6,6 @@
 
 package se.sics.hop.metadata.hdfs.entity.yarn.rmstatestore;
 
-/**
- *
- * @author nickstanogias
- */
 public class HopRMStateVersion {
     private final int id;
     private final byte[] version;

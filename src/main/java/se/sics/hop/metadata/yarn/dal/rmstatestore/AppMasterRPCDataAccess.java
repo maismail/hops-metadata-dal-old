@@ -11,10 +11,6 @@ import java.util.List;
 import se.sics.hop.exception.StorageException;
 import se.sics.hop.metadata.hdfs.dal.EntityDataAccess;
 
-/**
- *
- * @author Nikos Stanogias <niksta@sics.se>
- */
 public interface AppMasterRPCDataAccess<T> extends EntityDataAccess {
     T findById(int id) throws StorageException;
 

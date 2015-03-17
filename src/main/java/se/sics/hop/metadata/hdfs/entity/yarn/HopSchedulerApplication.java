@@ -6,10 +6,6 @@
 
 package se.sics.hop.metadata.hdfs.entity.yarn;
 
-/**
- *
- * @author Nikos Stanogias <niksta@sics.se>
- */
 public class HopSchedulerApplication {
     private final String appid;
     private final String user;

@@ -1,9 +1,5 @@
 package se.sics.hop.metadata.hdfs.entity.hop;
 
-/**
- *
- * @author Mahmoud Ismail <maism@sics.se>
- */
 public class HopStorageId {
 
   private final String storageId;
