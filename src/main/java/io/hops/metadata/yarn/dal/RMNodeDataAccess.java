@@ -4,7 +4,7 @@ import java.util.Collection;
 import java.util.Map;
 import io.hops.exception.StorageException;
 import io.hops.metadata.common.EntityDataAccess;
-import io.hops.metadata.yarn.entity.HopRMNode;
+import io.hops.metadata.yarn.entity.RMNode;
 
 /**
  *
@@ -14,7 +14,7 @@ public interface RMNodeDataAccess<T> extends EntityDataAccess {
 
   T findByNodeId(String nodeid) throws StorageException;
 
-  Map<String, HopRMNode> getAll() throws StorageException;
+  Map<String, RMNode> getAll() throws StorageException;
 
   void addAll(Collection<T> toAdd) throws StorageException;
 

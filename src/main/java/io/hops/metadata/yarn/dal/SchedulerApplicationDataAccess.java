@@ -7,7 +7,7 @@ import java.util.Map;
 
 import io.hops.exception.StorageException;
 import io.hops.metadata.common.EntityDataAccess;
-import io.hops.metadata.yarn.entity.HopSchedulerApplication;
+import io.hops.metadata.yarn.entity.SchedulerApplication;
 
 public interface SchedulerApplicationDataAccess<T> extends EntityDataAccess {
 
@@ -15,5 +15,5 @@ public interface SchedulerApplicationDataAccess<T> extends EntityDataAccess {
     
     void removeAll(Collection<T> toRemove) throws StorageException;
     
-    Map<String, HopSchedulerApplication> getAll()throws StorageException;
+    Map<String, SchedulerApplication> getAll()throws StorageException;
 }

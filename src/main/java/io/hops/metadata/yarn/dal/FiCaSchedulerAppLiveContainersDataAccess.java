@@ -7,12 +7,12 @@ import java.util.List;
 import java.util.Map;
 
 import io.hops.exception.StorageException;
-import io.hops.metadata.yarn.entity.HopFiCaSchedulerAppLiveContainers;
+import io.hops.metadata.yarn.entity.FiCaSchedulerAppLiveContainers;
 import io.hops.metadata.common.EntityDataAccess;
 
 public interface FiCaSchedulerAppLiveContainersDataAccess<T> extends EntityDataAccess {
     
-    Map<String, List<HopFiCaSchedulerAppLiveContainers>> getAll()throws
+    Map<String, List<FiCaSchedulerAppLiveContainers>> getAll()throws
         StorageException;
     
     

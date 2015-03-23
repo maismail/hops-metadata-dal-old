@@ -8,13 +8,13 @@ import java.util.List;
 import java.util.Map;
 
 import io.hops.exception.StorageException;
-import io.hops.metadata.yarn.entity.HopFiCaSchedulerAppNewlyAllocatedContainers;
+import io.hops.metadata.yarn.entity.FiCaSchedulerAppNewlyAllocatedContainers;
 import io.hops.metadata.common.EntityDataAccess;
 
 public interface FiCaSchedulerAppNewlyAllocatedContainersDataAccess<T> extends EntityDataAccess {
     List<T> findById(String ficaId) throws StorageException;
     
-    Map<String, List<HopFiCaSchedulerAppNewlyAllocatedContainers>> getAll() throws IOException;
+    Map<String, List<FiCaSchedulerAppNewlyAllocatedContainers>> getAll() throws IOException;
     
     void addAll(Collection<T> toAdd) throws StorageException;
     

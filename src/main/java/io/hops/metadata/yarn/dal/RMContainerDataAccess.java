@@ -5,12 +5,12 @@ import java.util.Map;
 
 import io.hops.exception.StorageException;
 import io.hops.metadata.common.EntityDataAccess;
-import io.hops.metadata.yarn.entity.HopRMContainer;
+import io.hops.metadata.yarn.entity.RMContainer;
 
 public interface RMContainerDataAccess<T> extends EntityDataAccess {
 
 
-    Map<String, HopRMContainer> getAll() throws StorageException;
+    Map<String, RMContainer> getAll() throws StorageException;
      
     void addAll(Collection<T> toAdd) throws StorageException;
     

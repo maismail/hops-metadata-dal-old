@@ -7,12 +7,12 @@ import java.util.List;
 import java.util.Map;
 
 import io.hops.exception.StorageException;
-import io.hops.metadata.yarn.entity.HopAppSchedulingInfoBlacklist;
+import io.hops.metadata.yarn.entity.AppSchedulingInfoBlacklist;
 import io.hops.metadata.common.EntityDataAccess;
 
 public interface AppSchedulingInfoBlacklistDataAccess<T> extends EntityDataAccess {
 
-    Map<String, List<HopAppSchedulingInfoBlacklist>> getAll() throws
+    Map<String, List<AppSchedulingInfoBlacklist>> getAll() throws
         StorageException;
     
    

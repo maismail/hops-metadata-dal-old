@@ -8,11 +8,11 @@ import java.util.Map;
 
 import io.hops.exception.StorageException;
 import io.hops.metadata.common.EntityDataAccess;
-import io.hops.metadata.yarn.entity.HopResourceRequest;
+import io.hops.metadata.yarn.entity.ResourceRequest;
 
 public interface ResourceRequestDataAccess<T> extends EntityDataAccess {
 
-    Map<String, List<HopResourceRequest>>  getAll() throws StorageException;
+    Map<String, List<ResourceRequest>>  getAll() throws StorageException;
             
   void addAll(Collection<T> toAdd) throws StorageException;
 

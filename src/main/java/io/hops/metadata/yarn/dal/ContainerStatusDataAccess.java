@@ -4,7 +4,7 @@ import java.util.Collection;
 import java.util.Map;
 
 import io.hops.exception.StorageException;
-import io.hops.metadata.yarn.entity.HopContainerStatus;
+import io.hops.metadata.yarn.entity.ContainerStatus;
 import io.hops.metadata.common.EntityDataAccess;
 
 public interface ContainerStatusDataAccess<T> extends EntityDataAccess {
@@ -19,7 +19,7 @@ public interface ContainerStatusDataAccess<T> extends EntityDataAccess {
    */
   T findEntry(String containerId, String rmNodeId) throws StorageException;
 
-  Map<String, HopContainerStatus> getAll() throws StorageException;
+  Map<String, ContainerStatus> getAll() throws StorageException;
 
   void addAll(Collection<T> containerStatus) throws StorageException;
 
