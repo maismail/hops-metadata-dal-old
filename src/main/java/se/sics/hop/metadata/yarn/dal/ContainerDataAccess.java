@@ -8,11 +8,9 @@ import se.sics.hop.metadata.hdfs.entity.yarn.HopContainer;
 
 public interface ContainerDataAccess<T> extends EntityDataAccess {
 
-    T findById(String id) throws StorageException;
-
    Map<String, HopContainer> getAll() throws StorageException;
     
-    void prepare(Collection<T> modified, Collection<T> removed) throws StorageException;
+    void addAll(Collection<T> toAdd) throws StorageException;
 
     void createContainer(T container) throws StorageException;
 }

@@ -7,11 +7,11 @@ import se.sics.hop.metadata.hdfs.dal.EntityDataAccess;
 
 public interface FiCaSchedulerNodeDataAccess<T> extends EntityDataAccess {
 
-    T findById(String id) throws StorageException;
-
-    void prepare(Collection<T> modified, Collection<T> removed) throws StorageException;
-
-    void createFiCaSchedulerNode(T node) throws StorageException;
+  void add(T toAdd) throws StorageException;
+  
+  void addAll(Collection<T> toAdd) throws StorageException;
+  
+  void removeAll(Collection<T> toRemove) throws StorageException;
     
     List<T> getAll() throws StorageException;
 }

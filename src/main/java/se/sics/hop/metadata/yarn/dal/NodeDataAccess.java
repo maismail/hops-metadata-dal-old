@@ -8,13 +8,11 @@ import se.sics.hop.metadata.hdfs.entity.yarn.HopNode;
 
 public interface NodeDataAccess<T> extends EntityDataAccess {
 
-    T findById(String id) throws StorageException;
+  T findById(String id) throws StorageException;
 
-    T findByNameLocation(String name, String location) throws StorageException;
+  Map<String, HopNode> getAll() throws StorageException;
 
-    Map<String, HopNode> getAll() throws StorageException;
-    
-    void prepare(Collection<T> modified, Collection<T> removed) throws StorageException;
+  void addAll(Collection<T> toAdd) throws StorageException;
 
-    void createNode(T node) throws StorageException;
+  void createNode(T node) throws StorageException;
 }

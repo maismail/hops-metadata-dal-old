@@ -8,11 +8,10 @@ import se.sics.hop.metadata.hdfs.entity.yarn.HopNodeHBResponse;
 
 public interface NodeHBResponseDataAccess<T> extends EntityDataAccess {
 
-    T findById(String rmnodeid) throws StorageException;
+  T findById(String rmnodeid) throws StorageException;
 
     Map<String, HopNodeHBResponse> getAll() throws StorageException;
     
-    void prepare(Collection<T> modified, Collection<T> removed) throws StorageException;
+    void add(T toAdd) throws StorageException;
 
-    void createNodeHBResponse(T nodehbresponse) throws StorageException;
 }

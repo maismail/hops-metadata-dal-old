@@ -15,5 +15,8 @@ public interface FiCaSchedulerAppNewlyAllocatedContainersDataAccess<T> extends E
     
     Map<String, List<HopFiCaSchedulerAppNewlyAllocatedContainers>> getAll() throws IOException;
     
-    void prepare(Collection<T> modified, Collection<T> removed) throws StorageException;
+    void addAll(Collection<T> toAdd) throws StorageException;
+    
+    void removeAll(Collection<T> toRemove) throws StorageException;
+    
 }

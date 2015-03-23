@@ -2,19 +2,19 @@ package se.sics.hop.metadata.hdfs.entity.yarn;
 
 public class HopContainer {
 
-    private String containerIdID;
-    private byte[] containerstate;
+  private final String containerId;
+  private final byte[] containerstate;
 
-    public HopContainer(String containerIdID, byte[] containerstate) {
-        this.containerIdID = containerIdID;
-        this.containerstate = containerstate;
-    }
+  public HopContainer(String containerId, byte[] containerstate) {
+    this.containerId = containerId;
+    this.containerstate = containerstate;
+  }
 
-    public String getContainerIdID() {
-        return containerIdID;
-    }
+  public String getContainerId() {
+    return containerId;
+  }
 
-    public byte[] getContainerstate() {
-        return containerstate;
-    }
+  public byte[] getContainerState() {
+    return containerstate;
+  }
 }

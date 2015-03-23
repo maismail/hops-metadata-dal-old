@@ -9,6 +9,6 @@ public interface ContainerStatusTableDef {
     public static final String EXIT_STATUS = "exitstatus";
     public static final String RMNODEID = "rmnodeid";
     //State values
-    public static final String STATE_NEW = "NEW";
-    public static final String STATE_COMPLETED = "COMPLETED";
+    public static final String STATE_RUNNING = "RUNNING";
+    public static final String STATE_COMPLETED = "COMPLETE";
 }

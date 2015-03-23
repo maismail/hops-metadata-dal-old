@@ -10,9 +10,10 @@ import se.sics.hop.metadata.hdfs.dal.EntityDataAccess;
 import se.sics.hop.metadata.hdfs.entity.yarn.HopResourceRequest;
 
 public interface ResourceRequestDataAccess<T> extends EntityDataAccess {
-    List<T> findById(String id) throws StorageException;
 
     Map<String, List<HopResourceRequest>>  getAll() throws StorageException;
             
-    void prepare(Collection<T> modified, Collection<T> removed) throws StorageException;
+  void addAll(Collection<T> toAdd) throws StorageException;
+
+  void removeAll(Collection<T> toRemove) throws StorageException;
 }

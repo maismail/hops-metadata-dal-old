@@ -11,5 +11,11 @@ public interface ApplicationStateDataAccess<T> extends EntityDataAccess {
 
     List<T> getAll() throws StorageException;
 
-    void prepare(Collection<T> modified, Collection<T> removed) throws StorageException;
+  void addAll(Collection<T> toAdd) throws StorageException;
+
+  void removeAll(Collection<T> toRemove) throws StorageException;
+
+  void add(T toAdd) throws StorageException;
+
+  void remove(T toRemove) throws StorageException;
 }

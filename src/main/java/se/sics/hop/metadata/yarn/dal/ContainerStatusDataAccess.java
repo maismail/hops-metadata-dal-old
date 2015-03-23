@@ -8,20 +8,18 @@ import se.sics.hop.metadata.hdfs.entity.yarn.HopContainerStatus;
 
 public interface ContainerStatusDataAccess<T> extends EntityDataAccess {
 
-    T findById(String id) throws StorageException;
+  /**
+   * Find by ContainerId and RNodeId
+   * <p>
+   * @param containerId
+   * @param rmNodeId
+   * @return
+   * @throws StorageException
+   */
+  T findEntry(String containerId, String rmNodeId) throws StorageException;
 
-    Map<String, HopContainerStatus> getAll() throws StorageException;
+  Map<String, HopContainerStatus> getAll() throws StorageException;
 
-    /**
-     * Type is either "NEW" or "COMPLETED".
-     *
-     * @param uciId
-     * @param type
-     * @return
-     * @throws StorageException
-     */
-    //List<T> findByUpdatedContainerInfoIdAndState(int uciId, String type) throws StorageException;
-    void prepare(Collection<T> modified, Collection<T> removed) throws StorageException;
+  void addAll(Collection<T> containerStatus) throws StorageException;
 
-    void createContainerStatus(T containerstatus) throws StorageException;
 }

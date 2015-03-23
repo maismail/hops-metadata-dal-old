@@ -10,9 +10,11 @@ import se.sics.hop.metadata.hdfs.dal.EntityDataAccess;
 import se.sics.hop.metadata.hdfs.entity.yarn.HopAppSchedulingInfoBlacklist;
 
 public interface AppSchedulingInfoBlacklistDataAccess<T> extends EntityDataAccess {
-    List<T> findById(String id) throws StorageException;
 
     Map<String, List<HopAppSchedulingInfoBlacklist>> getAll() throws StorageException;
     
-    void prepare(Collection<T> modified, Collection<T> removed) throws StorageException;
+   
+    
+    public void addAll(Collection<T> toAdd) throws StorageException;
+    public void removeAll(Collection<T> toAdd) throws StorageException;
 }

@@ -9,9 +9,9 @@ import se.sics.hop.metadata.hdfs.dal.EntityDataAccess;
 
 public interface AppSchedulingInfoDataAccess<T> extends EntityDataAccess {
 
-  T findById(String id) throws StorageException;
-
   List<T> findAll() throws StorageException, IOException;
 
-  void prepare(Collection<T> modified, Collection<T> removed) throws StorageException;
+  void add(T toAdd) throws StorageException;
+  
+  void remove(T toRemove) throws StorageException;
 }

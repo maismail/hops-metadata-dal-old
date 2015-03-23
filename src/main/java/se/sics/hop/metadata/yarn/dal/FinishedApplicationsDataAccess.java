@@ -9,11 +9,12 @@ import se.sics.hop.metadata.hdfs.entity.yarn.HopFinishedApplications;
 
 public interface FinishedApplicationsDataAccess<T> extends EntityDataAccess {
 
-    List<T> findByRMNode(String id) throws StorageException;
+  List<T> findByRMNode(String id) throws StorageException;
 
-    Map<String,List<HopFinishedApplications>> getAll() throws StorageException;
-    
-    T findEntry(String rmnodeid, int applicationId) throws StorageException;
+  Map<String, List<HopFinishedApplications>> getAll() throws StorageException;
 
-    void prepare(Collection<T> modified, Collection<T> removed) throws StorageException;
+  public void addAll(Collection<T> applications) throws StorageException;
+
+  public void removeAll(Collection<T> applications) throws StorageException;
+
 }

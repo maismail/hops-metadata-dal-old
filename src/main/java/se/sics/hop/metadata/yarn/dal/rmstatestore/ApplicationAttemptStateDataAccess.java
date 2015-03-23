@@ -8,14 +8,13 @@ import se.sics.hop.metadata.hdfs.dal.EntityDataAccess;
 import se.sics.hop.metadata.hdfs.entity.yarn.rmstatestore.HopApplicationAttemptState;
 
 public interface ApplicationAttemptStateDataAccess<T> extends EntityDataAccess {
+T findEntry(String applicationid, String applicationattemptid) throws StorageException;
 
-    T findEntry(int applicationid, int applicationattemptid) throws StorageException;
+  Map<String, List<HopApplicationAttemptState>> getAll() throws StorageException;
 
-    List<T> findApplicationAttemptIdByApplicationId(String applicationid) throws StorageException;
+  void addAll(Collection<T> toAdd) throws StorageException;
 
-    Map<String, List<HopApplicationAttemptState>> getAll() throws StorageException;
-    
-    void prepare(Collection<T> modified, Collection<T> removed) throws StorageException;
+  void removeAll(Collection<T> toRemove) throws StorageException;
 
-    void createApplicationAttemptStateEntry(T entry) throws StorageException;
+  void createApplicationAttemptStateEntry(T entry) throws StorageException;
 }

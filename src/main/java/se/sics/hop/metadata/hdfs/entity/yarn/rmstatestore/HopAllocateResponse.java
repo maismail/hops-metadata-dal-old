@@ -11,6 +11,10 @@ public class HopAllocateResponse {
     this.allocateResponse = allocateResponse;
   }
 
+  public HopAllocateResponse(String applicationattemptid) {
+    this(applicationattemptid, null);
+  }
+  
   public String getApplicationattemptid() {
     return applicationattemptid;
   }

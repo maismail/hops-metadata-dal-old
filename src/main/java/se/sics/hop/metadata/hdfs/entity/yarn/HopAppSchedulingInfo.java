@@ -22,6 +22,16 @@ public class HopAppSchedulingInfo {
         this.stoped = stoped;
     }
 
+    public HopAppSchedulingInfo(String schedulerappId) {
+        this.schedulerappId = schedulerappId;
+        this.appId = null;
+        this.queuename = null;
+        this.user = null;
+        this.containeridcounter = 0;
+        this.pending = false;
+        this.stoped = true;
+    }
+    
     public String getSchedulerAppId() {
         return schedulerappId;
     }

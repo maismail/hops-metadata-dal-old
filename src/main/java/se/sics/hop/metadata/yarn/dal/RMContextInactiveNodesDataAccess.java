@@ -8,35 +8,13 @@ import se.sics.hop.metadata.hdfs.dal.EntityDataAccess;
 public interface RMContextInactiveNodesDataAccess<T> extends EntityDataAccess {
 
     /**
-     * Find Map entry by host.
-     *
-     * @param rmcontextId
-     * @param host
-     * @return
-     * @throws StorageException
-     */
-    T findById(String host) throws StorageException;
-
-    /**
      * Return all inactive nodes from ndb.
      * @return
      * @throws StorageException 
      */
     List<T> findAll() throws StorageException;
-    /**
-     * Modify and/or delete table rows.
-     *
-     * @param modified
-     * @param removed
-     * @throws StorageException
-     */
-    void prepare(Collection<T> modified, Collection<T> removed) throws StorageException;
 
-    /**
-     * Insert row in table.
-     *
-     * @param entry
-     * @throws StorageException
-     */
-    void createRMContextInactiveNodesEntry(T entry) throws StorageException;
+    void addAll(Collection<T> toAdd) throws StorageException;
+    
+    void removeAll(Collection<T> toRemove) throws StorageException;
 }

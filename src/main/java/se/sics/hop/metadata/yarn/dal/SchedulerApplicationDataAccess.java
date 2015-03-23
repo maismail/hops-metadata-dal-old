@@ -9,11 +9,10 @@ import se.sics.hop.metadata.hdfs.dal.EntityDataAccess;
 import se.sics.hop.metadata.hdfs.entity.yarn.HopSchedulerApplication;
 
 public interface SchedulerApplicationDataAccess<T> extends EntityDataAccess {
-    T findById(String id) throws StorageException;
 
-    void prepare(Collection<T> modified, Collection<T> removed) throws StorageException;
-
-    void createEntry(T SchedulerApp) throws StorageException; 
-
+    void addAll(Collection<T> toAdd) throws StorageException;
+    
+    void removeAll(Collection<T> toRemove) throws StorageException;
+    
     Map<String, HopSchedulerApplication> getAll()throws StorageException;
 }

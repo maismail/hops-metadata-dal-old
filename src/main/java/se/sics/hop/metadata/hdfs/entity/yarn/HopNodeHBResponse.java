@@ -2,19 +2,26 @@ package se.sics.hop.metadata.hdfs.entity.yarn;
 
 public class HopNodeHBResponse {
 
-    private final String rmnodeId;
-    private final byte[] responseid;
+  private final String rmnodeId;
 
-    public HopNodeHBResponse(String rmnodeId, byte[] responseid) {
-        this.rmnodeId = rmnodeId;
-        this.responseid = responseid;
-    }
+  private final byte[] response;
 
-    public String getRMNodeId() {
-        return rmnodeId;
-    }
+  public HopNodeHBResponse(String rmnodeId, byte[] responseid) {
+    this.rmnodeId = rmnodeId;
+    this.response = responseid;
+  }
 
-    public byte[] getResponseid() {
-        return responseid;
-    }
+  public String getRMNodeId() {
+    return rmnodeId;
+  }
+
+  @Override
+  public String toString() {
+    return "HopNodeHBResponse{" + "rmnodeId=" + rmnodeId + '}';
+  }
+
+  public byte[] getResponse() {
+    return response;
+  }
+
 }

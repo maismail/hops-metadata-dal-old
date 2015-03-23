@@ -1,7 +1,6 @@
 package se.sics.hop.transaction.handler;
 
 import java.io.IOException;
-import se.sics.hop.exception.StorageException;
 import se.sics.hop.exception.TransientStorageException;
 import se.sics.hop.log.NDCWrapper;
 
@@ -17,6 +16,7 @@ public abstract class LightWeightRequestHandler extends RequestHandler {
     long totalTime = 0;
 
     while (tryCount <= RETRY_COUNT) {
+      boolean rollback = false;
       exponentialBackoff();
       tryCount++;
       try {
@@ -35,27 +35,44 @@ public abstract class LightWeightRequestHandler extends RequestHandler {
         log.debug("Total time taken. Time " + totalTime + " ms");
         return ret;
       } catch (TransientStorageException e) {
+        rollback = true;
         if (tryCount <= RETRY_COUNT) {
-          log.error("Tx Failed. total tx time " +
-              " TotalRetryCount(" + RETRY_COUNT +
-              ") RemainingRetries(" + (RETRY_COUNT - tryCount) +
-              ") TX Stats: ms, Total Time: " + totalTime + "ms", e);
+          totalTime = System.currentTimeMillis() - totalTime;
+          log.error("Tx Failed. total tx time " + " TotalRetryCount("
+                  + RETRY_COUNT + ") RemainingRetries(" + (RETRY_COUNT
+                  - tryCount) + ") TX Stats: ms, Total Time: " + totalTime
+                  + "ms", e);
         } else {
           log.debug("Transaction failed after " + RETRY_COUNT + " retries.", e);
           throw e;
         }
       } catch (IOException e) {
+        rollback = true;
         log.debug("Transaction failed.", e);
         throw e;
       } catch (RuntimeException e) {
+        rollback = true;
         log.debug("Transaction failed.", e);
         throw e;
       } catch (Error e) {
+        rollback = true;
         log.debug("Transaction failed.", e);
         throw e;
       } finally {
+        if (rollback && connector.isTransactionActive()) {
+          log.debug("Transaction rollback. retries:" + RETRY_COUNT);
+          connector.rollback();
+        }
         NDCWrapper.pop();
         NDCWrapper.remove();
+        if (rollback) {
+          try {
+            log.error("Rollback the TX");
+            connector.rollback();
+          } catch (Exception e) {
+            log.warn("Could not rollback transaction", e);
+          }
+        }
       }
     }
 

@@ -8,14 +8,14 @@ import se.sics.hop.metadata.hdfs.entity.yarn.HopResource;
 
 public interface ResourceDataAccess<T> extends EntityDataAccess {
 
-    T findById(String id) throws StorageException;
-
     T findEntry(String id, int type, int parent) throws StorageException;
 
     Map<String, Map<Integer, Map<Integer, HopResource>>> getAll() throws
           StorageException;
 
-    void prepare(Collection<T> modified, Collection<T> removed) throws StorageException;
+  void addAll(Collection<T> toAdd) throws StorageException;
 
-    void createResource(T resourceNode) throws StorageException;
+  void removeAll(Collection<T> toRemove) throws StorageException;
+
+    void add(T resourceNode) throws StorageException;
 }

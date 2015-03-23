@@ -10,11 +10,12 @@ import se.sics.hop.metadata.hdfs.entity.yarn.HopContainerId;
 
 public interface ContainerIdToCleanDataAccess<T> extends EntityDataAccess {
 
-    T findEntry(String rmnodeId, String containerid) throws StorageException;
+  List<T> findByRMNode(String rmnodeId) throws StorageException;
 
-    List<T> findByRMNode(String rmnodeId) throws StorageException;
+  Map<String, Set<HopContainerId>> getAll() throws StorageException;
 
-    Map<String, Set<HopContainerId>> getAll() throws StorageException;
-    
-    void prepare(Collection<T> modified, Collection<T> removed) throws StorageException;
+  public void addAll(Collection<T> containers) throws StorageException;
+
+  public void removeAll(Collection<T> containers) throws StorageException;
+
 }

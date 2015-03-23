@@ -8,11 +8,12 @@ import se.sics.hop.metadata.hdfs.entity.yarn.HopRMContainer;
 
 public interface RMContainerDataAccess<T> extends EntityDataAccess {
 
-    T findById(String id) throws StorageException;
 
     Map<String, HopRMContainer> getAll() throws StorageException;
      
-    void prepare(Collection<T> modified, Collection<T> removed) throws StorageException;
-
-    void createRMContainer(T rmcontainer) throws StorageException;
+    void addAll(Collection<T> toAdd) throws StorageException;
+    
+    void removeAll(Collection<T> toRemove) throws StorageException;
+    
+    void add(T rmcontainer) throws StorageException;
 }

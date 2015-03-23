@@ -12,7 +12,9 @@ import se.sics.hop.metadata.hdfs.dal.EntityDataAccess;
  */
 public interface SecretMamagerKeysDataAccess<T> extends EntityDataAccess {
 
-  T findByKeyId(String applicationid) throws StorageException;
   List<T> getAll()throws StorageException;
-  void prepare(Collection<T> modified, Collection<T> removed) throws StorageException;
+
+  void add(T toAdd) throws StorageException;
+
+  void remove(T toRemove) throws StorageException;
 }

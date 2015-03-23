@@ -1,7 +1,7 @@
 
 package se.sics.hop.metadata.yarn.tabledef.appmasterrpc;
 
-public interface AppMasterRPCTableDef {
+public interface RPCTableDef {
 
   public static final String TABLE_NAME = "appmaster_rpc";
   public static final String ID = "id";

@@ -22,5 +22,5 @@ public interface RMNodeTableDef {
     public static final String CURRENT_STATE = "currentstate";
     public static final String OVERCOMMIT_TIMEOUT = "overcommittimeout";
     public static final String NODEMANAGER_VERSION = "nodemanager_version";
-
+    public static final String UCI_ID = "uci_id";
 }

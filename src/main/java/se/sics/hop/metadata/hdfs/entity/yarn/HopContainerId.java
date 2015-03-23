@@ -6,19 +6,26 @@ package se.sics.hop.metadata.hdfs.entity.yarn;
  */
 public class HopContainerId {
 
-    private String rmnodeid;
-    private String containerId;
+  private final String rmnodeid;
+  private final String containerId;
 
-    public HopContainerId(String rmnodeid, String containerId) {
-        this.rmnodeid = rmnodeid;
-        this.containerId = containerId;
-    }
+  public HopContainerId(String rmnodeid, String containerId) {
+    this.rmnodeid = rmnodeid;
+    this.containerId = containerId;
+  }
 
-    public String getRmnodeid() {
-        return rmnodeid;
-    }
+  public String getRmnodeid() {
+    return rmnodeid;
+  }
 
-    public String getContainerId() {
-        return containerId;
-    }
+  public String getContainerId() {
+    return containerId;
+  }
+
+  @Override
+  public String toString() {
+    return "HopContainerId{" + "rmnodeid=" + rmnodeid + ", containerId="
+            + containerId + '}';
+  }
+
 }

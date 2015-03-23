@@ -6,37 +6,24 @@ import se.sics.hop.exception.StorageException;
 import se.sics.hop.metadata.hdfs.dal.EntityDataAccess;
 
 public interface RMContextActiveNodesDataAccess<T> extends EntityDataAccess {
+/**
+   * Find Map entry by provided ids of RMContext and NodeId.
+   *
+   * @param nodeidId
+   * @return
+   * @throws StorageException
+   */
+  T findEntry(String nodeidId) throws StorageException;
+  /**
+   * Return all nodes from ndb.
+   * <p>
+   * @return
+   * @throws StorageException
+   */
+  List<T> findAll() throws StorageException;
 
-    /**
-     * Find Map entry by provided ids of RMContext and NodeId.
-     *
-     * @param rmcontextId
-     * @param nodeidId
-     * @return
-     * @throws StorageException
-     */
-    T findEntry(int rmcontextId, int nodeidId) throws StorageException;
+  void addAll(Collection<T> toAdd) throws StorageException;
 
-    /**
-     * Return all nodes from ndb.
-     * @return
-     * @throws StorageException 
-     */
-    List<T> findAll() throws StorageException;
-    /**
-     * Modify and/or delete table rows.
-     *
-     * @param modified
-     * @param removed
-     * @throws StorageException
-     */
-    void prepare(Collection<T> modified, Collection<T> removed) throws StorageException;
+  void removeAll(Collection<T> toRemove) throws StorageException;
 
-    /**
-     * Insert row in table.
-     *
-     * @param entry
-     * @throws StorageException
-     */
-    void createRMContextNodesEntry(T entry) throws StorageException;
 }

@@ -5,13 +5,13 @@ package se.sics.hop.metadata.hdfs.entity.yarn;
  */
 public class HopRMContextActiveNodes {
 
-    private final String nodeidId;
+    private final String nodeId;
 
     public HopRMContextActiveNodes(String nodeidId) {
-        this.nodeidId = nodeidId;
+        this.nodeId = nodeidId;
     }
 
-    public String getNodeidId() {
-        return nodeidId;
+    public String getNodeId() {
+        return nodeId;
     }
 }

@@ -9,14 +9,11 @@ import se.sics.hop.metadata.hdfs.entity.yarn.HopJustLaunchedContainers;
 
 public interface JustLaunchedContainersDataAccess<T> extends EntityDataAccess {
 
-    T findEntry(String hostname, int commandport, int containerId) throws StorageException;
+  List<T> findByRMNode(String id) throws StorageException;
 
-    List<T> findAll() throws StorageException;
+  Map<String, List<HopJustLaunchedContainers>> getAll() throws StorageException;
 
-    List<T> findByRMNode(String id) throws StorageException;
+  void addAll(Collection<T> containers) throws StorageException;
 
-    Map<String, List<HopJustLaunchedContainers>> getAll() throws StorageException;
-
-    void prepare(Collection<T> modified, Collection<T> removed) throws StorageException;
-
+  void removeAll(Collection<T> containers) throws StorageException;
 }

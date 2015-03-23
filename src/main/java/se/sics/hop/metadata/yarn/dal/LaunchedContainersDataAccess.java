@@ -9,13 +9,9 @@ import se.sics.hop.metadata.hdfs.entity.yarn.HopLaunchedContainers;
 
 public interface LaunchedContainersDataAccess<T> extends EntityDataAccess {
 
-    T findEntry(String ficaschedulernodeId, String containeridId) throws StorageException;
 
-    List<T> findByFiCaSchedulerNode(String ficaschedulernodeId) throws StorageException;
-
-    void prepare(Collection<T> modified, Collection<T> removed) throws StorageException;
-
-    void createLaunchedContainersEntry(T ficaschedulernode, T containerId) throws StorageException;
-    
+    void addAll(Collection<T> toAdd) throws StorageException;
+    void removeAll(Collection<T> toRemove) throws StorageException;
+        
     Map<String, List<HopLaunchedContainers>> getAll() throws StorageException;
 }
