@@ -1,8 +1,8 @@
 package io.hops.transaction;
 
 import io.hops.exception.StorageException;
-import io.hops.metadata.hdfs.entity.CounterType;
-import io.hops.metadata.hdfs.entity.FinderType;
+import io.hops.metadata.common.CounterType;
+import io.hops.metadata.common.FinderType;
 import io.hops.transaction.context.EntityContextStat;
 import io.hops.transaction.context.TransactionContext;
 import io.hops.transaction.lock.TransactionLocks;

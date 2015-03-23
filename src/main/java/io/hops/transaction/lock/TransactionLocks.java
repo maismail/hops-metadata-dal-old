@@ -22,10 +22,10 @@ public interface TransactionLocks {
     }
   }
 
-  TransactionLocks add(HopsLock lock);
-  TransactionLocks add(Collection<HopsLock> locks);
+  TransactionLocks add(Lock lock);
+  TransactionLocks add(Collection<Lock> locks);
   
-  boolean containsLock(HopsLock.Type lock);
+  boolean containsLock(Lock.Type lock);
 
-  HopsLock getLock(HopsLock.Type lock) throws LockNotAddedException;
+  Lock getLock(Lock.Type lock) throws LockNotAddedException;
 }

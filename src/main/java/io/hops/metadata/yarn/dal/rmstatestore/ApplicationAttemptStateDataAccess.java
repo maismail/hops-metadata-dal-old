@@ -5,8 +5,8 @@ import java.util.List;
 import java.util.Map;
 
 import io.hops.exception.StorageException;
-import io.hops.metadata.hdfs.entity.yarn.rmstatestore.HopApplicationAttemptState;
-import io.hops.metadata.hdfs.dal.EntityDataAccess;
+import io.hops.metadata.yarn.entity.rmstatestore.HopApplicationAttemptState;
+import io.hops.metadata.common.EntityDataAccess;
 
 public interface ApplicationAttemptStateDataAccess<T> extends EntityDataAccess {
 T findEntry(String applicationid, String applicationattemptid) throws

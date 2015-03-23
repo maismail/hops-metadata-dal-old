@@ -1,7 +1,8 @@
 package io.hops.metadata.hdfs.dal;
 
 import io.hops.exception.StorageException;
-import io.hops.metadata.hdfs.entity.hop.QuotaUpdate;
+import io.hops.metadata.common.EntityDataAccess;
+import io.hops.metadata.hdfs.entity.QuotaUpdate;
 
 import java.util.Collection;
 import java.util.List;

@@ -5,7 +5,7 @@ package io.hops.metadata.yarn.dal.capacity;
 import java.util.Collection;
 
 import io.hops.exception.StorageException;
-import io.hops.metadata.hdfs.dal.EntityDataAccess;
+import io.hops.metadata.common.EntityDataAccess;
 
 public interface FiCaSchedulerAppLastScheduledContainerDataAccess<T> extends EntityDataAccess {
     T findById(int id) throws StorageException;

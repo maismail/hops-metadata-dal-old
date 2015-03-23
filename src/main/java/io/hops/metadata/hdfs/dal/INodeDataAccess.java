@@ -4,8 +4,9 @@ import java.util.Collection;
 import java.util.List;
 
 import io.hops.exception.StorageException;
-import io.hops.metadata.hdfs.entity.hdfs.ProjectedINode;
-import io.hops.metadata.INodeIdentifier;
+import io.hops.metadata.common.EntityDataAccess;
+import io.hops.metadata.hdfs.entity.ProjectedINode;
+import io.hops.metadata.hdfs.entity.INodeIdentifier;
 
 public interface INodeDataAccess<T> extends EntityDataAccess {
   

@@ -3,8 +3,7 @@ package io.hops.metadata.yarn.dal;
 import java.util.Map;
 
 import io.hops.exception.StorageException;
-import io.hops.exception.StorageException;
-import io.hops.metadata.hdfs.dal.EntityDataAccess;
+import io.hops.metadata.common.EntityDataAccess;
 
 /**
  *

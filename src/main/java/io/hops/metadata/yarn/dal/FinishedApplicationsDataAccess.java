@@ -5,11 +5,8 @@ import java.util.List;
 import java.util.Map;
 
 import io.hops.exception.StorageException;
-import io.hops.metadata.hdfs.dal.EntityDataAccess;
-import io.hops.metadata.hdfs.entity.yarn.HopFinishedApplications;
-import io.hops.exception.StorageException;
-import io.hops.metadata.hdfs.dal.EntityDataAccess;
-import io.hops.metadata.hdfs.entity.yarn.HopFinishedApplications;
+import io.hops.metadata.common.EntityDataAccess;
+import io.hops.metadata.yarn.entity.HopFinishedApplications;
 
 public interface FinishedApplicationsDataAccess<T> extends EntityDataAccess {
 

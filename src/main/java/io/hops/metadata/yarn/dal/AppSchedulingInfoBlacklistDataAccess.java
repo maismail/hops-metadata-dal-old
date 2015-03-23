@@ -7,10 +7,8 @@ import java.util.List;
 import java.util.Map;
 
 import io.hops.exception.StorageException;
-import io.hops.metadata.hdfs.entity.yarn.HopAppSchedulingInfoBlacklist;
-import io.hops.exception.StorageException;
-import io.hops.metadata.hdfs.dal.EntityDataAccess;
-import io.hops.metadata.hdfs.entity.yarn.HopAppSchedulingInfoBlacklist;
+import io.hops.metadata.yarn.entity.HopAppSchedulingInfoBlacklist;
+import io.hops.metadata.common.EntityDataAccess;
 
 public interface AppSchedulingInfoBlacklistDataAccess<T> extends EntityDataAccess {
 

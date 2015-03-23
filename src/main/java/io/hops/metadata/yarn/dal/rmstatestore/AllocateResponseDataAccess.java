@@ -5,7 +5,7 @@ import java.util.Collection;
 import java.util.List;
 
 import io.hops.exception.StorageException;
-import io.hops.metadata.hdfs.dal.EntityDataAccess;
+import io.hops.metadata.common.EntityDataAccess;
 
 public interface AllocateResponseDataAccess<T> extends EntityDataAccess {
   void addAll(Collection<T> entry) throws StorageException;

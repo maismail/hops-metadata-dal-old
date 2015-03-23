@@ -3,8 +3,8 @@ package io.hops.transaction.context;
 import io.hops.exception.StorageCallPreventedException;
 import io.hops.exception.StorageException;
 import io.hops.exception.TransactionContextException;
-import io.hops.metadata.hdfs.entity.CounterType;
-import io.hops.metadata.hdfs.entity.FinderType;
+import io.hops.metadata.common.CounterType;
+import io.hops.metadata.common.FinderType;
 import io.hops.transaction.lock.TransactionLocks;
 
 import java.util.Arrays;

@@ -4,10 +4,8 @@ import java.util.Collection;
 import java.util.Map;
 
 import io.hops.exception.StorageException;
-import io.hops.metadata.hdfs.entity.yarn.HopNode;
-import io.hops.exception.StorageException;
-import io.hops.metadata.hdfs.dal.EntityDataAccess;
-import io.hops.metadata.hdfs.entity.yarn.HopNode;
+import io.hops.metadata.yarn.entity.HopNode;
+import io.hops.metadata.common.EntityDataAccess;
 
 public interface NodeDataAccess<T> extends EntityDataAccess {
 

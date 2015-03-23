@@ -5,10 +5,8 @@ import java.util.List;
 import java.util.Map;
 
 import io.hops.exception.StorageException;
-import io.hops.metadata.hdfs.entity.yarn.HopJustLaunchedContainers;
-import io.hops.exception.StorageException;
-import io.hops.metadata.hdfs.dal.EntityDataAccess;
-import io.hops.metadata.hdfs.entity.yarn.HopJustLaunchedContainers;
+import io.hops.metadata.yarn.entity.HopJustLaunchedContainers;
+import io.hops.metadata.common.EntityDataAccess;
 
 public interface JustLaunchedContainersDataAccess<T> extends EntityDataAccess {
 

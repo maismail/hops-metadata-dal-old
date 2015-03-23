@@ -4,9 +4,7 @@ package io.hops.metadata.yarn.dal;
 import java.util.Map;
 
 import io.hops.exception.StorageException;
-import io.hops.exception.StorageException;
-import io.hops.metadata.hdfs.dal.EntityDataAccess;
-import io.hops.metadata.hdfs.entity.yarn.HopLoad;
+import io.hops.metadata.common.EntityDataAccess;
 
 public interface RMLoadDataAccess<T> extends EntityDataAccess {
   void update(T entry)throws StorageException;

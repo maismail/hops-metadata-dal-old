@@ -4,8 +4,10 @@ import java.util.Collection;
 import java.util.List;
 
 import io.hops.exception.StorageException;
+import io.hops.metadata.common.EntityDataAccess;
 
-public interface ReplicaUnderConstructionDataAccess<T> extends EntityDataAccess {
+public interface ReplicaUnderConstructionDataAccess<T> extends
+    EntityDataAccess {
 
   List<T> findReplicaUnderConstructionByBlockId(long blockId, int inodeId) throws
       StorageException;

@@ -1,6 +1,6 @@
 package io.hops.transaction.context;
 
-import io.hops.metadata.hdfs.entity.FinderType;
+import io.hops.metadata.common.FinderType;
 
 import java.util.EnumMap;
 import java.util.Formatter;

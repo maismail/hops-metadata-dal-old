@@ -2,8 +2,8 @@ package io.hops.metadata.yarn.dal.rmstatestore;
 
 import java.util.List;
 import io.hops.exception.StorageException;
-import io.hops.metadata.hdfs.dal.EntityDataAccess;
-import io.hops.metadata.hdfs.entity.yarn.rmstatestore.HopDelegationToken;
+import io.hops.metadata.common.EntityDataAccess;
+import io.hops.metadata.yarn.entity.rmstatestore.HopDelegationToken;
 
 public interface DelegationTokenDataAccess<T> extends EntityDataAccess {
 

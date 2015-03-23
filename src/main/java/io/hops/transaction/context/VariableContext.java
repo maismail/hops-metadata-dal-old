@@ -2,21 +2,21 @@ package io.hops.transaction.context;
 
 import io.hops.exception.LockUpgradeException;
 import io.hops.exception.StorageException;
-import io.hops.metadata.hdfs.entity.FinderType;
-import io.hops.metadata.hdfs.entity.hop.var.HopVariable;
-import io.hops.transaction.lock.HopsLock;
+import io.hops.metadata.common.FinderType;
+import io.hops.metadata.common.entity.Variable;
+import io.hops.transaction.lock.Lock;
 import io.hops.transaction.lock.TransactionLocks;
 import io.hops.exception.TransactionContextException;
 import io.hops.metadata.hdfs.dal.VariableDataAccess;
-import io.hops.transaction.lock.HopsVariablesLock;
+import io.hops.transaction.lock.VariablesLock;
 import io.hops.transaction.lock.TransactionLockTypes;
 
 import java.util.Collection;
 
-public class VariableContext extends BaseEntityContext<HopVariable.Finder,
-    HopVariable> {
+public class VariableContext extends BaseEntityContext<Variable.Finder,
+    Variable> {
 
-  private final VariableDataAccess<HopVariable, HopVariable.Finder> dataAccess;
+  private final VariableDataAccess<Variable, Variable.Finder> dataAccess;
 
   public VariableContext(
       VariableDataAccess dataAccess) {
@@ -24,7 +24,7 @@ public class VariableContext extends BaseEntityContext<HopVariable.Finder,
   }
 
   @Override
-  public void update(HopVariable hopVariable)
+  public void update(Variable hopVariable)
       throws TransactionContextException {
     super.update(hopVariable);
     log(
@@ -34,10 +34,10 @@ public class VariableContext extends BaseEntityContext<HopVariable.Finder,
 
 
   @Override
-  public HopVariable find(FinderType<HopVariable> finder, Object... params)
+  public Variable find(FinderType<Variable> finder, Object... params)
       throws TransactionContextException, StorageException {
-    HopVariable.Finder varType = (HopVariable.Finder) finder;
-    HopVariable var = null;
+    Variable.Finder varType = (Variable.Finder) finder;
+    Variable var = null;
     if (contains(varType)) {
       var = get(varType);
       hit(varType, var);
@@ -53,11 +53,11 @@ public class VariableContext extends BaseEntityContext<HopVariable.Finder,
   @Override
   public void prepare(TransactionLocks lks)
       throws TransactionContextException, StorageException {
-    Collection<HopVariable> added = getAdded();
-    Collection<HopVariable> modified = getModified();
-    if (lks.containsLock(HopsLock.Type.Variable)) {
-      HopsVariablesLock hlk =
-          (HopsVariablesLock) lks.getLock(HopsLock.Type.Variable);
+    Collection<Variable> added = getAdded();
+    Collection<Variable> modified = getModified();
+    if (lks.containsLock(Lock.Type.Variable)) {
+      VariablesLock hlk =
+          (VariablesLock) lks.getLock(Lock.Type.Variable);
       checkLockUpgrade(hlk, added);
       checkLockUpgrade(hlk, modified);
     }
@@ -68,10 +68,10 @@ public class VariableContext extends BaseEntityContext<HopVariable.Finder,
     dataAccess.prepare(added, modified, null);
   }
 
-  private void checkLockUpgrade(HopsVariablesLock hlk,
-      Collection<HopVariable> variables) throws
+  private void checkLockUpgrade(VariablesLock hlk,
+      Collection<Variable> variables) throws
       LockUpgradeException {
-    for (HopVariable var : variables) {
+    for (Variable var : variables) {
       if (!hlk.getVariableLockType(var.getType())
           .equals(TransactionLockTypes.LockType
               .WRITE)) {
@@ -81,7 +81,7 @@ public class VariableContext extends BaseEntityContext<HopVariable.Finder,
   }
 
   @Override
-  HopVariable.Finder getKey(HopVariable hopVariable) {
+  Variable.Finder getKey(Variable hopVariable) {
     return hopVariable.getType();
   }
 

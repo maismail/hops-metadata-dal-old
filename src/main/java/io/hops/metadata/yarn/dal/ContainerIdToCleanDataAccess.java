@@ -6,10 +6,8 @@ import java.util.Map;
 import java.util.Set;
 
 import io.hops.exception.StorageException;
-import io.hops.metadata.hdfs.entity.yarn.HopContainerId;
-import io.hops.exception.StorageException;
-import io.hops.metadata.hdfs.dal.EntityDataAccess;
-import io.hops.metadata.hdfs.entity.yarn.HopContainerId;
+import io.hops.metadata.yarn.entity.HopContainerId;
+import io.hops.metadata.common.EntityDataAccess;
 
 public interface ContainerIdToCleanDataAccess<T> extends EntityDataAccess {
 

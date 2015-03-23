@@ -7,8 +7,8 @@ import com.google.common.collect.Collections2;
 import com.google.common.collect.Maps;
 import io.hops.exception.StorageException;
 import io.hops.exception.TransactionContextException;
-import io.hops.metadata.hdfs.entity.CounterType;
-import io.hops.metadata.hdfs.entity.FinderType;
+import io.hops.metadata.common.CounterType;
+import io.hops.metadata.common.FinderType;
 
 import java.util.Collection;
 import java.util.Collections;

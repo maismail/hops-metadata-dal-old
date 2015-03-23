@@ -3,6 +3,7 @@ package io.hops.metadata.hdfs.dal;
 import java.util.Collection;
 
 import io.hops.exception.StorageException;
+import io.hops.metadata.common.EntityDataAccess;
 
 public interface StorageIdMapDataAccess<T> extends EntityDataAccess {
 
