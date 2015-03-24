@@ -6,9 +6,12 @@ public class InvalidatedBlock extends Replica {
 
   public static enum Finder implements FinderType<InvalidatedBlock> {
 
-    ByBlockIdAndINodeId, ByINodeId, ByINodeIds,
+    ByBlockIdAndINodeId,
+    ByINodeId,
+    ByINodeIds,
     ByBlockIdStorageIdAndINodeId,
-    ByBlockIdsStorageIdsAndINodeIds, All;
+    ByBlockIdsStorageIdsAndINodeIds,
+    All;
 
     @Override
     public Class getType() {
@@ -17,18 +20,26 @@ public class InvalidatedBlock extends Replica {
 
     @Override
     public Annotation getAnnotated() {
-      switch (this){
-        case ByBlockIdAndINodeId: return Annotation.PrunedIndexScan;
-        case ByINodeId: return Annotation.PrunedIndexScan;
-        case ByINodeIds: return Annotation.BatchedPrunedIndexScan;
-        case ByBlockIdStorageIdAndINodeId: return Annotation.PrimaryKey;
-        case ByBlockIdsStorageIdsAndINodeIds: return Annotation.Batched;
-        case All: return Annotation.FullTable;
-        default: throw new IllegalStateException();
+      switch (this) {
+        case ByBlockIdAndINodeId:
+          return Annotation.PrunedIndexScan;
+        case ByINodeId:
+          return Annotation.PrunedIndexScan;
+        case ByINodeIds:
+          return Annotation.BatchedPrunedIndexScan;
+        case ByBlockIdStorageIdAndINodeId:
+          return Annotation.PrimaryKey;
+        case ByBlockIdsStorageIdsAndINodeIds:
+          return Annotation.Batched;
+        case All:
+          return Annotation.FullTable;
+        default:
+          throw new IllegalStateException();
       }
     }
 
   }
+
   private long generationStamp;
   private long numBytes;
   
@@ -52,7 +63,8 @@ public class InvalidatedBlock extends Replica {
   }
 
   /**
-   * @param generationStamp the generationStamp to set
+   * @param generationStamp
+   *     the generationStamp to set
    */
   public void setGenerationStamp(long generationStamp) {
     this.generationStamp = generationStamp;
@@ -66,7 +78,8 @@ public class InvalidatedBlock extends Replica {
   }
 
   /**
-   * @param numBytes the numBytes to set
+   * @param numBytes
+   *     the numBytes to set
    */
   public void setNumBytes(long numBytes) {
     this.numBytes = numBytes;

@@ -15,33 +15,38 @@
  */
 package io.hops.transaction.lock;
 
+import io.hops.metadata.common.entity.Variable;
+
 import java.io.IOException;
 import java.util.EnumMap;
 import java.util.Map;
-
-import io.hops.metadata.common.entity.Variable;
 
 public final class VariablesLock extends Lock {
 
   private final Map<Variable.Finder, TransactionLockTypes.LockType> variables;
 
   VariablesLock() {
-    this.variables = new EnumMap<Variable.Finder, TransactionLockTypes.LockType>(Variable.Finder.class);
+    this.variables =
+        new EnumMap<Variable.Finder, TransactionLockTypes.LockType>(
+            Variable.Finder.class);
   }
 
-  VariablesLock addVariable(Variable.Finder variableType, TransactionLockTypes.LockType lockType) {
+  VariablesLock addVariable(Variable.Finder variableType,
+      TransactionLockTypes.LockType lockType) {
     this.variables.put(variableType, lockType);
     return this;
   }
 
   @Override
   protected void acquire(TransactionLocks locks) throws IOException {
-    for (Map.Entry<Variable.Finder, TransactionLockTypes.LockType> e : variables.entrySet()) {
+    for (Map.Entry<Variable.Finder, TransactionLockTypes.LockType> e : variables
+        .entrySet()) {
       acquireLock(e.getValue(), e.getKey());
     }
   }
 
-  public TransactionLockTypes.LockType getVariableLockType(Variable.Finder variableType) {
+  public TransactionLockTypes.LockType getVariableLockType(
+      Variable.Finder variableType) {
     return variables.get(variableType);
   }
 

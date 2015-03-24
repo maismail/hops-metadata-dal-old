@@ -25,7 +25,7 @@ public class BlockLookUp implements Comparable<BlockLookUp> {
   public void setInodeId(int inode_id) {
     this.inode_id = inode_id;
   }
- 
+
   @Override
   public boolean equals(Object obj) {
     if (obj == null) {
@@ -39,10 +39,10 @@ public class BlockLookUp implements Comparable<BlockLookUp> {
       return true;
     }
     return false;
-  }  
-  
-  
-   @Override
+  }
+
+
+  @Override
   public int hashCode() {
     int hash = 7;
     hash = 59 * hash + this.inode_id;

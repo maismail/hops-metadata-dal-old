@@ -8,12 +8,12 @@ public class ApplicationState {
   private final String name;
   private final String state;
 
-  public ApplicationState(String applicationid){
-    this(applicationid,null,null,null, null);
+  public ApplicationState(String applicationid) {
+    this(applicationid, null, null, null, null);
   }
   
-  public ApplicationState(String applicationId, byte[] appstate,
-      String user, String name, String state) {
+  public ApplicationState(String applicationId, byte[] appstate, String user,
+      String name, String state) {
     this.applicationId = applicationId;
     this.appstate = appstate;
     this.name = name;

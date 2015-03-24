@@ -1,4 +1,3 @@
-
 package io.hops.metadata.yarn.tabledef;
 
 public interface RMLoadTableDef {

@@ -11,7 +11,9 @@ public class IndexedReplica extends Replica {
 
   public static enum Finder implements FinderType<IndexedReplica> {
 
-    ByBlockIdAndINodeId, ByINodeId, ByINodeIds,
+    ByBlockIdAndINodeId,
+    ByINodeId,
+    ByINodeIds,
     ByBlockIdAndStorageId,
     ByBlockIdsStorageIdsAndINodeIds;
 
@@ -22,13 +24,19 @@ public class IndexedReplica extends Replica {
 
     @Override
     public Annotation getAnnotated() {
-      switch (this){
-        case ByBlockIdAndINodeId:return Annotation.PrunedIndexScan;
-        case ByINodeId:return Annotation.PrunedIndexScan;
-        case ByBlockIdAndStorageId: return Annotation.IndexScan;
-        case ByBlockIdsStorageIdsAndINodeIds: return Annotation.PrimaryKey;
-        case ByINodeIds: return Annotation.BatchedPrunedIndexScan;
-        default: throw new IllegalStateException();
+      switch (this) {
+        case ByBlockIdAndINodeId:
+          return Annotation.PrunedIndexScan;
+        case ByINodeId:
+          return Annotation.PrunedIndexScan;
+        case ByBlockIdAndStorageId:
+          return Annotation.IndexScan;
+        case ByBlockIdsStorageIdsAndINodeIds:
+          return Annotation.PrimaryKey;
+        case ByINodeIds:
+          return Annotation.BatchedPrunedIndexScan;
+        default:
+          throw new IllegalStateException();
       }
     }
 
@@ -47,6 +55,7 @@ public class IndexedReplica extends Replica {
       }
     };
   }
+
   int index;
 
   public IndexedReplica(long blockId, int storageId, int inodeId, int index) {

@@ -2,28 +2,28 @@ package io.hops.metadata.yarn.entity;
 
 public class YarnVariables {
 
-    private int id;
-    private int value;
+  private int id;
+  private int value;
 
-    public YarnVariables(int id, int value) {
-        this.id = id;
-        this.value = value;
-    }
+  public YarnVariables(int id, int value) {
+    this.id = id;
+    this.value = value;
+  }
 
-    public int getId() {
-        return id;
-    }
+  public int getId() {
+    return id;
+  }
 
-    public void setId(int id) {
-        this.id = id;
-    }
+  public void setId(int id) {
+    this.id = id;
+  }
 
-    public int getValue() {
-        return value;
-    }
+  public int getValue() {
+    return value;
+  }
 
-    public void setValue(int value) {
-        this.value = value;
-    }
+  public void setValue(int value) {
+    this.value = value;
+  }
 
 }

@@ -11,7 +11,8 @@ public class EncodingPolicy {
 
   public void setCodec(String codec) {
     if (codec.length() > 8) {
-      throw new IllegalArgumentException("Codec cannot have more than 8 characters");
+      throw new IllegalArgumentException(
+          "Codec cannot have more than 8 characters");
     }
     this.codec = codec;
   }
@@ -38,13 +39,21 @@ public class EncodingPolicy {
 
   @Override
   public boolean equals(Object o) {
-    if (this == o) return true;
-    if (o == null || getClass() != o.getClass()) return false;
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
 
     EncodingPolicy policy = (EncodingPolicy) o;
 
-    if (targetReplication != policy.targetReplication) return false;
-    if (!codec.equals(policy.codec)) return false;
+    if (targetReplication != policy.targetReplication) {
+      return false;
+    }
+    if (!codec.equals(policy.codec)) {
+      return false;
+    }
 
     return true;
   }

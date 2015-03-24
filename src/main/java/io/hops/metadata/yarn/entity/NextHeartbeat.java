@@ -6,7 +6,6 @@ public class NextHeartbeat {
   private final boolean nextheartbeat;
 
   /**
-   *
    * @param rmnodeid
    * @param nextheartbeat
    */
@@ -16,7 +15,6 @@ public class NextHeartbeat {
   }
 
   /**
-   *
    * @return
    */
   public String getRmnodeid() {
@@ -24,7 +22,6 @@ public class NextHeartbeat {
   }
 
   /**
-   *
    * @return
    */
   public boolean isNextheartbeat() {
@@ -33,8 +30,8 @@ public class NextHeartbeat {
 
   @Override
   public String toString() {
-    return "HopNextHeartbeat{" + "rmnodeid=" + rmnodeid + ", nextheartbeat="
-            + nextheartbeat + '}';
+    return "HopNextHeartbeat{" + "rmnodeid=" + rmnodeid + ", nextheartbeat=" +
+        nextheartbeat + '}';
   }
 
 }

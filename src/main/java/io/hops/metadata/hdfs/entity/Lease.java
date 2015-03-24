@@ -1,6 +1,6 @@
 package io.hops.metadata.hdfs.entity;
 
-public final class Lease implements Comparable<Lease>{
+public final class Lease implements Comparable<Lease> {
 
   private String holder;
   private long lastUpdate;
@@ -60,8 +60,7 @@ public final class Lease implements Comparable<Lease>{
       return false;
     }
     Lease obj = (Lease) o;
-    if (lastUpdate == obj.lastUpdate
-            && holder.equals(obj.holder)) {
+    if (lastUpdate == obj.lastUpdate && holder.equals(obj.holder)) {
       return true;
     }
     return false;

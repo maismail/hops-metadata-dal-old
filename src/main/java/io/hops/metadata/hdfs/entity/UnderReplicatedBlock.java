@@ -8,7 +8,9 @@ import java.util.Comparator;
 public class UnderReplicatedBlock {
   public static enum Finder implements FinderType<UnderReplicatedBlock> {
 
-    ByBlockIdAndINodeId, ByINodeId, ByINodeIds;
+    ByBlockIdAndINodeId,
+    ByINodeId,
+    ByINodeIds;
 
     @Override
     public Class getType() {
@@ -17,11 +19,15 @@ public class UnderReplicatedBlock {
 
     @Override
     public Annotation getAnnotated() {
-      switch (this){
-        case ByBlockIdAndINodeId: return Annotation.PrimaryKey;
-        case ByINodeId: return Annotation.PrunedIndexScan;
-        case ByINodeIds: return Annotation.BatchedPrunedIndexScan;
-        default: throw new IllegalStateException();
+      switch (this) {
+        case ByBlockIdAndINodeId:
+          return Annotation.PrimaryKey;
+        case ByINodeId:
+          return Annotation.PrunedIndexScan;
+        case ByINodeIds:
+          return Annotation.BatchedPrunedIndexScan;
+        default:
+          throw new IllegalStateException();
       }
     }
 
@@ -30,7 +36,6 @@ public class UnderReplicatedBlock {
   public static enum Order implements Comparator<UnderReplicatedBlock> {
 
     ByLevel() {
-
       @Override
       public int compare(UnderReplicatedBlock o1, UnderReplicatedBlock o2) {
         if (o1.getLevel() < o2.level) {
@@ -42,7 +47,8 @@ public class UnderReplicatedBlock {
     };
     
     @Override
-    public abstract int compare(UnderReplicatedBlock o1, UnderReplicatedBlock o2);
+    public abstract int compare(UnderReplicatedBlock o1,
+        UnderReplicatedBlock o2);
 
     public Comparator acsending() {
       return this;
@@ -75,7 +81,7 @@ public class UnderReplicatedBlock {
     this.level = level;
   }
   
-  public int getInodeId(){
+  public int getInodeId() {
     return inodeId;
   }
 
@@ -89,7 +95,8 @@ public class UnderReplicatedBlock {
   
   @Override
   public String toString() {
-    return "UnderReplicatedBlock{" + "level=" + level + ", blockId=" + blockId + '}';
+    return "UnderReplicatedBlock{" + "level=" + level + ", blockId=" + blockId +
+        '}';
   }
 
   @Override

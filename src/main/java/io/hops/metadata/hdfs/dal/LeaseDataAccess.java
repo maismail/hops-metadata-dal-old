@@ -1,9 +1,9 @@
 package io.hops.metadata.hdfs.dal;
 
-import java.util.Collection;
-
 import io.hops.exception.StorageException;
 import io.hops.metadata.common.EntityDataAccess;
+
+import java.util.Collection;
 
 public interface LeaseDataAccess<T> extends EntityDataAccess {
 
@@ -17,7 +17,8 @@ public interface LeaseDataAccess<T> extends EntityDataAccess {
 
   T findByHolderId(int holderId) throws StorageException;
 
-  void prepare(Collection<T> removed, Collection<T> newLeases, Collection<T> modified) throws StorageException;
+  void prepare(Collection<T> removed, Collection<T> newLeases,
+      Collection<T> modified) throws StorageException;
 
   void removeAll() throws StorageException;
 }

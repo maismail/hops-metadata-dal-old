@@ -6,9 +6,11 @@ import java.util.EnumMap;
 
 public abstract class Variable {
 
-  public final static EnumMap<Finder, byte[]> defaultValues = new EnumMap(Finder.class);
+  public final static EnumMap<Finder, byte[]> defaultValues =
+      new EnumMap(Finder.class);
 
-  public static void registerVariableDefaultValue(Finder variable, byte[] defaultValue) {
+  public static void registerVariableDefaultValue(Finder variable,
+      byte[] defaultValue) {
     defaultValues.put(variable, defaultValue);
   }
 
@@ -46,7 +48,8 @@ public abstract class Variable {
 
     public static Finder getFinder(int varType) {
       if (varType >= Finder.values().length) {
-        throw new IllegalArgumentException("Variable Type " + varType + " doesn't exist");
+        throw new IllegalArgumentException(
+            "Variable Type " + varType + " doesn't exist");
       }
       return Finder.values()[varType];
     }
@@ -61,6 +64,7 @@ public abstract class Variable {
       return Annotation.PrimaryKey;
     }
   }
+
   private final Finder type;
 
   public Variable(Finder type) {
@@ -116,7 +120,7 @@ public abstract class Variable {
       case SIdCounter:
         return new IntVariable(varType);
       case HdfsLeParams:
-      case YarnLeParams:  
+      case YarnLeParams:
         return new StringVariable(varType);
       case MisReplicatedFilesIndex:
         return new LongVariable(varType);

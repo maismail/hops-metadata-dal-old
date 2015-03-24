@@ -28,23 +28,11 @@ public class INode implements Comparable<INode> {
   public INode() {
   }
 
-  public INode(
-      int id,
-      String name,
-      int parentId,
-      boolean dirWithQuota,
-      long modificationTime,
-      long accessTime,
-      byte[] permission,
-      boolean underConstruction,
-      String clientName,
-      String clientMachine,
-      String clientNode,
-      int generationStamp,
-      long header,
-      String symlink,
-      boolean subtreeLocked,
-      long subtreeLockOwner) {
+  public INode(int id, String name, int parentId, boolean dirWithQuota,
+      long modificationTime, long accessTime, byte[] permission,
+      boolean underConstruction, String clientName, String clientMachine,
+      String clientNode, int generationStamp, long header, String symlink,
+      boolean subtreeLocked, long subtreeLockOwner) {
 
     this.id = id;
     this.name = name;
@@ -200,7 +188,8 @@ public class INode implements Comparable<INode> {
   public final int compareTo(INode other) {
     String left = name == null ? "" : name;
     String right = other.name == null ? "" : other.name;
-    return SignedBytes.lexicographicalComparator().compare(left.getBytes(), right.getBytes());
+    return SignedBytes.lexicographicalComparator()
+        .compare(left.getBytes(), right.getBytes());
   }
 
   @Override
@@ -211,9 +200,8 @@ public class INode implements Comparable<INode> {
     if (that == null || !(that instanceof INode)) {
       return false;
     }
-    if (name.equals(((INode) that).name)
-        && this.id == ((INode) that).id
-        && this.parentId == ((INode) that).parentId) {
+    if (name.equals(((INode) that).name) && this.id == ((INode) that).id &&
+        this.parentId == ((INode) that).parentId) {
       return true;
     }
     return false;

@@ -21,9 +21,8 @@ public class TransactionsStats {
     private Collection<EntityContextStat> stats;
     private Exception ignoredException;
 
-    public TransactionStat(
-        RequestHandler.OperationType name, Collection<EntityContextStat>
-        stats, Exception ignoredException) {
+    public TransactionStat(RequestHandler.OperationType name,
+        Collection<EntityContextStat> stats, Exception ignoredException) {
       this.name = name;
       this.stats = stats;
       this.ignoredException = ignoredException;
@@ -40,10 +39,9 @@ public class TransactionsStats {
 
   private TransactionsStats() {
     this.enabled = false;
-    this.transactionStats = new
-        ArrayList<TransactionStat>();
-    this.transactionAggregatedStats = new HashMap<RequestHandler.OperationType,
-        List<TransactionStat>>();
+    this.transactionStats = new ArrayList<TransactionStat>();
+    this.transactionAggregatedStats =
+        new HashMap<RequestHandler.OperationType, List<TransactionStat>>();
   }
 
   public static TransactionsStats getInstance() {
@@ -70,14 +68,13 @@ public class TransactionsStats {
   }
 
   public void collectStats(RequestHandler.OperationType operationType,
-      Exception ignoredException)
-      throws IOException {
+      Exception ignoredException) throws IOException {
     if (enabled) {
-      Collection<EntityContextStat> contextStats = EntityManager
-          .collectSnapshotStat();
+      Collection<EntityContextStat> contextStats =
+          EntityManager.collectSnapshotStat();
       if (!contextStats.isEmpty() || ignoredException != null) {
-        TransactionStat stat = new TransactionStat(operationType, contextStats,
-            ignoredException);
+        TransactionStat stat =
+            new TransactionStat(operationType, contextStats, ignoredException);
         transactionStats.add(stat);
 
         List<TransactionStat> statList =
@@ -110,8 +107,8 @@ public class TransactionsStats {
   }
 
   private void dumpAggregate() throws IOException {
-    for (Map.Entry<RequestHandler.OperationType, List<TransactionStat>> e :
-        transactionAggregatedStats.entrySet()) {
+    for (Map.Entry<RequestHandler.OperationType, List<TransactionStat>> e : transactionAggregatedStats
+        .entrySet()) {
       dumpAggregate(e.getKey(), e.getValue());
     }
   }
@@ -122,17 +119,19 @@ public class TransactionsStats {
     writer.write("Transaction: " + operationType.toString());
     writer.newLine();
 
-    EntityContextStat.StatsAggregator
-        globalAggregator = new EntityContextStat.StatsAggregator();
+    EntityContextStat.StatsAggregator globalAggregator =
+        new EntityContextStat.StatsAggregator();
     for (TransactionStat transactionStat : transactionStats) {
-      EntityContextStat.StatsAggregator txStatAgg = dump(writer, transactionStat);
+      EntityContextStat.StatsAggregator txStatAgg =
+          dump(writer, transactionStat);
       globalAggregator.update(txStatAgg);
     }
 
     writer.write(operationType.toString() + ": Global  Tx. Count=" +
         transactionStats.size());
     writer.newLine();
-    writer.write(globalAggregator.toString(operationType.toString() + ": Global"));
+    writer.write(
+        globalAggregator.toString(operationType.toString() + ": Global"));
 
     writer.newLine();
     writer.newLine();
@@ -154,9 +153,7 @@ public class TransactionsStats {
   }
 
   private EntityContextStat.StatsAggregator dump(BufferedWriter writer,
-      TransactionStat transactionStat)
-      throws
-      IOException {
+      TransactionStat transactionStat) throws IOException {
 
     if (transactionStat.ignoredException != null) {
       writer.write(transactionStat.ignoredException.toString());
@@ -164,8 +161,8 @@ public class TransactionsStats {
       writer.newLine();
     }
 
-    EntityContextStat.StatsAggregator
-        txAggStat = new EntityContextStat.StatsAggregator();
+    EntityContextStat.StatsAggregator txAggStat =
+        new EntityContextStat.StatsAggregator();
     for (EntityContextStat contextStat : transactionStat.stats) {
       writer.write(contextStat.toString());
       txAggStat.update(contextStat.getStatsAggregator());
@@ -178,19 +175,16 @@ public class TransactionsStats {
 
   private BufferedWriter getStatsLogWriter() throws IOException {
     if (statsLogWriter == null) {
-      this.statsLogWriter = new BufferedWriter(new FileWriter(new File(statsDir,
-          getStatsFile()
-      ), true));
+      this.statsLogWriter = new BufferedWriter(
+          new FileWriter(new File(statsDir, getStatsFile()), true));
     }
     return this.statsLogWriter;
   }
 
   private BufferedWriter getAggStatsLogWriter() throws IOException {
     if (aggStatsLogWriter == null) {
-      this.aggStatsLogWriter =
-          new BufferedWriter(new FileWriter(new File(statsDir,
-              getAggStatsFile()
-          ), true));
+      this.aggStatsLogWriter = new BufferedWriter(
+          new FileWriter(new File(statsDir, getAggStatsFile()), true));
     }
     return this.aggStatsLogWriter;
   }

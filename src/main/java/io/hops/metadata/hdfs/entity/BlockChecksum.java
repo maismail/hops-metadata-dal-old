@@ -18,10 +18,13 @@ public class BlockChecksum {
 
     @Override
     public Annotation getAnnotated() {
-      switch (this){
-        case ByKeyTuple: return Annotation.PrimaryKey;
-        case ByInodeId: return Annotation.PrunedIndexScan;
-        default: throw new IllegalStateException();
+      switch (this) {
+        case ByKeyTuple:
+          return Annotation.PrimaryKey;
+        case ByInodeId:
+          return Annotation.PrunedIndexScan;
+        default:
+          throw new IllegalStateException();
       }
     }
 
@@ -63,14 +66,24 @@ public class BlockChecksum {
 
   @Override
   public boolean equals(Object o) {
-    if (this == o) return true;
-    if (o == null || getClass() != o.getClass()) return false;
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
 
     BlockChecksum that = (BlockChecksum) o;
 
-    if (blockIndex != that.blockIndex) return false;
-    if (checksum != that.checksum) return false;
-    if (inodeId != that.inodeId) return false;
+    if (blockIndex != that.blockIndex) {
+      return false;
+    }
+    if (checksum != that.checksum) {
+      return false;
+    }
+    if (inodeId != that.inodeId) {
+      return false;
+    }
 
     return true;
   }

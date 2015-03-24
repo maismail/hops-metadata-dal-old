@@ -20,7 +20,8 @@ public abstract class Replica implements Comparable<Replica> {
   }
 
   /**
-   * @param storageId the storageId to set
+   * @param storageId
+   *     the storageId to set
    */
   public void setStorageId(int storageId) {
     this.storageId = storageId;
@@ -34,7 +35,8 @@ public abstract class Replica implements Comparable<Replica> {
   }
 
   /**
-   * @param blockId the blockId to set
+   * @param blockId
+   *     the blockId to set
    */
   public void setBlockId(long blockId) {
     this.blockId = blockId;

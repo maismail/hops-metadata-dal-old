@@ -24,8 +24,8 @@ public class ContainerId {
 
   @Override
   public String toString() {
-    return "HopContainerId{" + "rmnodeid=" + rmnodeid + ", containerId="
-            + containerId + '}';
+    return "HopContainerId{" + "rmnodeid=" + rmnodeid + ", containerId=" +
+        containerId + '}';
   }
 
 }

@@ -17,11 +17,13 @@ package io.hops.metadata.election.entity;
 
 import io.hops.metadata.common.FinderType;
 
-public abstract class LeDescriptor implements Comparable<LeDescriptor>, Cloneable {
+public abstract class LeDescriptor
+    implements Comparable<LeDescriptor>, Cloneable {
 
-  public interface LeDescriptorFinder<T extends LeDescriptor> extends
-      FinderType {
+  public interface LeDescriptorFinder<T extends LeDescriptor>
+      extends FinderType {
   }
+
   public static final int DEFAULT_PARTITION_VALUE = 0;
   private long id;
   private long counter;
@@ -32,7 +34,8 @@ public abstract class LeDescriptor implements Comparable<LeDescriptor>, Cloneabl
   protected LeDescriptor() {
   }
 
-  protected LeDescriptor(long id, long counter, String hostName, String httpAddress) {
+  protected LeDescriptor(long id, long counter, String hostName,
+      String httpAddress) {
     this.id = id;
     this.counter = counter;
     this.hostName = hostName;
@@ -85,7 +88,8 @@ public abstract class LeDescriptor implements Comparable<LeDescriptor>, Cloneabl
     } else if (this.id > l.getId()) {
       return 1;
     } else {
-      throw new IllegalStateException("Leader.java: compareTo(...) is confused.");
+      throw new IllegalStateException(
+          "Leader.java: compareTo(...) is confused.");
     }
   }
 
@@ -94,15 +98,15 @@ public abstract class LeDescriptor implements Comparable<LeDescriptor>, Cloneabl
     if (obj instanceof LeDescriptor) {
       LeDescriptor l = (LeDescriptor) obj;
       //both are equal if all the fields match
-      if (this.id == l.getId()
-              && this.counter == l.getCounter()
-              && this.hostName.equals(l.getHostName())) {
+      if (this.id == l.getId() && this.counter == l.getCounter() &&
+          this.hostName.equals(l.getHostName())) {
         return true;
       } else {
         return false;
       }
     } else {
-      throw new ClassCastException("Leader.java: equals(...) can not compare the objects");
+      throw new ClassCastException(
+          "Leader.java: equals(...) can not compare the objects");
     }
   }
 
@@ -124,7 +128,8 @@ public abstract class LeDescriptor implements Comparable<LeDescriptor>, Cloneabl
 
     public enum Finder implements LeDescriptorFinder<YarnLeDescriptor> {
 
-      ById, All;
+      ById,
+      All;
 
       @Override
       public Class getType() {
@@ -144,7 +149,8 @@ public abstract class LeDescriptor implements Comparable<LeDescriptor>, Cloneabl
       }
     }
 
-    public YarnLeDescriptor(long id, long counter, String hostName, String httpAddress) {
+    public YarnLeDescriptor(long id, long counter, String hostName,
+        String httpAddress) {
       super(id, counter, hostName, httpAddress);
     }
   }
@@ -153,7 +159,8 @@ public abstract class LeDescriptor implements Comparable<LeDescriptor>, Cloneabl
 
     public enum Finder implements LeDescriptorFinder<HdfsLeDescriptor> {
 
-      ById, All;
+      ById,
+      All;
 
       @Override
       public Class getType() {
@@ -173,7 +180,8 @@ public abstract class LeDescriptor implements Comparable<LeDescriptor>, Cloneabl
       }
     }
 
-    public HdfsLeDescriptor(long id, long counter, String hostName, String httpAddress) {
+    public HdfsLeDescriptor(long id, long counter, String hostName,
+        String httpAddress) {
       super(id, counter, hostName, httpAddress);
     }
   }

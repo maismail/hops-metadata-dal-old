@@ -1,17 +1,18 @@
 package io.hops.metadata.yarn.dal;
 
+import io.hops.exception.StorageException;
+import io.hops.metadata.common.EntityDataAccess;
+import io.hops.metadata.yarn.entity.ContainerStatus;
+
 import java.util.Collection;
 import java.util.Map;
-
-import io.hops.exception.StorageException;
-import io.hops.metadata.yarn.entity.ContainerStatus;
-import io.hops.metadata.common.EntityDataAccess;
 
 public interface ContainerStatusDataAccess<T> extends EntityDataAccess {
 
   /**
    * Find by ContainerId and RNodeId
-   * <p>
+   * <p/>
+   *
    * @param containerId
    * @param rmNodeId
    * @return

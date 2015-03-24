@@ -5,25 +5,25 @@ package io.hops.metadata.yarn.entity;
  */
 public class NodeId {
 
-    private final String id;
-    private final String host;
-    private final int port;
+  private final String id;
+  private final String host;
+  private final int port;
 
-    public NodeId(String id, String host, int port) {
-        this.id = id;
-        this.host = host;
-        this.port = port;
-    }
+  public NodeId(String id, String host, int port) {
+    this.id = id;
+    this.host = host;
+    this.port = port;
+  }
 
-    public String getId() {
-        return id;
-    }
+  public String getId() {
+    return id;
+  }
 
-    public String getHost() {
-        return host;
-    }
+  public String getHost() {
+    return host;
+  }
 
-    public int getPort() {
-        return port;
-    }
+  public int getPort() {
+    return port;
+  }
 }

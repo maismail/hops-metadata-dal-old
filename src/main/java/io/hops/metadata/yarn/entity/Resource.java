@@ -63,8 +63,8 @@ public class Resource {
 
   @Override
   public String toString() {
-    return "HopResource{" + "id=" + id + ", type=" + type + ", parent=" + parent
-            + '}';
+    return "HopResource{" + "id=" + id + ", type=" + type + ", parent=" +
+        parent + '}';
   }
 
 }

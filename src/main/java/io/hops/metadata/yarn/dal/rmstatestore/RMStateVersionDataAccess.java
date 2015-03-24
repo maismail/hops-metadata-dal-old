@@ -5,7 +5,7 @@ import io.hops.metadata.common.EntityDataAccess;
 
 public interface RMStateVersionDataAccess<T> extends EntityDataAccess {
 
-    T findById(int id) throws StorageException;
+  T findById(int id) throws StorageException;
 
-    void add(T modified) throws StorageException;
+  void add(T modified) throws StorageException;
 }

@@ -1,4 +1,3 @@
-
 package io.hops.metadata.yarn.entity.rmstatestore;
 
 public class SecretMamagerKey {

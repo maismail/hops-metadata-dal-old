@@ -34,13 +34,21 @@ public interface BlockChecksumDataAccess<T> extends EntityDataAccess {
 
     @Override
     public boolean equals(Object o) {
-      if (this == o) return true;
-      if (o == null || getClass() != o.getClass()) return false;
+      if (this == o) {
+        return true;
+      }
+      if (o == null || getClass() != o.getClass()) {
+        return false;
+      }
 
       KeyTuple keyTuple = (KeyTuple) o;
 
-      if (blockIndex != keyTuple.blockIndex) return false;
-      if (inodeId != keyTuple.inodeId) return false;
+      if (blockIndex != keyTuple.blockIndex) {
+        return false;
+      }
+      if (inodeId != keyTuple.inodeId) {
+        return false;
+      }
 
       return true;
     }

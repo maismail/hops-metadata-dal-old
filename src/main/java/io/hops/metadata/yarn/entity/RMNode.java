@@ -32,8 +32,8 @@ public class RMNode implements Comparable<RMNode> {
 
   public RMNode(String nodeId, String hostName, int commandPort, int httpPort,
       String nodeAddress, String httpAddress, String healthReport,
-      long lastHealthReportTime, String currentState,
-      String nodemanagerVersion, int overcommittimeout, int uciId) {
+      long lastHealthReportTime, String currentState, String nodemanagerVersion,
+      int overcommittimeout, int uciId) {
     this.nodeId = nodeId;
     this.hostName = hostName;
     this.commandPort = commandPort;

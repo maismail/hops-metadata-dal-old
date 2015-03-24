@@ -16,21 +16,21 @@
 package io.hops.transaction.lock;
 
 import io.hops.exception.StorageException;
+import io.hops.exception.TransactionContextException;
 import io.hops.metadata.common.FinderType;
 import io.hops.transaction.EntityManager;
-import io.hops.exception.TransactionContextException;
 
 import java.io.IOException;
 import java.util.Collection;
 
-public abstract class Lock implements Comparable<Lock>{
+public abstract class Lock implements Comparable<Lock> {
   private static boolean setPartitionKeyEnabled = false;
 
   /*
    * The Order of entries in Type defines the order
    * by which it's acquired
    */
-  public static enum Type{
+  public static enum Type {
     INode,
     Block,
     NameNodeLease,
@@ -55,7 +55,8 @@ public abstract class Lock implements Comparable<Lock>{
 
   }
 
-  protected final static TransactionLockTypes.LockType DEFAULT_LOCK_TYPE = TransactionLockTypes.LockType.READ_COMMITTED;
+  protected final static TransactionLockTypes.LockType DEFAULT_LOCK_TYPE =
+      TransactionLockTypes.LockType.READ_COMMITTED;
   
   protected abstract void acquire(TransactionLocks locks) throws IOException;
   
@@ -66,8 +67,8 @@ public abstract class Lock implements Comparable<Lock>{
     return getType().compareTo(o.getType());
   }
   
-  protected static void setLockMode(TransactionLockTypes.LockType mode) throws
-      StorageException {
+  protected static void setLockMode(TransactionLockTypes.LockType mode)
+      throws StorageException {
     switch (mode) {
       case WRITE:
         EntityManager.writeLock();
@@ -82,10 +83,8 @@ public abstract class Lock implements Comparable<Lock>{
   }
 
   protected <T> Collection<T> acquireLockList(
-          TransactionLockTypes.LockType lock,
-          FinderType<T> finder,
-          Object... param) throws StorageException,
-      TransactionContextException {
+      TransactionLockTypes.LockType lock, FinderType<T> finder, Object... param)
+      throws StorageException, TransactionContextException {
 
     setLockMode(lock);
     if (param == null) {
@@ -95,9 +94,8 @@ public abstract class Lock implements Comparable<Lock>{
     }
   }
 
-  protected <T> T acquireLock(
-          TransactionLockTypes.LockType lock,
-          FinderType<T> finder, Object... param)
+  protected <T> T acquireLock(TransactionLockTypes.LockType lock,
+      FinderType<T> finder, Object... param)
       throws StorageException, TransactionContextException {
 
     setLockMode(lock);

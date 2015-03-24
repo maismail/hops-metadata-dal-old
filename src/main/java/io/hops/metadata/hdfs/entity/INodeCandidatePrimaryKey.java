@@ -1,7 +1,7 @@
 package io.hops.metadata.hdfs.entity;
 
 public class INodeCandidatePrimaryKey
-    implements Comparable<INodeCandidatePrimaryKey>{
+    implements Comparable<INodeCandidatePrimaryKey> {
 
   int inodeId;
 
@@ -31,7 +31,7 @@ public class INodeCandidatePrimaryKey
 
   @Override
   public String toString() {
-    return "Id:"+inodeId;
+    return "Id:" + inodeId;
   }
 
 
@@ -49,11 +49,11 @@ public class INodeCandidatePrimaryKey
       return 0;
     }
 
-      if (this.getInodeId() > t.getInodeId()) {
-        return 1;
-      } else {
-        return -1;
-      }
+    if (this.getInodeId() > t.getInodeId()) {
+      return 1;
+    } else {
+      return -1;
+    }
   }
 
 

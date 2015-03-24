@@ -7,7 +7,8 @@ public class Slicer {
     public void handle(int startIndex, int endIndex) throws Exception;
   }
 
-  public static void slice(final int total, final int sliceSize, OperationHandler op) throws Exception {
+  public static void slice(final int total, final int sliceSize,
+      OperationHandler op) throws Exception {
     if (total == 0) {
       return;
     }

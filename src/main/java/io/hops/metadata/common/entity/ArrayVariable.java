@@ -20,7 +20,7 @@ public class ArrayVariable extends Variable {
     initVariables(value);
   }
 
-  public ArrayVariable(List<? extends Object> value){
+  public ArrayVariable(List<? extends Object> value) {
     this(Finder.GenericArray, value);
   }
   
@@ -95,7 +95,8 @@ public class ArrayVariable extends Variable {
         if (item instanceof byte[]) {
           addVariable(new ByteArrayVariable((byte[]) item));
         } else {
-          throw new IllegalArgumentException("Variable Type " + itemClass + " is not supported");
+          throw new IllegalArgumentException(
+              "Variable Type " + itemClass + " is not supported");
         }
       }
     }

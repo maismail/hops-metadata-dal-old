@@ -1,5 +1,3 @@
-
-
 package io.hops.metadata.yarn.dal;
 
 import io.hops.exception.StorageException;

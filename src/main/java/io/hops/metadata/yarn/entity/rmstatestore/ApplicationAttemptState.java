@@ -4,23 +4,22 @@ import java.nio.ByteBuffer;
 
 public class ApplicationAttemptState {
 
-    private final String applicationid;
-    private final String applicationattemptid;
-    private final byte[] applicationattemptstate;
-    private final String host;
-    private final int rpcPort;
-    private final ByteBuffer appAttemptTokens;
-    private final String url;
-    
-   public ApplicationAttemptState(String applicationid,
-       String applicationattemptid) {
+  private final String applicationid;
+  private final String applicationattemptid;
+  private final byte[] applicationattemptstate;
+  private final String host;
+  private final int rpcPort;
+  private final ByteBuffer appAttemptTokens;
+  private final String url;
+
+  public ApplicationAttemptState(String applicationid,
+      String applicationattemptid) {
     this(applicationid, applicationattemptid, null, null, 0, null, null);
   }
 
   public ApplicationAttemptState(String applicationid,
-      String applicationattemptid,
-      byte[] applicationattemptstate, String host, int rpcPort,
-      ByteBuffer appAttemptTokens, String url) {
+      String applicationattemptid, byte[] applicationattemptstate, String host,
+      int rpcPort, ByteBuffer appAttemptTokens, String url) {
     this.applicationid = applicationid;
     this.applicationattemptid = applicationattemptid;
     this.applicationattemptstate = applicationattemptstate;
@@ -30,17 +29,17 @@ public class ApplicationAttemptState {
     this.url = url;
   }
 
-    public String getApplicationId() {
-        return applicationid;
-    }
+  public String getApplicationId() {
+    return applicationid;
+  }
 
-    public String getApplicationattemptid() {
-        return applicationattemptid;
-    }
+  public String getApplicationattemptid() {
+    return applicationattemptid;
+  }
 
-    public byte[] getApplicationattemptstate() {
-        return applicationattemptstate;
-    }
+  public byte[] getApplicationattemptstate() {
+    return applicationattemptstate;
+  }
 
   public String getHost() {
     return host;
@@ -57,14 +56,16 @@ public class ApplicationAttemptState {
   public String getUrl() {
     return url;
   }
-    
-    @Override
-    public String toString() {
-        String str = "HopApplicationState{" + "applicationid=" + applicationid +", applicationattemptid=" +applicationattemptid;
-        if (applicationattemptstate != null) {
-            str += ", applicationattemptstate length=" + applicationattemptstate.length;
-        }
-        str += '}';
-        return str;
+
+  @Override
+  public String toString() {
+    String str = "HopApplicationState{" + "applicationid=" + applicationid +
+        ", applicationattemptid=" + applicationattemptid;
+    if (applicationattemptstate != null) {
+      str +=
+          ", applicationattemptstate length=" + applicationattemptstate.length;
     }
+    str += '}';
+    return str;
+  }
 }

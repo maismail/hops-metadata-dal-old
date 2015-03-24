@@ -9,7 +9,8 @@ public class StringVariable extends ByteArrayVariable {
   public StringVariable(Finder type, String value) {
     this(type);
     if (value.length() > 255) {
-      throw new IllegalArgumentException("string variables shouldn't exceed 255 bytes");
+      throw new IllegalArgumentException(
+          "string variables shouldn't exceed 255 bytes");
     }
     this.value = value;
   }

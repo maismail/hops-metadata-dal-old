@@ -1,10 +1,10 @@
 package io.hops.metadata.hdfs.dal;
 
-import java.util.Collection;
-import java.util.List;
-
 import io.hops.exception.StorageException;
 import io.hops.metadata.common.EntityDataAccess;
+
+import java.util.Collection;
+import java.util.List;
 
 public interface UnderReplicatedBlockDataAccess<T> extends EntityDataAccess {
 
@@ -20,7 +20,8 @@ public interface UnderReplicatedBlockDataAccess<T> extends EntityDataAccess {
   
   List<T> findByLevel(int level, int offset, int count) throws StorageException;
   
-  void prepare(Collection<T> removed, Collection<T> newed, Collection<T> modified) throws StorageException;
+  void prepare(Collection<T> removed, Collection<T> newed,
+      Collection<T> modified) throws StorageException;
 
   void removeAll() throws StorageException;
 

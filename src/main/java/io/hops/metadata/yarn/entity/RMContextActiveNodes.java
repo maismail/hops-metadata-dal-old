@@ -5,13 +5,13 @@ package io.hops.metadata.yarn.entity;
  */
 public class RMContextActiveNodes {
 
-    private final String nodeId;
+  private final String nodeId;
 
-    public RMContextActiveNodes(String nodeidId) {
-        this.nodeId = nodeidId;
-    }
+  public RMContextActiveNodes(String nodeidId) {
+    this.nodeId = nodeidId;
+  }
 
-    public String getNodeId() {
-        return nodeId;
-    }
+  public String getNodeId() {
+    return nodeId;
+  }
 }

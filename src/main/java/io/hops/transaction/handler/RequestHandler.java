@@ -1,16 +1,17 @@
 package io.hops.transaction.handler;
 
-import java.io.IOException;
-
+import io.hops.StorageConnector;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import io.hops.StorageConnector;
+
+import java.io.IOException;
 
 public abstract class RequestHandler {
   private long waitTime;
 
   public interface OperationType {
   }
+
   protected static Log log = LogFactory.getLog(RequestHandler.class);
   protected Object[] params = null;
   // TODO These should be in a config file
@@ -49,12 +50,12 @@ public abstract class RequestHandler {
     return this.params;
   }
 
-  protected long exponentialBackoff(){
+  protected long exponentialBackoff() {
     try {
-      if(waitTime>0){
-      log.debug("TX is being retried. Waiting for " + waitTime +
-          " ms before retry. TX name " + opType);
-      Thread.sleep(waitTime);
+      if (waitTime > 0) {
+        log.debug("TX is being retried. Waiting for " + waitTime +
+            " ms before retry. TX name " + opType);
+        Thread.sleep(waitTime);
       }
       waitTime = waitTime == 0 ? BASE_WAIT_TIME : waitTime * 2;
       return waitTime;

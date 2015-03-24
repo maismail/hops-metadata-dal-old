@@ -48,8 +48,8 @@ public class RPC {
 
   @Override
   public String toString() {
-    return "HopRPC{" + "id=" + id + ", type=" + type + ", userId="
-            + userId + '}';
+    return "HopRPC{" + "id=" + id + ", type=" + type + ", userId=" + userId +
+        '}';
   }
 
 }

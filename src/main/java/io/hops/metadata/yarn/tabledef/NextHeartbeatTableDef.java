@@ -1,10 +1,8 @@
 package io.hops.metadata.yarn.tabledef;
 
 /**
- *
  * Defines table structure for SchedulerEvents persisted by the
  * Distributed ResourceTrackerService.
- *
  */
 public interface NextHeartbeatTableDef {
 

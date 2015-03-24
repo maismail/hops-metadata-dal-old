@@ -22,7 +22,8 @@ public class TransactionContext {
   private Set<EntityContext> contexts = new HashSet<EntityContext>();
   private StorageConnector connector;
 
-  public TransactionContext(StorageConnector connector, Map<Class, EntityContext> entityContext) {
+  public TransactionContext(StorageConnector connector,
+      Map<Class, EntityContext> entityContext) {
     this.typeContextMap = entityContext;
     for (EntityContext context : entityContext.values()) {
       if (!contexts.contains(context)) {
@@ -147,8 +148,8 @@ public class TransactionContext {
     }
   }
 
-  public void snapshotMaintenance(TransactionContextMaintenanceCmds cmds, Object... params)
-      throws TransactionContextException {
+  public void snapshotMaintenance(TransactionContextMaintenanceCmds cmds,
+      Object... params) throws TransactionContextException {
     for (EntityContext context : contexts) {
       context.snapshotMaintenance(cmds, params);
     }
@@ -165,7 +166,7 @@ public class TransactionContext {
     List<EntityContextStat> stats = new ArrayList<EntityContextStat>();
     for (EntityContext context : contexts) {
       EntityContextStat stat = context.collectSnapshotStat();
-      if(stat != null) {
+      if (stat != null) {
         stats.add(stat);
       }
     }

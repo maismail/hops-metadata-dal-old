@@ -22,7 +22,8 @@ public class QuotaUpdate {
     }
   }
 
-  public QuotaUpdate(int id, int inodeId, long namespaceDelta, long diskspaceDelta) {
+  public QuotaUpdate(int id, int inodeId, long namespaceDelta,
+      long diskspaceDelta) {
     this.id = id;
     this.inodeId = inodeId;
     this.namespaceDelta = namespaceDelta;

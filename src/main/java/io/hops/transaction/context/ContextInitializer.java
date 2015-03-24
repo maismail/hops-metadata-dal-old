@@ -1,7 +1,8 @@
 package io.hops.transaction.context;
 
-import java.util.Map;
 import io.hops.StorageConnector;
+
+import java.util.Map;
 
 public interface ContextInitializer {
 

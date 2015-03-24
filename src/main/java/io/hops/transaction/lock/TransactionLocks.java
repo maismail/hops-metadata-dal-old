@@ -23,6 +23,7 @@ public interface TransactionLocks {
   }
 
   TransactionLocks add(Lock lock);
+
   TransactionLocks add(Collection<Lock> locks);
   
   boolean containsLock(Lock.Type lock);

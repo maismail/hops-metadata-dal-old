@@ -1,15 +1,16 @@
 package io.hops.metadata.yarn.dal.rmstatestore;
 
-import java.util.Collection;
-import java.util.List;
 import io.hops.exception.StorageException;
 import io.hops.metadata.common.EntityDataAccess;
 
+import java.util.Collection;
+import java.util.List;
+
 public interface ApplicationStateDataAccess<T> extends EntityDataAccess {
 
-    T findByApplicationId(String applicationid) throws StorageException;
+  T findByApplicationId(String applicationid) throws StorageException;
 
-    List<T> getAll() throws StorageException;
+  List<T> getAll() throws StorageException;
 
   void addAll(Collection<T> toAdd) throws StorageException;
 

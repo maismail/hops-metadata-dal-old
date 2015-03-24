@@ -1,12 +1,14 @@
 package io.hops;
 
-import java.util.Properties;
-import io.hops.metadata.common.EntityDataAccess;
 import io.hops.exception.StorageInitializtionException;
+import io.hops.metadata.common.EntityDataAccess;
+
+import java.util.Properties;
 
 public interface DalStorageFactory {
 
-  public void setConfiguration(Properties conf) throws StorageInitializtionException;
+  public void setConfiguration(Properties conf)
+      throws StorageInitializtionException;
 
   public StorageConnector getConnector();
 

@@ -5,7 +5,7 @@ import io.hops.metadata.common.EntityDataAccess;
 
 public interface SequenceNumberDataAccess<T> extends EntityDataAccess {
 
-    T findById(int id) throws StorageException;
+  T findById(int id) throws StorageException;
 
-    void add(T toAdd) throws StorageException;
+  void add(T toAdd) throws StorageException;
 }

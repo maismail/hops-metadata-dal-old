@@ -19,11 +19,12 @@ import java.util.Map;
 abstract class BaseEntityContext<Key, Entity> extends EntityContext<Entity> {
 
   private static boolean statsEnabled = false;
-  public static void enableStats(){
+
+  public static void enableStats() {
     statsEnabled = true;
   }
 
-  public static void disableStats(){
+  public static void disableStats() {
     statsEnabled = false;
   }
 
@@ -71,8 +72,8 @@ abstract class BaseEntityContext<Key, Entity> extends EntityContext<Entity> {
     }
   }
 
-  private final Map<Key, ContextEntity> contextEntities = new HashMap<Key,
-      ContextEntity>();
+  private final Map<Key, ContextEntity> contextEntities =
+      new HashMap<Key, ContextEntity>();
 
   private EntityContextStat contextStat;
 
@@ -156,8 +157,8 @@ abstract class BaseEntityContext<Key, Entity> extends EntityContext<Entity> {
         new Function<ContextEntity, Entity>() {
           @Override
           public Entity apply(ContextEntity input) {
-            if (input.getState() == State.REMOVED && input.firstState !=
-                State.ADDED) {
+            if (input.getState() == State.REMOVED &&
+                input.firstState != State.ADDED) {
               return input.getEntity();
             }
             return null;
@@ -182,14 +183,14 @@ abstract class BaseEntityContext<Key, Entity> extends EntityContext<Entity> {
     return filterValues(state, true);
   }
 
-  private Collection<Entity> filterValues(final State state, final boolean
-      not) {
+  private Collection<Entity> filterValues(final State state,
+      final boolean not) {
     Collection<Entity> entities = Maps.transformValues(contextEntities,
         new Function<ContextEntity, Entity>() {
           @Override
           public Entity apply(ContextEntity input) {
-            if (not ? (input.getState() != state) : (input.getState() ==
-                state)) {
+            if (not ? (input.getState() != state) :
+                (input.getState() == state)) {
               return input.getEntity();
             }
             return null;
@@ -250,13 +251,13 @@ abstract class BaseEntityContext<Key, Entity> extends EntityContext<Entity> {
 
   final Collection<Entity> get(Predicate<ContextEntity> pred) {
     Map<Key, ContextEntity> filtered = Maps.filterValues(contextEntities, pred);
-    Collection<Entity> transformed = Maps.transformValues(filtered,
-        new Function<ContextEntity, Entity>() {
-          @Override
-          public Entity apply(ContextEntity input) {
-            return input.getEntity();
-          }
-        }).values();
+    Collection<Entity> transformed =
+        Maps.transformValues(filtered, new Function<ContextEntity, Entity>() {
+              @Override
+              public Entity apply(ContextEntity input) {
+                return input.getEntity();
+              }
+            }).values();
     return Collections2.filter(transformed, Predicates.notNull());
   }
 
@@ -305,82 +306,82 @@ abstract class BaseEntityContext<Key, Entity> extends EntityContext<Entity> {
     return contextEntities.size();
   }
 
-  protected void hit(FinderType finder, Entity res, Object... params){
+  protected void hit(FinderType finder, Entity res, Object... params) {
     hit(finder, res == null ? 0 : 1, params);
   }
 
-  protected void hit(FinderType finder, Collection<Entity> res, Object...
-      params){
+  protected void hit(FinderType finder, Collection<Entity> res,
+      Object... params) {
     hit(finder, res == null ? 0 : res.size(), params);
   }
 
-  protected void miss(FinderType finder, Entity res, Object... params){
+  protected void miss(FinderType finder, Entity res, Object... params) {
     miss(finder, res == null ? 0 : 1, params);
   }
 
-  protected void miss(FinderType finder, Collection<Entity> res, Object...
-      params){
+  protected void miss(FinderType finder, Collection<Entity> res,
+      Object... params) {
     miss(finder, res == null ? 0 : res.size(), params);
   }
 
-  protected void missUpgrade(FinderType finder, Entity res, Object... params){
+  protected void missUpgrade(FinderType finder, Entity res, Object... params) {
     missUpgrade(finder, res == null ? 0 : 1, params);
   }
 
-  protected void missUpgrade(FinderType finder, Collection<Entity> res, Object...
-      params){
+  protected void missUpgrade(FinderType finder, Collection<Entity> res,
+      Object... params) {
     missUpgrade(finder, res == null ? 0 : res.size(), params);
   }
 
 
-  private void hit(FinderType finder, int count, Object... params){
+  private void hit(FinderType finder, int count, Object... params) {
     log(finder, CacheHitState.HIT, params);
     hit(finder, count);
   }
 
-  private void miss(FinderType finder, int count, Object... params){
+  private void miss(FinderType finder, int count, Object... params) {
     miss(finder, CacheHitState.LOSS, count, params);
   }
 
-  private void missUpgrade(FinderType finder, int count, Object... params){
+  private void missUpgrade(FinderType finder, int count, Object... params) {
     miss(finder, CacheHitState.LOSS_LOCK_UPGRADE, count, params);
   }
 
   private void miss(FinderType finder, CacheHitState state, int count, Object
-      ... params){
+      ... params) {
     log(finder, state, params);
     miss(finder, count);
   }
 
 
-
-  private void hit(FinderType finderType, int count){
-    if(statsEnabled) {
+  private void hit(FinderType finderType, int count) {
+    if (statsEnabled) {
       getContextStat().hit(finderType, count);
     }
   }
 
-  private void miss(FinderType finderType, int count){
-    if(statsEnabled) {
+  private void miss(FinderType finderType, int count) {
+    if (statsEnabled) {
       getContextStat().miss(finderType, count);
     }
   }
 
-  private EntityContextStat getContextStat(){
-    if(contextStat == null){
+  private EntityContextStat getContextStat() {
+    if (contextStat == null) {
       contextStat = new EntityContextStat(this.getClass().getSimpleName());
     }
     return contextStat;
   }
 
-  private EntityContextStat resetContextStat(){
-    if(statsEnabled) {
+  private EntityContextStat resetContextStat() {
+    if (statsEnabled) {
       EntityContextStat stat = getContextStat();
-      stat.commited(getAdded().size(), getModified().size(), getRemoved
-          ().size());
+      stat.commited(getAdded().size(), getModified().size(),
+          getRemoved().size());
       contextStat = null;
-      if(stat.isEmpty())
+      if (stat.isEmpty()) {
         stat = null;
+      }
       return stat;
     }
     return null;

@@ -1,8 +1,9 @@
 package io.hops.transaction.handler;
 
-import java.io.IOException;
 import io.hops.exception.TransientStorageException;
 import io.hops.log.NDCWrapper;
+
+import java.io.IOException;
 
 public abstract class LightWeightRequestHandler extends RequestHandler {
 
@@ -20,7 +21,8 @@ public abstract class LightWeightRequestHandler extends RequestHandler {
       exponentialBackoff();
       tryCount++;
       try {
-        NDCWrapper.push(opType.toString()); // Defines a context for every operation to track them in the logs easily.
+        NDCWrapper.push(opType
+            .toString()); // Defines a context for every operation to track them in the logs easily.
 
         //In a tx if the lock level is set to write, does
         //it mean that all the operations after seting the lock will use write lcok?
@@ -38,10 +40,10 @@ public abstract class LightWeightRequestHandler extends RequestHandler {
         rollback = true;
         if (tryCount <= RETRY_COUNT) {
           totalTime = System.currentTimeMillis() - totalTime;
-          log.error("Tx Failed. total tx time " + " TotalRetryCount("
-                  + RETRY_COUNT + ") RemainingRetries(" + (RETRY_COUNT
-                  - tryCount) + ") TX Stats: ms, Total Time: " + totalTime
-                  + "ms", e);
+          log.error(
+              "Tx Failed. total tx time " + " TotalRetryCount(" + RETRY_COUNT +
+                  ") RemainingRetries(" + (RETRY_COUNT - tryCount) +
+                  ") TX Stats: ms, Total Time: " + totalTime + "ms", e);
         } else {
           log.debug("Transaction failed after " + RETRY_COUNT + " retries.", e);
           throw e;

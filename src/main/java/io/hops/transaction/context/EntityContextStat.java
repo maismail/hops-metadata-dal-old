@@ -22,22 +22,22 @@ public class EntityContextStat {
     private int deletedRows = 0;
 
     private EnumMap<FinderType.Annotation, HitMissCounter> annotated =
-        new
-        EnumMap<FinderType.Annotation, HitMissCounter>(FinderType.Annotation.class);
+        new EnumMap<FinderType.Annotation, HitMissCounter>(
+            FinderType.Annotation.class);
 
-    void hit(FinderType finderType, int hitRowsCount){
+    void hit(FinderType finderType, int hitRowsCount) {
       getCounter(finderType.getAnnotated()).hit(hitRowsCount);
       hitMissCounter.hit(hitRowsCount);
     }
 
-    void miss(FinderType finderType, int missRowsCount){
+    void miss(FinderType finderType, int missRowsCount) {
       getCounter(finderType.getAnnotated()).miss(missRowsCount);
       hitMissCounter.miss(missRowsCount);
     }
 
-    HitMissCounter getCounter(FinderType.Annotation annotation){
+    HitMissCounter getCounter(FinderType.Annotation annotation) {
       HitMissCounter counter = annotated.get(annotation);
-      if(counter == null){
+      if (counter == null) {
         counter = new HitMissCounter();
         annotated.put(annotation, counter);
       }
@@ -53,8 +53,8 @@ public class EntityContextStat {
     void update(StatsAggregator statsAggregator) {
       update(statsAggregator.newRows, statsAggregator.modifiedRows,
           statsAggregator.deletedRows);
-      for (EnumMap.Entry<FinderType.Annotation, HitMissCounter> e : statsAggregator
-          .annotated.entrySet()) {
+      for (EnumMap.Entry<FinderType.Annotation, HitMissCounter> e : statsAggregator.annotated
+          .entrySet()) {
         getCounter(e.getKey()).update(e.getValue());
       }
       hitMissCounter.update(statsAggregator.hitMissCounter);
@@ -64,9 +64,7 @@ public class EntityContextStat {
     String getRowStats() {
       return String
           .format("N=%-" + NUMBER_WIDTH + "d M=%-" + NUMBER_WIDTH + "d " +
-                  "R=%-" + NUMBER_WIDTH + "d",
-              newRows,
-              modifiedRows,
+                  "R=%-" + NUMBER_WIDTH + "d", newRows, modifiedRows,
               deletedRows);
     }
 
@@ -83,7 +81,7 @@ public class EntityContextStat {
       for (EnumMap.Entry<FinderType.Annotation, HitMissCounter> e : annotated
           .entrySet()) {
         String onlyMisses = e.getValue().onlyMisses();
-        if(!onlyMisses.isEmpty()) {
+        if (!onlyMisses.isEmpty()) {
           formatter.format("%s %s ", e.getKey().getShort(), onlyMisses);
         }
       }
@@ -98,7 +96,7 @@ public class EntityContextStat {
       StringBuilder sb = new StringBuilder();
       sb.append(prefix + "  " + getRowStats() + NEW_LINE);
       String hitMisses = getHitsMisses();
-      if(!hitMisses.isEmpty()){
+      if (!hitMisses.isEmpty()) {
         sb.append(prefix + "  " + hitMisses + NEW_LINE);
       }
       String detailedMisses = getDetailedMisses();
@@ -112,7 +110,7 @@ public class EntityContextStat {
       StringBuilder sb = new StringBuilder();
       sb.append(getCSF(prefix + "  " + getRowStats()));
       String hitMisses = getHitsMisses();
-      if(!hitMisses.isEmpty()){
+      if (!hitMisses.isEmpty()) {
         sb.append(getCSF(prefix + "  " + hitMisses));
       }
       String detailedMisses = getDetailedMisses();
@@ -134,43 +132,44 @@ public class EntityContextStat {
     int misses;
     int missesRowsCount;
 
-    void hit(int hitsRowsCount){
+    void hit(int hitsRowsCount) {
       hit(1, hitsRowsCount);
     }
 
-    void miss(int missesRowsCount){
+    void miss(int missesRowsCount) {
       miss(1, missesRowsCount);
     }
 
-    void hit(int hits, int hitsRowsCount){
+    void hit(int hits, int hitsRowsCount) {
       this.hits += hits;
       this.hitsRowsCount += hitsRowsCount;
     }
 
-    void miss(int misses, int missesRowsCount){
+    void miss(int misses, int missesRowsCount) {
       this.misses += misses;
-      this.missesRowsCount+= missesRowsCount;
+      this.missesRowsCount += missesRowsCount;
     }
 
-    void update(HitMissCounter other){
+    void update(HitMissCounter other) {
       hit(other.hits, other.hitsRowsCount);
       miss(other.misses, other.missesRowsCount);
     }
 
-    String onlyMisses(){
-      if(misses == 0)
-        return  "";
+    String onlyMisses() {
+      if (misses == 0) {
+        return "";
+      }
       return String.format("%d(%d)", misses, missesRowsCount);
     }
 
     @Override
     public String toString() {
-      if(hits == 0 && misses == 0)
+      if (hits == 0 && misses == 0) {
         return "";
-      return String
-          .format("Hits=%d(%d) Misses=%d(%d)" + (misses > hits ? " MORE DATA THAN NEEDED" : ""),
-              hits, hitsRowsCount,
-              misses, missesRowsCount);
+      }
+      return String.format("Hits=%d(%d) Misses=%d(%d)" +
+          (misses > hits ? " MORE DATA THAN NEEDED" : ""), hits, hitsRowsCount,
+          misses, missesRowsCount);
     }
   }
 
@@ -227,12 +226,11 @@ public class EntityContextStat {
     sb.append(getCF("----------------------------------------"));
     sb.append(getCF(contextName));
 
-    for (Map.Entry<FinderType, HitMissCounter> e :
-        operationsStats.entrySet()) {
+    for (Map.Entry<FinderType, HitMissCounter> e : operationsStats.entrySet()) {
       sb.append(
-          getOPF("%s[%s] H=%-" + NUMBER_WIDTH + "d M=%-" + NUMBER_WIDTH + "d", e
-              .getKey(), e.getKey().getAnnotated().getShort(), e.getValue()
-              .hits, e.getValue().misses));
+          getOPF("%s[%s] H=%-" + NUMBER_WIDTH + "d M=%-" + NUMBER_WIDTH + "d",
+              e.getKey(), e.getKey().getAnnotated().getShort(),
+              e.getValue().hits, e.getValue().misses));
     }
 
     sb.append(getCSF(statsAggregator.getRowStats()));
@@ -248,21 +246,17 @@ public class EntityContextStat {
 
   static String getOPF(String format, Object... params) {
     return String.format(getStringSpacing(OPERATION_INDENTATION) + format +
-        NEW_LINE, prefix
-        ("",
-            params));
+        NEW_LINE, prefix("", params));
   }
 
   static String getCSF(String format, Object... params) {
     return String.format(getStringSpacing(CONTEXT_STAT_INDENTATION) + format +
-        NEW_LINE, prefix("",
-        params));
+        NEW_LINE, prefix("", params));
   }
 
   static String getCF(String format, Object... params) {
     return String.format(getStringSpacing(CONTEXT_INDENTATION) + format +
-        NEW_LINE, prefix("",
-        params));
+        NEW_LINE, prefix("", params));
   }
 
   private static Object[] prefix(Object p, Object[] params) {

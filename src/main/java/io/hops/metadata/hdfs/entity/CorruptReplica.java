@@ -6,7 +6,8 @@ public class CorruptReplica extends Replica {
 
   public static enum Finder implements FinderType<CorruptReplica> {
 
-    ByINodeId, ByINodeIds,
+    ByINodeId,
+    ByINodeIds,
     ByBlockIdAndINodeId;
 
     @Override
@@ -16,11 +17,15 @@ public class CorruptReplica extends Replica {
 
     @Override
     public Annotation getAnnotated() {
-      switch (this){
-          case ByBlockIdAndINodeId: return Annotation.PrunedIndexScan;
-          case ByINodeId: return Annotation.PrunedIndexScan;
-          case ByINodeIds: return Annotation.BatchedPrunedIndexScan;
-          default: throw new IllegalStateException();
+      switch (this) {
+        case ByBlockIdAndINodeId:
+          return Annotation.PrunedIndexScan;
+        case ByINodeId:
+          return Annotation.PrunedIndexScan;
+        case ByINodeIds:
+          return Annotation.BatchedPrunedIndexScan;
+        default:
+          throw new IllegalStateException();
       }
     }
 

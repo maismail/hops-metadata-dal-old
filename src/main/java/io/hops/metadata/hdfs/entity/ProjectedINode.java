@@ -12,8 +12,9 @@ public class ProjectedINode implements Comparable<ProjectedINode> {
   private boolean subtreeLocked;
   private long subtreeLockOwner;
 
-  public ProjectedINode(int id, int parentId, String name, byte[] permission, long header, boolean symlink,
-      boolean dirWithQuota, boolean underConstruction, boolean subtreeLocked, long subtreeLockOwner) {
+  public ProjectedINode(int id, int parentId, String name, byte[] permission,
+      long header, boolean symlink, boolean dirWithQuota,
+      boolean underConstruction, boolean subtreeLocked, long subtreeLockOwner) {
     this.id = id;
     this.parentId = parentId;
     this.name = name;
@@ -75,7 +76,7 @@ public class ProjectedINode implements Comparable<ProjectedINode> {
   }
 
   public boolean isDirectory() {
-    return header ==0 && !symlink;
+    return header == 0 && !symlink;
   }
 
   public boolean isDirWithQuota() {
@@ -112,14 +113,24 @@ public class ProjectedINode implements Comparable<ProjectedINode> {
 
   @Override
   public boolean equals(Object o) {
-    if (this == o) return true;
-    if (o == null || getClass() != o.getClass()) return false;
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
 
     ProjectedINode that = (ProjectedINode) o;
 
-    if (id != that.id) return false;
-    if (parentId != that.parentId) return false;
-    if (!name.equals(that.name)) return false;
+    if (id != that.id) {
+      return false;
+    }
+    if (parentId != that.parentId) {
+      return false;
+    }
+    if (!name.equals(that.name)) {
+      return false;
+    }
 
     return true;
   }
@@ -134,8 +145,12 @@ public class ProjectedINode implements Comparable<ProjectedINode> {
 
   @Override
   public int compareTo(ProjectedINode other) {
-    if (id < other.getId()) return -1;
-    if (id > other.getId()) return 1;
+    if (id < other.getId()) {
+      return -1;
+    }
+    if (id > other.getId()) {
+      return 1;
+    }
     return 0;
   }
 }

@@ -1,35 +1,33 @@
-
-
 package io.hops.metadata.yarn.entity.fair;
 
 public class FSSchedulerNode {
-    
-    private final String rmnodeid;
-    private final int numcontainers;
-    private final String reservedcontainerId;
-    private final String reservedappschedulableId;
 
-    public FSSchedulerNode(String rmnodeid, int numcontainers,
-        String reservedcontainerId, String reservedappschedulableId) {
-        this.rmnodeid = rmnodeid;
-        this.numcontainers = numcontainers;
-        this.reservedcontainerId = reservedcontainerId;
-        this.reservedappschedulableId = reservedappschedulableId;
-    }
+  private final String rmnodeid;
+  private final int numcontainers;
+  private final String reservedcontainerId;
+  private final String reservedappschedulableId;
 
-    public String getRmnodeid() {
-        return rmnodeid;
-    }
+  public FSSchedulerNode(String rmnodeid, int numcontainers,
+      String reservedcontainerId, String reservedappschedulableId) {
+    this.rmnodeid = rmnodeid;
+    this.numcontainers = numcontainers;
+    this.reservedcontainerId = reservedcontainerId;
+    this.reservedappschedulableId = reservedappschedulableId;
+  }
 
-    public int getNumcontainers() {
-        return numcontainers;
-    }
+  public String getRmnodeid() {
+    return rmnodeid;
+  }
 
-    public String getReservedcontainerId() {
-        return reservedcontainerId;
-    }
+  public int getNumcontainers() {
+    return numcontainers;
+  }
 
-    public String getReservedappschedulableId() {
-        return reservedappschedulableId;
-    }
+  public String getReservedcontainerId() {
+    return reservedcontainerId;
+  }
+
+  public String getReservedappschedulableId() {
+    return reservedappschedulableId;
+  }
 }

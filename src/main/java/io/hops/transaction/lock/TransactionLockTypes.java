@@ -17,31 +17,51 @@ package io.hops.transaction.lock;
 
 public class TransactionLockTypes {
   public enum LockType {
-    /** No lock */
+    /**
+     * No lock
+     */
     READ_COMMITTED,
-    /** Read lock */
+    /**
+     * Read lock
+     */
     READ,
-    /** Write lock */
+    /**
+     * Write lock
+     */
     WRITE
   }
 
   public enum INodeLockType {
-    /** No lock */
+    /**
+     * No lock
+     */
     READ_COMMITTED,
-    /** Read lock */
+    /**
+     * Read lock
+     */
     READ,
-    /** Write lock */
+    /**
+     * Write lock
+     */
     WRITE,
-    /**  Write lock on the target component and its parent. */
+    /**
+     * Write lock on the target component and its parent.
+     */
     WRITE_ON_TARGET_AND_PARENT
   }
 
   public enum INodeResolveType {
-    /** Resolve only the given path */
+    /**
+     * Resolve only the given path
+     */
     PATH,
-    /** Resolve path and find the given directory's children */
+    /**
+     * Resolve path and find the given directory's children
+     */
     PATH_AND_IMMEDIATE_CHILDREN,
-    /** Resolve the given path and find all the children recursively. */
+    /**
+     * Resolve the given path and find all the children recursively.
+     */
     PATH_AND_ALL_CHILDREN_RECURSIVELY
   }
 

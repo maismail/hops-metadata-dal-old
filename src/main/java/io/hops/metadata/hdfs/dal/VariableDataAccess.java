@@ -1,10 +1,10 @@
 package io.hops.metadata.hdfs.dal;
 
-import java.util.Collection;
-
 import io.hops.exception.StorageException;
 import io.hops.metadata.common.EntityDataAccess;
 import io.hops.metadata.common.entity.Variable;
+
+import java.util.Collection;
 
 public interface VariableDataAccess<T, Finder> extends EntityDataAccess {
 
@@ -12,5 +12,6 @@ public interface VariableDataAccess<T, Finder> extends EntityDataAccess {
   
   void setVariable(Variable var) throws StorageException;
   
-  void prepare(Collection<T> newVariables, Collection<T> updatedVariables,  Collection<T> removedVariables) throws StorageException;
+  void prepare(Collection<T> newVariables, Collection<T> updatedVariables,
+      Collection<T> removedVariables) throws StorageException;
 }

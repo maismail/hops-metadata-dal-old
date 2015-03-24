@@ -1,13 +1,13 @@
 package io.hops.transaction.handler;
 
 import io.hops.exception.StorageException;
+import io.hops.exception.TransientStorageException;
 import io.hops.log.NDCWrapper;
 import io.hops.transaction.EntityManager;
 import io.hops.transaction.TransactionInfo;
 import io.hops.transaction.context.TransactionsStats;
 import io.hops.transaction.lock.TransactionLockAcquirer;
 import io.hops.transaction.lock.TransactionLocks;
-import io.hops.exception.TransientStorageException;
 
 import java.io.IOException;
 
@@ -50,7 +50,7 @@ public abstract class TransactionalRequestHandler extends RequestHandler {
         setNDC(info);
         log.debug("Pretransaction phase started");
         preTransactionSetup();
-//sometimes in setup we call light weight request handler that messes up with the NDC
+        //sometimes in setup we call light weight request handler that messes up with the NDC
         removeNDC();
         setNDC(info);
         setupTime = (System.currentTimeMillis() - oldTime);
@@ -85,7 +85,9 @@ public abstract class TransactionalRequestHandler extends RequestHandler {
         }
         inMemoryProcessingTime = (System.currentTimeMillis() - oldTime);
         oldTime = System.currentTimeMillis();
-        log.debug("In Memory Processing Finished. Time " + inMemoryProcessingTime + " ms");
+        log.debug(
+            "In Memory Processing Finished. Time " + inMemoryProcessingTime +
+                " ms");
 
         TransactionsStats.getInstance().collectStats(opType, ignoredException);
 
@@ -94,7 +96,8 @@ public abstract class TransactionalRequestHandler extends RequestHandler {
         commitTime = (System.currentTimeMillis() - oldTime);
         log.debug("TX committed. Time " + commitTime + " ms");
         totalTime = (System.currentTimeMillis() - txStartTime);
-        log.debug("TX Finished. TX Stats: Try Count: " + tryCount + " Wait Before Next Retry:" +
+        log.debug("TX Finished. TX Stats: Try Count: " + tryCount +
+            " Wait Before Next Retry:" +
             expWaitTime + " Stepup: " + setupTime + " ms, Begin Tx:" +
             beginTxTime + " ms, Acquire Locks: " + acquireLockTime +
             "ms, In Memory Processing: " + inMemoryProcessingTime +
@@ -168,32 +171,33 @@ public abstract class TransactionalRequestHandler extends RequestHandler {
     return this;
   }
 
-  private void setNDC(Object info){
+  private void setNDC(Object info) {
     // Defines a context for every operation to track them in the logs easily.
     if (info != null && info instanceof TransactionInfo) {
-          NDCWrapper.push(((TransactionInfo) info).getContextName(opType));
-        } else {
-          NDCWrapper.push(opType.toString());
-        }
+      NDCWrapper.push(((TransactionInfo) info).getContextName(opType));
+    } else {
+      NDCWrapper.push(opType.toString());
+    }
   }
   
-  private void removeNDC(){
+  private void removeNDC() {
     NDCWrapper.clear();
     NDCWrapper.remove();
   }
-  private void setRandomPartitioningKey() throws StorageException,
-      StorageException {
-        //      Random rand =new Random(System.currentTimeMillis());
-        //      Integer partKey = new Integer(rand.nextInt());
-        //      //set partitioning key
-        //      Object[] pk = new Object[2];
-        //      pk[0] = partKey;
-        //      pk[1] = Integer.toString(partKey);
-        //
-        //      EntityManager.setPartitionKey(INodeDataAccess.class, pk);
-        //
-        ////      EntityManager.readCommited();
-        ////      EntityManager.find(INode.Finder.ByPK_NameAndParentId, "", partKey);
+
+  private void setRandomPartitioningKey()
+      throws StorageException, StorageException {
+    //      Random rand =new Random(System.currentTimeMillis());
+    //      Integer partKey = new Integer(rand.nextInt());
+    //      //set partitioning key
+    //      Object[] pk = new Object[2];
+    //      pk[0] = partKey;
+    //      pk[1] = Integer.toString(partKey);
+    //
+    //      EntityManager.setPartitionKey(INodeDataAccess.class, pk);
+    //
+    ////      EntityManager.readCommited();
+    ////      EntityManager.find(INode.Finder.ByPK_NameAndParentId, "", partKey);
     
   }
 

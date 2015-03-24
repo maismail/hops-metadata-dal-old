@@ -26,8 +26,7 @@ public class LeVariables {
   private final static String TIME_PERIOD = "TIME_PERIOD";
   private final static String MAX_ID = "MAX_ID";
 
-  public LeVariables(boolean evictFlag, long time_period,
-      long max_id) {
+  public LeVariables(boolean evictFlag, long time_period, long max_id) {
     this.evictFlag = evictFlag;
     this.timePeriod = time_period;
     this.maxId = max_id;
@@ -63,9 +62,8 @@ public class LeVariables {
 
   @Override
   public String toString() {
-    return EVICT_FLAG+":"+evictFlag+";"
-            +TIME_PERIOD+":"+timePeriod+";"
-            +MAX_ID+":"+maxId;
+    return EVICT_FLAG + ":" + evictFlag + ";" + TIME_PERIOD + ":" + timePeriod +
+        ";" + MAX_ID + ":" + maxId;
   }
 
   public boolean isEvictFlag() {

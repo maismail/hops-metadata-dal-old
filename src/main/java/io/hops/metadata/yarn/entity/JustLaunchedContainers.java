@@ -20,8 +20,8 @@ public class JustLaunchedContainers {
 
   @Override
   public String toString() {
-    return "HopJustLaunchedContainers{" + "rmnodeid=" + rmnodeid
-            + ", containerid=" + containerid + '}';
+    return "HopJustLaunchedContainers{" + "rmnodeid=" + rmnodeid +
+        ", containerid=" + containerid + '}';
   }
 
 }

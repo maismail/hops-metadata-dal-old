@@ -1,16 +1,14 @@
 package io.hops.metadata;
 
-import java.io.IOException;
+import io.hops.exception.StorageException;
+
 import java.util.ArrayList;
 import java.util.Collection;
 
-import io.hops.exception.StorageException;
-import io.hops.exception.StorageException;
-
 public abstract class DalAdaptor<HDFSClass, DALClass> {
 
-  public Collection<DALClass> convertHDFStoDAL(Collection<HDFSClass> hdfsCollection)
-      throws StorageException {
+  public Collection<DALClass> convertHDFStoDAL(
+      Collection<HDFSClass> hdfsCollection) throws StorageException {
     Collection<DALClass> dalCollection = new ArrayList<DALClass>();
     if (hdfsCollection != null) {
       for (HDFSClass hdfsClass : hdfsCollection) {
@@ -23,8 +21,8 @@ public abstract class DalAdaptor<HDFSClass, DALClass> {
   public abstract DALClass convertHDFStoDAL(HDFSClass hdfsClass)
       throws StorageException;
 
-  public Collection<HDFSClass> convertDALtoHDFS(Collection<DALClass> dalCollection)
-      throws StorageException {
+  public Collection<HDFSClass> convertDALtoHDFS(
+      Collection<DALClass> dalCollection) throws StorageException {
     Collection<HDFSClass> hdfsCollection = null;
     if (dalCollection != null) {
       try {

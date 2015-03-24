@@ -25,7 +25,7 @@ public class INodeIdentifier {
     this(inodeID, null, null);
   }
 
-  public INodeIdentifier(Integer inodeID, Integer parentId, String name){
+  public INodeIdentifier(Integer inodeID, Integer parentId, String name) {
     this.inodeID = inodeID;
     this.pid = parentId;
     this.name = name;
@@ -69,13 +69,16 @@ public class INodeIdentifier {
       return false;
     }
     final INodeIdentifier other = (INodeIdentifier) obj;
-    if (this.inodeID != other.inodeID && (this.inodeID == null || !this.inodeID.equals(other.inodeID))) {
+    if (this.inodeID != other.inodeID &&
+        (this.inodeID == null || !this.inodeID.equals(other.inodeID))) {
       return false;
     }
-    if (this.pid != other.pid && (this.pid == null || !this.pid.equals(other.pid))) {
+    if (this.pid != other.pid &&
+        (this.pid == null || !this.pid.equals(other.pid))) {
       return false;
     }
-    if ((this.name == null) ? (other.name != null) : !this.name.equals(other.name)) {
+    if ((this.name == null) ? (other.name != null) :
+        !this.name.equals(other.name)) {
       return false;
     }
     return true;
@@ -83,6 +86,7 @@ public class INodeIdentifier {
 
   @Override
   public String toString() {
-    return "INodeIdentifier{" + "inodeID=" + inodeID + ", pid=" + pid + ", name=" + name + '}';
+    return "INodeIdentifier{" + "inodeID=" + inodeID + ", pid=" + pid +
+        ", name=" + name + '}';
   }
 }

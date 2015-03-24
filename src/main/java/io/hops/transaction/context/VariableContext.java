@@ -2,34 +2,31 @@ package io.hops.transaction.context;
 
 import io.hops.exception.LockUpgradeException;
 import io.hops.exception.StorageException;
+import io.hops.exception.TransactionContextException;
 import io.hops.metadata.common.FinderType;
 import io.hops.metadata.common.entity.Variable;
-import io.hops.transaction.lock.Lock;
-import io.hops.transaction.lock.TransactionLocks;
-import io.hops.exception.TransactionContextException;
 import io.hops.metadata.hdfs.dal.VariableDataAccess;
-import io.hops.transaction.lock.VariablesLock;
+import io.hops.transaction.lock.Lock;
 import io.hops.transaction.lock.TransactionLockTypes;
+import io.hops.transaction.lock.TransactionLocks;
+import io.hops.transaction.lock.VariablesLock;
 
 import java.util.Collection;
 
-public class VariableContext extends BaseEntityContext<Variable.Finder,
-    Variable> {
+public class VariableContext
+    extends BaseEntityContext<Variable.Finder, Variable> {
 
   private final VariableDataAccess<Variable, Variable.Finder> dataAccess;
 
-  public VariableContext(
-      VariableDataAccess dataAccess) {
+  public VariableContext(VariableDataAccess dataAccess) {
     this.dataAccess = dataAccess;
   }
 
   @Override
-  public void update(Variable hopVariable)
-      throws TransactionContextException {
+  public void update(Variable hopVariable) throws TransactionContextException {
     super.update(hopVariable);
-    log(
-        "updated-" + hopVariable.getType().toString(),
-        "value", hopVariable.toString());
+    log("updated-" + hopVariable.getType().toString(), "value",
+        hopVariable.toString());
   }
 
 
@@ -56,8 +53,7 @@ public class VariableContext extends BaseEntityContext<Variable.Finder,
     Collection<Variable> added = getAdded();
     Collection<Variable> modified = getModified();
     if (lks.containsLock(Lock.Type.Variable)) {
-      VariablesLock hlk =
-          (VariablesLock) lks.getLock(Lock.Type.Variable);
+      VariablesLock hlk = (VariablesLock) lks.getLock(Lock.Type.Variable);
       checkLockUpgrade(hlk, added);
       checkLockUpgrade(hlk, modified);
     }
@@ -69,12 +65,10 @@ public class VariableContext extends BaseEntityContext<Variable.Finder,
   }
 
   private void checkLockUpgrade(VariablesLock hlk,
-      Collection<Variable> variables) throws
-      LockUpgradeException {
+      Collection<Variable> variables) throws LockUpgradeException {
     for (Variable var : variables) {
       if (!hlk.getVariableLockType(var.getType())
-          .equals(TransactionLockTypes.LockType
-              .WRITE)) {
+          .equals(TransactionLockTypes.LockType.WRITE)) {
         throw new LockUpgradeException(var.getType().toString());
       }
     }

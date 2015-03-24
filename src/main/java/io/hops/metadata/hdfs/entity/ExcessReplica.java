@@ -7,7 +7,9 @@ public class ExcessReplica extends Replica {
   public static enum Finder implements FinderType<ExcessReplica> {
 
     ByBlockIdStorageIdAndINodeId,
-    ByBlockIdAndINodeId, ByINodeId, ByINodeIds;
+    ByBlockIdAndINodeId,
+    ByINodeId,
+    ByINodeIds;
 
     @Override
     public Class getType() {
@@ -16,12 +18,17 @@ public class ExcessReplica extends Replica {
 
     @Override
     public Annotation getAnnotated() {
-      switch (this){
-        case ByBlockIdStorageIdAndINodeId: return Annotation.PrimaryKey;
-        case ByBlockIdAndINodeId: return Annotation.PrunedIndexScan;
-        case ByINodeId: return Annotation.PrunedIndexScan;
-        case ByINodeIds: return Annotation.BatchedPrunedIndexScan;
-        default: throw new IllegalStateException();
+      switch (this) {
+        case ByBlockIdStorageIdAndINodeId:
+          return Annotation.PrimaryKey;
+        case ByBlockIdAndINodeId:
+          return Annotation.PrunedIndexScan;
+        case ByINodeId:
+          return Annotation.PrunedIndexScan;
+        case ByINodeIds:
+          return Annotation.BatchedPrunedIndexScan;
+        default:
+          throw new IllegalStateException();
       }
     }
 

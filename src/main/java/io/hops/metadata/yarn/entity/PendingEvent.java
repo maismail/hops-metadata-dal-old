@@ -17,7 +17,8 @@ public class PendingEvent implements Comparable<PendingEvent> {
 
   /**
    * Returns the globally unique id of the pending event.
-   * <p>
+   * <p/>
+   *
    * @return
    */
   public int getId() {
@@ -26,7 +27,8 @@ public class PendingEvent implements Comparable<PendingEvent> {
 
   /**
    * Returns the RMNode id for which the event will be triggered.
-   * <p>
+   * <p/>
+   *
    * @return
    */
   public String getRmnodeId() {
@@ -35,7 +37,8 @@ public class PendingEvent implements Comparable<PendingEvent> {
 
   /**
    * Returns the event type, for example NODE_ADDED.
-   * <p>
+   * <p/>
+   *
    * @return
    */
   public byte getType() {
@@ -44,7 +47,8 @@ public class PendingEvent implements Comparable<PendingEvent> {
 
   /**
    * Returns the node status, either NEW, PENDING, COMPLETED.
-   * <p>
+   * <p/>
+   *
    * @return
    */
   public byte getStatus() {
@@ -53,8 +57,8 @@ public class PendingEvent implements Comparable<PendingEvent> {
 
   @Override
   public String toString() {
-    return "HopPendingEvent{" + "rmnodeId=" + rmnodeId + ", type=" + type
-            + ", status=" + status + ", id=" + id + '}';
+    return "HopPendingEvent{" + "rmnodeId=" + rmnodeId + ", type=" + type +
+        ", status=" + status + ", id=" + id + '}';
   }
 
   @Override
@@ -79,7 +83,6 @@ public class PendingEvent implements Comparable<PendingEvent> {
     return true;
   }
 
-  
 
   @Override
   public int compareTo(PendingEvent o) {

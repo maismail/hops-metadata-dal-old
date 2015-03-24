@@ -6,11 +6,11 @@ import io.hops.exception.TransactionContextException;
 import io.hops.metadata.common.CounterType;
 import io.hops.metadata.common.FinderType;
 import io.hops.transaction.lock.TransactionLocks;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 import java.util.Arrays;
 import java.util.Collection;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 
 public abstract class EntityContext<T> {
 
@@ -31,9 +31,13 @@ public abstract class EntityContext<T> {
 
   public enum LockMode {
 
-    READ_LOCK, WRITE_LOCK, READ_COMMITTED
+    READ_LOCK,
+    WRITE_LOCK,
+    READ_COMMITTED
   }
-  public static ThreadLocal<LockMode> currentLockMode = new ThreadLocal<LockMode>();
+
+  public static ThreadLocal<LockMode> currentLockMode =
+      new ThreadLocal<LockMode>();
 
   /**
    * Defines the cache state of the request. This enum is only used for logging
@@ -41,95 +45,110 @@ public abstract class EntityContext<T> {
    */
   enum CacheHitState {
 
-    HIT, LOSS, LOSS_LOCK_UPGRADE, NA
+    HIT,
+    LOSS,
+    LOSS_LOCK_UPGRADE,
+    NA
   }
 
   /**
-   *
-   * @throws io.hops.exception.TransactionContextException If the context encounters an illegal state
-   * @throws io.hops.exception.StorageException If database errors occur
+   * @throws io.hops.exception.TransactionContextException
+   *     If the context encounters an illegal state
+   * @throws io.hops.exception.StorageException
+   *     If database errors occur
    */
-  public abstract void add(T entity) throws TransactionContextException,
-      StorageException;
+  public abstract void add(T entity)
+      throws TransactionContextException, StorageException;
 
   /**
-   *
-   * @throws TransactionContextException If the context encounters an illegal state
+   * @throws TransactionContextException
+   *     If the context encounters an illegal state
    */
   public abstract void clear() throws TransactionContextException;
 
   /**
-   *
-   * @throws TransactionContextException If the context encounters an illegal state
-   * @throws StorageException If database errors occur
+   * @throws TransactionContextException
+   *     If the context encounters an illegal state
+   * @throws StorageException
+   *     If database errors occur
    */
   public abstract int count(CounterType<T> counter, Object... params)
       throws TransactionContextException, StorageException;
 
   /**
-   *
-   * @throws TransactionContextException If the context encounters an illegal state
-   * @throws StorageException If database errors occur
+   * @throws TransactionContextException
+   *     If the context encounters an illegal state
+   * @throws StorageException
+   *     If database errors occur
    */
   public abstract T find(FinderType<T> finder, Object... params)
       throws TransactionContextException, StorageException;
 
   /**
-   *
-   * @throws TransactionContextException If the context encounters an illegal state
-   * @throws StorageException If database errors occur
+   * @throws TransactionContextException
+   *     If the context encounters an illegal state
+   * @throws StorageException
+   *     If database errors occur
    */
   public abstract Collection<T> findList(FinderType<T> finder, Object... params)
       throws TransactionContextException, StorageException;
 
   /**
-   *
-   * @throws TransactionContextException If the context encounters an illegal state
-   * @throws StorageException If database errors occur
+   * @throws TransactionContextException
+   *     If the context encounters an illegal state
+   * @throws StorageException
+   *     If database errors occur
    */
-  public abstract void prepare(TransactionLocks tlm) throws TransactionContextException, StorageException;
+  public abstract void prepare(TransactionLocks tlm)
+      throws TransactionContextException, StorageException;
 
   /**
-   *
-   * @throws TransactionContextException If the context encounters an illegal state
+   * @throws TransactionContextException
+   *     If the context encounters an illegal state
    */
   public abstract void remove(T entity) throws TransactionContextException;
 
   /**
-   *
-   * @throws TransactionContextException If the context encounters an illegal state
-   * @throws StorageException If database errors occur
+   * @throws TransactionContextException
+   *     If the context encounters an illegal state
+   * @throws StorageException
+   *     If database errors occur
    */
-  public abstract void removeAll() throws TransactionContextException, StorageException;
+  public abstract void removeAll()
+      throws TransactionContextException, StorageException;
 
   /**
-   *
-   * @throws TransactionContextException If the context encounters an illegal state
+   * @throws TransactionContextException
+   *     If the context encounters an illegal state
    */
   public abstract void update(T entity) throws TransactionContextException;
 
   /**
-   *
-   * @throws TransactionContextException If the context encounters an illegal state
+   * @throws TransactionContextException
+   *     If the context encounters an illegal state
    */
-  public abstract void snapshotMaintenance(TransactionContextMaintenanceCmds cmds, Object... params)
+  public abstract void snapshotMaintenance(
+      TransactionContextMaintenanceCmds cmds, Object... params)
       throws TransactionContextException;
 
   /**
-   *
-   * @throws TransactionContextException If the context encounters an illegal state
+   * @throws TransactionContextException
+   *     If the context encounters an illegal state
    */
-  public EntityContextStat collectSnapshotStat() throws TransactionContextException {
+  public EntityContextStat collectSnapshotStat()
+      throws TransactionContextException {
     throw new UnsupportedOperationException("Please Implement Me");
   }
 
-  private static void log(String opName, CacheHitState state, Object...
-      params) {
-    if(!LOG.isDebugEnabled())
+  private static void log(String opName, CacheHitState state,
+      Object... params) {
+    if (!LOG.isDebugEnabled()) {
       return;
+    }
     StringBuilder message = new StringBuilder();
     if (state == CacheHitState.HIT) {
-      message.append(ANSI_GREEN).append(opName).append(" ").append("hit").append(ANSI_RESET);
+      message.append(ANSI_GREEN).append(opName).append(" ").append("hit")
+          .append(ANSI_RESET);
     } else if (state == CacheHitState.LOSS) {
       LockMode curLock = currentLockMode.get();
       message.append(ANSI_RED);
@@ -137,15 +156,14 @@ public abstract class EntityContext<T> {
         message.append(curLock.name()).append(" ");
       }
       message.append(opName).append(" ").append("loss").append(ANSI_RESET);
-    } else if(state == CacheHitState.LOSS_LOCK_UPGRADE){
+    } else if (state == CacheHitState.LOSS_LOCK_UPGRADE) {
       LockMode curLock = currentLockMode.get();
       message.append(ANSI_BLUE);
       if (curLock != null) {
         message.append(curLock.name()).append(" ");
       }
       message.append(opName).append(" ").append("loss").append(ANSI_RESET);
-    }
-    else {
+    } else {
       message.append(opName).append(" ");
     }
     message.append(" ");
@@ -170,12 +188,12 @@ public abstract class EntityContext<T> {
     log(opName, CacheHitState.NA, params);
   }
 
-  protected static void log(FinderType finderType, CacheHitState state, Object...
-      params) {
+  protected static void log(FinderType finderType, CacheHitState state,
+      Object... params) {
     log(getOperationMessage(finderType), state, params);
   }
 
-  private static String getOperationMessage(FinderType finder){
+  private static String getOperationMessage(FinderType finder) {
     return "find-" + finder.getType().getSimpleName().toLowerCase() + "-" +
         finder.toString();
   }
@@ -192,14 +210,13 @@ public abstract class EntityContext<T> {
     return currentLockMode.get();
   }
 
-  protected void aboutToAccessStorage(FinderType finderType) throws
-      StorageCallPreventedException {
+  protected void aboutToAccessStorage(FinderType finderType)
+      throws StorageCallPreventedException {
     aboutToAccessStorage(finderType, "");
   }
 
   protected void aboutToAccessStorage(FinderType finderType, Object... params)
-      throws
-      StorageCallPreventedException {
+      throws StorageCallPreventedException {
     if (storageCallPrevented) {
       throw new StorageCallPreventedException("[" + finderType + "] Trying " +
           "to access storage while it is disable in transaction, inconsistent" +

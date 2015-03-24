@@ -23,8 +23,8 @@ public class FinishedApplications {
 
   @Override
   public String toString() {
-    return "HopFinishedApplications{" + "rmnodeid=" + rmnodeid
-            + ", applicationId=" + applicationId + '}';
+    return "HopFinishedApplications{" + "rmnodeid=" + rmnodeid +
+        ", applicationId=" + applicationId + '}';
   }
 
 }

@@ -1,4 +1,3 @@
-
 package io.hops.metadata.yarn.entity;
 
 public class Load {

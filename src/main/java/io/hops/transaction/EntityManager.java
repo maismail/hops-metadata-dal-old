@@ -1,16 +1,16 @@
 package io.hops.transaction;
 
 import io.hops.exception.StorageException;
+import io.hops.exception.TransactionContextException;
 import io.hops.metadata.common.CounterType;
 import io.hops.metadata.common.FinderType;
-import io.hops.transaction.context.EntityContextStat;
-import io.hops.transaction.context.TransactionContext;
-import io.hops.transaction.lock.TransactionLocks;
-import io.hops.exception.TransactionContextException;
 import io.hops.transaction.context.ContextInitializer;
 import io.hops.transaction.context.EntityContext;
+import io.hops.transaction.context.EntityContextStat;
+import io.hops.transaction.context.TransactionContext;
 import io.hops.transaction.context.TransactionContextMaintenanceCmds;
 import io.hops.transaction.handler.RequestHandler;
+import io.hops.transaction.lock.TransactionLocks;
 
 import java.util.Collection;
 import java.util.HashMap;
@@ -22,10 +22,12 @@ public class EntityManager {
 
   private EntityManager() {
   }
+
   //private static ThreadLocal<TransactionContext> contexts = new ThreadLocal<TransactionContext>();
-  private static ConcurrentHashMap<Long, TransactionContext> contexts = new ConcurrentHashMap<Long, TransactionContext>();
-  private static CopyOnWriteArrayList<ContextInitializer> contextInitializers
-      = new CopyOnWriteArrayList<ContextInitializer>();
+  private static ConcurrentHashMap<Long, TransactionContext> contexts =
+      new ConcurrentHashMap<Long, TransactionContext>();
+  private static CopyOnWriteArrayList<ContextInitializer> contextInitializers =
+      new CopyOnWriteArrayList<ContextInitializer>();
   private static boolean initialized = false;
 
   public static void addContextInitializer(ContextInitializer ci) {
@@ -75,8 +77,8 @@ public class EntityManager {
     context().removeAll(type);
   }
 
-  public static <T> Collection<T> findList(FinderType<T> finder, Object... params)
-      throws TransactionContextException, StorageException {
+  public static <T> Collection<T> findList(FinderType<T> finder,
+      Object... params) throws TransactionContextException, StorageException {
     return context().findList(finder, params);
   }
 
@@ -100,7 +102,8 @@ public class EntityManager {
     context().add(entity);
   }
   
-  public static <T> void snapshotMaintenance(TransactionContextMaintenanceCmds cmds, Object... params)
+  public static <T> void snapshotMaintenance(
+      TransactionContextMaintenanceCmds cmds, Object... params)
       throws TransactionContextException {
     context().snapshotMaintenance(cmds, params);
   }
@@ -120,7 +123,8 @@ public class EntityManager {
     contextInitializers.get(0).getConnector().readCommitted();
   }
 
-  public static void setPartitionKey(Class name, Object key) throws StorageException {
+  public static void setPartitionKey(Class name, Object key)
+      throws StorageException {
     contextInitializers.get(0).getConnector().setPartitionKey(name, key);
   }
   
@@ -129,11 +133,11 @@ public class EntityManager {
     return context().collectSnapshotStat();
   }
   
-  private static Long getThreadID(){
+  private static Long getThreadID() {
     return Thread.currentThread().getId();
   }
   
-  private static TransactionContext addContext(){
+  private static TransactionContext addContext() {
     Long threadID = getThreadID();
     Map<Class, EntityContext> storageMap = new HashMap<Class, EntityContext>();
     for (ContextInitializer initializer : contextInitializers) {
@@ -142,13 +146,14 @@ public class EntityManager {
         storageMap.put(clzz, tmp.get(clzz));
       }
     }
-    TransactionContext context = new TransactionContext(
-        contextInitializers.get(0).getConnector(), storageMap);
-    contexts.put(threadID,context);
+    TransactionContext context =
+        new TransactionContext(contextInitializers.get(0).getConnector(),
+            storageMap);
+    contexts.put(threadID, context);
     return context;
   }
   
-  private static void removeContext(){
+  private static void removeContext() {
     Long threadID = getThreadID();
     contexts.remove(threadID);
   }

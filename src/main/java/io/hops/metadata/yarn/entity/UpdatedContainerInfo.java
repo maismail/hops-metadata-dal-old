@@ -27,9 +27,10 @@ public class UpdatedContainerInfo {
 
   @Override
   public String toString() {
-    return "HopUpdatedContainerInfo{" + "rmnodeid=" + rmnodeid + ", containerId=" +
-            containerId + ", updatedContainerInfoId=" + updatedContainerInfoId +
-            '}';
+    return "HopUpdatedContainerInfo{" + "rmnodeid=" + rmnodeid +
+        ", containerId=" +
+        containerId + ", updatedContainerInfoId=" + updatedContainerInfoId +
+        '}';
   }
 
   @Override
@@ -47,12 +48,12 @@ public class UpdatedContainerInfo {
       return false;
     }
     final UpdatedContainerInfo other = (UpdatedContainerInfo) obj;
-    if ((this.rmnodeid == null) ? (other.rmnodeid != null)
-            : !this.rmnodeid.equals(other.rmnodeid)) {
+    if ((this.rmnodeid == null) ? (other.rmnodeid != null) :
+        !this.rmnodeid.equals(other.rmnodeid)) {
       return false;
     }
-    if ((this.containerId == null) ? (other.containerId != null)
-            : !this.containerId.equals(other.containerId)) {
+    if ((this.containerId == null) ? (other.containerId != null) :
+        !this.containerId.equals(other.containerId)) {
       return false;
     }
     if (this.updatedContainerInfoId != other.updatedContainerInfoId) {

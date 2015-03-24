@@ -1,12 +1,13 @@
 package io.hops.metadata.yarn.dal;
 
-import java.util.Collection;
-import java.util.List;
 import io.hops.exception.StorageException;
 import io.hops.metadata.common.EntityDataAccess;
 
+import java.util.Collection;
+import java.util.List;
+
 public interface RMContextActiveNodesDataAccess<T> extends EntityDataAccess {
-/**
+  /**
    * Find Map entry by provided ids of RMContext and NodeId.
    *
    * @param nodeidId
@@ -14,9 +15,11 @@ public interface RMContextActiveNodesDataAccess<T> extends EntityDataAccess {
    * @throws StorageException
    */
   T findEntry(String nodeidId) throws StorageException;
+
   /**
    * Return all nodes from ndb.
-   * <p>
+   * <p/>
+   *
    * @return
    * @throws StorageException
    */

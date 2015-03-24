@@ -12,14 +12,14 @@ public class RMNodeComps {
   private final Resource hopResource;
   private final List<JustLaunchedContainers> hopJustLaunchedContainers;
   //hopUpdatedContainerInfo are grouped by updatedContainerInfoId
-  private final Map<Integer, List<UpdatedContainerInfo>> hopUpdatedContainerInfo;
+  private final Map<Integer, List<UpdatedContainerInfo>>
+      hopUpdatedContainerInfo;
   private final List<ContainerId> hopContainerIdsToClean;
   private final List<FinishedApplications> hopFinishedApplications;
   private final Map<String, ContainerStatus> hopContainersStatus;
 
   public RMNodeComps(RMNode hopRMNode, NextHeartbeat hopNextHeartbeat,
-      Node hopNode,
-      NodeHBResponse hopNodeHBResponse, Resource hopResource,
+      Node hopNode, NodeHBResponse hopNodeHBResponse, Resource hopResource,
       List<JustLaunchedContainers> hopJustLaunchedContainers,
       Map<Integer, List<UpdatedContainerInfo>> hopUpdatedContainerInfo,
       List<ContainerId> hopContainerIdsToClean,

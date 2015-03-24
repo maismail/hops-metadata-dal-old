@@ -1,17 +1,16 @@
-
-
 package io.hops.metadata.yarn.dal.fair;
-
-import java.util.Collection;
 
 import io.hops.exception.StorageException;
 import io.hops.metadata.common.EntityDataAccess;
 
-public interface FSSchedulerNodeDataAccess<T> extends EntityDataAccess{
+import java.util.Collection;
 
-    T findById(String id) throws StorageException;
+public interface FSSchedulerNodeDataAccess<T> extends EntityDataAccess {
 
-    void prepare(Collection<T> modified, Collection<T> removed) throws StorageException;
+  T findById(String id) throws StorageException;
 
-    void createFSSchedulerNode(T node) throws StorageException;
+  void prepare(Collection<T> modified, Collection<T> removed)
+      throws StorageException;
+
+  void createFSSchedulerNode(T node) throws StorageException;
 }

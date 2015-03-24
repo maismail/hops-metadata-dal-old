@@ -9,7 +9,8 @@ public class ByteArrayVariable extends Variable {
   public ByteArrayVariable(Finder type, byte[] value) {
     this(type);
     if (value.length > 255) {
-      throw new IllegalArgumentException("byte array shouldn't exceed 255 bytes");
+      throw new IllegalArgumentException(
+          "byte array shouldn't exceed 255 bytes");
     }
     this.value = value;
   }

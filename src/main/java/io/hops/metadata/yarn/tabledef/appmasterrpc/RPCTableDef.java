@@ -1,4 +1,3 @@
-
 package io.hops.metadata.yarn.tabledef.appmasterrpc;
 
 public interface RPCTableDef {

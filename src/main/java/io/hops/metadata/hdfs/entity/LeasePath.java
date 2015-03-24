@@ -7,7 +7,8 @@ public class LeasePath implements Comparable<LeasePath> {
   public static enum Finder implements FinderType<LeasePath> {
 
     ByHolderId,
-    ByPath, ByPrefix;
+    ByPath,
+    ByPrefix;
 
     @Override
     public Class getType() {
@@ -16,15 +17,20 @@ public class LeasePath implements Comparable<LeasePath> {
 
     @Override
     public Annotation getAnnotated() {
-      switch (this){
-        case ByHolderId: return Annotation.PrunedIndexScan;
-        case ByPath: return Annotation.PrimaryKey;
-        case ByPrefix: return Annotation.PrunedIndexScan;
-        default: throw new IllegalStateException();
+      switch (this) {
+        case ByHolderId:
+          return Annotation.PrunedIndexScan;
+        case ByPath:
+          return Annotation.PrimaryKey;
+        case ByPrefix:
+          return Annotation.PrunedIndexScan;
+        default:
+          throw new IllegalStateException();
       }
     }
 
   }
+
   private int holderId;
   private String path;
 
@@ -41,7 +47,8 @@ public class LeasePath implements Comparable<LeasePath> {
   }
 
   /**
-   * @param holderId the holderId to set
+   * @param holderId
+   *     the holderId to set
    */
   public void setHolderId(int holderId) {
     this.holderId = holderId;
@@ -55,7 +62,8 @@ public class LeasePath implements Comparable<LeasePath> {
   }
 
   /**
-   * @param path the path to set
+   * @param path
+   *     the path to set
    */
   public void setPath(String path) {
     this.path = path;
@@ -69,7 +77,8 @@ public class LeasePath implements Comparable<LeasePath> {
   @Override
   public boolean equals(Object obj) {
     LeasePath other = (LeasePath) obj;
-    return (this.path.equals(other.getPath()) && this.holderId == other.getHolderId());
+    return (this.path.equals(other.getPath()) &&
+        this.holderId == other.getHolderId());
   }
 
   @Override

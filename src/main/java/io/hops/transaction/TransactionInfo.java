@@ -1,7 +1,8 @@
 package io.hops.transaction;
 
-import java.io.IOException;
 import io.hops.transaction.handler.RequestHandler.OperationType;
+
+import java.io.IOException;
 
 public interface TransactionInfo {
 

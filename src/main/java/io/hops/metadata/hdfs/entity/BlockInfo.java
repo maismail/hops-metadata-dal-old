@@ -26,7 +26,8 @@ public class BlockInfo {
   public BlockInfo(long blockId, int blockIndex, int inodeId, long numBytes,
       long generationStamp, int blockUnderConstructionState, long timeStamp,
       int primaryNodeIndex, long blockRecoveryId) {
-    this(blockId, blockIndex, inodeId, numBytes, generationStamp, blockUnderConstructionState, timeStamp);
+    this(blockId, blockIndex, inodeId, numBytes, generationStamp,
+        blockUnderConstructionState, timeStamp);
     this.primaryNodeIndex = primaryNodeIndex;
     this.blockRecoveryId = blockRecoveryId;
   }

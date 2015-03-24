@@ -17,12 +17,11 @@ package io.hops.metadata.hdfs.entity;
 
 
 /**
- *
  * right now it holds quota info. later we can add more
  * information like access time ( if we want to remove locks from the parent
  * dirs )
  */
-public class INodeAttributes implements Comparable<INodeAttributes>  {
+public class INodeAttributes implements Comparable<INodeAttributes> {
   private Integer inodeId;
   private Long nsQuota; /// NameSpace quota
   private Long nsCount;
@@ -39,47 +38,47 @@ public class INodeAttributes implements Comparable<INodeAttributes>  {
   }
 
   public Integer getInodeId() {
-      return inodeId;
+    return inodeId;
   }
 
   public Long getNsQuota() {
-      return nsQuota;
+    return nsQuota;
   }
 
   public Long getNsCount() {
-      return nsCount;
+    return nsCount;
   }
 
   public Long getDsQuota() {
-      return dsQuota;
+    return dsQuota;
   }
 
   public Long getDiskspace() {
-      return diskspace;
+    return diskspace;
   }
 
   public void setInodeId(Integer inodeId) {
-      this.inodeId = inodeId;
+    this.inodeId = inodeId;
   }
 
   public void setNsQuota(Long nsQuota) {
-      this.nsQuota = nsQuota;
+    this.nsQuota = nsQuota;
   }
 
   public void setNsCount(Long nsCount) {
-      this.nsCount = nsCount;
+    this.nsCount = nsCount;
   }
 
   public void setDsQuota(Long dsQuota) {
-      this.dsQuota = dsQuota;
+    this.dsQuota = dsQuota;
   }
 
   public void setDiskspace(Long diskspace) {
-      this.diskspace = diskspace;
+    this.diskspace = diskspace;
   }
 
   public int compareTo(INodeAttributes o) {
-      throw new UnsupportedOperationException("Not supported yet.");
+    throw new UnsupportedOperationException("Not supported yet.");
   }
 
   @Override
