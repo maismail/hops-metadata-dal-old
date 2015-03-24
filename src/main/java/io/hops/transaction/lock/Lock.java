@@ -23,7 +23,6 @@ import io.hops.transaction.EntityManager;
 import java.io.IOException;
 import java.util.Collection;
 
-class HopsLock implements Comparable<HopsLock>{
 public abstract class Lock implements Comparable<Lock> {
   private static boolean setPartitionKeyEnabled = false;
 
